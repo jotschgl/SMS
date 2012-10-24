@@ -6,7 +6,7 @@ package test;
 
 /**
  *
- * @author Dennis
+ * @author Dennis Kurszlaukis
  */
 public class HelloDennis {
     
