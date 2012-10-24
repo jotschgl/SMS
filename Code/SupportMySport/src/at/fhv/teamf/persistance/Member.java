@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package at.fhv.teamf.persistance;
 
 /**
  *
- * @author Lorenz Andreas
+ * @author Johannes
  */
-public class HelloAndi {
+public class Member {
     
 }
