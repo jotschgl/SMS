@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://81.89.102.206:3306/c1teamf?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">c1teamf</property>
+    <property name="hibernate.connection.password">smsteamf</property>
+    <property name="hibernate.show_sql">true</property>
+    <mapping class="Persistence.Rule"/>
+    <mapping class="Persistence.CompetitionTeamId"/>
+    <mapping class="Persistence.League"/>
+    <mapping class="Persistence.Federation"/>
+    <mapping class="Persistence.Competition"/>
+    <mapping class="Persistence.Role"/>
+    <mapping class="Persistence.Team"/>
+    <mapping class="Persistence.Right"/>
+    <mapping class="Persistence.Sport"/>
+    <mapping class="Persistence.Member"/>
+    <mapping class="Persistence.CompetitionTeam"/>
+    <mapping class="Persistence.Match"/>
+    <mapping class="Persistence.Department"/>
+  </session-factory>
+</hibernate-configuration>

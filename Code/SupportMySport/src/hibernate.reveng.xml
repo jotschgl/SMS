@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="c1teamf"/>
+  <table-filter match-name="Department"/>
+  <table-filter match-name="Team"/>
+  <table-filter match-name="Match"/>
+  <table-filter match-name="Rule"/>
+  <table-filter match-name="CompetitionTeam"/>
+  <table-filter match-name="Role"/>
+  <table-filter match-name="Member"/>
+  <table-filter match-name="TeamLeague"/>
+  <table-filter match-name="MemberFederation"/>
+  <table-filter match-name="Right"/>
+  <table-filter match-name="Sport"/>
+  <table-filter match-name="MemberRole"/>
+  <table-filter match-name="League"/>
+  <table-filter match-name="MemberTeam"/>
+  <table-filter match-name="Competition"/>
+  <table-filter match-name="Federation"/>
+</hibernate-reverse-engineering>
