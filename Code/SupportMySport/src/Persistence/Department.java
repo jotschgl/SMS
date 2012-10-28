@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,22 +25,22 @@ import javax.persistence.UniqueConstraint;
 public class Department implements java.io.Serializable {
 
     private Integer id;
-    private Member member;
+    private ClubMember clubMember;
     private String name;
-    private Set<Competition> competitions = new HashSet(0);
-    private Set<Team> teams = new HashSet(0);
-    private Set<Sport> sports = new HashSet(0);
+    private Set<Competition> competitions = new HashSet<>(0);
+    private Set<Team> teams = new HashSet<>(0);
+    private Set<Sport> sports = new HashSet<>(0);
 
     public Department() {
     }
 
-    public Department(Member member, String name) {
-        this.member = member;
+    public Department(ClubMember clubMember, String name) {
+        this.clubMember = clubMember;
         this.name = name;
     }
 
-    public Department(Member member, String name, Set competitions, Set teams, Set sports) {
-        this.member = member;
+    public Department(ClubMember clubMember, String name, Set<Competition> competitions, Set<Team> teams, Set<Sport> sports) {
+        this.clubMember = clubMember;
         this.name = name;
         this.competitions = competitions;
         this.teams = teams;
@@ -59,13 +59,13 @@ public class Department implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "departmentchief", nullable = false)
-    public Member getMember() {
-        return this.member;
+    @JoinColumn(name = "departmentChief_id", nullable = false)
+    public ClubMember getClubMember() {
+        return this.clubMember;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setClubMember(ClubMember clubMember) {
+        this.clubMember = clubMember;
     }
 
     @Column(name = "name", unique = true, nullable = false, length = 45)
@@ -82,7 +82,7 @@ public class Department implements java.io.Serializable {
         return this.competitions;
     }
 
-    public void setCompetitions(Set competitions) {
+    public void setCompetitions(Set<Competition> competitions) {
         this.competitions = competitions;
     }
 
@@ -91,7 +91,7 @@ public class Department implements java.io.Serializable {
         return this.teams;
     }
 
-    public void setTeams(Set teams) {
+    public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
 
@@ -100,7 +100,7 @@ public class Department implements java.io.Serializable {
         return this.sports;
     }
 
-    public void setSports(Set sports) {
+    public void setSports(Set<Sport> sports) {
         this.sports = sports;
     }
 }

@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -21,7 +21,7 @@ public class CompetitionTeamId implements java.io.Serializable {
         this.teamId = teamId;
     }
 
-    @Column(name = "Competition_id", nullable = false)
+    @Column(name = "competition_id", nullable = false)
     public int getCompetitionId() {
         return this.competitionId;
     }
@@ -30,7 +30,7 @@ public class CompetitionTeamId implements java.io.Serializable {
         this.competitionId = competitionId;
     }
 
-    @Column(name = "Team_id", nullable = false)
+    @Column(name = "team_id", nullable = false)
     public int getTeamId() {
         return this.teamId;
     }

@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -29,26 +29,26 @@ public class Competition implements java.io.Serializable {
     private Department department;
     private String name;
     private double competitionfee;
-    private Date date;
-    private Set<Match> matchs = new HashSet(0);
-    private Set<CompetitionTeam> competitionTeams = new HashSet(0);
+    private Date dateOfCompetition;
+    private Set<Meeting> meetings = new HashSet<>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet<>(0);
 
     public Competition() {
     }
 
-    public Competition(Department department, String name, double competitionfee, Date date) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
-        this.date = date;
+        this.dateOfCompetition = dateOfCompetition;
     }
 
-    public Competition(Department department, String name, double competitionfee, Date date, Set matchs, Set competitionTeams) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Set<Meeting> meetings, Set<CompetitionTeam> competitionTeams) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
-        this.date = date;
-        this.matchs = matchs;
+        this.dateOfCompetition = dateOfCompetition;
+        this.meetings = meetings;
         this.competitionTeams = competitionTeams;
     }
 
@@ -64,7 +64,7 @@ public class Competition implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Department_id", nullable = false)
+    @JoinColumn(name = "department_id", nullable = false)
     public Department getDepartment() {
         return this.department;
     }
@@ -92,22 +92,22 @@ public class Competition implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date", nullable = false, length = 10)
-    public Date getDate() {
-        return this.date;
+    @Column(name = "dateOfCompetition", nullable = false, length = 10)
+    public Date getDateOfCompetition() {
+        return this.dateOfCompetition;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateOfCompetition(Date dateOfCompetition) {
+        this.dateOfCompetition = dateOfCompetition;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "competition")
-    public Set<Match> getMatchs() {
-        return this.matchs;
+    public Set<Meeting> getMeetings() {
+        return this.meetings;
     }
 
-    public void setMatchs(Set matchs) {
-        this.matchs = matchs;
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "competition")
@@ -115,7 +115,7 @@ public class Competition implements java.io.Serializable {
         return this.competitionTeams;
     }
 
-    public void setCompetitionTeams(Set competitionTeams) {
+    public void setCompetitionTeams(Set<CompetitionTeam> competitionTeams) {
         this.competitionTeams = competitionTeams;
     }
 }

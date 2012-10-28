@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -21,24 +21,24 @@ public class CompetitionTeam implements java.io.Serializable {
     private CompetitionTeamId id;
     private Team team;
     private Competition competition;
-    private Member member;
+    private ClubMember clubMember;
 
     public CompetitionTeam() {
     }
 
-    public CompetitionTeam(CompetitionTeamId id, Team team, Competition competition, Member member) {
+    public CompetitionTeam(CompetitionTeamId id, Team team, Competition competition, ClubMember clubMember) {
         this.id = id;
         this.team = team;
         this.competition = competition;
-        this.member = member;
+        this.clubMember = clubMember;
     }
 
     @EmbeddedId
     @AttributeOverrides({
         @AttributeOverride(name = "competitionId", column =
-        @Column(name = "Competition_id", nullable = false)),
+        @Column(name = "competition_id", nullable = false)),
         @AttributeOverride(name = "teamId", column =
-        @Column(name = "Team_id", nullable = false))})
+        @Column(name = "team_id", nullable = false))})
     public CompetitionTeamId getId() {
         return this.id;
     }
@@ -48,7 +48,7 @@ public class CompetitionTeam implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Team_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "team_id", nullable = false, insertable = false, updatable = false)
     public Team getTeam() {
         return this.team;
     }
@@ -58,7 +58,7 @@ public class CompetitionTeam implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Competition_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "competition_id", nullable = false, insertable = false, updatable = false)
     public Competition getCompetition() {
         return this.competition;
     }
@@ -68,12 +68,12 @@ public class CompetitionTeam implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Member_id", nullable = false)
-    public Member getMember() {
-        return this.member;
+    @JoinColumn(name = "clubMember_id", nullable = false)
+    public ClubMember getClubMember() {
+        return this.clubMember;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
+    public void setClubMember(ClubMember clubMember) {
+        this.clubMember = clubMember;
     }
 }

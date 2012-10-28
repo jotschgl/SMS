@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +30,8 @@ public class League implements java.io.Serializable {
     private Sport sport;
     private Federation federation;
     private String name;
-    private Set<Team> teams = new HashSet(0);
-    private Set<Team> teams_1 = new HashSet(0);
+    private Set<Team> teams = new HashSet<>(0);
+    private Set<Team> teams_1 = new HashSet<>(0);
 
     public League() {
     }
@@ -42,7 +42,7 @@ public class League implements java.io.Serializable {
         this.name = name;
     }
 
-    public League(Sport sport, Federation federation, String name, Set teams, Set teams_1) {
+    public League(Sport sport, Federation federation, String name, Set<Team> teams, Set<Team> teams_1) {
         this.sport = sport;
         this.federation = federation;
         this.name = name;
@@ -62,7 +62,7 @@ public class League implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sport", nullable = false)
+    @JoinColumn(name = "sport_id", nullable = false)
     public Sport getSport() {
         return this.sport;
     }
@@ -72,7 +72,7 @@ public class League implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "federation", nullable = false)
+    @JoinColumn(name = "federation_id", nullable = false)
     public Federation getFederation() {
         return this.federation;
     }
@@ -92,13 +92,13 @@ public class League implements java.io.Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "League_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "Team_id", nullable = false, updatable = false)})
+        @JoinColumn(name = "league_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "team_id", nullable = false, updatable = false)})
     public Set<Team> getTeams() {
         return this.teams;
     }
 
-    public void setTeams(Set teams) {
+    public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
 
@@ -107,7 +107,7 @@ public class League implements java.io.Serializable {
         return this.teams_1;
     }
 
-    public void setTeams_1(Set teams_1) {
+    public void setTeams_1(Set<Team> teams_1) {
         this.teams_1 = teams_1;
     }
 }

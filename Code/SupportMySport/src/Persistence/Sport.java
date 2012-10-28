@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,24 +23,24 @@ import javax.persistence.Table;
 public class Sport implements java.io.Serializable {
 
     private Integer id;
-    private Rule rule;
     private Department department;
+    private Rule rule;
     private String name;
-    private Set<League> leagues = new HashSet(0);
-    private Set<Team> teams = new HashSet(0);
+    private Set<League> leagues = new HashSet<>(0);
+    private Set<Team> teams = new HashSet<>(0);
 
     public Sport() {
     }
 
-    public Sport(Rule rule, Department department, String name) {
-        this.rule = rule;
+    public Sport(Department department, Rule rule, String name) {
         this.department = department;
+        this.rule = rule;
         this.name = name;
     }
 
-    public Sport(Rule rule, Department department, String name, Set leagues, Set teams) {
-        this.rule = rule;
+    public Sport(Department department, Rule rule, String name, Set<League> leagues, Set<Team> teams) {
         this.department = department;
+        this.rule = rule;
         this.name = name;
         this.leagues = leagues;
         this.teams = teams;
@@ -58,23 +58,23 @@ public class Sport implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "rule", nullable = false)
-    public Rule getRule() {
-        return this.rule;
-    }
-
-    public void setRule(Rule rule) {
-        this.rule = rule;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Department_id", nullable = false)
+    @JoinColumn(name = "department_id", nullable = false)
     public Department getDepartment() {
         return this.department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rule_id", nullable = false)
+    public Rule getRule() {
+        return this.rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
     }
 
     @Column(name = "name", nullable = false, length = 45)
@@ -91,7 +91,7 @@ public class Sport implements java.io.Serializable {
         return this.leagues;
     }
 
-    public void setLeagues(Set leagues) {
+    public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
     }
 
@@ -100,7 +100,7 @@ public class Sport implements java.io.Serializable {
         return this.teams;
     }
 
-    public void setTeams(Set teams) {
+    public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
 }

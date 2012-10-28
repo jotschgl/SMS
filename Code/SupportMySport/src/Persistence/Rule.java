@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +25,7 @@ public class Rule implements java.io.Serializable {
     private int pointswin;
     private int pointsdraw;
     private int pointslose;
-    private Set<Sport> sports = new HashSet(0);
+    private Set<Sport> sports = new HashSet<>(0);
 
     public Rule() {
     }
@@ -37,7 +37,7 @@ public class Rule implements java.io.Serializable {
         this.pointslose = pointslose;
     }
 
-    public Rule(int nrplayer, int pointswin, int pointsdraw, int pointslose, Set sports) {
+    public Rule(int nrplayer, int pointswin, int pointsdraw, int pointslose, Set<Sport> sports) {
         this.nrplayer = nrplayer;
         this.pointswin = pointswin;
         this.pointsdraw = pointsdraw;
@@ -97,7 +97,7 @@ public class Rule implements java.io.Serializable {
         return this.sports;
     }
 
-    public void setSports(Set sports) {
+    public void setSports(Set<Sport> sports) {
         this.sports = sports;
     }
 }

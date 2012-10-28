@@ -7,19 +7,20 @@
     <property name="hibernate.connection.url">jdbc:mysql://81.89.102.206:3306/c1teamf?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">c1teamf</property>
     <property name="hibernate.connection.password">smsteamf</property>
-    <property name="hibernate.show_sql">true</property>
     <mapping class="Persistence.Rule"/>
     <mapping class="Persistence.CompetitionTeamId"/>
+    <mapping class="Persistence.ClubMember"/>
     <mapping class="Persistence.League"/>
     <mapping class="Persistence.Federation"/>
+    <mapping class="Persistence.HibernateUtil"/>
     <mapping class="Persistence.Competition"/>
-    <mapping class="Persistence.Role"/>
     <mapping class="Persistence.Team"/>
-    <mapping class="Persistence.Right"/>
+    <mapping class="Persistence.Meeting"/>
+    <mapping class="Persistence.RoleRight"/>
     <mapping class="Persistence.Sport"/>
-    <mapping class="Persistence.Member"/>
     <mapping class="Persistence.CompetitionTeam"/>
-    <mapping class="Persistence.Match"/>
     <mapping class="Persistence.Department"/>
+    <mapping class="Persistence.PersistenceManager"/>
+    <mapping class="Persistence.FunctionRole"/>
   </session-factory>
 </hibernate-configuration>

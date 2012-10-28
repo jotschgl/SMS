@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 27.10.2012 15:46:24 by Hibernate Tools 3.2.1.GA
+// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,37 +27,34 @@ import javax.persistence.UniqueConstraint;
 public class Team implements java.io.Serializable {
 
     private Integer id;
-    private Member member;
-    private Department department;
-    private League league;
     private Sport sport;
+    private League league;
+    private Department department;
+    private ClubMember clubMember;
     private String name;
-    private Set<Member> members = new HashSet(0);
-    private Set<Match> matchsForTeama = new HashSet(0);
-    private Set<CompetitionTeam> competitionTeams = new HashSet(0);
-    private Set<Match> matchsForTeamb = new HashSet(0);
-    private Set<League> leagues = new HashSet(0);
+    private Set<ClubMember> clubMembers = new HashSet<>(0);
+    private Set<Meeting> meetingsForTeamAId = new HashSet<>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet<>(0);
+    private Set<Meeting> meetingsForTeamBId = new HashSet<>(0);
+    private Set<League> leagues = new HashSet<>(0);
 
     public Team() {
     }
 
-    public Team(Member member, Department department, Sport sport, String name) {
-        this.member = member;
-        this.department = department;
-        this.sport = sport;
+    public Team(String name) {
         this.name = name;
     }
 
-    public Team(Member member, Department department, League league, Sport sport, String name, Set members, Set matchsForTeama, Set competitionTeams, Set matchsForTeamb, Set leagues) {
-        this.member = member;
-        this.department = department;
-        this.league = league;
+    public Team(Sport sport, League league, Department department, ClubMember clubMember, String name, Set<ClubMember> clubMembers, Set<Meeting> meetingsForTeamAId, Set<CompetitionTeam> competitionTeams, Set<Meeting> meetingsForTeamBId, Set<League> leagues) {
         this.sport = sport;
+        this.league = league;
+        this.department = department;
+        this.clubMember = clubMember;
         this.name = name;
-        this.members = members;
-        this.matchsForTeama = matchsForTeama;
+        this.clubMembers = clubMembers;
+        this.meetingsForTeamAId = meetingsForTeamAId;
         this.competitionTeams = competitionTeams;
-        this.matchsForTeamb = matchsForTeamb;
+        this.meetingsForTeamBId = meetingsForTeamBId;
         this.leagues = leagues;
     }
 
@@ -73,27 +70,17 @@ public class Team implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trainer", nullable = false)
-    public Member getMember() {
-        return this.member;
+    @JoinColumn(name = "sport_id")
+    public Sport getSport() {
+        return this.sport;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Department_id", nullable = false)
-    public Department getDepartment() {
-        return this.department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setSport(Sport sport) {
+        this.sport = sport;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "league")
+    @JoinColumn(name = "league_id")
     public League getLeague() {
         return this.league;
     }
@@ -103,13 +90,23 @@ public class Team implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sport", nullable = false)
-    public Sport getSport() {
-        return this.sport;
+    @JoinColumn(name = "department_id")
+    public Department getDepartment() {
+        return this.department;
     }
 
-    public void setSport(Sport sport) {
-        this.sport = sport;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "trainer_id")
+    public ClubMember getClubMember() {
+        return this.clubMember;
+    }
+
+    public void setClubMember(ClubMember clubMember) {
+        this.clubMember = clubMember;
     }
 
     @Column(name = "name", unique = true, nullable = false, length = 45)
@@ -123,23 +120,23 @@ public class Team implements java.io.Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "Team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "Member_id", nullable = false, updatable = false)})
-    public Set<Member> getMembers() {
-        return this.members;
+        @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
+    public Set<ClubMember> getClubMembers() {
+        return this.clubMembers;
     }
 
-    public void setMembers(Set members) {
-        this.members = members;
+    public void setClubMembers(Set<ClubMember> clubMembers) {
+        this.clubMembers = clubMembers;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeama")
-    public Set<Match> getMatchsForTeama() {
-        return this.matchsForTeama;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamAId")
+    public Set<Meeting> getMeetingsForTeamAId() {
+        return this.meetingsForTeamAId;
     }
 
-    public void setMatchsForTeama(Set matchsForTeama) {
-        this.matchsForTeama = matchsForTeama;
+    public void setMeetingsForTeamAId(Set<Meeting> meetingsForTeamAId) {
+        this.meetingsForTeamAId = meetingsForTeamAId;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "team")
@@ -147,28 +144,28 @@ public class Team implements java.io.Serializable {
         return this.competitionTeams;
     }
 
-    public void setCompetitionTeams(Set competitionTeams) {
+    public void setCompetitionTeams(Set<CompetitionTeam> competitionTeams) {
         this.competitionTeams = competitionTeams;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamb")
-    public Set<Match> getMatchsForTeamb() {
-        return this.matchsForTeamb;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamBId")
+    public Set<Meeting> getMeetingsForTeamBId() {
+        return this.meetingsForTeamBId;
     }
 
-    public void setMatchsForTeamb(Set matchsForTeamb) {
-        this.matchsForTeamb = matchsForTeamb;
+    public void setMeetingsForTeamBId(Set<Meeting> meetingsForTeamBId) {
+        this.meetingsForTeamBId = meetingsForTeamBId;
     }
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "Team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "League_id", nullable = false, updatable = false)})
+        @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "league_id", nullable = false, updatable = false)})
     public Set<League> getLeagues() {
         return this.leagues;
     }
 
-    public void setLeagues(Set leagues) {
+    public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
     }
 }

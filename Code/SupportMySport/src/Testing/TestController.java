@@ -4,21 +4,20 @@
  */
 package Testing;
 
+import Persistence.FunctionRole;
 import Persistence.PersistenceManager;
-import Persistence.Right;
-import Persistence.Role;
-import Persistence.Rule;
-import Persistence.Sport;
-import java.util.HashMap;
-import java.util.Set;
+import Persistence.RoleRight;
 
 /**
  *
  * @author Dennis
  */
 public class TestController {
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
+//        PersistenceManager myManager = new PersistenceManager();
+//        RoleRight myRoleRight = new RoleRight("Admin rights");
+//        FunctionRole myFunctionRole = new FunctionRole(myRoleRight, "Administrator");
+//        myManager.save(myFunctionRole);
     }
-    
 }
