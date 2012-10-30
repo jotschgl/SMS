@@ -27,9 +27,9 @@ public class Department implements java.io.Serializable {
     private Integer id;
     private ClubMember clubMember;
     private String name;
-    private Set<Competition> competitions = new HashSet<>(0);
-    private Set<Team> teams = new HashSet<>(0);
-    private Set<Sport> sports = new HashSet<>(0);
+    private Set<Competition> competitions = new HashSet<Competition>(0);
+    private Set<Team> teams = new HashSet<Team>(0);
+    private Set<Sport> sports = new HashSet<Sport>(0);
 
     public Department() {
     }

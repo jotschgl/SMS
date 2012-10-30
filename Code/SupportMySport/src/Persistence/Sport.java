@@ -26,8 +26,8 @@ public class Sport implements java.io.Serializable {
     private Department department;
     private Rule rule;
     private String name;
-    private Set<League> leagues = new HashSet<>(0);
-    private Set<Team> teams = new HashSet<>(0);
+    private Set<League> leagues = new HashSet<League>(0);
+    private Set<Team> teams = new HashSet<Team>(0);
 
     public Sport() {
     }

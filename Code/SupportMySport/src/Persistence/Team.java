@@ -32,11 +32,11 @@ public class Team implements java.io.Serializable {
     private Department department;
     private ClubMember clubMember;
     private String name;
-    private Set<ClubMember> clubMembers = new HashSet<>(0);
-    private Set<Meeting> meetingsForTeamAId = new HashSet<>(0);
-    private Set<CompetitionTeam> competitionTeams = new HashSet<>(0);
-    private Set<Meeting> meetingsForTeamBId = new HashSet<>(0);
-    private Set<League> leagues = new HashSet<>(0);
+    private Set<ClubMember> clubMembers = new HashSet<ClubMember>(0);
+    private Set<Meeting> meetingsForTeamAId = new HashSet<Meeting>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
+    private Set<Meeting> meetingsForTeamBId = new HashSet<Meeting>(0);
+    private Set<League> leagues = new HashSet<League>(0);
 
     public Team() {
     }

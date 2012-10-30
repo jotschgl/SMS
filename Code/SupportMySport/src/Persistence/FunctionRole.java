@@ -27,7 +27,7 @@ public class FunctionRole implements java.io.Serializable {
     private Integer id;
     private RoleRight roleRight;
     private String name;
-    private Set<ClubMember> clubMembers = new HashSet<>(0);
+    private Set<ClubMember> clubMembers = new HashSet<ClubMember>(0);
 
     public FunctionRole() {
     }

@@ -41,12 +41,12 @@ public class ClubMember implements java.io.Serializable {
     private char gender;
     private Date birthday;
     private Boolean membershipfeePayed;
-    private Set<CompetitionTeam> competitionTeams = new HashSet<>(0);
-    private Set<Federation> federations = new HashSet<>(0);
-    private Set<Team> teams = new HashSet<>(0);
-    private Set<FunctionRole> functionRoles = new HashSet<>(0);
-    private Set<Department> departments = new HashSet<>(0);
-    private Set<Team> teams_1 = new HashSet<>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
+    private Set<Federation> federations = new HashSet<Federation>(0);
+    private Set<Team> teams = new HashSet<Team>(0);
+    private Set<FunctionRole> functionRoles = new HashSet<FunctionRole>(0);
+    private Set<Department> departments = new HashSet<Department>(0);
+    private Set<Team> teams_1 = new HashSet<Team>(0);
 
     public ClubMember() {
     }

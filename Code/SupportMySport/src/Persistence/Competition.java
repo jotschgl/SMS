@@ -30,8 +30,8 @@ public class Competition implements java.io.Serializable {
     private String name;
     private double competitionfee;
     private Date dateOfCompetition;
-    private Set<Meeting> meetings = new HashSet<>(0);
-    private Set<CompetitionTeam> competitionTeams = new HashSet<>(0);
+    private Set<Meeting> meetings = new HashSet<Meeting>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
 
     public Competition() {
     }

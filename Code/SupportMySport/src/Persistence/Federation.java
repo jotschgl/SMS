@@ -28,8 +28,8 @@ public class Federation implements java.io.Serializable {
     private Integer id;
     private String name;
     private String website;
-    private Set<ClubMember> clubMembers = new HashSet<>(0);
-    private Set<League> leagues = new HashSet<>(0);
+    private Set<ClubMember> clubMembers = new HashSet<ClubMember>(0);
+    private Set<League> leagues = new HashSet<League>(0);
 
     public Federation() {
     }
