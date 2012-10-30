@@ -85,4 +85,5 @@ public class FunctionRole implements java.io.Serializable {
     public void setClubMembers(Set<ClubMember> clubMembers) {
         this.clubMembers = clubMembers;
     }
+    
 }
