@@ -23,7 +23,7 @@ public class RoleRight implements java.io.Serializable {
 
     private Integer id;
     private String name;
-    private Set<FunctionRole> functionRoles = new HashSet<>(0);
+    private Set<FunctionRole> functionRoles = new HashSet<FunctionRole>(0);
 
     public RoleRight() {
     }

@@ -25,7 +25,7 @@ public class Rule implements java.io.Serializable {
     private int pointswin;
     private int pointsdraw;
     private int pointslose;
-    private Set<Sport> sports = new HashSet<>(0);
+    private Set<Sport> sports = new HashSet<Sport>(0);
 
     public Rule() {
     }
