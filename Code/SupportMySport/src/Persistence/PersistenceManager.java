@@ -4,6 +4,7 @@
  */
 package Persistence;
 
+import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,7 +56,7 @@ public class PersistenceManager {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.update(object);
+            session.saveOrUpdate(object);
             transaction.commit();
         } catch (HibernateException ex) {
             if (transaction != null) {
@@ -82,5 +83,25 @@ public class PersistenceManager {
         } finally {
             session.close();
         }
+    }
+    
+    /**
+     *
+     * @param hqlQuery
+     * @return
+     */
+    public List<Object> getObjectsByHQLQuery(String hqlQuery){
+        try{
+        session = sessionFactory.openSession();
+        transaction = session.beginTransaction();
+        return session.createQuery(hqlQuery).list();
+        } catch (HibernateException ex){
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw ex;
+        } finally{
+            session.close();
+        }  
     }
 }
