@@ -30,8 +30,8 @@ public class League implements java.io.Serializable {
     private Sport sport;
     private Federation federation;
     private String name;
-    private Set<Team> teams = new HashSet<>(0);
-    private Set<Team> teams_1 = new HashSet<>(0);
+    private Set<Team> teams = new HashSet<Team>(0);
+    private Set<Team> teams_1 = new HashSet<Team>(0);
 
     public League() {
     }
