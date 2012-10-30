@@ -4,6 +4,7 @@
  */
 package Persistence;
 
+import java.util.Date;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -43,16 +45,35 @@ public class PersistenceManagerTest {
     @Test
     public void testSave() {
         System.out.println("* PersistenceManagerTest: testSave");
-        Object object = null;
-        PersistenceManager instance = new PersistenceManager();
-        instance.save(object);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        PersistenceManager manager = new PersistenceManager();
+        System.out.println("* PersistenceManagerTest: testSave --> save a ClubMember");
+        ClubMember member = new ClubMember("Dagobert", "Duck", "dagduc", "StreetOne", "CityOne", "CountryOne", "111", "one@fhv.at", "11111", 'm', new Date());
+        manager.save(member);
+        System.out.println("* PersistenceManagerTest: testSave --> save a Competition");
+        Competition competition = new Competition(null, "CompetitionOne", 100, new Date());
+        fail("Expected failure!");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Department");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Federation");
+        System.out.println("* PersistenceManagerTest: testSave --> save a FunctionRole");
+        System.out.println("* PersistenceManagerTest: testSave --> save a League");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Meeting");
+        System.out.println("* PersistenceManagerTest: testSave --> save a RoleRight");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Rule");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Sport");
+        System.out.println("* PersistenceManagerTest: testSave --> save a Team");
+        
+    }
+    
+    @Ignore
+    @Test
+    public void testSaveWithLinkedObjects(){
+        System.out.println("* PersistenceManagerTest: testSaveWithLinkedObjects");
     }
 
     /**
      * Test of delete method, of class PersistenceManager.
      */
+    @Ignore
     @Test
     public void testDelete() {
         System.out.println("* PersistenceManagerTest: testDelete");
@@ -66,6 +87,7 @@ public class PersistenceManagerTest {
     /**
      * Test of update method, of class PersistenceManager.
      */
+    @Ignore
     @Test
     public void testUpdate() {
         System.out.println("* PersistenceManagerTest: testUpdate");
@@ -79,6 +101,7 @@ public class PersistenceManagerTest {
     /**
      * Test of getObjectById method, of class PersistenceManager.
      */
+    @Ignore
     @Test
     public void testGetObjectById() {
         System.out.println("* PersistenceManagerTest: testGetObjectById");
@@ -95,6 +118,7 @@ public class PersistenceManagerTest {
     /**
      * Test of getObjectsByHQLQuery method, of class PersistenceManager.
      */
+    @Ignore
     @Test
     public void testGetObjectsByHQLQuery() {
         System.out.println("* PersistenceManagerTest: testGetObjectByHQLQuery");
