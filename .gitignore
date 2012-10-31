@@ -2,3 +2,7 @@
 /Code/SupportMySport/build
 /Code/HibernateAnnotationsTestingProject/nbproject/private/
 .gitignore
+Code/SupportMySport/nbproject/build-impl.xml
+Code/SupportMySport/nbproject/genfiles.properties
+Code/SupportMySport/nbproject/project.properties
+Code/SupportMySport/nbproject/project.xml
