@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domäne;
+package Domaene;
 
 import Persistence.PersistenceManager;
 import java.util.LinkedList;
@@ -22,9 +22,9 @@ public class ClubMemberManager {
     
     public List<ClubMember> getAllClubMembers(){
         List<Object> persistenceClubMembers = persistenceManager.getObjectsByHQLQuery("Select * from ClubMember");
-        List<Domäne.ClubMember> result = new LinkedList<ClubMember>();
+        List<Domaene.ClubMember> result = new LinkedList<ClubMember>();
         for(Object obj : persistenceClubMembers){
-            
         }
+        return result;
     }
 }

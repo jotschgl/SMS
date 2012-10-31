@@ -1,4 +1,4 @@
-package Domäne;
+package Domaene;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;

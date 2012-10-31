@@ -5,8 +5,8 @@
 package Controller;
 
 import Communication.ClubMemberDTO;
-import Domäne.ClubMember;
-import Domäne.DomainFacade;
+import Domaene.ClubMember;
+import Domaene.DomainFacade;
 import java.util.List;
 
 public class ClubMemberController {
