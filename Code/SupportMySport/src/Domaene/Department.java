@@ -1,4 +1,4 @@
-package Domäne;
+package Domaene;
 
 import java.util.HashSet;
 import java.util.Set;

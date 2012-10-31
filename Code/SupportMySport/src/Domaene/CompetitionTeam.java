@@ -1,4 +1,4 @@
-package Domäne;
+package Domaene;
 
 public class CompetitionTeam implements java.io.Serializable {
 
