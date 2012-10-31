@@ -2,14 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Domäne;
+package Communication;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Dennis
  */
-public interface IDomainFacade {
+class RoleRightDTO implements Serializable{
     
-    public Object deepCopy(Object obj);
+    private int id;
+    private String name;
     
 }

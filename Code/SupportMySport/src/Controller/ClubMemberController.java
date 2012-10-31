@@ -4,10 +4,24 @@
  */
 package Controller;
 
+import Communication.ClubMemberDTO;
+import Domäne.ClubMember;
+import Domäne.DomainFacade;
+import java.util.List;
+
 public class ClubMemberController {
     
-    public void createOrUpdateClubMember(String data){
-     //TODO: Define method  
+    private DomainFacade myDomainFacade;
+            
+    public ClubMemberController(DomainFacade domainFacade){
+        myDomainFacade = domainFacade;
+    }
+    
+    public void createOrUpdateClubMember(ClubMemberDTO clubMemberDto){
+    }
+    
+    public List<ClubMember> getAllClubMembers(){
+        return myDomainFacade.getAllClubMembers();       
     }
     
     public void searchMemberByAttributes(String attributes){
