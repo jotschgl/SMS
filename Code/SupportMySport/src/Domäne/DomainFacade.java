@@ -4,37 +4,22 @@
  */
 package Domäne;
 
-import Persistence.PersistenceManager;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.util.List;
 
 /**
  *
  * @author Dennis
  */
-public class DomainFacade implements IDomainFacade{
+public class DomainFacade {
 
-    private PersistenceManager persistenceManager;
+    private ClubMemberManager clubMemberManager;
 
-    public DomainFacade(PersistenceManager manager) {
-        persistenceManager = manager;
+    public DomainFacade() {
+        clubMemberManager = new ClubMemberManager();
+    }
+    
+    public List<ClubMember> getAllClubMembers(){
+        return clubMemberManager.getAllClubMembers();
     }
 
-    @Override
-    public Object deepCopy(Object o) {
-        try {
-            ByteArrayOutputStream byteouts = new ByteArrayOutputStream();
-            new ObjectOutputStream(byteouts).writeObject(o);
-            ByteArrayInputStream byteAIns = new ByteArrayInputStream(byteouts.toByteArray());
-            return new ObjectInputStream(byteAIns).readObject();
-        } catch (ClassNotFoundException ex) {
-            //TODO log file
-        } catch (IOException ex) {
-            //TODO log file
-        }
-        return null;
-    }
 }
