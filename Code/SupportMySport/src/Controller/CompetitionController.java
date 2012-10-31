@@ -1,6 +1,7 @@
 package Controller;
 
 
+
 public class CompetitionController {
     
     public void createNewCompetition(String data){
