@@ -55,12 +55,14 @@ public class WelcomeFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("User:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Rolle:");
 
         MitgliedverwaltungButton.setBackground(new java.awt.Color(153, 255, 153));
-        MitgliedverwaltungButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        MitgliedverwaltungButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         MitgliedverwaltungButton.setText("Mitgliedverwaltung");
         MitgliedverwaltungButton.setMaximumSize(new java.awt.Dimension(187, 25));
         MitgliedverwaltungButton.setMinimumSize(new java.awt.Dimension(187, 25));
@@ -72,7 +74,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         });
 
         WettkampfverwaltungButton.setBackground(new java.awt.Color(255, 255, 153));
-        WettkampfverwaltungButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        WettkampfverwaltungButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         WettkampfverwaltungButton.setText("Wettkampfverwaltung");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -83,17 +85,18 @@ public class WelcomeFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(RolleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 259, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(UserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(UserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(RolleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(38, 38, 38))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)

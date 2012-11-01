@@ -26,66 +26,112 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        SearchTextField = new javax.swing.JTextField();
+        SearchButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         MitgliedTable = new javax.swing.JTable();
+        NeuesMitgliedButton = new javax.swing.JButton();
+        AenderungenSpeichernButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(541, 451));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        SearchTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                SearchTextFieldActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Search");
+        SearchButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        SearchButton.setText("Search");
 
         MitgliedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Vorname", "Nachname", "Land", "Stadt", "E-Mail", "Geburtstag"
             }
         ));
         jScrollPane1.setViewportView(MitgliedTable);
+
+        NeuesMitgliedButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        NeuesMitgliedButton.setText("Neues Mitglied anlegen");
+        NeuesMitgliedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NeuesMitgliedButtonActionPerformed(evt);
+            }
+        });
+
+        AenderungenSpeichernButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        AenderungenSpeichernButton.setText("Änderungen speichern");
+        AenderungenSpeichernButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AenderungenSpeichernButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(NeuesMitgliedButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(AenderungenSpeichernButton)
+                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(SearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addComponent(SearchButton)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(SearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SearchButton))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NeuesMitgliedButton)
+                    .addComponent(AenderungenSpeichernButton))
+                .addGap(41, 41, 41))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void SearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_SearchTextFieldActionPerformed
+
+    private void NeuesMitgliedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NeuesMitgliedButtonActionPerformed
+        // TODO add your handling code here:
+        MitgliedFrame mf = new MitgliedFrame();
+        mf.setVisible(true);
+    }//GEN-LAST:event_NeuesMitgliedButtonActionPerformed
+
+    private void AenderungenSpeichernButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AenderungenSpeichernButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AenderungenSpeichernButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,9 +168,11 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AenderungenSpeichernButton;
     private javax.swing.JTable MitgliedTable;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton NeuesMitgliedButton;
+    private javax.swing.JButton SearchButton;
+    private javax.swing.JTextField SearchTextField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
