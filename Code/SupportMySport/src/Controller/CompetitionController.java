@@ -39,4 +39,5 @@ public class CompetitionController {
     public void showAllCompetitionMeetings(Competition comp){
         
     }
+    
 }
