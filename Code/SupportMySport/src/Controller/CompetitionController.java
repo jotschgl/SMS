@@ -1,5 +1,7 @@
 package Controller;
 
+import Domaene.Competition;
+
 
 
 public class CompetitionController {
