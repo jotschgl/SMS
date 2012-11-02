@@ -26,7 +26,7 @@ public class CompetitionManager {
     }
 
     public List<Object> getCompetitionByDepartmentId(int departmentId) {
-        String hqlQuerie = "FROM Competition cp WHERE (cp.department_id = '3')";
+        String hqlQuerie = "FROM Competition cp WHERE (cp.department_id LIKE '"+departmentId+"')";
         PersistenceManager persistenceManager = new PersistenceManager();
         return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }

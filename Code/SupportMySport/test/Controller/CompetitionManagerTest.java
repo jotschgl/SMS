@@ -76,12 +76,11 @@ public class CompetitionManagerTest {
     public void testgetCompetitionByDepartmentId(){
          int departmentId = 3;
          CompetitionManager mng = new CompetitionManager();
-         //List<Object> testComp = mng.getCompetitionByDepartmentId(departmentId);
-         mng.getCompetitionByDepartmentId(departmentId);
-         //Competition comp = (Competition) testComp.get(0);
+         List<Object> testComp = mng.getCompetitionByDepartmentId(departmentId);
+         Competition comp = (Competition) testComp.get(0);
          System.out.println();
          System.out.println("Running test on getCompetition over Departmentid");
-         //System.out.println("eturned Competition with name: " + comp.getId());
+         System.out.println("Returned Competition with name: " + comp.getId());
          System.out.println();
         
     }
