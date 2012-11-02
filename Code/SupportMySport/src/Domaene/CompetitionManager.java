@@ -14,7 +14,7 @@ public class CompetitionManager {
 
     public Persistence.Competition getCompetitinById(int id) {  
         PersistenceManager persistenceManager = new PersistenceManager();
-        return (Persistence.Competition) persistenceManager.getObjectById(Competition.class, id);
+        return (Persistence.Competition) persistenceManager.getObjectById(Persistence.Competition.class, id);
     }   
     
 }
