@@ -19,11 +19,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Ignore;
 
-public class TestCompetitionManager {
+public class CompetitionManagerTest {
     
    
     
-    public TestCompetitionManager () {
+    public CompetitionManagerTest () {
     }
     
     @BeforeClass
