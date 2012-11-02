@@ -24,6 +24,8 @@ public class ClubMemberManager {
         List<Object> persistenceClubMembers = persistenceManager.getObjectsByHQLQuery("Select * from ClubMember");
         List<Domaene.ClubMember> result = new LinkedList<ClubMember>();
         for(Object obj : persistenceClubMembers){
+            ClubMember cb = (ClubMember) obj;
+            result.add(new Domaene.ClubMember(cb.getFirstname(), cb.getLastname(), cb.getUsername(), cb.getStreet(), cb.getCity(), cb.getCountry(), cb.getZip(), cb.getEmail(), cb.getPhone(), cb.getGender(), cb.getBirthday()));
         }
         return result;
     }
