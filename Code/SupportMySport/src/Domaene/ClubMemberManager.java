@@ -4,6 +4,7 @@
  */
 package Domaene;
 
+import Persistence.ClubMember;
 import Persistence.PersistenceManager;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,12 +22,25 @@ public class ClubMemberManager {
     }
     
     public List<ClubMember> getAllClubMembers(){
-        List<Object> persistenceClubMembers = persistenceManager.getObjectsByHQLQuery("Select * from ClubMember");
-        List<Domaene.ClubMember> result = new LinkedList<ClubMember>();
-        for(Object obj : persistenceClubMembers){
-            ClubMember cb = (ClubMember) obj;
-            result.add(new Domaene.ClubMember(cb.getFirstname(), cb.getLastname(), cb.getUsername(), cb.getStreet(), cb.getCity(), cb.getCountry(), cb.getZip(), cb.getEmail(), cb.getPhone(), cb.getGender(), cb.getBirthday()));
+        List<ClubMember> foundClubMembers = new LinkedList<ClubMember>();
+        List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM ClubMember");
+        for(Object obj : result){
+            foundClubMembers.add((ClubMember)obj);
         }
-        return result;
+        return foundClubMembers;
+    }
+
+    public void createOrUpdateClubMember(ClubMember clubMember) {
+        persistenceManager.update(clubMember);
+    }
+
+    public List<ClubMember> searchMembersByAttributes(String attributes) {
+        List<ClubMember> foundClubMembers = new LinkedList<ClubMember>();
+        String hqlQuerie = "FROM ClubMember cb WHERE (cb.firstname LIKE '%" + attributes + "%' or cb.lastname LIKE '%" + attributes + "%')";
+        List<Object> results = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
+        for(Object obj : results){
+            foundClubMembers.add((ClubMember) obj);
+        }
+        return foundClubMembers;
     }
 }

@@ -4,6 +4,7 @@
  */
 package Domaene;
 
+import Persistence.ClubMember;
 import java.util.List;
 
 /**
@@ -22,6 +23,11 @@ public class DomainFacade {
         return clubMemberManager.getAllClubMembers();
     }
     
-    
+    public void createOrUpdateClubMember(ClubMember clubMember){
+        clubMemberManager.createOrUpdateClubMember(clubMember);
+    }
 
+    public List<ClubMember> searchMemberByAttributes(String attributes) {
+        return clubMemberManager.searchMembersByAttributes(attributes);
+    }
 }
