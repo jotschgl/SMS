@@ -35,7 +35,7 @@ public class DomainFacade {
     
     // <editor-fold defaultstate="collapsed" desc="Competition Specific Calls">
     
-    public Competition getCompetitionById(int id){
+    public Persistence.Competition getCompetitionById(int id){
         //TODO: get all Competitions from the database
         return competitionManager.getCompetitinById(id);
     }

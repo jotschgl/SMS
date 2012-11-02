@@ -49,12 +49,14 @@ public class CompetitionManagerTest {
     @Ignore
     @Test
     public void testGetCompetitinById(){
-        //Team team = (Team)mng.getObjectById(Team.class, 1);
-        //System.out.println(team.getClubMembers().size());
-        //for(ClubMember cm : team.getClubMembers()){
-       //     System.out.println(cm.getFirstname());
-        //}
+         int id = 1;
          CompetitionManager mng = new CompetitionManager();
-         Competition testComp = mng.getCompetitinById(1);
+         Competition testComp = mng.getCompetitinById(id);
+         System.out.println();
+         System.out.println("Running test on getCompetition by ID");
+         System.out.println("Getting Competition with id: " + id);
+         System.out.println("Competition with id: " + testComp.getId());
+         System.out.println();
+        
     }
 }
