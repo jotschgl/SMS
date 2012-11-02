@@ -54,7 +54,34 @@ public class CompetitionManagerTest {
          System.out.println();
          System.out.println("Running test on getCompetition by ID");
          System.out.println("Getting Competition with id: " + id);
-         System.out.println("Competition with id: " + testComp.getId());
+         System.out.println("Returne Competition with id: " + testComp.getId());
+         System.out.println();
+        
+    }
+    
+    @Test
+    public void testGetCompetitinByName(){
+         String name = "Weltmeisterschaft";
+         CompetitionManager mng = new CompetitionManager();
+         List<Object> testComp = mng.getCompetitionsByName(name);
+         Competition comp = (Competition) testComp.get(0);
+         System.out.println();
+         System.out.println("Running test on getCompetition by Name");
+         System.out.println("eturned Competition with name: " + comp.getName());
+         System.out.println();
+        
+    }
+    
+    @Test
+    public void testgetCompetitionByDepartmentId(){
+         int departmentId = 3;
+         CompetitionManager mng = new CompetitionManager();
+         //List<Object> testComp = mng.getCompetitionByDepartmentId(departmentId);
+         mng.getCompetitionByDepartmentId(departmentId);
+         //Competition comp = (Competition) testComp.get(0);
+         System.out.println();
+         System.out.println("Running test on getCompetition over Departmentid");
+         //System.out.println("eturned Competition with name: " + comp.getId());
          System.out.println();
         
     }

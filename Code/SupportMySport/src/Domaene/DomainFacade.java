@@ -36,43 +36,32 @@ public class DomainFacade {
     // <editor-fold defaultstate="collapsed" desc="Competition Specific Calls">
     
     public Persistence.Competition getCompetitionById(int id){
-        //TODO: get all Competitions from the database
         return competitionManager.getCompetitinById(id);
     }
-    
-    public Competition getCompetitionByName(String name){
-        //TODO: get Competitions from the database with a specific name
-        return null;
+       
+    public List<Object> getCompetitionsByName(String name){
+        return competitionManager.getCompetitionsByName(name);
     }
     
-    public List<Competition> getCompetitionsByName(String name){
-        //TODO: get Competitions from the database with a specific name
-        return null;
+    public List<Object> getCompetitionByDepartmentId(int departmentId){
+        return competitionManager.getCompetitionByDepartmentId(departmentId);
     }
     
-    public Competition getCompetitionByDepartment(int departmentId){
-        //TODO: get the Competition connected with an department
-        return null;
+    public Persistence.Competition getCompetitionByDate(Date date){
+        return competitionManager.getCompetitionByDate(date);
     }
     
-    public Competition getCompetitionByDate(Date date){
-        //TODO: get a Competition at a specific date
-        return null;
+    public List<Object> getAllCompetitionsByDate(Date startdate){
+        return competitionManager.getAllCompetitionsByDate(startdate);
     }
     
-    public List<Competition> getAllCompetitionsByDate(Date startdate){
-        //TODO: get all competitions from startdate
-        return null;
+    public List<Object> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate){
+        return competitionManager.getAllCompetitionsBetweenPeriod(startdate, enddate);
     }
     
-    public List<Competition> getAllCompetitionsBetweenPeriod(Date startdate, Date endDate){
-         //TODO: get all Competitions between two Dates
-        return null;
-    }
-    
-    public List<Competition> getAllCompetitions(){
-        //TODO: get all Competitions from the database
-        return null;
+    public List<Object> getAllCompetitions(){
+        
+        return competitionManager.getAllCompetitions();
     }
     // </editor-fold>
 }
