@@ -1,7 +1,6 @@
 package Controller;
 
-import Domaene.Competition;
-
+import Persistence.Competition;
 
 
 public class CompetitionController {

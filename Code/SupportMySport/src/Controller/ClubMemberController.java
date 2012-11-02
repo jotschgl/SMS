@@ -4,9 +4,8 @@
  */
 package Controller;
 
-import Communication.ClubMemberDTO;
-import Domaene.ClubMember;
 import Domaene.DomainFacade;
+import Persistence.ClubMember;
 import java.util.List;
 
 public class ClubMemberController {
@@ -24,7 +23,7 @@ public class ClubMemberController {
         return myDomainFacade.getAllClubMembers();       
     }
     
-    public void searchMemberByAttributes(String attributes){
-        //TODO: Define method
+    public List<ClubMember> searchMemberByAttributes(String attributes){
+        return myDomainFacade.searchMemberByAttributes(attributes);
     }
 }

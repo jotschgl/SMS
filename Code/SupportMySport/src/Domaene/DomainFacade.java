@@ -4,7 +4,11 @@
  */
 package Domaene;
 
+<<<<<<< HEAD
 import java.util.Date;
+=======
+import Persistence.ClubMember;
+>>>>>>> 2989ddde2cd15cb983de475dbf69442f633ff1d3
 import java.util.List;
 
 /**
@@ -24,6 +28,7 @@ public class DomainFacade {
         return clubMemberManager.getAllClubMembers();
     }
     
+<<<<<<< HEAD
     
     // <editor-fold defaultstate="collapsed" desc="Competition Specific Calls">
     
@@ -67,4 +72,13 @@ public class DomainFacade {
         return null;
     }
     // </editor-fold>
+=======
+    public void createOrUpdateClubMember(ClubMember clubMember){
+        clubMemberManager.createOrUpdateClubMember(clubMember);
+    }
+
+    public List<ClubMember> searchMemberByAttributes(String attributes) {
+        return clubMemberManager.searchMembersByAttributes(attributes);
+    }
+>>>>>>> 2989ddde2cd15cb983de475dbf69442f633ff1d3
 }
