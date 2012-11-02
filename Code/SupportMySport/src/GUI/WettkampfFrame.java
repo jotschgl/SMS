@@ -5,8 +5,10 @@
 package GUI;
 
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -22,6 +24,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
         // here's the part where i center the jframe on screen
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        tableWettkampf.setAutoCreateRowSorter(true);
+        tableBegnung.setAutoCreateRowSorter(true);
+        this.setRowSorter();
     }
 
     /**
@@ -42,7 +47,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
         panelRight = new javax.swing.JPanel();
         labelBegegnungen = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableBegnung = new javax.swing.JTable();
+        textFieldRowFilter = new javax.swing.JTextField();
+        btnBearbBegegnung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sport - Wettkampf berarbeiten");
@@ -124,16 +131,34 @@ public class WettkampfFrame extends javax.swing.JFrame {
         labelBegegnungen.setMaximumSize(new java.awt.Dimension(129, 32));
         labelBegegnungen.setMinimumSize(new java.awt.Dimension(129, 32));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableBegnung.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"c", null, null, null, null},
+                {"c", null, null, null, null},
+                {"b", null, null, null, null},
+                {"g", null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Spiel", "Mannschaft 1", "Mannschaft 2", "Ort", "Datum"
             }
         ));
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable1);
+        tableBegnung.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tableBegnung);
+
+        textFieldRowFilter.setPreferredSize(new java.awt.Dimension(141, 23));
+        textFieldRowFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldRowFilterKeyReleased(evt);
+            }
+        });
+
+        btnBearbBegegnung.setText("Begegnung bearbeiten");
+        btnBearbBegegnung.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBearbBegegnungMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
         panelRight.setLayout(panelRightLayout);
@@ -141,12 +166,16 @@ public class WettkampfFrame extends javax.swing.JFrame {
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRightLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelBegegnungen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelRightLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                .addComponent(labelBegegnungen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(panelRightLayout.createSequentialGroup()
+                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelRightLayout.createSequentialGroup()
+                        .addComponent(textFieldRowFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnBearbBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 28, Short.MAX_VALUE))
         );
         panelRightLayout.setVerticalGroup(
             panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,6 +184,10 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 .addComponent(labelBegegnungen, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldRowFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBearbBegegnung))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -174,8 +207,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-                    .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+                    .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -199,9 +232,11 @@ public class WettkampfFrame extends javax.swing.JFrame {
         if (tableWettkampf.getRowCount() == 0) {
             JOptionPane.showMessageDialog(panelLeft, "Keine Wettkämpfe vorhanden");
         } else {
+            //keim Wettkampf gewählt
             if (selectedRows.length == 0) {
                 JOptionPane.showMessageDialog(panelLeft, "Wählen Sie einen Wettkampf aus!");
             } else {
+                //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelLeft, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
                     showNewFrame();
@@ -209,6 +244,34 @@ public class WettkampfFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBearbWettkampfMouseClicked
+
+    private void btnBearbBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBearbBegegnungMouseClicked
+        int[] selectedRows = tableBegnung.getSelectedRows();
+
+        if (tableWettkampf.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(panelRight, "Keine Wettkämpfe vorhanden");
+        } else {
+            //keim Wettkampf gewählt
+            if (selectedRows.length == 0) {
+                JOptionPane.showMessageDialog(panelRight, "Wählen Sie einen Wettkampf aus!");
+            } else {
+                //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
+                int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    showNewFrame();
+                }
+            }
+        }
+    }//GEN-LAST:event_btnBearbBegegnungMouseClicked
+
+    private void textFieldRowFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldRowFilterKeyReleased
+        String text = textFieldRowFilter.getText();
+        if (text.length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter(text));
+        }
+    }//GEN-LAST:event_textFieldRowFilterKeyReleased
 
     /**
      * @param args the command line arguments
@@ -245,22 +308,30 @@ public class WettkampfFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBearbBegegnung;
     private javax.swing.JButton btnBearbWettkampf;
     private javax.swing.JButton btnErsteWettkampf;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelBegegnungen;
     private javax.swing.JLabel lableWettkampf;
     private javax.swing.JPanel panelLeft;
     private javax.swing.JPanel panelRight;
+    private javax.swing.JTable tableBegnung;
     private javax.swing.JTable tableWettkampf;
+    private javax.swing.JTextField textFieldRowFilter;
     // End of variables declaration//GEN-END:variables
-
+    private TableRowSorter<TableModel> sorter;
     private void showNewFrame() {
         WelcomeFrame fr = new WelcomeFrame();
         this.dispose();
         this.setVisible(false);
         fr.setVisible(true);
+    }
+
+    private void setRowSorter() {
+        TableModel model = tableBegnung.getModel();
+        sorter = new TableRowSorter<TableModel>(model);
+        tableBegnung.setRowSorter(sorter);
     }
 }
