@@ -21,15 +21,15 @@ public class DomainFacade {
         clubMemberManager = new ClubMemberManager();
     }
     
-    public List<ClubMember> getAllClubMembers(){
+    public List<Persistence.ClubMember> getAllClubMembers(){
         return clubMemberManager.getAllClubMembers();
     }
     
-      public void createOrUpdateClubMember(ClubMember clubMember){
+      public void createOrUpdateClubMember(Persistence.ClubMember clubMember){
         clubMemberManager.createOrUpdateClubMember(clubMember);
     }
 
-    public List<ClubMember> searchMemberByAttributes(String attributes) {
+    public List<Persistence.ClubMember> searchMemberByAttributes(String attributes) {
         return clubMemberManager.searchMembersByAttributes(attributes);
     }
     

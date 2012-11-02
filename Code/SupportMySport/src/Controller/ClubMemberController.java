@@ -19,7 +19,7 @@ public class ClubMemberController {
     public void createOrUpdateClubMember(ClubMember clubMember){
     }
     
-    public List<ClubMember> getAllClubMembers(){
+    public List<Persistence.ClubMember> getAllClubMembers(){
         return myDomainFacade.getAllClubMembers();       
     }
     

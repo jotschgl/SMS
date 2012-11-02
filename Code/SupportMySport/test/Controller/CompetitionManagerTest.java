@@ -46,7 +46,6 @@ public class CompetitionManagerTest {
      * Test of save method, of class PersistenceManager.
      */
 
-    @Ignore
     @Test
     public void testGetCompetitinById(){
          int id = 1;
