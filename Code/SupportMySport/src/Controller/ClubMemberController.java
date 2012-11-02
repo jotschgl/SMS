@@ -17,7 +17,7 @@ public class ClubMemberController {
         myDomainFacade = domainFacade;
     }
     
-    public void createOrUpdateClubMember(ClubMemberDTO clubMemberDto){
+    public void createOrUpdateClubMember(ClubMember clubMember){
     }
     
     public List<ClubMember> getAllClubMembers(){

@@ -21,5 +21,7 @@ public class DomainFacade {
     public List<ClubMember> getAllClubMembers(){
         return clubMemberManager.getAllClubMembers();
     }
+    
+    
 
 }
