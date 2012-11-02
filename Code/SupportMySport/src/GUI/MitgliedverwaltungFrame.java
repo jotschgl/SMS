@@ -44,6 +44,11 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
         SearchButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         SearchButton.setText("Search");
+        SearchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchButtonActionPerformed(evt);
+            }
+        });
 
         MitgliedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,6 +137,11 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     private void AenderungenSpeichernButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AenderungenSpeichernButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AenderungenSpeichernButtonActionPerformed
+
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_SearchButtonActionPerformed
 
     /**
      * @param args the command line arguments
