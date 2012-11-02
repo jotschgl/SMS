@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Communication.ClubMemberDTO;
 import Domaene.ClubMember;
 import Domaene.DomainFacade;
 import java.util.List;
