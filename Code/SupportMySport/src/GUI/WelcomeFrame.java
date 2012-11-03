@@ -15,7 +15,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
      */
     public WelcomeFrame() {
         initComponents();
-
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -76,6 +76,11 @@ public class WelcomeFrame extends javax.swing.JFrame {
         WettkampfverwaltungButton.setBackground(new java.awt.Color(255, 255, 153));
         WettkampfverwaltungButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         WettkampfverwaltungButton.setText("Wettkampfverwaltung");
+        WettkampfverwaltungButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WettkampfverwaltungButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +137,6 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_RolleTextFieldActionPerformed
 
     private void MitgliedverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MitgliedverwaltungButtonActionPerformed
-        // TODO add your handling code here:
         MitgliedverwaltungFrame mv = new MitgliedverwaltungFrame();
         mv.setVisible(true);
     }//GEN-LAST:event_MitgliedverwaltungButtonActionPerformed
@@ -140,6 +144,11 @@ public class WelcomeFrame extends javax.swing.JFrame {
     private void UserTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_UserTextFieldActionPerformed
+
+    private void WettkampfverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WettkampfverwaltungButtonActionPerformed
+        WettkampfFrame wF = new WettkampfFrame();
+        wF.setVisible(true);
+    }//GEN-LAST:event_WettkampfverwaltungButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,7 +161,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

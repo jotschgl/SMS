@@ -15,6 +15,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
      */
     public MitgliedverwaltungFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -33,7 +34,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         NeuesMitgliedButton = new javax.swing.JButton();
         AenderungenSpeichernButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(541, 451));
 
         SearchTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +155,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
