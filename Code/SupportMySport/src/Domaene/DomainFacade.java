@@ -46,13 +46,9 @@ public class DomainFacade {
     public List<Object> getCompetitionByDepartmentId(int departmentId){
         return competitionManager.getCompetitionByDepartmentId(departmentId);
     }
-    
-    public Persistence.Competition getCompetitionByDate(Date date){
-        return competitionManager.getCompetitionByDate(date);
-    }
-    
-    public List<Object> getAllCompetitionsByDate(Date startdate){
-        return competitionManager.getAllCompetitionsByDate(startdate);
+        
+    public List<Object> getCompetitionByDate(Date startdate){
+        return competitionManager.getCompetitionByDate(startdate);
     }
     
     public List<Object> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate){

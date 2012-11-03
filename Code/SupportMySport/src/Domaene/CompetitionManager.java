@@ -31,20 +31,21 @@ public class CompetitionManager {
         return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
 
-    public Competition getCompetitionByDate(Date date) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public List<Object> getCompetitionByDate(Date date) {
+        String dateString = (date.getYear() + 1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
+        String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition = '"+dateString+"')";
+        PersistenceManager persistenceManager = new PersistenceManager();
+        return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
 
     public List<Object> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public List<Object> getAllCompetitionsByDate(Date startdate) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
     public List<Object> getAllCompetitions() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String hqlQuerie = "FROM Competition";
+        PersistenceManager persistenceManager = new PersistenceManager();
+        return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
     
 }
