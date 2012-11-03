@@ -26,7 +26,7 @@ public class MeetingManager {
         Meeting meeting = new Meeting(competition, teamA, teamB, pointsA, pointsB);
     }
 
-    List<Meeting> showCompetitionResults(int competitionId) {
+    List<Meeting> showCompetitionMeetings(int competitionId) {
         PersistenceManager persistenceManager = new PersistenceManager();
         List<Meeting> competitionMeetings = new LinkedList<Meeting>();
         String hqlQuerie = "FROM Meeting m WHERE (m.competition_id LIKE '"+competitionId+"')";

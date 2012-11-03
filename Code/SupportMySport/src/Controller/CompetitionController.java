@@ -51,19 +51,15 @@ public class CompetitionController {
         return facade.getAllCompetitions();
     }
     
-    public List<Meeting> getCompetitionResults(int competitionId){
-        return facade.showCompetitionResults(competitionId);
+    public List<Meeting> getCompetitionMeetings(int competitionId){
+        return facade.showCompetitionMeetings(competitionId);
     }
     
     public List<Team> getAllTeamsOfCompetition(int competitionId){
         return facade.showAllTeamsOfCompetition(competitionId);
     }
     
-    public void getCompetitionTeamMembersOfCompetition(int competitionId){
+    public List<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId){
+        return facade.getCompetitionTeamMembersOfCompetition(competitionId);
     }
-    
-    public void getAllCompetitionMeetings(Competition comp){
-        
-    }
-    
 }

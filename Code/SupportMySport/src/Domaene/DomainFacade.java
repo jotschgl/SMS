@@ -18,12 +18,14 @@ public class DomainFacade {
     private CompetitionManager competitionManager;
     private CompetitionTeamManager competitionTeamManager;
     private MeetingManager meetingManager;
+    private MemberTeamManager memberTeamManager;
     
     public DomainFacade() {
         clubMemberManager = new ClubMemberManager();
         competitionManager = new CompetitionManager();
         competitionTeamManager = new CompetitionTeamManager();
         meetingManager = new MeetingManager();
+        memberTeamManager = new MemberTeamManager();
     }
     
     // <editor-fold defaultstate="collapsed" desc="ClubMember Specific Calls">
@@ -84,12 +86,16 @@ public class DomainFacade {
     public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int pointsB0, int competitionId) {
         meetingManager.addResultsToCompetitionMeeting(teamAId, teamBId, pointsA, pointsB, competitionId);
     }
-    public List<Meeting> showCompetitionResults(int competitionId) {
-        return meetingManager.showCompetitionResults(competitionId);
+    public List<Meeting> showCompetitionMeetings(int competitionId) {
+        return meetingManager.showCompetitionMeetings(competitionId);
     }
 
     public List<Team> showAllTeamsOfCompetition(int competitionId) {
         return competitionTeamManager.showAllTeamsOfCompetition(competitionId);
     }
     // </editor-fold>
+
+    public List<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
+        return memberTeamManager.getMembersOfTeams(competitionTeamManager.showAllTeamsOfCompetition(competitionId));
+    }
 }
