@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Manager;
 
 
 import Domaene.CompetitionManager;
@@ -46,7 +46,6 @@ public class CompetitionManagerTest {
     /**
      * Test methods of CompetitionManager
      */
-
     @Test
     public void testGetCompetitinById(){
          int id = 1;
@@ -64,8 +63,8 @@ public class CompetitionManagerTest {
     public void testGetCompetitinByName(){
          String name = "Weltmeisterschaft";
          CompetitionManager mng = new CompetitionManager();
-         List<Object> testComp = mng.getCompetitionsByName(name);
-         Competition comp = (Competition) testComp.get(0);
+         List<Competition> testComp = mng.getCompetitionsByName(name);
+         Competition comp = testComp.get(0);
          System.out.println();
          System.out.println("Running test on getCompetition by Name");
          System.out.println("eturned Competition with name: " + comp.getName());
@@ -94,8 +93,8 @@ public class CompetitionManagerTest {
          String strDateTo = "2012-12-12";
          Date startDate = formatter.parse(strDateTo);
          CompetitionManager mng = new CompetitionManager();
-         List<Object> testComp = mng.getCompetitionByDate(startDate);
-         Competition comp = (Competition) testComp.get(0);
+         List<Competition> testComp = mng.getCompetitionByDate(startDate);
+         Competition comp =  testComp.get(0);
          System.out.println();
          System.out.println("Running test on getCompetition over Date: " + startDate.getYear() + "-" + startDate.getMonth() + "-" + startDate.getDate());
          System.out.println("Length of list: " + testComp.size());
@@ -114,8 +113,8 @@ public class CompetitionManagerTest {
          Date startDate = formatter.parse(startDateTo);
          Date endDate = formatter.parse(endDateTo);
          CompetitionManager mng = new CompetitionManager();
-         List<Object> testComp = mng.getAllCompetitionsBetweenPeriod(startDate, endDate);
-         Competition comp = (Competition) testComp.get(0);
+         List<Competition> testComp = mng.getAllCompetitionsBetweenPeriod(startDate, endDate);
+         Competition comp =  testComp.get(0);
          System.out.println();
          System.out.println("Running test on getCompetition between Dates: ");
          System.out.println("Length of list: " + testComp.size());
@@ -127,8 +126,8 @@ public class CompetitionManagerTest {
     @Test
     public void testgetAllCompetitions() throws ParseException{            
          CompetitionManager mng = new CompetitionManager();
-         List<Object> testComp = mng.getAllCompetitions();
-         Competition comp = (Competition) testComp.get(0);
+         List<Competition> testComp = mng.getAllCompetitions();
+         Competition comp = testComp.get(0);
          System.out.println();
          System.out.println("Running test on getAllCompetitions:");
          System.out.println("Length of list: " + testComp.size());
