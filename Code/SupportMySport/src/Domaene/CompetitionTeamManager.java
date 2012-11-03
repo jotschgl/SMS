@@ -8,8 +8,11 @@ import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;
 import Persistence.CompetitionTeamId;
+import Persistence.Meeting;
 import Persistence.PersistenceManager;
 import Persistence.Team;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class CompetitionTeamManager {
@@ -25,6 +28,21 @@ public class CompetitionTeamManager {
         PersistenceManager persistenceManager = new PersistenceManager();
         CompetitionTeam cp = (CompetitionTeam) persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         persistenceManager.delete(cp);
+    }
+
+    List<Team> showAllTeamsOfCompetition(int competitionId) {
+        List<Team> teamList = new LinkedList<Team>();
+        String hqlQuerie = "FROM CompetitionTeam ct WHERE(ct.competition_id = '"+competitionId+"')";
+        PersistenceManager persistenceManger = new PersistenceManager();
+        List<Object> results = persistenceManger.getObjectsByHQLQuery(hqlQuerie);
+        for(Object obj : results){
+            int teamId = ((Meeting)obj).getId();
+            Team team = (Team) persistenceManger.getObjectById(Team.class, teamId);
+            if(team != null){
+                teamList.add(team);
+            }
+        }
+        return teamList;
     }
     
 }

@@ -23,7 +23,6 @@ public class CompetitionController {
         facade = new DomainFacade();
     }
     
-   
     public void createNewCompetition(Department dep, String competitionName, double fee, Date date){
         facade.createNewCompetition(new Competition(dep,competitionName,fee,date));
     }
@@ -48,23 +47,22 @@ public class CompetitionController {
         facade.addResultsToCompetitionMeeting(TeamAId, TeamBId, pointsA, pointsB, pointsB, competitionId);
     }
    
-    public List<Competition> showAllCompetitions(){
+    public List<Competition> getAllCompetitions(){
         return facade.getAllCompetitions();
     }
     
-    public List<Meeting> showCompetitionResults(int competitionId){
+    public List<Meeting> getCompetitionResults(int competitionId){
         return facade.showCompetitionResults(competitionId);
     }
     
-    public List<Teams> showAllTeamsOfCompetition(int competitionId){
+    public List<Team> getAllTeamsOfCompetition(int competitionId){
         return facade.showAllTeamsOfCompetition(competitionId);
     }
     
-    public void showCompetitionTeamMembersOfCompetition(Competition comp){
-        //TODO: show all member of a team participatig at a competition
+    public void getCompetitionTeamMembersOfCompetition(int competitionId){
     }
     
-    public void showAllCompetitionMeetings(Competition comp){
+    public void getAllCompetitionMeetings(Competition comp){
         
     }
     

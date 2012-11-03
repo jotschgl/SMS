@@ -84,16 +84,12 @@ public class DomainFacade {
     public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int pointsB0, int competitionId) {
         meetingManager.addResultsToCompetitionMeeting(teamAId, teamBId, pointsA, pointsB, competitionId);
     }
-    // </editor-fold>
-
     public List<Meeting> showCompetitionResults(int competitionId) {
         return meetingManager.showCompetitionResults(competitionId);
     }
 
     public List<Team> showAllTeamsOfCompetition(int competitionId) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return competitionTeamManager.showAllTeamsOfCompetition(competitionId);
     }
-
-    
-    
+    // </editor-fold>
 }
