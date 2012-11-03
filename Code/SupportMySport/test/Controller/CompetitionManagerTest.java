@@ -6,22 +6,19 @@ package Controller;
 
 
 import Domaene.CompetitionManager;
-import Persistence.ClubMember;
 import Persistence.Competition;
+import Persistence.Department;
 import Persistence.PersistenceManager;
-import Persistence.Rule;
-import Persistence.Team;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import org.hibernate.type.DateType;
+import java.util.Random;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Ignore;
 
 public class CompetitionManagerTest {
     
@@ -47,7 +44,7 @@ public class CompetitionManagerTest {
     }
 
     /**
-     * Test of save method, of class PersistenceManager.
+     * Test methods of CompetitionManager
      */
 
     @Test
@@ -125,5 +122,39 @@ public class CompetitionManagerTest {
          System.out.println("Returned one of a Competition with date: " + comp.getDateOfCompetition());
          System.out.println();
         
+    }
+    
+    @Test
+    public void testgetAllCompetitions() throws ParseException{            
+         CompetitionManager mng = new CompetitionManager();
+         List<Object> testComp = mng.getAllCompetitions();
+         Competition comp = (Competition) testComp.get(0);
+         System.out.println();
+         System.out.println("Running test on getAllCompetitions:");
+         System.out.println("Length of list: " + testComp.size());
+         System.out.println();
+    }
+    
+    @Test
+    public void testInsertNewCompetition() throws ParseException{
+        
+        //Setting up the required parameters for a competition
+        PersistenceManager mngr = new PersistenceManager();
+        Department dep = (Department) mngr.getObjectById(Department.class, 1);
+        Random generator = new Random( 19580427 );
+        int r = generator.nextInt();
+        int fee = 200;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd");
+        String dateTo = "2013-01-12";
+        Date date = formatter.parse(dateTo);
+        
+        Competition comp = new Competition(dep, r+"", fee, date);
+        CompetitionManager mng = new CompetitionManager();
+        mng.createNewCompetition(comp);
+        
+        System.out.println();
+        System.out.println("Running test on insertNewCompetition:");
+        System.out.println("Check database for new entry");
+        System.out.println();
     }
 }

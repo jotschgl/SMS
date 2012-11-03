@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class CompetitionManager {
 
+    // <editor-fold defaultstate="collapsed" desc="Getting Data from Competitiontable">
     public Competition getCompetitinById(int id) {  
         PersistenceManager persistenceManager = new PersistenceManager();
         return (Persistence.Competition) persistenceManager.getObjectById(Persistence.Competition.class, id);
@@ -34,6 +35,7 @@ public class CompetitionManager {
     public List<Object> getCompetitionByDate(Date date) {
         String dateString = (date.getYear() + 1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
         String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition = '"+dateString+"')";
+        
         PersistenceManager persistenceManager = new PersistenceManager();
         return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
@@ -41,8 +43,8 @@ public class CompetitionManager {
     public List<Object> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate) {
         String startdateString = (startdate.getYear() + 1900) + "-" + (startdate.getMonth()+1) + "-" + startdate.getDate();
         String enddateString = (enddate.getYear() + 1900) + "-" + (enddate.getMonth()+1) + "-" + enddate.getDate();
-        
         String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition between '"+startdateString+"' and '"+enddateString+"')";
+        
         PersistenceManager persistenceManager = new PersistenceManager();
         return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
@@ -52,5 +54,12 @@ public class CompetitionManager {
         PersistenceManager persistenceManager = new PersistenceManager();
         return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Creating a new Competition">
+    public void createNewCompetition(Competition competition){
+        PersistenceManager persitenceManager = new PersistenceManager();
+        persitenceManager.save(competition);
+    }
+    // </editor-fold>
 }
