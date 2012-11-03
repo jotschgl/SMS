@@ -80,10 +80,10 @@ public class CompetitionManagerTest {
          //TODO: Problem with HQL for getting Competitions over the departmentid
          //List<Object> testComp = mng.getCompetitionByDepartmentId(departmentId);
          //Competition comp = (Competition) testComp.get(0);
-         System.out.println();
-         System.out.println("Running test on getCompetition over Departmentid");
+         //System.out.println();
+         //System.out.println("Running test on getCompetition over Departmentid");
          //System.out.println("Returned Competition with name: " + comp.getId());
-         System.out.println();
+         //System.out.println();
         
     }
 
@@ -156,5 +156,19 @@ public class CompetitionManagerTest {
         System.out.println("Running test on insertNewCompetition:");
         System.out.println("Check database for new entry");
         System.out.println();
+    }
+    
+    @Test
+    public void testUpdateExistingCompetition(){
+        
+        //Getting an existing Competition
+        PersistenceManager mngr = new PersistenceManager();
+        Competition comp = (Competition) mngr.getObjectById(Competition.class, 1);
+        Random generator = new Random( 19580427 );
+        int randomFee = generator.nextInt();
+        comp.setCompetitionfee(randomFee);
+        
+        CompetitionManager compMngr = new CompetitionManager();
+        compMngr.updateExistingCompetition(comp);
     }
 }

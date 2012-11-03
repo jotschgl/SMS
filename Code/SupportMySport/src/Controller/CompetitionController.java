@@ -1,16 +1,37 @@
 package Controller;
 
+import Domaene.CompetitionManager;
+import Domaene.DomainFacade;
+import Persistence.ClubMember;
 import Persistence.Competition;
+import Persistence.CompetitionTeamId;
+import Persistence.Department;
+import Persistence.PersistenceManager;
+import Persistence.Team;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 
 public class CompetitionController {
+
+    DomainFacade facade;
     
-    public void createNewCompetition(String data){
-        //TODO: use case create a new competition
+    public CompetitionController() {
+        facade = new DomainFacade();
     }
     
-    public void addMemberToCompetitionTeam(String data){
-        //TODO: use case add a Member to a competition
+   
+    public void createNewCompetition(Department dep, String competitionName, double fee, Date date){
+        facade.createNewCompetition(new Competition(dep,competitionName,fee,date));
+    }
+    
+    public void createNewCompetition(Competition competition){
+        facade.createNewCompetition(competition);
+    }
+    
+    public void addMemberToCompetitionTeam(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId){
+        facade.addMemberToCompetition(member, competition, team, competitionTeamId);
     }
     
     public void removeMemberFromCompetitioinTeam(String data){

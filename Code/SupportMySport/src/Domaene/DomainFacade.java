@@ -16,7 +16,9 @@ public class DomainFacade {
 
     private ClubMemberManager clubMemberManager;
     private CompetitionManager competitionManager;
-
+    private CompetitionTeamManager competitionTeamManager;
+    
+    // <editor-fold defaultstate="collapsed" desc="ClubMember Specific Calls">
     public DomainFacade() {
         clubMemberManager = new ClubMemberManager();
     }
@@ -32,9 +34,9 @@ public class DomainFacade {
     public List<Persistence.ClubMember> searchMemberByAttributes(String attributes) {
         return clubMemberManager.searchMembersByAttributes(attributes);
     }
+    // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Competition Specific Calls">
-    
     public Persistence.Competition getCompetitionById(int id){
         return competitionManager.getCompetitinById(id);
     }
@@ -56,8 +58,19 @@ public class DomainFacade {
     }
     
     public List<Object> getAllCompetitions(){
-        
         return competitionManager.getAllCompetitions();
+    }
+    
+    public void createNewCompetition(Competition competition){
+        competitionManager.createNewCompetition(competition);
+    }
+    
+    public void updateExistingCompetition(Competition competition){
+        competitionManager.updateExistingCompetition(competition);
+    }
+    
+    public void addMemberToCompetition(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) {
+        competitionTeamManager.createNewCompetitionTeam(competitionTeamId, team, competition, member);
     }
     // </editor-fold>
 }

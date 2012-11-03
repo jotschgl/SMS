@@ -62,4 +62,11 @@ public class CompetitionManager {
         persitenceManager.save(competition);
     }
     // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Updateing a existing Competition">
+    public void updateExistingCompetition(Competition competition){
+        PersistenceManager persistenceManager = new PersistenceManager();
+        persistenceManager.update(competition);
+    }
+    // </editor-fold>
 }
