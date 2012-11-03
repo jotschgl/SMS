@@ -6,10 +6,12 @@ import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeamId;
 import Persistence.Department;
+import Persistence.Meeting;
 import Persistence.PersistenceManager;
 import Persistence.Team;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 
@@ -29,29 +31,33 @@ public class CompetitionController {
     public void createNewCompetition(Competition competition){
         facade.createNewCompetition(competition);
     }
-    
+    //TODO: write tests for these methods and check if they work properly
     public void addMemberToCompetitionTeam(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId){
         facade.addMemberToCompetition(member, competition, team, competitionTeamId);
     }
     
-    public void removeMemberFromCompetitioinTeam(String data){
-        //TODO: use case remove Member from competition team
+    public void removeMemberFromCompetitionTeam(ClubMember member, Competition competition){
+        facade.removeMemberFromCompetition(member.getId(), competition.getId());
     }
     
-    public void addResultsToCompetition(String data){
-        //TODO: usecase add Results of a competition
+    public void removeMemberFromCompetitionTeam(int memberId, int competitionId){
+        facade.removeMemberFromCompetition(memberId, competitionId);
+    }
+    
+    public void addResultsToCompetitionMeeting(int TeamAId, int TeamBId, int pointsA, int pointsB, int competitionId){
+        facade.addResultsToCompetitionMeeting(TeamAId, TeamBId, pointsA, pointsB, pointsB, competitionId);
     }
    
-    public void showAllCompetitions(){
-        //TODO: show all competitions
+    public List<Competition> showAllCompetitions(){
+        return facade.getAllCompetitions();
     }
     
-    public void showCompetitionResults(Competition comp){
-        //TODO: show competitions results
+    public List<Meeting> showCompetitionResults(int competitionId){
+        return facade.showCompetitionResults(competitionId);
     }
     
-    public void showAllTeamsOfCompetition(Competition comp){
-        //TODO: show all teams of Competitions
+    public List<Teams> showAllTeamsOfCompetition(int competitionId){
+        return facade.showAllTeamsOfCompetition(competitionId);
     }
     
     public void showCompetitionTeamMembersOfCompetition(Competition comp){
