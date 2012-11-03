@@ -39,7 +39,12 @@ public class CompetitionManager {
     }
 
     public List<Object> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String startdateString = (startdate.getYear() + 1900) + "-" + (startdate.getMonth()+1) + "-" + startdate.getDate();
+        String enddateString = (enddate.getYear() + 1900) + "-" + (enddate.getMonth()+1) + "-" + enddate.getDate();
+        
+        String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition between '"+startdateString+"' and '"+enddateString+"')";
+        PersistenceManager persistenceManager = new PersistenceManager();
+        return persistenceManager.getObjectsByHQLQuery(hqlQuerie);
     }
 
     public List<Object> getAllCompetitions() {

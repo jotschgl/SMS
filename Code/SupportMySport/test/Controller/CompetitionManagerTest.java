@@ -107,4 +107,23 @@ public class CompetitionManagerTest {
          System.out.println();
         
     }
+    
+    @Test
+    public void testgetAllCompetitionsBetweenPeriod() throws ParseException{            
+ 
+         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd");
+         String startDateTo = "2012-12-12";
+         String endDateTo = "2013-12-24";
+         Date startDate = formatter.parse(startDateTo);
+         Date endDate = formatter.parse(endDateTo);
+         CompetitionManager mng = new CompetitionManager();
+         List<Object> testComp = mng.getAllCompetitionsBetweenPeriod(startDate, endDate);
+         Competition comp = (Competition) testComp.get(0);
+         System.out.println();
+         System.out.println("Running test on getCompetition between Dates: ");
+         System.out.println("Length of list: " + testComp.size());
+         System.out.println("Returned one of a Competition with date: " + comp.getDateOfCompetition());
+         System.out.println();
+        
+    }
 }
