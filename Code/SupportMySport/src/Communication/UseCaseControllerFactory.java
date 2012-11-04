@@ -4,6 +4,7 @@
  */
 package Communication;
 
+import Communication.interfaces.IUseCaseControllerFactory;
 import Controller.ClubMemberController;
 import Controller.CompetitionController;
 import java.rmi.RemoteException;
@@ -15,27 +16,11 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class UseCaseControllerFactory extends UnicastRemoteObject implements IUseCaseControllerFactory
 {
-    private UseCaseControllerFactory() throws RemoteException
+    public UseCaseControllerFactory() throws RemoteException
     {
         super();
     }
-    private static UseCaseControllerFactory instance;
-
-    /**
-     * gibt eine Instanz der Klasse zurück
-     *
-     * @return
-     * eine Instanz der Klasse
-     */
-    public static UseCaseControllerFactory getInstance() throws RemoteException
-    {
-        if (instance == null)
-        {
-            instance = new UseCaseControllerFactory();
-        }
-        return instance;
-    }
-
+  
     @Override
     public ClubMemberController createClubMemberController() throws RemoteException
     {
