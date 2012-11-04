@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
+import Persistence.interfaces.ISport;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Sport", catalog = "c1teamf")
-public class Sport implements java.io.Serializable {
+public class Sport implements ISport {
 
     private Integer id;
     private Department department;
@@ -49,57 +50,69 @@ public class Sport implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
+    @Override
     public Integer getId() {
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
+    @Override
     public Department getDepartment() {
         return this.department;
     }
 
+    @Override
     public void setDepartment(Department department) {
         this.department = department;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rule_id", nullable = false)
+    @Override
     public Rule getRule() {
         return this.rule;
     }
 
+    @Override
     public void setRule(Rule rule) {
         this.rule = rule;
     }
 
     @Column(name = "name", nullable = false, length = 45)
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sport")
+    @Override
     public Set<League> getLeagues() {
         return this.leagues;
     }
 
+    @Override
     public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sport")
+    @Override
     public Set<Team> getTeams() {
         return this.teams;
     }
 
+    @Override
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }

@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
+import Persistence.interfaces.ITeam;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -24,7 +25,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Team", catalog = "c1teamf", uniqueConstraints =
 @UniqueConstraint(columnNames = "name"))
-public class Team implements java.io.Serializable {
+public class Team implements ITeam {
 
     private Integer id;
     private Sport sport;
@@ -61,59 +62,71 @@ public class Team implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
+    @Override
     public Integer getId() {
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sport_id")
+    @Override
     public Sport getSport() {
         return this.sport;
     }
 
+    @Override
     public void setSport(Sport sport) {
         this.sport = sport;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
+    @Override
     public League getLeague() {
         return this.league;
     }
 
+    @Override
     public void setLeague(League league) {
         this.league = league;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
+    @Override
     public Department getDepartment() {
         return this.department;
     }
 
+    @Override
     public void setDepartment(Department department) {
         this.department = department;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "trainer_id")
+    @Override
     public ClubMember getClubMember() {
         return this.clubMember;
     }
 
+    @Override
     public void setClubMember(ClubMember clubMember) {
         this.clubMember = clubMember;
     }
 
     @Column(name = "name", unique = true, nullable = false, length = 45)
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
@@ -122,37 +135,45 @@ public class Team implements java.io.Serializable {
     @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
+    @Override
     public Set<ClubMember> getClubMembers() {
         return this.clubMembers;
     }
 
+    @Override
     public void setClubMembers(Set<ClubMember> clubMembers) {
         this.clubMembers = clubMembers;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamAId")
+    @Override
     public Set<Meeting> getMeetingsForTeamAId() {
         return this.meetingsForTeamAId;
     }
 
+    @Override
     public void setMeetingsForTeamAId(Set<Meeting> meetingsForTeamAId) {
         this.meetingsForTeamAId = meetingsForTeamAId;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "team")
+    @Override
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
     }
 
+    @Override
     public void setCompetitionTeams(Set<CompetitionTeam> competitionTeams) {
         this.competitionTeams = competitionTeams;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamBId")
+    @Override
     public Set<Meeting> getMeetingsForTeamBId() {
         return this.meetingsForTeamBId;
     }
 
+    @Override
     public void setMeetingsForTeamBId(Set<Meeting> meetingsForTeamBId) {
         this.meetingsForTeamBId = meetingsForTeamBId;
     }
@@ -161,10 +182,12 @@ public class Team implements java.io.Serializable {
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "league_id", nullable = false, updatable = false)})
+    @Override
     public Set<League> getLeagues() {
         return this.leagues;
     }
 
+    @Override
     public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
     }

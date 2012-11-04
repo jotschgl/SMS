@@ -4,11 +4,14 @@
  */
 package Controller;
 
-import Domaene.DomainFacade;
+import Communication.ClubMemberDTO;
 import Persistence.ClubMember;
+import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -22,7 +25,14 @@ public class ClubMemberControllerTest {
     private ClubMemberController clubMemberController;
     
     public ClubMemberControllerTest() {
-        clubMemberController = new ClubMemberController(new DomainFacade());
+        try
+        {
+            clubMemberController = new ClubMemberController();
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(ClubMemberControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @BeforeClass
@@ -48,11 +58,18 @@ public class ClubMemberControllerTest {
      */
     @Test
     public void testGetAllClubMembers() {
-        System.out.println("* ClubMemberControllerTest: testGetAllClubMembers");
-        List<ClubMember> result = clubMemberController.getAllClubMembers();
-        System.out.println("Anzahl gefundener ClubMembers: " + result.size());
-        for(ClubMember cm : result){
-            System.out.println(cm.getLastname());
+        try
+        {
+            System.out.println("* ClubMemberControllerTest: testGetAllClubMembers");
+            Collection<ClubMemberDTO> result = clubMemberController.getAllClubMembers();
+            System.out.println("Anzahl gefundener ClubMembers: " + result.size());
+            for(ClubMemberDTO cm : result){
+                System.out.println(cm.getLastname());
+            }
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(ClubMemberControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -61,12 +78,19 @@ public class ClubMemberControllerTest {
      */
     @Test
     public void testSearchMemberByAttributes() {
-        System.out.println("* ClubMemberControllerTest: testSearchMemberByAttributes");
-        String attributes = "a";
-        List<ClubMember> result = clubMemberController.searchMemberByAttributes(attributes);
-        System.out.println("Anzahl gefundener ClubMembers: " + result.size());
-        for(ClubMember cm : result){
-            System.out.println(cm.getLastname());
+        try
+        {
+            System.out.println("* ClubMemberControllerTest: testSearchMemberByAttributes");
+            String attributes = "a";
+            Collection<ClubMemberDTO> result = clubMemberController.searchMemberByAttributes(attributes);
+            System.out.println("Anzahl gefundener ClubMembers: " + result.size());
+            for(ClubMemberDTO cm : result){
+                System.out.println(cm.getLastname());
+            }
+        }
+        catch (RemoteException ex)
+        {
+            Logger.getLogger(ClubMemberControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

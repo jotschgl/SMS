@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
+import Persistence.interfaces.IRule;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Rule", catalog = "c1teamf")
-public class Rule implements java.io.Serializable {
+public class Rule implements IRule {
 
     private Integer id;
     private int nrplayer;
@@ -48,55 +49,67 @@ public class Rule implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
+    @Override
     public Integer getId() {
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "nrplayer", nullable = false)
+    @Override
     public int getNrplayer() {
         return this.nrplayer;
     }
 
+    @Override
     public void setNrplayer(int nrplayer) {
         this.nrplayer = nrplayer;
     }
 
     @Column(name = "pointswin", nullable = false)
+    @Override
     public int getPointswin() {
         return this.pointswin;
     }
 
+    @Override
     public void setPointswin(int pointswin) {
         this.pointswin = pointswin;
     }
 
     @Column(name = "pointsdraw", nullable = false)
+    @Override
     public int getPointsdraw() {
         return this.pointsdraw;
     }
 
+    @Override
     public void setPointsdraw(int pointsdraw) {
         this.pointsdraw = pointsdraw;
     }
 
     @Column(name = "pointslose", nullable = false)
+    @Override
     public int getPointslose() {
         return this.pointslose;
     }
 
+    @Override
     public void setPointslose(int pointslose) {
         this.pointslose = pointslose;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rule")
+    @Override
     public Set<Sport> getSports() {
         return this.sports;
     }
 
+    @Override
     public void setSports(Set<Sport> sports) {
         this.sports = sports;
     }

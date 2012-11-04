@@ -1,11 +1,9 @@
 package Communication;
 
-import Persistence.Department;
-import Persistence.Sport;
-import Persistence.Team;
+import Persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -22,17 +20,36 @@ public class ClubMemberDTO implements Serializable
     private String country;
     private String zip;
     private String mail;
-    private Integer phone;
-    private Character gender;
+    private String phone;
+    private char gender;
     private Date birthday;
     private Boolean membershipFeePayed;
     private Sport sport;
     private Team team;
-    private Department department;
-    private List<FunctionRoleDTO> roles;
+    private Collection<Department> departments;
+    private Collection<FunctionRole> roles;
 
     public ClubMemberDTO()
     {
+    }
+
+    public ClubMemberDTO(ClubMember member)
+    {
+        this.setBirthday(member.getBirthday());
+        this.setCity(member.getCity());
+        this.setCountry(member.getCountry());
+        this.setDepartments(member.getDepartments());
+        this.setFirstname(member.getFirstname());
+        this.setGender(member.getGender());
+        this.setLastname(member.getLastname());
+        this.setMail(member.getEmail());
+        this.setMembershipFeePayed(member.getMembershipfeePayed());
+        this.setPhone(member.getPhone());
+        this.setRoles(member.getFunctionRoles());
+        this.setStreet(member.getStreet());
+        this.setUsername(member.getUsername());
+        this.setZip(member.getZip());
+        //this.setSport(member.ge);
     }
 
     public int getId()
@@ -171,7 +188,7 @@ public class ClubMemberDTO implements Serializable
     /**
      * @return the phone
      */
-    public Integer getPhone()
+    public String getPhone()
     {
         return phone;
     }
@@ -179,7 +196,7 @@ public class ClubMemberDTO implements Serializable
     /**
      * @param phone the phone to set
      */
-    public void setPhone(Integer phone)
+    public void setPhone(String phone)
     {
         this.phone = phone;
     }
@@ -187,7 +204,7 @@ public class ClubMemberDTO implements Serializable
     /**
      * @return the gender
      */
-    public Character getGender()
+    public char getGender()
     {
         return gender;
     }
@@ -195,7 +212,7 @@ public class ClubMemberDTO implements Serializable
     /**
      * @param gender the gender to set
      */
-    public void setGender(Character gender)
+    public void setGender(char gender)
     {
         this.gender = gender;
     }
@@ -235,7 +252,7 @@ public class ClubMemberDTO implements Serializable
     /**
      * @return the roles
      */
-    public List<FunctionRoleDTO> getRoles()
+    public Collection<FunctionRole> getRoles()
     {
         return roles;
     }
@@ -243,19 +260,19 @@ public class ClubMemberDTO implements Serializable
     /**
      * @param roles the roles to set
      */
-    public void setRoles(List<FunctionRoleDTO> roles)
+    public void setRoles(Collection<FunctionRole> roles)
     {
         this.roles = roles;
     }
 
-    public Department getDepartment()
+    public Collection<Department> getDepartments()
     {
-        return department;
+        return departments;
     }
 
-    public void setDepartment(Department department)
+    public void setDepartments(Collection<Department> departments)
     {
-        this.department = department;
+        this.departments = departments;
     }
 
     public Sport getSport()
