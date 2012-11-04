@@ -27,6 +27,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         tableWettkampf.setAutoCreateRowSorter(true);
         tableBegnung.setAutoCreateRowSorter(true);
         this.setRowSorter();
+        this.fillTable();
     }
 
     /**
@@ -133,11 +134,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
         tableBegnung.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"c", null, null, null, null},
-                {"c", null, null, null, null},
-                {"b", null, null, null, null},
-                {"g", null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Spiel", "Mannschaft 1", "Mannschaft 2", "Ort", "Datum"
@@ -239,7 +236,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelLeft, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showNewFrame();
+                    showFrame();
                 }
             }
         }
@@ -248,17 +245,17 @@ public class WettkampfFrame extends javax.swing.JFrame {
     private void btnBearbBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBearbBegegnungMouseClicked
         int[] selectedRows = tableBegnung.getSelectedRows();
 
-        if (tableWettkampf.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(panelRight, "Keine Wettkämpfe vorhanden");
+        if (tableBegnung.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(panelRight, "Keine Begegnungen vorhanden");
         } else {
             //keim Wettkampf gewählt
             if (selectedRows.length == 0) {
-                JOptionPane.showMessageDialog(panelRight, "Wählen Sie einen Wettkampf aus!");
+                JOptionPane.showMessageDialog(panelRight, "Wählen Sie einen Begegnungen aus!");
             } else {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
-                int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
+                int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie die markierte Begegnung bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showNewFrame();
+                    showFrame();
                 }
             }
         }
@@ -269,7 +266,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         if (text.length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter(text));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
         }
     }//GEN-LAST:event_textFieldRowFilterKeyReleased
 
@@ -322,7 +319,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldRowFilter;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<TableModel> sorter;
-    private void showNewFrame() {
+
+    private void showFrame() {
         WelcomeFrame fr = new WelcomeFrame();
         this.dispose();
         this.setVisible(false);
@@ -333,5 +331,12 @@ public class WettkampfFrame extends javax.swing.JFrame {
         TableModel model = tableBegnung.getModel();
         sorter = new TableRowSorter<TableModel>(model);
         tableBegnung.setRowSorter(sorter);
+    }
+
+    private void fillTable() {
+        DefaultTableModel tablemodel = (DefaultTableModel) tableBegnung.getModel();
+        for (int i = 1; i < 10; i++) {
+            tablemodel.addRow(new Object[]{"Spiel "+i,"Team "+i,"Team "+(i*2) ,"Ort "+i,"Datum "+i});
+        }
     }
 }
