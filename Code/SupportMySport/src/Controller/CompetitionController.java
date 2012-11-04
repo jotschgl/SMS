@@ -1,18 +1,9 @@
 package Controller;
 
-import Domaene.CompetitionManager;
 import Domaene.DomainFacade;
-import Persistence.ClubMember;
-import Persistence.Competition;
-import Persistence.CompetitionTeamId;
-import Persistence.Department;
-import Persistence.Meeting;
-import Persistence.PersistenceManager;
-import Persistence.Team;
-import java.text.SimpleDateFormat;
+import Persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 
 public class CompetitionController {

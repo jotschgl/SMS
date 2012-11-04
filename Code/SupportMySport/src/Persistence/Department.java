@@ -25,7 +25,7 @@ import javax.persistence.UniqueConstraint;
 public class Department implements java.io.Serializable {
 
     private Integer id;
-    private ClubMember clubMember;
+    private ClubMember departmentChief;
     private String name;
     private Set<Competition> competitions = new HashSet<Competition>(0);
     private Set<Team> teams = new HashSet<Team>(0);
@@ -35,12 +35,12 @@ public class Department implements java.io.Serializable {
     }
 
     public Department(ClubMember clubMember, String name) {
-        this.clubMember = clubMember;
+        this.departmentChief = clubMember;
         this.name = name;
     }
 
     public Department(ClubMember clubMember, String name, Set<Competition> competitions, Set<Team> teams, Set<Sport> sports) {
-        this.clubMember = clubMember;
+        this.departmentChief = clubMember;
         this.name = name;
         this.competitions = competitions;
         this.teams = teams;
@@ -61,11 +61,11 @@ public class Department implements java.io.Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "departmentChief_id", nullable = false)
     public ClubMember getClubMember() {
-        return this.clubMember;
+        return this.departmentChief;
     }
 
     public void setClubMember(ClubMember clubMember) {
-        this.clubMember = clubMember;
+        this.departmentChief = clubMember;
     }
 
     @Column(name = "name", unique = true, nullable = false, length = 45)
