@@ -5,7 +5,7 @@
 package Domaene;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Collection;
 import Persistence.*;
 
 /**
@@ -30,41 +30,41 @@ public class DomainFacade {
     
     // <editor-fold defaultstate="collapsed" desc="ClubMember Specific Calls">
     
-    public List<Persistence.ClubMember> getAllClubMembers(){
+    public Collection<ClubMember> getAllClubMembers(){
         return clubMemberManager.getAllClubMembers();
     }
     
-      public void createOrUpdateClubMember(Persistence.ClubMember clubMember){
+      public void createOrUpdateClubMember(ClubMember clubMember){
         clubMemberManager.createOrUpdateClubMember(clubMember);
     }
 
-    public List<Persistence.ClubMember> searchMemberByAttributes(String attributes) {
+    public Collection<Persistence.ClubMember> searchMemberByAttributes(String attributes) {
         return clubMemberManager.searchMembersByAttributes(attributes);
     }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Competition Specific Calls">
-    public Persistence.Competition getCompetitionById(int id){
+    public Competition getCompetitionById(int id){
         return competitionManager.getCompetitinById(id);
     }
        
-    public List<Competition> getCompetitionsByName(String name){
+    public Collection<Competition> getCompetitionsByName(String name){
         return competitionManager.getCompetitionsByName(name);
     }
     
-    public List<Competition> getCompetitionByDepartmentId(int departmentId){
+    public Collection<Competition> getCompetitionByDepartmentId(int departmentId){
         return competitionManager.getCompetitionByDepartmentId(departmentId);
     }
         
-    public List<Competition> getCompetitionByDate(Date startdate){
+    public Collection<Competition> getCompetitionByDate(Date startdate){
         return competitionManager.getCompetitionByDate(startdate);
     }
     
-    public List<Competition> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate){
+    public Collection<Competition> getAllCompetitionsBetweenPeriod(Date startdate, Date enddate){
         return competitionManager.getAllCompetitionsBetweenPeriod(startdate, enddate);
     }
     
-    public List<Competition> getAllCompetitions(){
+    public Collection<Competition> getAllCompetitions(){
         return competitionManager.getAllCompetitions();
     }
     
@@ -86,16 +86,16 @@ public class DomainFacade {
     public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int pointsB0, int competitionId) {
         meetingManager.addResultsToCompetitionMeeting(teamAId, teamBId, pointsA, pointsB, competitionId);
     }
-    public List<Meeting> showCompetitionMeetings(int competitionId) {
+    public Collection<Meeting> showCompetitionMeetings(int competitionId) {
         return meetingManager.showCompetitionMeetings(competitionId);
     }
 
-    public List<Team> showAllTeamsOfCompetition(int competitionId) {
+    public Collection<Team> showAllTeamsOfCompetition(int competitionId) {
         return competitionTeamManager.showAllTeamsOfCompetition(competitionId);
     }
     // </editor-fold>
 
-    public List<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
+    public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
         return memberTeamManager.getMembersOfTeams(competitionTeamManager.showAllTeamsOfCompetition(competitionId));
     }
 }

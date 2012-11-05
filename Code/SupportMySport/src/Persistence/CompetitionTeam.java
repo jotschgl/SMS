@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
+import Persistence.interfaces.ICompetitionTeam;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CompetitionTeam", catalog = "c1teamf")
-public class CompetitionTeam implements java.io.Serializable {
+public class CompetitionTeam implements ICompetitionTeam {
 
     private CompetitionTeamId id;
     private Team team;
@@ -39,40 +40,48 @@ public class CompetitionTeam implements java.io.Serializable {
         @Column(name = "competition_id", nullable = false)),
         @AttributeOverride(name = "teamId", column =
         @Column(name = "team_id", nullable = false))})
+    @Override
     public CompetitionTeamId getId() {
         return this.id;
     }
 
+    @Override
     public void setId(CompetitionTeamId id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false, insertable = false, updatable = false)
+    @Override
     public Team getTeam() {
         return this.team;
     }
 
+    @Override
     public void setTeam(Team team) {
         this.team = team;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id", nullable = false, insertable = false, updatable = false)
+    @Override
     public Competition getCompetition() {
         return this.competition;
     }
 
+    @Override
     public void setCompetition(Competition competition) {
         this.competition = competition;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clubMember_id", nullable = false)
+    @Override
     public ClubMember getClubMember() {
         return this.clubMember;
     }
 
+    @Override
     public void setClubMember(ClubMember clubMember) {
         this.clubMember = clubMember;
     }

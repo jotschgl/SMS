@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
 
+import Persistence.interfaces.IMeeting;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "Meeting", catalog = "c1teamf")
-public class Meeting implements java.io.Serializable {
+public class Meeting implements IMeeting {
 
     private Integer id;
     private Competition competition;
@@ -45,58 +46,70 @@ public class Meeting implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
+    @Override
     public Integer getId() {
         return this.id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id", nullable = false)
+    @Override
     public Competition getCompetition() {
         return this.competition;
     }
 
+    @Override
     public void setCompetition(Competition competition) {
         this.competition = competition;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teamA_id", nullable = false)
+    @Override
     public Team getTeamByTeamAId() {
         return this.teamByTeamAId;
     }
 
+    @Override
     public void setTeamByTeamAId(Team teamByTeamAId) {
         this.teamByTeamAId = teamByTeamAId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teamB_id", nullable = false)
+    @Override
     public Team getTeamByTeamBId() {
         return this.teamByTeamBId;
     }
 
+    @Override
     public void setTeamByTeamBId(Team teamByTeamBId) {
         this.teamByTeamBId = teamByTeamBId;
     }
 
     @Column(name = "points_a")
+    @Override
     public Integer getPointsA() {
         return this.pointsA;
     }
 
+    @Override
     public void setPointsA(Integer pointsA) {
         this.pointsA = pointsA;
     }
 
     @Column(name = "points_b")
+    @Override
     public Integer getPointsB() {
         return this.pointsB;
     }
 
+    @Override
     public void setPointsB(Integer pointsB) {
         this.pointsB = pointsB;
     }
