@@ -24,6 +24,7 @@ public class MeetingManager {
         Competition competition = (Competition) persistenceManager.getObjectById(Competition.class, competitionId);
         
         Meeting meeting = new Meeting(competition, teamA, teamB, pointsA, pointsB);
+        persistenceManager.save(meeting);
     }
 
     List<Meeting> showCompetitionMeetings(int competitionId) {

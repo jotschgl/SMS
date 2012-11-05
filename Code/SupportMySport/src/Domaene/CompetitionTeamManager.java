@@ -13,17 +13,18 @@ import java.util.List;
 
 public class CompetitionTeamManager {
    
-    public void createNewCompetitionTeam(CompetitionTeamId competitionTeamId,Team team,Competition competition, ClubMember member){
+    public void addMemberToCompetition(CompetitionTeamId competitionTeamId,Team team,Competition competition, ClubMember member){
        CompetitionTeam ct = new CompetitionTeam(competitionTeamId, team, competition, member);
        PersistenceManager persitenceManager = new PersistenceManager();
        persitenceManager.save(ct);
     }
 
-    public void removeMemberFromCompetition(int memberId, int competitionId) {
-        String hqlQuerie = "FROM CompetitionTeam ct WHERE (ct.clubMember_id = '"+memberId+"' AND ct.competition_id = '"+competitionId+"')";
+    public void removeMemberFromCompetition(int memberId, int competitionId, int teamId) {
+        String hqlQuerie = "FROM CompetitionTeam WHERE (clubMember_id = "+memberId+" AND competition_id = "+competitionId+" AND team_id = "+teamId+")";
         PersistenceManager persistenceManager = new PersistenceManager();
-        CompetitionTeam cp = (CompetitionTeam) persistenceManager.getObjectsByHQLQuery(hqlQuerie);
-        persistenceManager.delete(cp);
+        List<Object> cp =  persistenceManager.getObjectsByHQLQuery(hqlQuerie);
+        CompetitionTeam  ct = (CompetitionTeam) cp.get(0); 
+        persistenceManager.delete(ct);
     }
 
     List<Team> showAllTeamsOfCompetition(int competitionId) {

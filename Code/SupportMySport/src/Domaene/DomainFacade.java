@@ -77,10 +77,10 @@ public class DomainFacade {
     }
     
     public void addMemberToCompetition(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) {
-        competitionTeamManager.createNewCompetitionTeam(competitionTeamId, team, competition, member);
+        competitionTeamManager.addMemberToCompetition(competitionTeamId, team, competition, member);
     }
-    public void removeMemberFromCompetition(int memberId,int competitionId) {
-        competitionTeamManager.removeMemberFromCompetition(memberId, competitionId);
+    public void removeMemberFromCompetition(int memberId,int competitionId, int teamId) {
+        competitionTeamManager.removeMemberFromCompetition(memberId, competitionId, teamId);
         
     }
     public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int pointsB0, int competitionId) {

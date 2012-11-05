@@ -30,7 +30,7 @@ public class CompetitionManager {
     }
 
     public List<Competition> getCompetitionByDepartmentId(int departmentId) {
-        String hqlQuerie = "FROM Competition cp WHERE (cp.department_id LIKE '"+departmentId+"')";
+        String hqlQuerie = "FROM Competition WHERE (department_id = "+departmentId+")";
         PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);

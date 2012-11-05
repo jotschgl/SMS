@@ -76,13 +76,12 @@ public class CompetitionManagerTest {
     public void testgetCompetitionByDepartmentId(){
          int departmentId = 3;
          CompetitionManager mng = new CompetitionManager();
-         //TODO: Problem with HQL for getting Competitions over the departmentid
-         //List<Object> testComp = mng.getCompetitionByDepartmentId(departmentId);
-         //Competition comp = (Competition) testComp.get(0);
-         //System.out.println();
-         //System.out.println("Running test on getCompetition over Departmentid");
-         //System.out.println("Returned Competition with name: " + comp.getId());
-         //System.out.println();
+         List<Competition> testComp = mng.getCompetitionByDepartmentId(departmentId);
+         Competition comp = (Competition) testComp.get(0);
+         System.out.println();
+         System.out.println("Running test on getCompetition over Departmentid: " + departmentId);
+         System.out.println("Returned Competition with name: " + comp.getName());
+         System.out.println();
         
     }
 
@@ -135,7 +134,7 @@ public class CompetitionManagerTest {
     }
     
     @Test
-    public void testInsertNewCompetition() throws ParseException{
+    public void createNewCompetition() throws ParseException{
         
         //Setting up the required parameters for a competition
         PersistenceManager mngr = new PersistenceManager();

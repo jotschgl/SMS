@@ -32,7 +32,7 @@ public interface ICompetitionController extends Remote
 
     Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException;
 
-    void removeMemberFromCompetitionTeam(ClubMember member, Competition competition) throws RemoteException;
+    void removeMemberFromCompetitionTeam(ClubMember member, Competition competition,Team team) throws RemoteException;
 
-    void removeMemberFromCompetitionTeam(int memberId, int competitionId) throws RemoteException;
+    void removeMemberFromCompetitionTeam(int memberId, int competitionId, int teamId) throws RemoteException;
 }
