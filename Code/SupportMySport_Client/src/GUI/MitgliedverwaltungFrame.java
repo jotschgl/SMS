@@ -5,6 +5,9 @@
 package GUI;
 
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -18,7 +21,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     public MitgliedverwaltungFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-        MitgliedTable.setAutoCreateRowSorter(true);
+        tableMitglied.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -30,32 +33,30 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        SearchTextField = new javax.swing.JTextField();
-        SearchButton = new javax.swing.JButton();
+        memberSearch = new javax.swing.JTextField();
         NeuesMitgliedButton = new javax.swing.JButton();
         AenderungenSpeichernButton = new javax.swing.JButton();
-        mitgliedPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        MitgliedTable = new javax.swing.JTable();
+        tableMitglied = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(541, 451));
+        setTitle("Support My Sports - MitgliederVerwaltung");
+        setPreferredSize(new java.awt.Dimension(520, 380));
+        setResizable(false);
 
-        SearchTextField.addActionListener(new java.awt.event.ActionListener() {
+        memberSearch.setMinimumSize(new java.awt.Dimension(6, 25));
+        memberSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchTextFieldActionPerformed(evt);
+                memberSearchActionPerformed(evt);
+            }
+        });
+        memberSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                memberSearchKeyReleased(evt);
             }
         });
 
-        SearchButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        SearchButton.setText("Search");
-        SearchButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SearchButtonMouseClicked(evt);
-            }
-        });
-
-        NeuesMitgliedButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        NeuesMitgliedButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         NeuesMitgliedButton.setText("Neues Mitglied anlegen");
         NeuesMitgliedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,7 +64,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
             }
         });
 
-        AenderungenSpeichernButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        AenderungenSpeichernButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         AenderungenSpeichernButton.setText("Änderungen speichern");
         AenderungenSpeichernButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -71,87 +72,54 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
             }
         });
 
-        mitgliedPanel.setName("Mitglieder"); // NOI18N
-
-        MitgliedTable.setModel(new javax.swing.table.DefaultTableModel(
+        tableMitglied.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {"and", null, null, null, null, null},
+                {"andr", null, null, null, null, null},
+                {"ANDRE", null, null, null, null, null}
             },
             new String [] {
                 "Vorname", "Nachname", "Land", "Stadt", "E-Mail", "Geburtstag"
             }
         ));
-        jScrollPane1.setViewportView(MitgliedTable);
-
-        javax.swing.GroupLayout mitgliedPanelLayout = new javax.swing.GroupLayout(mitgliedPanel);
-        mitgliedPanel.setLayout(mitgliedPanelLayout);
-        mitgliedPanelLayout.setHorizontalGroup(
-            mitgliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mitgliedPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        mitgliedPanelLayout.setVerticalGroup(
-            mitgliedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mitgliedPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+        jScrollPane1.setViewportView(tableMitglied);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(1, 1, 1)
                         .addComponent(NeuesMitgliedButton)
-                        .addGap(98, 98, 98)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(AenderungenSpeichernButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mitgliedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(SearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(SearchButton)))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(memberSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SearchButton))
-                .addGap(27, 27, 27)
-                .addComponent(mitgliedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(memberSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NeuesMitgliedButton)
                     .addComponent(AenderungenSpeichernButton))
-                .addGap(41, 41, 41))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SearchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchTextFieldActionPerformed
+    private void memberSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memberSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SearchTextFieldActionPerformed
+    }//GEN-LAST:event_memberSearchActionPerformed
 
     private void NeuesMitgliedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NeuesMitgliedButtonActionPerformed
         // TODO add your handling code here:
@@ -161,27 +129,17 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
     private void AenderungenSpeichernButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AenderungenSpeichernButtonMouseClicked
         // TODO add your handling code here:
-        int[] selectedRows = MitgliedTable.getSelectedRows();
-
-        if (MitgliedTable.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(mitgliedPanel, "Keine Mitglieder vorhanden");
-        } else {
-            //keim Wettkampf gewählt
-            if (selectedRows.length == 0) {
-                JOptionPane.showMessageDialog(mitgliedPanel, "Wählen Sie ein Mitglied aus!");
-            } else {
-                //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
-                int reply = JOptionPane.showConfirmDialog(mitgliedPanel, "Möchten Sie das markierte Mitglied bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
-                if (reply == JOptionPane.YES_OPTION) {
-                    showFrame();
-                }
-            }
-        }
     }//GEN-LAST:event_AenderungenSpeichernButtonMouseClicked
 
-    private void SearchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchButtonMouseClicked
+    private void memberSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_memberSearchKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_SearchButtonMouseClicked
+        String text = memberSearch.getText();
+        if (text.length() == 0) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+        }
+    }//GEN-LAST:event_memberSearchKeyReleased
 
     /**
      * @param args the command line arguments
@@ -220,18 +178,27 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AenderungenSpeichernButton;
-    private javax.swing.JTable MitgliedTable;
     private javax.swing.JButton NeuesMitgliedButton;
-    private javax.swing.JButton SearchButton;
-    private javax.swing.JTextField SearchTextField;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel mitgliedPanel;
+    private javax.swing.JTextField memberSearch;
+    private javax.swing.JTable tableMitglied;
     // End of variables declaration//GEN-END:variables
-
+    
+    private TableRowSorter<TableModel> sorter;
+    
     private void showFrame() {
         WelcomeFrame fr = new WelcomeFrame();
         this.dispose();
         this.setVisible(false);
         fr.setVisible(true);
     }
+
+    private void setRowSorter() {
+        TableModel model = tableMitglied.getModel();
+        sorter = new TableRowSorter<TableModel>(model);
+        tableMitglied.setRowSorter(sorter);
+    }
+    
+    
+    
 }

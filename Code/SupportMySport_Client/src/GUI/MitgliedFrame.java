@@ -42,22 +42,23 @@ public class MitgliedFrame extends javax.swing.JFrame {
         PostleitzahlLabel = new javax.swing.JLabel();
         EmailTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TelefonTextField = new javax.swing.JTextField();
         TelefonLabel = new javax.swing.JLabel();
-        GeschlechtTextField = new javax.swing.JTextField();
         GeschlechtLabel = new javax.swing.JLabel();
-        GeburtstagTextField = new javax.swing.JTextField();
         GeburtstagLabel = new javax.swing.JLabel();
         SpeichernButton = new javax.swing.JButton();
+        TelefonTextField = new javax.swing.JTextField();
+        GeburtstagDateChooser = new com.toedter.calendar.JDateChooser();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(541, 460));
+        setTitle("Support My Sports - Neues Mitglied erstellen");
+        setPreferredSize(new java.awt.Dimension(461, 500));
         setResizable(false);
 
         RegristierungLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         RegristierungLabel.setText("Regristierung");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setText("Vorname:");
 
         VornameTextField.setMaximumSize(new java.awt.Dimension(100, 25));
@@ -69,7 +70,7 @@ public class MitgliedFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Nachname:");
 
         NachnameTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -78,31 +79,37 @@ public class MitgliedFrame extends javax.swing.JFrame {
             }
         });
 
-        UsernameLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        UsernameLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         UsernameLabel.setText("Username:");
 
-        StraßeLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        StraßeLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         StraßeLabel.setText("Straße:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        StraßeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StraßeTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Stadt:");
 
-        PostleitzahlLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        PostleitzahlLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         PostleitzahlLabel.setText("PLZ:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("E-Mail:");
 
-        TelefonLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        TelefonLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         TelefonLabel.setText("Telefon:");
 
-        GeschlechtLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        GeschlechtLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         GeschlechtLabel.setText("Geschlecht:");
 
-        GeburtstagLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        GeburtstagLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         GeburtstagLabel.setText("Geburtstag:");
 
-        SpeichernButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        SpeichernButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         SpeichernButton.setText("Speichern");
         SpeichernButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,95 +117,104 @@ public class MitgliedFrame extends javax.swing.JFrame {
             }
         });
 
+        GeburtstagDateChooser.setPreferredSize(new java.awt.Dimension(87, 25));
+
+        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Männlich", "Weiblich" }));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(56, 25));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(RegristierungLabel)
+                        .addGap(0, 299, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(UsernameLabel)
-                            .addComponent(StraßeLabel)
-                            .addComponent(jLabel3)
-                            .addComponent(PostleitzahlLabel)
-                            .addComponent(jLabel4)
-                            .addComponent(TelefonLabel)
-                            .addComponent(GeschlechtLabel)
-                            .addComponent(GeburtstagLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(EmailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(TelefonTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                            .addComponent(GeschlechtTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(VornameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(NachnameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(StraßeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(StadtTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                                    .addComponent(LandTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(GeburtstagTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RegristierungLabel)
-                            .addComponent(SpeichernButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(228, 228, 228))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(SpeichernButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(StraßeLabel)
+                                            .addComponent(GeschlechtLabel)
+                                            .addComponent(jLabel3)
+                                            .addComponent(PostleitzahlLabel)
+                                            .addComponent(jLabel4)
+                                            .addComponent(TelefonLabel)
+                                            .addComponent(GeburtstagLabel)))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(UsernameLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(GeburtstagDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(LandTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(VornameTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(UsernameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(NachnameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(StraßeTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(StadtTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EmailTextField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(TelefonTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(58, 58, 58))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(RegristierungLabel)
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(VornameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(NachnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VornameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NachnameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(UsernameLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(StraßeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(StraßeLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(StraßeLabel)
+                    .addComponent(StraßeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(StadtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(PostleitzahlLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TelefonLabel)
+                    .addComponent(TelefonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GeschlechtLabel)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GeburtstagLabel)
+                    .addComponent(GeburtstagDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(TelefonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TelefonLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(GeschlechtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GeschlechtLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(GeburtstagTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(GeburtstagLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(SpeichernButton)
-                .addGap(24, 24, 24))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,6 +231,10 @@ public class MitgliedFrame extends javax.swing.JFrame {
     private void SpeichernButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeichernButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SpeichernButtonActionPerformed
+
+    private void StraßeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StraßeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StraßeTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,10 +272,9 @@ public class MitgliedFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField EmailTextField;
+    private com.toedter.calendar.JDateChooser GeburtstagDateChooser;
     private javax.swing.JLabel GeburtstagLabel;
-    private javax.swing.JTextField GeburtstagTextField;
     private javax.swing.JLabel GeschlechtLabel;
-    private javax.swing.JTextField GeschlechtTextField;
     private javax.swing.JTextField LandTextField;
     private javax.swing.JTextField NachnameTextField;
     private javax.swing.JLabel PostleitzahlLabel;
@@ -269,6 +288,7 @@ public class MitgliedFrame extends javax.swing.JFrame {
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JTextField UsernameTextField;
     private javax.swing.JTextField VornameTextField;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

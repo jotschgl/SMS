@@ -108,7 +108,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
                                 .addComponent(btnErsteWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(68, 68, 68)
                                 .addComponent(btnBearbWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelLeftLayout.setVerticalGroup(
@@ -236,7 +236,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelLeft, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showFrame();
+                    showWettkampfErstellung();
                 }
             }
         }
@@ -255,7 +255,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie die markierte Begegnung bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showFrame();
+                    showWettkampfErstellung();
                 }
             }
         }
@@ -338,5 +338,10 @@ public class WettkampfFrame extends javax.swing.JFrame {
         for (int i = 1; i < 10; i++) {
             tablemodel.addRow(new Object[]{"Spiel "+i,"Team "+i,"Team "+(i*2) ,"Ort "+i,"Datum "+i});
         }
+    }
+
+    private void showWettkampfErstellung() {
+        WettkampfErstellung wE = new WettkampfErstellung();
+        wE.setVisible(true);
     }
 }
