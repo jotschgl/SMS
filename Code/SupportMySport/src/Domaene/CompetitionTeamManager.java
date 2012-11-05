@@ -18,7 +18,7 @@ import java.util.List;
 public class CompetitionTeamManager {
    
     public void createNewCompetitionTeam(CompetitionTeamId competitionTeamId,Team team,Competition competition, ClubMember member){
-       CompetitionTeam ct = new CompetitionTeam(competitionTeamId, team, competition, member); 
+       CompetitionTeam ct = new CompetitionTeam(competitionTeamId, team, competition, member);
        PersistenceManager persitenceManager = new PersistenceManager();
        persitenceManager.save(ct);
     }
