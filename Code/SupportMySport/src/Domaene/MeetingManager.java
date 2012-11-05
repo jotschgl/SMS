@@ -15,7 +15,7 @@ import java.util.List;
 
 public class MeetingManager {
 
-    void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int competitionId) {
+    public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int competitionId) {
        
         PersistenceManager persistenceManager = new PersistenceManager();
         
@@ -27,10 +27,10 @@ public class MeetingManager {
         persistenceManager.save(meeting);
     }
 
-    List<Meeting> showCompetitionMeetings(int competitionId) {
+    public List<Meeting> showCompetitionMeetings(int competitionId) {
         PersistenceManager persistenceManager = new PersistenceManager();
         List<Meeting> competitionMeetings = new LinkedList<Meeting>();
-        String hqlQuerie = "FROM Meeting m WHERE (m.competition_id LIKE '"+competitionId+"')";
+        String hqlQuerie = "FROM Meeting WHERE (competition_id = "+competitionId+")";
         List<Object> results = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : results){
             competitionMeetings.add((Meeting) obj);

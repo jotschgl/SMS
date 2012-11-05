@@ -18,7 +18,6 @@ import java.util.List;
 public class MemberTeamManager {
 
     public List<ClubMember> getMembersOfTeams(List<Team> teams) {
-        
         //TODO: Missing the MemberTeam class in persistence
         //PersistenceManager persistenceManager = new PersistenceManager();
         //List<MemberTeam> memberTeam = new LinkedList<MemberTeam>();

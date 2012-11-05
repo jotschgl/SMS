@@ -11,6 +11,7 @@ import Persistence.Competition;
 import Persistence.CompetitionTeamId;
 import Persistence.PersistenceManager;
 import Persistence.Team;
+import java.util.List;
 import org.junit.Test;
 
 /**
@@ -57,5 +58,12 @@ public class CompetitionTeamManagerTest {
         
         //cpt.removeMemberFromCompetition(member, compId, teamId);
         
+    }
+    
+    @Test
+    public void showAllTeamsOfCompetitionTest(){
+        //TODO: test this method when the showAllTeamsOfCompetition works correct
+       CompetitionTeamManager cpt = new CompetitionTeamManager();
+       List<Team> list = cpt.showAllTeamsOfCompetition(3);
     }
 }

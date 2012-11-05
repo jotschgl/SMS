@@ -27,7 +27,8 @@ public class CompetitionTeamManager {
         persistenceManager.delete(ct);
     }
 
-    List<Team> showAllTeamsOfCompetition(int competitionId) {
+    public List<Team> showAllTeamsOfCompetition(int competitionId) {
+        //TODO: Correct this method
         List<Team> teamList = new LinkedList<Team>();
         String hqlQuerie = "FROM CompetitionTeam ct WHERE(ct.competition_id = '"+competitionId+"')";
         PersistenceManager persistenceManger = new PersistenceManager();
