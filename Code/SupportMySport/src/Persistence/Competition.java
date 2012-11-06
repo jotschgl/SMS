@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 @Table(name = "Competition", catalog = "c1teamf")
 public class Competition implements ICompetition {
 
-    private Integer id;
+    private Integer id; 
     private Department department;
     private String name;
     private double competitionfee;

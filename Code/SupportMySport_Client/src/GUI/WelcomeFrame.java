@@ -146,7 +146,8 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void WettkampfverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WettkampfverwaltungButtonActionPerformed
         WettkampfFrame wF = new WettkampfFrame();
-        wF.setVisible(true);
+         wF.setVisible(true);
+        
     }//GEN-LAST:event_WettkampfverwaltungButtonActionPerformed
 
     /**
