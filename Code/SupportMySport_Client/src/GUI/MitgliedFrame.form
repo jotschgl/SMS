@@ -27,50 +27,45 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="RegristierungLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="299" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="SpeichernButton" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="SpeichernButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="UsernameLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="StraßeLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="GeschlechtLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="PostleitzahlLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TelefonLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="GeburtstagLabel" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="GeburtstagDateChooser" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textPLZ" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textVorname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textUsername" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textNachname" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textStraße" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textStadt" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="textEmail" alignment="0" pref="228" max="32767" attributes="0"/>
-                                  <Component id="textTelefon" alignment="1" pref="228" max="32767" attributes="0"/>
-                                  <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="UsernameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="StraßeLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="GeschlechtLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="PostleitzahlLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="TelefonLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="GeburtstagLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="GeburtstagLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="RegristierungLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="dateGeb" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textPLZ" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textVorname" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textUsername" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textNachname" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textStraße" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textStadt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textEmail" alignment="0" pref="228" max="32767" attributes="0"/>
+                          <Component id="textTelefon" alignment="1" pref="228" max="32767" attributes="0"/>
+                          <Component id="comboGender" alignment="0" max="32767" attributes="0"/>
+                          <Component id="textLand" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -122,16 +117,21 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="GeschlechtLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboGender" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="GeburtstagLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="GeburtstagDateChooser" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateGeb" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="GeburtstagLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="textLand" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Component id="SpeichernButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="90" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -272,7 +272,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="textTelefon">
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="GeburtstagDateChooser">
+    <Component class="com.toedter.calendar.JDateChooser" name="dateGeb">
       <Properties>
         <Property name="date" type="java.util.Date" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new Date()" type="code"/>
@@ -288,7 +288,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="comboGender">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
@@ -303,6 +303,24 @@
           <Dimension value="[56, 25]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="GeburtstagLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Land:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textLand">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="14" style="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textLandActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
