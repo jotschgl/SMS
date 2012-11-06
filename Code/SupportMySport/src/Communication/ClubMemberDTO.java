@@ -51,6 +51,20 @@ public class ClubMemberDTO implements Serializable
         this.setZip(member.getZip());
         //this.setSport(member.ge);
     }
+    
+  public ClubMemberDTO(String firstname, String lastname, String username, String street, String city, String country, String zip, String email, String phone, char gender, Date birthday) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.street = street;
+        this.city = city;
+        this.country = country;
+        this.zip = zip;
+        this.mail = email;
+        this.phone = phone;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
 
     public int getId()
     {

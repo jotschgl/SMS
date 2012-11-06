@@ -4,7 +4,13 @@
  */
 package GUI;
 
+import Communication.ClubMemberDTO;
+import Communication.interfaces.IUseCaseControllerFactory;
+import Controller.interfaces.IClubMemberController;
+import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,8 +56,10 @@ public class MitgliedFrame extends javax.swing.JFrame {
         GeburtstagLabel = new javax.swing.JLabel();
         SpeichernButton = new javax.swing.JButton();
         textTelefon = new javax.swing.JTextField();
-        GeburtstagDateChooser = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox();
+        dateGeb = new com.toedter.calendar.JDateChooser();
+        comboGender = new javax.swing.JComboBox();
+        GeburtstagLabel1 = new javax.swing.JLabel();
+        textLand = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Neues Mitglied erstellen");
@@ -120,55 +128,63 @@ public class MitgliedFrame extends javax.swing.JFrame {
             }
         });
 
-        GeburtstagDateChooser.setDate(new Date());
-        GeburtstagDateChooser.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        GeburtstagDateChooser.setMaxSelectableDate(new Date());
-        GeburtstagDateChooser.setPreferredSize(new java.awt.Dimension(87, 25));
+        dateGeb.setDate(new Date());
+        dateGeb.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        dateGeb.setMaxSelectableDate(new Date());
+        dateGeb.setPreferredSize(new java.awt.Dimension(87, 25));
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Männlich", "Weiblich" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(56, 25));
+        comboGender.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        comboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Männlich", "Weiblich" }));
+        comboGender.setPreferredSize(new java.awt.Dimension(56, 25));
+
+        GeburtstagLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        GeburtstagLabel1.setText("Land:");
+
+        textLand.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textLand.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textLandActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(RegristierungLabel)
-                        .addGap(0, 299, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(SpeichernButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(UsernameLabel)
-                                    .addComponent(StraßeLabel)
-                                    .addComponent(GeschlechtLabel)
-                                    .addComponent(jLabel3)
-                                    .addComponent(PostleitzahlLabel)
-                                    .addComponent(jLabel4)
-                                    .addComponent(TelefonLabel)
-                                    .addComponent(GeburtstagLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(GeburtstagDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textPLZ, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textVorname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textUsername, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textNachname, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textStraße, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textStadt, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                                    .addComponent(textTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(58, 58, 58))))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(SpeichernButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(UsernameLabel)
+                            .addComponent(StraßeLabel)
+                            .addComponent(GeschlechtLabel)
+                            .addComponent(jLabel3)
+                            .addComponent(PostleitzahlLabel)
+                            .addComponent(jLabel4)
+                            .addComponent(TelefonLabel)
+                            .addComponent(GeburtstagLabel)
+                            .addComponent(GeburtstagLabel1)
+                            .addComponent(RegristierungLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(dateGeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textPLZ, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textVorname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textUsername, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textNachname, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textStraße, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textStadt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(textTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(comboGender, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textLand, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,14 +226,18 @@ public class MitgliedFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GeschlechtLabel)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GeburtstagLabel)
-                    .addComponent(GeburtstagDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(dateGeb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(GeburtstagLabel1)
+                    .addComponent(textLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(SpeichernButton)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -235,14 +255,25 @@ public class MitgliedFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMEssage);
+        } else {
+            IClubMemberController cont = GUIController.getClubMemberController();
+            try {
+                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ?'f':'m') , dateGeb.getDate()));
+            } catch (RemoteException ex) {
+                Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        
+
         //TODO: new MemberAction
     }//GEN-LAST:event_SpeichernButtonActionPerformed
 
     private void textStraßeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStraßeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textStraßeActionPerformed
+
+    private void textLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLandActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textLandActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,8 +310,8 @@ public class MitgliedFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser GeburtstagDateChooser;
     private javax.swing.JLabel GeburtstagLabel;
+    private javax.swing.JLabel GeburtstagLabel1;
     private javax.swing.JLabel GeschlechtLabel;
     private javax.swing.JLabel PostleitzahlLabel;
     private javax.swing.JLabel RegristierungLabel;
@@ -288,12 +319,14 @@ public class MitgliedFrame extends javax.swing.JFrame {
     private javax.swing.JLabel StraßeLabel;
     private javax.swing.JLabel TelefonLabel;
     private javax.swing.JLabel UsernameLabel;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox comboGender;
+    private com.toedter.calendar.JDateChooser dateGeb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField textEmail;
+    private javax.swing.JTextField textLand;
     private javax.swing.JTextField textNachname;
     private javax.swing.JTextField textPLZ;
     private javax.swing.JTextField textStadt;
@@ -348,7 +381,11 @@ public class MitgliedFrame extends javax.swing.JFrame {
             errorMEssage.append("Telefon\n");
             validate = false;
         }
-        
+        //LAnd
+        if (textLand.getText().equals("")) {
+            errorMEssage.append("Land\n");
+            validate = false;
+        }
         return validate;
     }
 }

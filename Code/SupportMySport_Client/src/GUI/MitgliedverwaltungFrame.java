@@ -149,7 +149,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         if (text.length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
         }
     }//GEN-LAST:event_memberSearchKeyReleased
 
@@ -195,7 +195,6 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     private javax.swing.JTextField memberSearch;
     private javax.swing.JTable tableMitglied;
     // End of variables declaration//GEN-END:variables
-    
     private TableRowSorter<TableModel> sorter;
     
     private void showFrame() {
@@ -212,27 +211,17 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     }
 
     private void fillTable() {
-        DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
-        
         try {
-            Registry reg = LocateRegistry.getRegistry("172.16.53.128");
-            String[] x = reg.list();
-            IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
-            IClubMemberController cmc = factory.createClubMemberController();
+            DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
+            
+            IClubMemberController cmc = GUIController.getClubMemberController();
             for (ClubMemberDTO member : cmc.getAllClubMembers()) {
                 model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});
             }
-        } catch (NotBoundException ex) {
-            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AccessException ex) {
-            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
     }
-    
-    
-    
 }

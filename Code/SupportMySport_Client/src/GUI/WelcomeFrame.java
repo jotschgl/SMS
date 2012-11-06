@@ -16,6 +16,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
     public WelcomeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        GUIController.initRMI("172.16.53.128");
     }
 
     /**
