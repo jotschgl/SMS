@@ -56,7 +56,6 @@ public class CompetitionManagerTest {
          System.out.println("Getting Competition with id: " + id);
          System.out.println("Returne Competition with id: " + testComp.getId());
          System.out.println();
-        
     }
     
     @Test

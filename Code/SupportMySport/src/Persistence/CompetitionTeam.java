@@ -50,7 +50,7 @@ public class CompetitionTeam implements ICompetitionTeam {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "team_id", nullable = false, insertable = false, updatable = false)
     @Override
     public Team getTeam() {
@@ -62,7 +62,7 @@ public class CompetitionTeam implements ICompetitionTeam {
         this.team = team;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "competition_id", nullable = false, insertable = false, updatable = false)
     @Override
     public Competition getCompetition() {
@@ -74,7 +74,7 @@ public class CompetitionTeam implements ICompetitionTeam {
         this.competition = competition;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "clubMember_id", nullable = false)
     @Override
     public ClubMember getClubMember() {

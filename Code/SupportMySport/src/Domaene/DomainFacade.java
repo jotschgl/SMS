@@ -96,6 +96,6 @@ public class DomainFacade {
     // </editor-fold>
 
     public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
-        return memberTeamManager.getCompetitionTeamMembersOfCompetition(competitionTeamManager.showAllTeamsOfCompetition(competitionId));
+        return memberTeamManager.getCompetitionTeamMembersOfCompetition(competitionId);
     }
 }
