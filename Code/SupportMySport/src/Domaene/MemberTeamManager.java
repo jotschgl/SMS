@@ -5,6 +5,8 @@
 package Domaene;
 
 import Persistence.ClubMember;
+import Persistence.Competition;
+import Persistence.CompetitionTeam;
 import Persistence.Meeting;
 import Persistence.PersistenceManager;
 import Persistence.Team;
@@ -16,15 +18,20 @@ import java.util.List;
  * @author rafa
  */
 public class MemberTeamManager {
+    
+    PersistenceManager persistenceManager;
+    
+    public MemberTeamManager(){
+        persistenceManager = new PersistenceManager();
+    }
 
-    public List<ClubMember> getMembersOfTeams(List<Team> teams) {
-        //TODO: Missing the MemberTeam class in persistence
-        //PersistenceManager persistenceManager = new PersistenceManager();
-        //List<MemberTeam> memberTeam = new LinkedList<MemberTeam>();
-        //for(Team team : teams){
-            
+    public List<ClubMember> getCompetitionTeamMembersOfCompetition(List<Team> teams) {
+        //Competition comp = (Competition) persistenceManager.getObjectById(Competition.class, competitionId);
+        
+        //List<ClubMember> members = new LinkedList<ClubMember>();
+        //for(CompetitionTeam compTeam : comp.getCompetitionTeams()){
+        //    members.addAll(compTeam.getTeam().getClubMembers());
         //}
-        //return competitionMeetings
         return null;
     }
 }

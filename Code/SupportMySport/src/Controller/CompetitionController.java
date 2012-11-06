@@ -59,15 +59,16 @@ public class CompetitionController extends UnicastRemoteObject implements ICompe
     {
         return facade.showCompetitionMeetings(competitionId);
     }
-    //TODO: write tests for these methods and check if they work properly
-    @Override
-    public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException
-    {
-        return facade.getCompetitionTeamMembersOfCompetition(competitionId);
-    }
     @Override
     public Collection<Team> getAllTeamsOfCompetition(int competitionId) throws RemoteException
     {
         return facade.showAllTeamsOfCompetition(competitionId);
+    }
+    //TODO: write tests for these methods and check if they work properly
+    @Override
+    public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException
+    {
+        //TODO: this method
+        return facade.getCompetitionTeamMembersOfCompetition(competitionId);
     }
 }
