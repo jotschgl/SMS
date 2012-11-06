@@ -33,6 +33,10 @@ public class ClubMemberManager {
     public ClubMember getClubMemberById(int id){
         return (ClubMember) persistenceManager.getObjectById(ClubMember.class, id);
     }
+    
+    public ClubMember getClubMemberById(ClubMember clubmember){
+        return (ClubMember) persistenceManager.getObjectById(ClubMember.class, clubmember.getId());
+    }
 
     public void createOrUpdateClubMember(ClubMember clubMember) {
         persistenceManager.update(clubMember);
