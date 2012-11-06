@@ -206,7 +206,7 @@ public class ClubMember implements java.io.Serializable {
         this.membershipfeePayed = membershipfeePayed;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clubMember")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "clubMember")
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
     }
@@ -215,7 +215,7 @@ public class ClubMember implements java.io.Serializable {
         this.competitionTeams = competitionTeams;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberFederation", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "federation_id", nullable = false, updatable = false)})
@@ -227,7 +227,7 @@ public class ClubMember implements java.io.Serializable {
         this.federations = federations;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)})
@@ -239,7 +239,7 @@ public class ClubMember implements java.io.Serializable {
         this.teams = teams;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberFunctionRole", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "functionRole_id", nullable = false, updatable = false)})
@@ -251,7 +251,7 @@ public class ClubMember implements java.io.Serializable {
         this.functionRoles = functionRoles;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clubMember")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "clubMember")
     public Set<Department> getDepartments() {
         return this.departments;
     }
@@ -260,7 +260,7 @@ public class ClubMember implements java.io.Serializable {
         this.departments = departments;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "clubMember")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "clubMember")
     public Set<Team> getTeams_1() {
         return this.teams_1;
     }

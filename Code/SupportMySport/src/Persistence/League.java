@@ -52,7 +52,7 @@ public class League implements ILeague {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sport_id", nullable = false)
     @Override
     public Sport getSport() {
@@ -64,7 +64,7 @@ public class League implements ILeague {
         this.sport = sport;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "federation_id", nullable = false)
     @Override
     public Federation getFederation() {
@@ -87,7 +87,7 @@ public class League implements ILeague {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "league_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)})
@@ -101,7 +101,7 @@ public class League implements ILeague {
         this.teams = teams;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "league")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "league")
     @Override
     public Set<Team> getTeams_1() {
         return this.teams_1;

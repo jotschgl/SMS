@@ -103,7 +103,7 @@ public class Rule implements IRule {
         this.pointslose = pointslose;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rule")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "rule")
     @Override
     public Set<Sport> getSports() {
         return this.sports;

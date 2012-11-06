@@ -60,7 +60,7 @@ public class Sport implements ISport {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", nullable = false)
     @Override
     public Department getDepartment() {
@@ -72,7 +72,7 @@ public class Sport implements ISport {
         this.department = department;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rule_id", nullable = false)
     @Override
     public Rule getRule() {
@@ -95,7 +95,7 @@ public class Sport implements ISport {
         this.name = name;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sport")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sport")
     @Override
     public Set<League> getLeagues() {
         return this.leagues;
@@ -106,7 +106,7 @@ public class Sport implements ISport {
         this.leagues = leagues;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "sport")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sport")
     @Override
     public Set<Team> getTeams() {
         return this.teams;

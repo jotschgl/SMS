@@ -72,7 +72,7 @@ public class Team implements ITeam {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "sport_id")
     @Override
     public Sport getSport() {
@@ -84,7 +84,7 @@ public class Team implements ITeam {
         this.sport = sport;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "league_id")
     @Override
     public League getLeague() {
@@ -96,7 +96,7 @@ public class Team implements ITeam {
         this.league = league;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id")
     @Override
     public Department getDepartment() {
@@ -108,7 +108,7 @@ public class Team implements ITeam {
         this.department = department;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trainer_id")
     @Override
     public ClubMember getClubMember() {
@@ -131,7 +131,7 @@ public class Team implements ITeam {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
@@ -145,7 +145,7 @@ public class Team implements ITeam {
         this.clubMembers = clubMembers;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamAId")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamAId")
     @Override
     public Set<Meeting> getMeetingsForTeamAId() {
         return this.meetingsForTeamAId;
@@ -156,7 +156,7 @@ public class Team implements ITeam {
         this.meetingsForTeamAId = meetingsForTeamAId;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "team")
     @Override
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
@@ -167,7 +167,7 @@ public class Team implements ITeam {
         this.competitionTeams = competitionTeams;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "teamByTeamBId")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamBId")
     @Override
     public Set<Meeting> getMeetingsForTeamBId() {
         return this.meetingsForTeamBId;
@@ -178,7 +178,7 @@ public class Team implements ITeam {
         this.meetingsForTeamBId = meetingsForTeamBId;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "league_id", nullable = false, updatable = false)})

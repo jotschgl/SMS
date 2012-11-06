@@ -47,7 +47,7 @@ public class FunctionRole implements IFunctionRole {
         this.id = id;
     }
 
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @Cascade( org.hibernate.annotations.CascadeType.SAVE_UPDATE )
     @JoinColumn(name = "roleRight_id", nullable = false)
     @Override
@@ -71,7 +71,7 @@ public class FunctionRole implements IFunctionRole {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberFunctionRole", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "functionRole_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})

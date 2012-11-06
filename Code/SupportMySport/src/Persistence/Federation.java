@@ -81,7 +81,7 @@ public class Federation implements IFederation {
         this.website = website;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberFederation", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "federation_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
@@ -95,7 +95,7 @@ public class Federation implements IFederation {
         this.clubMembers = clubMembers;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "federation")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "federation")
     @Override
     public Set<League> getLeagues() {
         return this.leagues;

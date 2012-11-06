@@ -56,7 +56,7 @@ public class Meeting implements IMeeting {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "competition_id", nullable = false)
     @Override
     public Competition getCompetition() {
@@ -68,7 +68,7 @@ public class Meeting implements IMeeting {
         this.competition = competition;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teamA_id", nullable = false)
     @Override
     public Team getTeamByTeamAId() {
@@ -80,7 +80,7 @@ public class Meeting implements IMeeting {
         this.teamByTeamAId = teamByTeamAId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teamB_id", nullable = false)
     @Override
     public Team getTeamByTeamBId() {

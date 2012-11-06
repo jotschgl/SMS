@@ -66,7 +66,7 @@ public class RoleRight implements IRoleRight {
      *
      * @return
      */
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY, mappedBy = "roleRight")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, mappedBy = "roleRight")
     @Cascade( org.hibernate.annotations.CascadeType.SAVE_UPDATE )
     @Override
     public Set<FunctionRole> getFunctionRoles() {

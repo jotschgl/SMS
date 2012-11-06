@@ -66,7 +66,7 @@ public class Competition implements ICompetition {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", nullable = false)
     @Override
     public Department getDepartment() {
@@ -112,7 +112,7 @@ public class Competition implements ICompetition {
         this.dateOfCompetition = dateOfCompetition;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "competition")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
     @Override
     public Set<Meeting> getMeetings() {
         return this.meetings;
@@ -123,7 +123,7 @@ public class Competition implements ICompetition {
         this.meetings = meetings;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "competition")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
     @Override
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;

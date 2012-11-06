@@ -61,7 +61,7 @@ public class Department implements IDepartment {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departmentChief_id", nullable = false)
     @Override
     public ClubMember getClubMember() {
@@ -84,7 +84,7 @@ public class Department implements IDepartment {
         this.name = name;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "department")
     @Override
     public Set<Competition> getCompetitions() {
         return this.competitions;
@@ -95,7 +95,7 @@ public class Department implements IDepartment {
         this.competitions = competitions;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "department")
     @Override
     public Set<Team> getTeams() {
         return this.teams;
@@ -106,7 +106,7 @@ public class Department implements IDepartment {
         this.teams = teams;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "department")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "department")
     @Override
     public Set<Sport> getSports() {
         return this.sports;
