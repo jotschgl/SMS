@@ -4,12 +4,7 @@
  */
 package Manager;
 
-import Domaene.CompetitionManager;
 import Domaene.CompetitionTeamManager;
-import Persistence.ClubMember;
-import Persistence.Competition;
-import Persistence.CompetitionTeamId;
-import Persistence.PersistenceManager;
 import Persistence.Team;
 import java.util.List;
 import org.junit.Ignore;
