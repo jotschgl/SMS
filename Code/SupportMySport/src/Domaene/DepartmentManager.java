@@ -7,13 +7,11 @@ package Domaene;
 import Persistence.ClubMember;
 import Persistence.Department;
 import Persistence.PersistenceManager;
+import Persistence.interfaces.IDepartment;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author rafa
- */
+
 public class DepartmentManager {
      private PersistenceManager persistenceManager;
     
@@ -21,11 +19,11 @@ public class DepartmentManager {
         persistenceManager = new PersistenceManager();
     }
     
-    public List<Department> getAllDepartments(){
-        List<Department> departments = new LinkedList<Department>();
+    public List<IDepartment> getAllDepartments(){
+        List<IDepartment> departments = new LinkedList<IDepartment>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department");
         for(Object obj : result){
-            departments.add((Department)obj);
+            departments.add((IDepartment)obj);
         }
         return departments;
     }
@@ -45,5 +43,9 @@ public class DepartmentManager {
              dep = (Department) result.get(0);
          }
          return dep;
+    }
+    
+    public void createOrUpdateDepartment(Department department) {
+        persistenceManager.update(department);
     }
 }

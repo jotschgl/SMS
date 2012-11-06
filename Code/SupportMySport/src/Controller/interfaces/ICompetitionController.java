@@ -5,10 +5,12 @@
 package Controller.interfaces;
 
 import Persistence.*;
+import Persistence.interfaces.IDepartment;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -35,4 +37,6 @@ public interface ICompetitionController extends Remote
     void removeMemberFromCompetitionTeam(ClubMember member, Competition competition,Team team) throws RemoteException;
 
     void removeMemberFromCompetitionTeam(int memberId, int competitionId, int teamId) throws RemoteException;
+    
+    Collection<IDepartment> getAllDepartments();
 }
