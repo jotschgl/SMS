@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,13 +64,18 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         jLabel5.setMinimumSize(new java.awt.Dimension(59, 25));
         jLabel5.setPreferredSize(new java.awt.Dimension(59, 25));
 
+        wettkampfDatum.setDate(new Date());
+        wettkampfDatum.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        wettkampfDatum.setMinSelectableDate(new Date());
         wettkampfDatum.setMinimumSize(new java.awt.Dimension(27, 25));
         wettkampfDatum.setPreferredSize(new java.awt.Dimension(87, 25));
 
+        wettkampfGebühr.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         wettkampfGebühr.setPreferredSize(new java.awt.Dimension(29, 25));
 
         wettkampfName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        wettkampfAbteilung.setEditable(true);
         wettkampfAbteilung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 wettkampfAbteilungActionPerformed(evt);
@@ -138,7 +144,7 @@ public class WettkampfErstellung extends javax.swing.JFrame {
                     .addComponent(wettkampfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(wettkampfGebühr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(wettkampfGebühr, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

@@ -23,6 +23,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         setRowSorter();
         this.setLocationRelativeTo(null);
         tableMitglied.setAutoCreateRowSorter(true);
+        this.setRowSorter();
     }
 
     /**

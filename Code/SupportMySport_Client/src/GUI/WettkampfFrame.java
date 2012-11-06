@@ -62,6 +62,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         lableWettkampf.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         lableWettkampf.setText("Wettkämpfe");
 
+        tableWettkampf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tableWettkampf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -73,6 +74,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         tableWettkampf.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableWettkampf);
 
+        btnErsteWettkampf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnErsteWettkampf.setText("Wettkampf erstellen");
         btnErsteWettkampf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -85,6 +87,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
             }
         });
 
+        btnBearbWettkampf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnBearbWettkampf.setText("Wettkampf bearbeiten");
         btnBearbWettkampf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,6 +134,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         labelBegegnungen.setMaximumSize(new java.awt.Dimension(129, 32));
         labelBegegnungen.setMinimumSize(new java.awt.Dimension(129, 32));
 
+        tableBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tableBegegnung.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -142,6 +146,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         tableBegegnung.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableBegegnung);
 
+        textFieldRowFilter.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textFieldRowFilter.setPreferredSize(new java.awt.Dimension(141, 23));
         textFieldRowFilter.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -149,6 +154,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
             }
         });
 
+        btnBearbBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btnBearbBegegnung.setText("Begegnung bearbeiten");
         btnBearbBegegnung.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -203,8 +209,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
-                    .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE))
+                    .addComponent(panelRight, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
+                    .addComponent(panelLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
