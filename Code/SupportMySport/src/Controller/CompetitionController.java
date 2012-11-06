@@ -3,10 +3,12 @@ package Controller;
 import Controller.interfaces.ICompetitionController;
 import Domaene.DomainFacade;
 import Persistence.*;
+import Persistence.interfaces.IDepartment;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class CompetitionController extends UnicastRemoteObject implements ICompetitionController
 {
@@ -64,11 +66,14 @@ public class CompetitionController extends UnicastRemoteObject implements ICompe
     {
         return facade.showAllTeamsOfCompetition(competitionId);
     }
-    //TODO: write tests for these methods and check if they work properly
     @Override
     public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException
     {
         //TODO: this method
         return facade.getCompetitionTeamMembersOfCompetition(competitionId);
+    }
+
+    public Collection<IDepartment> getAllDepartments() {
+       return facade.getAllDepartments();
     }
 }

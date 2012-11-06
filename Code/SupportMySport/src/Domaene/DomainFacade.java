@@ -7,6 +7,8 @@ package Domaene;
 import java.util.Date;
 import java.util.Collection;
 import Persistence.*;
+import Persistence.interfaces.IDepartment;
+import java.util.List;
 
 /**
  *
@@ -19,6 +21,7 @@ public class DomainFacade {
     private CompetitionTeamManager competitionTeamManager;
     private MeetingManager meetingManager;
     private MemberTeamManager memberTeamManager;
+    private DepartmentManager departmentManager;
     
     public DomainFacade() {
         clubMemberManager = new ClubMemberManager();
@@ -97,5 +100,9 @@ public class DomainFacade {
 
     public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
         return memberTeamManager.getCompetitionTeamMembersOfCompetition(competitionId);
+    }
+
+    public Collection<IDepartment> getAllDepartments() {
+       return departmentManager.getAllDepartments();
     }
 }
