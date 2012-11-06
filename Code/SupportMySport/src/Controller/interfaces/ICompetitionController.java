@@ -16,13 +16,13 @@ import java.util.List;
  *
  * @author Johannes
  */
-public interface ICompetitionController extends Remote
-{
+public interface ICompetitionController extends Remote {
+
     void addMemberToCompetitionTeam(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) throws RemoteException;
 
     void addResultsToCompetitionMeeting(int TeamAId, int TeamBId, int pointsA, int pointsB, int competitionId) throws RemoteException;
 
-    void createNewCompetition(Department dep, String competitionName, double fee, Date date) throws RemoteException;
+    void createNewCompetition(IDepartment dep, String competitionName, double fee, Date date) throws RemoteException;
 
     void createNewCompetition(Competition competition) throws RemoteException;
 
@@ -34,9 +34,9 @@ public interface ICompetitionController extends Remote
 
     Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException;
 
-    void removeMemberFromCompetitionTeam(ClubMember member, Competition competition,Team team) throws RemoteException;
+    void removeMemberFromCompetitionTeam(ClubMember member, Competition competition, Team team) throws RemoteException;
 
     void removeMemberFromCompetitionTeam(int memberId, int competitionId, int teamId) throws RemoteException;
-    
-    Collection<IDepartment> getAllDepartments();
+
+    Collection<IDepartment> getAllDepartments() throws RemoteException;
 }

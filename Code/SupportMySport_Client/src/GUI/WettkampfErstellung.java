@@ -67,10 +67,8 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         wettkampfDatum.setDate(new Date());
         wettkampfDatum.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         wettkampfDatum.setMinSelectableDate(new Date());
-        wettkampfDatum.setMinimumSize(new java.awt.Dimension(27, 25));
         wettkampfDatum.setPreferredSize(new java.awt.Dimension(87, 25));
 
-        wettkampfGebühr.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         wettkampfGebühr.setPreferredSize(new java.awt.Dimension(29, 25));
 
         wettkampfName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -88,6 +86,11 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         buttonBegegnung.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buttonBegegnungMouseClicked(evt);
+            }
+        });
+        buttonBegegnung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBegegnungActionPerformed(evt);
             }
         });
 
@@ -173,6 +176,10 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableBegegnungen.getModel();
         model.addRow(new Object[]{"Bitte hier änder", "", "", ""});
     }//GEN-LAST:event_buttonBegegnungMouseClicked
+
+    private void buttonBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnungActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonBegegnungActionPerformed
 
     /**
      * @param args the command line arguments

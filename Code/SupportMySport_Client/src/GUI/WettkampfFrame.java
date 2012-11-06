@@ -224,13 +224,13 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     private void btnErsteWettkampfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErsteWettkampfActionPerformed
         // TODO add your handling code here:
-        showWettkampfErstellung();
+        //showWettkampfErstellung();
     }//GEN-LAST:event_btnErsteWettkampfActionPerformed
 
     private void btnErsteWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnErsteWettkampfMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tableWettkampf.getModel();
-        model.addRow(new Object[]{"Bitte hier änder", "", "", ""});
+        CreateWettkampfFrame f = new CreateWettkampfFrame();
+        f.setVisible(true);
     }//GEN-LAST:event_btnErsteWettkampfMouseClicked
 
     private void btnBearbWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBearbWettkampfMouseClicked

@@ -23,7 +23,7 @@ public class DepartmentManager {
         List<IDepartment> departments = new LinkedList<IDepartment>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department");
         for(Object obj : result){
-            departments.add((IDepartment)obj);
+            departments.add((Department)obj);
         }
         return departments;
     }

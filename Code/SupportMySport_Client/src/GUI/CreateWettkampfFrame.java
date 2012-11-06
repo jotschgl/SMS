@@ -6,8 +6,11 @@ package GUI;
 
 import Controller.interfaces.ICompetitionController;
 import Persistence.interfaces.IDepartment;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -156,7 +159,11 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, errorMess);
         }
         else{
-            controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
+            try {
+                controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
+            } catch (RemoteException ex) {
+                Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_saveWettkampfMouseClicked
 
@@ -222,11 +229,16 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
     }
 
     private void getAllDepartments() {
-        controller = GUIController.getCompetitionController();
-        
-        for(IDepartment d : controller.getClass()){
-            depmap.put(d.getName(), d);
-            comboAbteilung.addItem(d.getName());
+        try {
+            controller = GUIController.getCompetitionController();
+            
+            for(IDepartment d : controller.getAllDepartments()){
+                depmap.put(d.getName(), d);
+                comboAbteilung.addItem(d.getName());
+            }
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
