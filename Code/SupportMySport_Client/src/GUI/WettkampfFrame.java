@@ -25,7 +25,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         tableWettkampf.setAutoCreateRowSorter(true);
-        tableBegnung.setAutoCreateRowSorter(true);
+        tableBegegnung.setAutoCreateRowSorter(true);
         this.setRowSorter();
         this.fillTable();
     }
@@ -48,14 +48,13 @@ public class WettkampfFrame extends javax.swing.JFrame {
         panelRight = new javax.swing.JPanel();
         labelBegegnungen = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableBegnung = new javax.swing.JTable();
+        tableBegegnung = new javax.swing.JTable();
         textFieldRowFilter = new javax.swing.JTextField();
         btnBearbBegegnung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sport - Wettkampf berarbeiten");
         setAlwaysOnTop(true);
-        setPreferredSize(new java.awt.Dimension(900, 560));
         setResizable(false);
 
         panelLeft.setPreferredSize(new java.awt.Dimension(445, 0));
@@ -132,7 +131,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         labelBegegnungen.setMaximumSize(new java.awt.Dimension(129, 32));
         labelBegegnungen.setMinimumSize(new java.awt.Dimension(129, 32));
 
-        tableBegnung.setModel(new javax.swing.table.DefaultTableModel(
+        tableBegegnung.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -140,8 +139,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 "Spiel", "Mannschaft 1", "Mannschaft 2", "Ort", "Datum"
             }
         ));
-        tableBegnung.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tableBegnung);
+        tableBegegnung.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tableBegegnung);
 
         textFieldRowFilter.setPreferredSize(new java.awt.Dimension(141, 23));
         textFieldRowFilter.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -243,9 +242,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBearbWettkampfMouseClicked
 
     private void btnBearbBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBearbBegegnungMouseClicked
-        int[] selectedRows = tableBegnung.getSelectedRows();
+        int[] selectedRows = tableBegegnung.getSelectedRows();
 
-        if (tableBegnung.getRowCount() == 0) {
+        if (tableBegegnung.getRowCount() == 0) {
             JOptionPane.showMessageDialog(panelRight, "Keine Begegnungen vorhanden");
         } else {
             //keim Wettkampf gewählt
@@ -314,7 +313,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lableWettkampf;
     private javax.swing.JPanel panelLeft;
     private javax.swing.JPanel panelRight;
-    private javax.swing.JTable tableBegnung;
+    private javax.swing.JTable tableBegegnung;
     private javax.swing.JTable tableWettkampf;
     private javax.swing.JTextField textFieldRowFilter;
     // End of variables declaration//GEN-END:variables
@@ -328,13 +327,13 @@ public class WettkampfFrame extends javax.swing.JFrame {
     }
 
     private void setRowSorter() {
-        TableModel model = tableBegnung.getModel();
+        TableModel model = tableBegegnung.getModel();
         sorter = new TableRowSorter<TableModel>(model);
-        tableBegnung.setRowSorter(sorter);
+        tableBegegnung.setRowSorter(sorter);
     }
 
     private void fillTable() {
-        DefaultTableModel tablemodel = (DefaultTableModel) tableBegnung.getModel();
+        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnung.getModel();
         for (int i = 1; i < 10; i++) {
             tablemodel.addRow(new Object[]{"Spiel "+i,"Team "+i,"Team "+(i*2) ,"Ort "+i,"Datum "+i});
         }
