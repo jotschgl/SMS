@@ -12,15 +12,19 @@ import java.util.List;
  */
 public class CompetitionManager {
 
+    private PersistenceManager persistenceManager;
+    
+    public CompetitionManager(){
+        persistenceManager = new PersistenceManager();
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Getting Data from Competitiontable">
     public Competition getCompetitinById(int id) {  
-        PersistenceManager persistenceManager = new PersistenceManager();
         return (Persistence.Competition) persistenceManager.getObjectById(Persistence.Competition.class, id);
     }   
 
     public List<Competition> getCompetitionsByName(String name) {
         String hqlQuerie = "FROM Competition cp WHERE (cp.name LIKE '"+name+"')";
-        PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : result){
@@ -31,7 +35,6 @@ public class CompetitionManager {
 
     public List<Competition> getCompetitionByDepartmentId(int departmentId) {
         String hqlQuerie = "FROM Competition WHERE (department_id = "+departmentId+")";
-        PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : result){
@@ -44,7 +47,6 @@ public class CompetitionManager {
         String dateString = (date.getYear() + 1900) + "-" + (date.getMonth()+1) + "-" + date.getDate();
         String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition = '"+dateString+"')";
         
-        PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : result){
@@ -57,7 +59,6 @@ public class CompetitionManager {
         String startdateString = (startdate.getYear() + 1900) + "-" + (startdate.getMonth()+1) + "-" + startdate.getDate();
         String enddateString = (enddate.getYear() + 1900) + "-" + (enddate.getMonth()+1) + "-" + enddate.getDate();
         String hqlQuerie = "FROM Competition cp WHERE (cp.dateOfCompetition between '"+startdateString+"' and '"+enddateString+"')";
-        PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : result){
@@ -68,7 +69,6 @@ public class CompetitionManager {
 
     public List<Competition> getAllCompetitions() {
         String hqlQuerie = "FROM Competition";
-        PersistenceManager persistenceManager = new PersistenceManager();
         List<Competition> competitions = new LinkedList<Competition>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
         for(Object obj : result){
@@ -79,15 +79,13 @@ public class CompetitionManager {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Creating a new Competition">
-    public void createNewCompetition(Competition competition){
-        PersistenceManager persitenceManager = new PersistenceManager();
-        persitenceManager.save(competition);
+    public void createNewCompetition(Competition competition){  
+        persistenceManager.save(competition);
     }
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Updateing a existing Competition">
     public void updateExistingCompetition(Competition competition){
-        PersistenceManager persistenceManager = new PersistenceManager();
         persistenceManager.update(competition);
     }
     // </editor-fold>

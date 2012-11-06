@@ -22,67 +22,54 @@ import static org.junit.Assert.*;
  *
  * @author Johannes
  */
-public class RMITest
-{
-    public RMITest()
-    {
+public class RMITest {
+
+    public RMITest() {
     }
 
     @BeforeClass
-    public static void setUpClass() throws Exception
-    {
-
+    public static void setUpClass() throws Exception {
         Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 
         UseCaseControllerFactory factory = new UseCaseControllerFactory();
-        reg.rebind("rmi://localhost/UseCaseControllerFactory", factory);
+        reg.rebind("UseCaseControllerFactory", factory);
         System.out.println("Object bound");
-
     }
 
     @AfterClass
-    public static void tearDownClass() throws Exception
-    {
+    public static void tearDownClass() throws Exception {
     }
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
     }
 
     @After
-    public void tearDown()
-    {
+    public void tearDown() {
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //
 
     @Test
-    public void testRMI()
-    {
-        try
-        {
-            Registry reg = LocateRegistry.getRegistry();
-            IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("rmi://localhost/UseCaseControllerFactory");
+    public void testRMI() {
+        try {
+            Registry reg = LocateRegistry.getRegistry("localhost");
+            String[] x = reg.list();
+            IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
             IClubMemberController cmc = factory.createClubMemberController();
-            for (ClubMemberDTO member : cmc.getAllClubMembers())
-            {
+            for (ClubMemberDTO member : cmc.getAllClubMembers()) {
                 System.out.println(member.getFirstname());
             }
-        }
-        catch (NotBoundException ex)
-        {
+        } catch (NotBoundException ex) {
+            Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex) {
+            Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
             Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (AccessException ex)
-        {
-            Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+
 
     }
 }
