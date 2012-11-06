@@ -4,6 +4,11 @@
  */
 package GUI;
 
+import Controller.interfaces.ICompetitionController;
+import Persistence.interfaces.ICompetition;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -219,6 +224,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     private void btnErsteWettkampfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnErsteWettkampfActionPerformed
         // TODO add your handling code here:
+        showWettkampfErstellung();
     }//GEN-LAST:event_btnErsteWettkampfActionPerformed
 
     private void btnErsteWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnErsteWettkampfMouseClicked
@@ -271,7 +277,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         if (text.length() == 0) {
             sorter.setRowFilter(null);
         } else {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+text));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
         }
     }//GEN-LAST:event_textFieldRowFilterKeyReleased
 
@@ -339,10 +345,17 @@ public class WettkampfFrame extends javax.swing.JFrame {
     }
 
     private void fillTable() {
-        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnung.getModel();
-        for (int i = 1; i < 10; i++) {
-            tablemodel.addRow(new Object[]{"Spiel "+i,"Team "+i,"Team "+(i*2) ,"Ort "+i,"Datum "+i});
+        try {
+            DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
+            ICompetitionController controller = GUIController.getCompetitionController();
+
+            for (ICompetition com : controller.getAllCompetitions()) {
+                tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getName()});
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     private void showWettkampfErstellung() {

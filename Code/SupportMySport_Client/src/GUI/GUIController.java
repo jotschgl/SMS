@@ -48,4 +48,8 @@ public class GUIController {
     public static IClubMemberController getClubMemberController() {
         return memberController;
     }
+
+    static ICompetitionController getCompetitionController() {
+        return competController;
+    }
 }

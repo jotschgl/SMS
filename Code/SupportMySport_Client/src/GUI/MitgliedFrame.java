@@ -258,10 +258,14 @@ public class MitgliedFrame extends javax.swing.JFrame {
         } else {
             IClubMemberController cont = GUIController.getClubMemberController();
             try {
-                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ?'f':'m') , dateGeb.getDate()));
+                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+                
+                this.setVisible(false);
+                
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
 
         //TODO: new MemberAction
