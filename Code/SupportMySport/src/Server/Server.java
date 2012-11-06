@@ -25,9 +25,9 @@ public class Server
         try
         {
             Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-
+            System.setProperty("java.rmi.server.codebase", Server.class.getProtectionDomain().getCodeSource().getLocation().toString());
             UseCaseControllerFactory factory = new UseCaseControllerFactory();
-            reg.rebind("rmi://localhost/UseCaseControllerFactory", factory);
+            reg.rebind("UseCaseControllerFactory", factory);
             System.out.println("Object bound");
             System.out.println("Waiting for Clients...");
         }
