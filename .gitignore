@@ -13,3 +13,7 @@
 .gitignore
 /Code/SupportMySport_Client/build/
 /Code/SupportMySport/dist/
+/Code/SMS_ClientSide/nbproject/private/
+/Code/SMS_ClientSide/build/
+/Code/SMS_ClientSide/nbproject
+/Code/SupportMySport/nbproject
