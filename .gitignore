@@ -11,3 +11,4 @@ Code/SupportMySport_Client/nbproject/genfiles.properties
 Code/SupportMySport_Client/nbproject/project.properties
 Code/SupportMySport_Client/nbproject/project.xml
 .gitignore
+/Code/SupportMySport_Client/build/
