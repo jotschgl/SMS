@@ -4,10 +4,8 @@
  */
 package Manager;
 
-import Domaene.DepartmentManager;
+
 import Domaene.FederationManager;
-import Persistence.ClubMember;
-import Persistence.Department;
 import Persistence.Federation;
 import Persistence.PersistenceManager;
 import java.util.List;
@@ -36,7 +34,7 @@ public class FedarationManagerTest {
         Federation fed = fm.getFederationById(1);
         System.out.println("");
         System.out.println("In get federation by id test.");
-        System.out.println("Departmentname " + fed.getName());
+        System.out.println("Federationname " + fed.getName());
         System.out.println("");
     }
     
@@ -46,11 +44,12 @@ public class FedarationManagerTest {
         FederationManager fm = new FederationManager();
         Federation fed = fm.getFederationByName(name);
         System.out.println("");
-        System.out.println("In get department by name: " + name);
-        System.out.println("Departmentname: " + fed.getName());
+        System.out.println("In get federation by name: " + name);
+        System.out.println("Federationname: " + fed.getName());
         System.out.println("");
     }
     
+    @Ignore
     @Test
     public void createOrUpdateFederationsTest(){
         PersistenceManager mng = new PersistenceManager();
