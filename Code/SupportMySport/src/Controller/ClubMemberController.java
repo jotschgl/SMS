@@ -22,6 +22,8 @@ public class ClubMemberController extends UnicastRemoteObject implements IClubMe
     @Override
     public void createOrUpdateClubMember(ClubMemberDTO clubMember) throws RemoteException
     {
+        ClubMember mem = new ClubMember(clubMember.getFirstname(), clubMember.getLastname(), clubMember.getUsername(), clubMember.getStreet(), clubMember.getCity(), clubMember.getCountry(), clubMember.getZip(), clubMember.getMail(), clubMember.getPhone(), clubMember.getGender(), clubMember.getBirthday());
+        myDomainFacade.createOrUpdateClubMember(mem);
     }
 
     @Override
