@@ -4,8 +4,19 @@
  */
 package GUI;
 
+import Communication.ClubMemberDTO;
+import Communication.interfaces.IUseCaseControllerFactory;
+import Controller.interfaces.IClubMemberController;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -20,6 +31,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
      */
     public MitgliedverwaltungFrame() {
         initComponents();
+        fillTable();
         setRowSorter();
         this.setLocationRelativeTo(null);
         tableMitglied.setAutoCreateRowSorter(true);
@@ -76,9 +88,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
         tableMitglied.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"and", null, null, null, null, null},
-                {"andr", null, null, null, null, null},
-                {"ANDRE", null, null, null, null, null}
+
             },
             new String [] {
                 "Vorname", "Nachname", "Land", "Stadt", "E-Mail", "Geburtstag"
@@ -199,6 +209,28 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         TableModel model = tableMitglied.getModel();
         sorter = new TableRowSorter<TableModel>(model);
         tableMitglied.setRowSorter(sorter);
+    }
+
+    private void fillTable() {
+        DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
+        
+        try {
+            Registry reg = LocateRegistry.getRegistry("172.16.53.128");
+            String[] x = reg.list();
+            IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
+            IClubMemberController cmc = factory.createClubMemberController();
+            for (ClubMemberDTO member : cmc.getAllClubMembers()) {
+                model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});
+            }
+        } catch (NotBoundException ex) {
+            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (AccessException ex) {
+            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }
     
     
