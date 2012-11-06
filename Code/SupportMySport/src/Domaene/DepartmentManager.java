@@ -10,10 +10,7 @@ import Persistence.PersistenceManager;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author rafa
- */
+
 public class DepartmentManager {
      private PersistenceManager persistenceManager;
     
@@ -45,5 +42,9 @@ public class DepartmentManager {
              dep = (Department) result.get(0);
          }
          return dep;
+    }
+    
+    public void createOrUpdateDepartment(Department department) {
+        persistenceManager.update(department);
     }
 }
