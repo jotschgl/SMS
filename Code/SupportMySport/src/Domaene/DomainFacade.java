@@ -29,6 +29,7 @@ public class DomainFacade {
         competitionTeamManager = new CompetitionTeamManager();
         meetingManager = new MeetingManager();
         memberTeamManager = new MemberTeamManager();
+        departmentManager = new DepartmentManager();
     }
     
     // <editor-fold defaultstate="collapsed" desc="ClubMember Specific Calls">
