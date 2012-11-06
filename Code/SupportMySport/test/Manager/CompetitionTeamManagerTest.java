@@ -12,6 +12,7 @@ import Persistence.CompetitionTeamId;
 import Persistence.PersistenceManager;
 import Persistence.Team;
 import java.util.List;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -20,8 +21,12 @@ import org.junit.Test;
  */
 public class CompetitionTeamManagerTest {
     
+    private CompetitionTeamManager compTeamManager;
     
-    
+    public CompetitionTeamManagerTest(){
+        compTeamManager = new CompetitionTeamManager();
+    }
+    @Ignore
     @Test
     public void addMemberToCompetitionTest(){
         //test passed
@@ -41,7 +46,7 @@ public class CompetitionTeamManagerTest {
         //cpt.addMemberToCompetition(compTeamId, team, comp, member);
         
     }
-    
+    @Ignore
     @Test
     public void removeMemberFromCompetitionTest(){
         //test passed
@@ -62,8 +67,9 @@ public class CompetitionTeamManagerTest {
     
     @Test
     public void showAllTeamsOfCompetitionTest(){
-        //TODO: test this method when the showAllTeamsOfCompetition works correct
-       CompetitionTeamManager cpt = new CompetitionTeamManager();
-       List<Team> list = cpt.showAllTeamsOfCompetition(3);
+       List<Team> list = compTeamManager.showAllTeamsOfCompetition(1);
+       for(Team t : list){
+           System.out.println(t.getName());
+       }
     }
 }

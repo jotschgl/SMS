@@ -99,7 +99,7 @@ public class PersistenceManagerTest {
     /**
      * Test of getObjectById method, of class PersistenceManager.
      */
-
+    @Ignore
     @Test
     public void testGetObjectById() {
         System.out.println("* PersistenceManagerTest: testGetObjectById");
@@ -111,6 +111,7 @@ public class PersistenceManagerTest {
     /**
      * Test of getObjectsByHQLQuery method, of class PersistenceManager.
      */
+    @Ignore
     @Test
     public void testGetObjectsByHQLQuery() {
         System.out.println("* PersistenceManagerTest: testGetObjectByHQLQuery");
@@ -118,5 +119,14 @@ public class PersistenceManagerTest {
         List result = mng.getObjectsByHQLQuery(hqlQuery);
         ClubMember mem = (ClubMember)result.get(0);
         System.out.println(mem.getLastname());
+    }
+    
+    @Test
+    public void testShowAllTeamsOfCompetition(){
+        System.out.println("* PersistenceManagerTest: testHQLQuerieShowAllTeamsOfCompetition");
+        Competition comp = (Competition) mng.getObjectById(Competition.class, 1);
+        for(CompetitionTeam t : comp.getCompetitionTeams()){
+            System.out.println(t.getTeam().getName());
+        }
     }
 }
