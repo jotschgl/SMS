@@ -30,16 +30,18 @@ public class CompetitionTeamManager {
     public List<Team> showAllTeamsOfCompetition(int competitionId) {
         //TODO: Correct this method
         List<Team> teamList = new LinkedList<Team>();
-        String hqlQuerie = "FROM CompetitionTeam ct WHERE(ct.competition_id = '"+competitionId+"')";
+        //"from Cat as cat left join cat.mate.kittens as kittens"
+        //"FROM    user_activity AS ua  JOIN    session AS s ON ua.session_id = s.session_id" 
+        String hqlQuerie = "FROM CompetitionTeam ct ,Team t WHERE ct.team_id = t.id";
         PersistenceManager persistenceManger = new PersistenceManager();
         List<Object> results = persistenceManger.getObjectsByHQLQuery(hqlQuerie);
-        for(Object obj : results){
-            int teamId = ((Meeting)obj).getId();
-            Team team = (Team) persistenceManger.getObjectById(Team.class, teamId);
-            if(team != null){
-                teamList.add(team);
-            }
-        }
+        //for(Object obj : results){
+        //   int teamId = ((Meeting)obj).getId();
+        //    Team team = (Team) persistenceManger.getObjectById(Team.class, teamId);
+        //    if(team != null){
+        //        teamList.add(team);
+        //    }
+        //}
         return teamList;
     }
     
