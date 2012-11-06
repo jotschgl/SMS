@@ -35,7 +35,7 @@ public class ClubMemberDTO implements Serializable
 
     public ClubMemberDTO(ClubMember member)
     {
-        this.setBirthday(member.getBirthday());
+        this.setBirthday(new Date(member.getBirthday().getTime()));
         this.setCity(member.getCity());
         this.setCountry(member.getCountry());
         this.setDepartments(member.getDepartments());
