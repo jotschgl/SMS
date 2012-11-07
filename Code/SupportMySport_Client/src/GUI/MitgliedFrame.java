@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,8 +23,11 @@ public class MitgliedFrame extends javax.swing.JFrame {
     /**
      * Creates new form MitgliedFrame
      */
-    public MitgliedFrame() {
+    
+    private MitgliedverwaltungFrame _previousFrame;
+    public MitgliedFrame(MitgliedverwaltungFrame previousFrame) {
         initComponents();
+        this._previousFrame = previousFrame;
         this.setLocationRelativeTo(null);
     }
 
@@ -261,7 +265,7 @@ public class MitgliedFrame extends javax.swing.JFrame {
                 cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
                 
                 this.setVisible(false);
-                
+                _previousFrame.updateTable();
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -309,7 +313,6 @@ public class MitgliedFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MitgliedFrame().setVisible(true);
             }
         });
     }
