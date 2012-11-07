@@ -5,7 +5,6 @@
 package GUI;
 
 import Communication.ClubMemberDTO;
-import Communication.interfaces.IUseCaseControllerFactory;
 import Controller.interfaces.IClubMemberController;
 import java.rmi.RemoteException;
 import java.util.Date;
@@ -22,9 +21,11 @@ public class MitgliedFrame extends javax.swing.JFrame {
     /**
      * Creates new form MitgliedFrame
      */
-    public MitgliedFrame() {
+    private MitgliedverwaltungFrame _prevframe;
+    public MitgliedFrame(MitgliedverwaltungFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this._prevframe = frame;
     }
 
     /**
@@ -260,8 +261,8 @@ public class MitgliedFrame extends javax.swing.JFrame {
             try {
                 cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
                 
+                this._prevframe.updateTable();
                 this.setVisible(false);
-                
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -309,7 +310,7 @@ public class MitgliedFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MitgliedFrame().setVisible(true);
+                new MitgliedFrame(null).setVisible(true);
             }
         });
     }

@@ -24,11 +24,12 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
     /**
      * Creates new form CreateWettkampfFrame
      */
-    public CreateWettkampfFrame() {
+    private WettkampfFrame _prevFrame;
+    public CreateWettkampfFrame(WettkampfFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.getAllDepartments();
-        
+        this._prevFrame = frame;
     }
 
     /**
@@ -53,6 +54,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Neuen Wettkampf");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -161,6 +163,8 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         else{
             try {
                 controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
+                this._prevFrame.updateTable();
+                this.setVisible(false);
             } catch (RemoteException ex) {
                 Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -197,7 +201,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreateWettkampfFrame().setVisible(true);
+                new CreateWettkampfFrame(null).setVisible(true);
             }
         });
     }

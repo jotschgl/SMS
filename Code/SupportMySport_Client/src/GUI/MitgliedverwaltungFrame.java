@@ -5,16 +5,10 @@
 package GUI;
 
 import Communication.ClubMemberDTO;
-import Communication.interfaces.IUseCaseControllerFactory;
 import Controller.interfaces.IClubMemberController;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -135,7 +129,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
     private void NeuesMitgliedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NeuesMitgliedButtonActionPerformed
         // TODO add your handling code here:
-        MitgliedFrame mf = new MitgliedFrame();
+        MitgliedFrame mf = new MitgliedFrame(this);
         mf.setVisible(true);
     }//GEN-LAST:event_NeuesMitgliedButtonActionPerformed
 
@@ -223,5 +217,9 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         }
 
 
+    }
+
+    void updateTable() {
+        fillTable();
     }
 }
