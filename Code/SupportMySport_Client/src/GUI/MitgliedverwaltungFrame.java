@@ -26,7 +26,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     public MitgliedverwaltungFrame() {
         initComponents();
         fillTable();
-        setRowSorter();
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
         tableMitglied.setAutoCreateRowSorter(true);
         this.setRowSorter();
@@ -215,8 +215,10 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-
+    public void updateTable() {
+        fillTable();
     }
 
     void updateTable() {
