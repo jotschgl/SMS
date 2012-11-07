@@ -32,7 +32,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     public MitgliedverwaltungFrame() {
         initComponents();
         fillTable();
-        setRowSorter();
+        this.setVisible(true);
         this.setLocationRelativeTo(null);
         tableMitglied.setAutoCreateRowSorter(true);
         this.setRowSorter();
@@ -135,7 +135,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
     private void NeuesMitgliedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NeuesMitgliedButtonActionPerformed
         // TODO add your handling code here:
-        MitgliedFrame mf = new MitgliedFrame();
+        MitgliedFrame mf = new MitgliedFrame(this);
         mf.setVisible(true);
     }//GEN-LAST:event_NeuesMitgliedButtonActionPerformed
 
@@ -221,7 +221,9 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
-
+    public void updateTable() {
+        fillTable();
     }
 }
