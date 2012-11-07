@@ -5,12 +5,20 @@
 package GUI;
 
 import Controller.interfaces.ICompetitionController;
+import Persistence.Meeting;
 import Persistence.interfaces.ICompetition;
+import Persistence.interfaces.IMeeting;
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -24,15 +32,29 @@ public class WettkampfFrame extends javax.swing.JFrame {
     /**
      * Creates new form WettkampfFrame
      */
+    private int lastSelectedRow;
+    private HashMap<Integer, ICompetition> competitions = new HashMap<Integer, ICompetition>();
+
     public WettkampfFrame() {
         initComponents();
         // here's the part where i center the jframe on screen
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        tableWettkampf.setAutoCreateRowSorter(true);
-        tableBegegnung.setAutoCreateRowSorter(true);
         this.setRowSorter();
         this.fillTable();
+        ListSelectionModel cellSelectionmodel = tableWettkampf.getSelectionModel();
+        cellSelectionmodel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableWettkampf.setRowSelectionAllowed(true);
+
+        cellSelectionmodel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                lastSelectedRow = tableWettkampf.getSelectedRow();
+                System.out.println(lastSelectedRow);
+                fillMeetingTable(competitions.get(lastSelectedRow).getMeetings());
+            }
+        });
+
     }
 
     /**
@@ -73,7 +95,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Gebühr", "Datum", "Abteilung"
             }
         ));
         tableWettkampf.getTableHeader().setReorderingAllowed(false);
@@ -229,7 +251,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     private void btnErsteWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnErsteWettkampfMouseClicked
         // TODO add your handling code here:
-        CreateWettkampfFrame f = new CreateWettkampfFrame();
+        CreateWettkampfFrame f = new CreateWettkampfFrame(this);
         f.setVisible(true);
     }//GEN-LAST:event_btnErsteWettkampfMouseClicked
 
@@ -349,7 +371,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
             DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
             ICompetitionController controller = GUIController.getCompetitionController();
 
+            int i = 0;
             for (ICompetition com : controller.getAllCompetitions()) {
+                competitions.put(i++, com);
                 tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getName()});
             }
         } catch (RemoteException ex) {
@@ -358,8 +382,21 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     }
 
+    private void fillMeetingTable(Set<Meeting> meetings) {
+        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnung.getModel();
+        int i = 1;
+        tablemodel.setRowCount(0);
+        for (IMeeting m : meetings) {
+            tablemodel.addRow(new Object[]{i++, m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName()});
+        }
+    }
+
     private void showWettkampfErstellung() {
         WettkampfErstellung wE = new WettkampfErstellung();
         wE.setVisible(true);
+    }
+
+    void updateTable() {
+        fillTable();
     }
 }

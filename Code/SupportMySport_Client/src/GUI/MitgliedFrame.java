@@ -5,13 +5,11 @@
 package GUI;
 
 import Communication.ClubMemberDTO;
-import Communication.interfaces.IUseCaseControllerFactory;
 import Controller.interfaces.IClubMemberController;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,12 +21,11 @@ public class MitgliedFrame extends javax.swing.JFrame {
     /**
      * Creates new form MitgliedFrame
      */
-    
-    private MitgliedverwaltungFrame _previousFrame;
-    public MitgliedFrame(MitgliedverwaltungFrame previousFrame) {
+    private MitgliedverwaltungFrame _prevframe;
+    public MitgliedFrame(MitgliedverwaltungFrame frame) {
         initComponents();
-        this._previousFrame = previousFrame;
         this.setLocationRelativeTo(null);
+        this._prevframe = frame;
     }
 
     /**
@@ -264,8 +261,8 @@ public class MitgliedFrame extends javax.swing.JFrame {
             try {
                 cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
                 
+                this._prevframe.updateTable();
                 this.setVisible(false);
-                _previousFrame.updateTable();
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -313,6 +310,7 @@ public class MitgliedFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new MitgliedFrame(null).setVisible(true);
             }
         });
     }

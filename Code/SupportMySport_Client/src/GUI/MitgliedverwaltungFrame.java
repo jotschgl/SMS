@@ -5,16 +5,10 @@
 package GUI;
 
 import Communication.ClubMemberDTO;
-import Communication.interfaces.IUseCaseControllerFactory;
 import Controller.interfaces.IClubMemberController;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -224,6 +218,10 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     }
 
     public void updateTable() {
+        fillTable();
+    }
+
+    void updateTable() {
         fillTable();
     }
 }
