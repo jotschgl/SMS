@@ -220,8 +220,4 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     public void updateTable() {
         fillTable();
     }
-
-    void updateTable() {
-        fillTable();
-    }
 }
