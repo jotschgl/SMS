@@ -18,12 +18,6 @@ public class LoginController implements ILoginController {
 
     @Override
     public boolean auth(String id, String pw) {
-        id = "jsc8968";
-        pw = "pprotona";
-
-        id = "tf-test";
-        pw = "";
-
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636/dc=uclv,dc=net");
