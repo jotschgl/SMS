@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
@@ -81,7 +80,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sport - Wettkampf berarbeiten");
-        setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
         panelLeft.setPreferredSize(new java.awt.Dimension(445, 0));
@@ -269,7 +268,11 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelLeft, "Möchten Sie den markierten Wettkampf bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showWettkampfErstellung();
+                    try {
+                        showWettkampfErstellung();
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
@@ -288,7 +291,11 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
                 int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie die markierte Begegnung bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
                 if (reply == JOptionPane.YES_OPTION) {
-                    showWettkampfErstellung();
+                    try {
+                        showWettkampfErstellung();
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         }
@@ -391,8 +398,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
         }
     }
 
-    private void showWettkampfErstellung() {
-        WettkampfErstellung wE = new WettkampfErstellung();
+    private void showWettkampfErstellung() throws RemoteException {
+        WettkampfErstellung wE = new WettkampfErstellung(competitions.get(lastSelectedRow).getId());
         wE.setVisible(true);
     }
 

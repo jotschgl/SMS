@@ -6,17 +6,19 @@ package GUI;
 
 import Communication.ClubMemberDTO;
 import Controller.interfaces.IClubMemberController;
+import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Raphaela
  */
-public class MitgliedFrame extends javax.swing.JFrame {
+public class MitgliedFrame extends JFrame{
 
     /**
      * Creates new form MitgliedFrame

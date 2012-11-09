@@ -4,8 +4,15 @@
  */
 package GUI;
 
+import Controller.interfaces.ICompetitionController;
+import Persistence.interfaces.ICompetition;
+import Persistence.interfaces.IMeeting;
+import java.rmi.RemoteException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
@@ -16,10 +23,14 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     /**
      * Creates new form WettkampfErstellung
      */
-    public WettkampfErstellung() {
+    private Integer curCompetition;
+
+    public WettkampfErstellung(Integer comptetition) throws RemoteException {
         initComponents();
+        fillTableWithCompetitions();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.curCompetition = comptetition;
         tableBegegnungen.setAutoCreateRowSorter(true);
     }
 
@@ -100,9 +111,18 @@ public class WettkampfErstellung extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Team 1", "Team 2", "Punkte Team 1", "Punkte Team 2", "Datum"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableBegegnungen.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableBegegnungen);
 
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -173,8 +193,6 @@ public class WettkampfErstellung extends javax.swing.JFrame {
 
     private void buttonBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBegegnungMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tableBegegnungen.getModel();
-        model.addRow(new Object[]{"Bitte hier änder", "", "", ""});
     }//GEN-LAST:event_buttonBegegnungMouseClicked
 
     private void buttonBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnungActionPerformed
@@ -211,7 +229,11 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WettkampfErstellung().setVisible(true);
+                try {
+                    new WettkampfErstellung(null).setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(WettkampfErstellung.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -229,4 +251,13 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     private com.toedter.components.JSpinField wettkampfGebühr;
     private javax.swing.JTextField wettkampfName;
     // End of variables declaration//GEN-END:variables
+
+    private void fillTableWithCompetitions() throws RemoteException {
+        ICompetitionController controller = GUIController.getCompetitionController();
+        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
+        
+        for(IMeeting m: controller.getCompetitionMeetings(curCompetition)){
+            tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName(), m.getPointsA(), m.getPointsB(),m.getCompetition().getDateOfCompetition()});
+        }
+    }
 }
