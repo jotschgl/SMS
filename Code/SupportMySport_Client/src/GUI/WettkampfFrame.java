@@ -380,7 +380,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
             ICompetitionController controller = GUIController.getCompetitionController();
             resetAllRows(tablemodel);
             tablemodel.setRowCount(0);
-
+           
             int i = 0;
             for (ICompetition com : controller.getAllCompetitions()) {
                 competitions.put(i++, com);

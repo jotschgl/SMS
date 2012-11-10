@@ -33,8 +33,7 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         this.curCompetition = comptetition;
         fillTableWithCompetitions();
         fillGeneralInformation();
-        tableBegegnungen.setAutoCreateRowSorter(true);
-        
+        tableBegegnungen.setAutoCreateRowSorter(true);  
     }
 
     /**
