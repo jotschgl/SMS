@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import Controller.interfaces.IClubMemberController;
 import Controller.interfaces.ICompetitionController;
+import Persistence.interfaces.ICompetitionTeam;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +22,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     public BegnungenErstellenFrame(WettkampfErstellung frame) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
         this.fillTable();
         this.prevFrame = frame;
     }
@@ -42,6 +45,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Begegnung erstellen");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Begegnung Hinzufügen");
@@ -95,7 +99,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboTeam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -162,8 +166,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTable() {
-        ICompetitionController controller = GUIController.getCompetitionController();
-        
+        IClubMemberController controller = GUIController.getClubMemberController();
         
         
     }
