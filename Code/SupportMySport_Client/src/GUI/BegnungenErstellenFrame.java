@@ -4,12 +4,12 @@
  */
 package GUI;
 
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,18 +21,22 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
      * Creates new form BegnungenErstellenFrame
      */
     private WettkampfErstellung prevFrame;
+    private CompetitionDTO competition;
+    private ICompetitionDTOControllerFactory competitionController;
+    private boolean updateCompetition = false;
+    private HashMap <Integer, TeamDTO> teams = new HashMap<Integer, TeamDTO>();
 
-    public BegnungenErstellenFrame(WettkampfErstellung frame) throws RemoteException {
+    public BegnungenErstellenFrame(WettkampfErstellung frame, CompetitionDTO controller) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.fillTable();
         this.prevFrame = frame;
+        this.competition = controller;
+        this.fillTable();
+        this.setVisible(true);
     }
-    
+
     //Constructor für Begegnung bearbeiten
-    public BegnungenErstellenFrame(WettkampfErstellung frame, String id){
-        
+    public BegnungenErstellenFrame(WettkampfErstellung frame, String id) {
     }
 
     /**
@@ -166,6 +170,16 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
 
     private void buttonErstellungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonErstellungMouseClicked
         // TODO add your handling code here:
+        if (!updateCompetition) {
+            if (comboTeam1.getSelectedItem().equals(comboTeam2.getSelectedItem())) {
+                JOptionPane.showMessageDialog(this, "Andere Teams Wählen!");
+            } else {
+                TeamDTO team1= teams.get(comboTeam1.getSelectedIndex());
+                TeamDTO team2= teams.get(comboTeam2.getSelectedIndex());
+                System.out.println(team1.getTeamName());
+                System.out.println(team2.getTeamName());
+            }
+        }
     }//GEN-LAST:event_buttonErstellungMouseClicked
 
     private void buttonErstellungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonErstellungActionPerformed
@@ -202,17 +216,6 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(BegnungenErstellenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new BegnungenErstellenFrame(null).setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(BegnungenErstellenFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonErstellung;
@@ -228,11 +231,12 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTable() throws RemoteException {
-        ICompetitionDTOControllerFactory controller = GUIController.getCompetitionController();
-        
-        for(TeamDTO team : controller.getAllTeams()){
+        int i = 0;
+        competitionController = GUIController.getCompetitionController();
+        for (TeamDTO team : competitionController.getAllTeams()) {
             comboTeam1.addItem(team.getTeamName());
             comboTeam2.addItem(team.getTeamName());
+            teams.put(i++, team);
         }
     }
 }
