@@ -7,9 +7,15 @@ package GUI;
 import Communication.ClubMemberDTO;
 import Controller.interfaces.IClubMemberController;
 import java.rmi.RemoteException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,6 +29,9 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     /**
      * Creates new form MitgliedverwaltungFrame
      */
+    private int lastSelectedRow;
+    private HashMap<Integer, ClubMemberDTO> members = new HashMap<Integer, ClubMemberDTO>();
+
     public MitgliedverwaltungFrame() {
         initComponents();
         fillTable();
@@ -30,6 +39,22 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         tableMitglied.setAutoCreateRowSorter(true);
         this.setRowSorter();
+
+        ListSelectionModel cellSelectionmodel = tableMitglied.getSelectionModel();
+        cellSelectionmodel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        cellSelectionmodel.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                lastSelectedRow = tableMitglied.getSelectedRow();
+                if (lastSelectedRow >= 0) {
+                    System.out.println(lastSelectedRow);
+                    System.out.println(tableMitglied.convertRowIndexToModel(lastSelectedRow));
+                    System.out.println(members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)).getFirstname());
+                    System.out.println(members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)).getMail());
+                }
+            }
+        });
     }
 
     /**
@@ -73,7 +98,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         });
 
         AenderungenSpeichernButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        AenderungenSpeichernButton.setText("Änderungen speichern");
+        AenderungenSpeichernButton.setText("Mitglied bearbeiten/ löschen");
         AenderungenSpeichernButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AenderungenSpeichernButtonMouseClicked(evt);
@@ -104,7 +129,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
                         .addComponent(AenderungenSpeichernButton))
                     .addComponent(memberSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,6 +160,23 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
 
     private void AenderungenSpeichernButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AenderungenSpeichernButtonMouseClicked
         // TODO add your handling code here:
+        int[] selectedRows = tableMitglied.getSelectedRows();
+
+        if (tableMitglied.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Keine Mitglieder vorhanden");
+        } else {
+            if (selectedRows.length == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Mitglied Auswählen");
+            } else {
+                try {
+                    System.out.println("CLICKED");
+                    MitgliedFrame mf = new MitgliedFrame(this, members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)));
+                    mf.setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }//GEN-LAST:event_AenderungenSpeichernButtonMouseClicked
 
     private void memberSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_memberSearchKeyReleased
@@ -190,7 +232,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     private javax.swing.JTable tableMitglied;
     // End of variables declaration//GEN-END:variables
     private TableRowSorter<TableModel> sorter;
-    
+
     private void showFrame() {
         WelcomeFrame fr = new WelcomeFrame();
         this.dispose();
@@ -207,13 +249,23 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     private void fillTable() {
         try {
             DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
-            
+
+            resetAllRows(model);
+            model.setRowCount(0);
+            int i = 0;
             IClubMemberController cmc = GUIController.getClubMemberController();
             for (ClubMemberDTO member : cmc.getAllClubMembers()) {
+                members.put(i++, member);
                 model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void resetAllRows(DefaultTableModel model) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
         }
     }
 

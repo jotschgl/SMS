@@ -6,7 +6,6 @@ package GUI;
 
 import Communication.ClubMemberDTO;
 import Controller.interfaces.IClubMemberController;
-import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -18,16 +17,28 @@ import javax.swing.JOptionPane;
  *
  * @author Raphaela
  */
-public class MitgliedFrame extends JFrame{
+public class MitgliedFrame extends JFrame {
 
     /**
      * Creates new form MitgliedFrame
      */
     private MitgliedverwaltungFrame _prevframe;
+    private boolean upadteMember = false;
+    private IClubMemberController controller;
+    private ClubMemberDTO member;
+
     public MitgliedFrame(MitgliedverwaltungFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
         this._prevframe = frame;
+    }
+
+    public MitgliedFrame(MitgliedverwaltungFrame frame, ClubMemberDTO member) throws RemoteException {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this._prevframe = frame;
+        this.member = member;
+        this.prefillMemberData();
     }
 
     /**
@@ -70,11 +81,12 @@ public class MitgliedFrame extends JFrame{
         setResizable(false);
 
         RegristierungLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        RegristierungLabel.setText("Regristierung");
+        RegristierungLabel.setText("Mitlgied ");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setText("Vorname:");
 
+        textVorname.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textVorname.setMaximumSize(new java.awt.Dimension(100, 25));
         textVorname.setMinimumSize(new java.awt.Dimension(100, 25));
         textVorname.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -87,6 +99,7 @@ public class MitgliedFrame extends JFrame{
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel2.setText("Nachname:");
 
+        textNachname.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textNachname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textNachnameActionPerformed(evt);
@@ -96,20 +109,29 @@ public class MitgliedFrame extends JFrame{
         UsernameLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         UsernameLabel.setText("Username:");
 
+        textUsername.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         StraßeLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         StraßeLabel.setText("Straße:");
 
+        textStraße.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         textStraße.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textStraßeActionPerformed(evt);
             }
         });
 
+        textStadt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Stadt:");
 
+        textPLZ.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         PostleitzahlLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         PostleitzahlLabel.setText("PLZ:");
+
+        textEmail.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("E-Mail:");
@@ -130,6 +152,8 @@ public class MitgliedFrame extends JFrame{
                 SpeichernButtonActionPerformed(evt);
             }
         });
+
+        textTelefon.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         dateGeb.setDate(new Date());
         dateGeb.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -154,39 +178,35 @@ public class MitgliedFrame extends JFrame{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(SpeichernButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(UsernameLabel)
-                            .addComponent(StraßeLabel)
-                            .addComponent(GeschlechtLabel)
-                            .addComponent(jLabel3)
-                            .addComponent(PostleitzahlLabel)
-                            .addComponent(jLabel4)
-                            .addComponent(TelefonLabel)
-                            .addComponent(GeburtstagLabel)
-                            .addComponent(GeburtstagLabel1)
-                            .addComponent(RegristierungLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(dateGeb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textPLZ, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textVorname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textUsername, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textNachname, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textStraße, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textStadt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                            .addComponent(textTelefon, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                            .addComponent(comboGender, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(textLand, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(UsernameLabel)
+                    .addComponent(StraßeLabel)
+                    .addComponent(GeschlechtLabel)
+                    .addComponent(jLabel3)
+                    .addComponent(PostleitzahlLabel)
+                    .addComponent(jLabel4)
+                    .addComponent(TelefonLabel)
+                    .addComponent(GeburtstagLabel)
+                    .addComponent(GeburtstagLabel1)
+                    .addComponent(RegristierungLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SpeichernButton, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(dateGeb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textPLZ)
+                    .addComponent(textVorname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textUsername)
+                    .addComponent(textNachname)
+                    .addComponent(textStraße)
+                    .addComponent(textStadt)
+                    .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(textTelefon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                    .addComponent(comboGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textLand))
                 .addGap(58, 58, 58))
         );
         layout.setVerticalGroup(
@@ -238,9 +258,9 @@ public class MitgliedFrame extends JFrame{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(GeburtstagLabel1)
                     .addComponent(textLand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(SpeichernButton)
-                .addGap(43, 43, 43))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -261,14 +281,35 @@ public class MitgliedFrame extends JFrame{
         } else {
             IClubMemberController cont = GUIController.getClubMemberController();
             try {
-                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
-                
-                this._prevframe.updateTable();
-                this.setVisible(false);
+                if (upadteMember) {
+                    member.setFirstname(textVorname.getText());
+                    member.setLastname(textNachname.getText());
+                    member.setMail(textEmail.getText());
+                    member.setPhone(textTelefon.getText());
+                    member.setStreet(textStraße.getText());
+                    member.setCity(textStadt.getText());
+                    member.setCountry(textLand.getText());
+                    member.setBirthday(dateGeb.getDate());
+                    member.setUsername(textUsername.getText());
+                    member.setGender(comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm');
+                    System.out.println("member update with email: " + member.getMail());
+
+                    //updateInformation
+                    cont.createOrUpdateClubMember(member);
+
+                } else {
+
+                    //if upatedMember is false --> create new MemberDTO
+                    System.out.println("new member insert");
+                    cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+
+                }
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this._prevframe.updateTable();
 
+            this.setVisible(false);
         }
 
         //TODO: new MemberAction
@@ -296,16 +337,24 @@ public class MitgliedFrame extends JFrame{
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -394,5 +443,22 @@ public class MitgliedFrame extends JFrame{
             validate = false;
         }
         return validate;
+    }
+
+    private void prefillMemberData() throws RemoteException {
+        System.out.println("MEMBER-Mail:" + member.getMail());
+
+        textVorname.setText(member.getFirstname());
+        textNachname.setText(member.getLastname());
+        textStraße.setText(member.getStreet());
+        textLand.setText(member.getCountry());
+        textStadt.setText(member.getCity());
+        textTelefon.setText(member.getPhone());
+        dateGeb.setDate(member.getBirthday());
+        textUsername.setText(member.getUsername());
+        textEmail.setText(member.getMail());
+        textPLZ.setText(member.getZip());
+        upadteMember = true;
+
     }
 }

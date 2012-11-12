@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import sun.org.mozilla.javascript.internal.ObjArray;
 
 /**
  *
@@ -24,14 +23,17 @@ public class WettkampfErstellung extends javax.swing.JFrame {
      * Creates new form WettkampfErstellung
      */
     private Integer curCompetition;
+    private ICompetitionController controller;
 
     public WettkampfErstellung(Integer comptetition) throws RemoteException {
         initComponents();
-        fillTableWithCompetitions();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        setVisible(true);
+        this.controller = GUIController.getCompetitionController();
         this.curCompetition = comptetition;
-        tableBegegnungen.setAutoCreateRowSorter(true);
+        fillTableWithCompetitions();
+        fillGeneralInformation();
+        tableBegegnungen.setAutoCreateRowSorter(true);  
     }
 
     /**
@@ -47,18 +49,18 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        wettkampfDatum = new com.toedter.calendar.JDateChooser();
-        wettkampfGebühr = new com.toedter.components.JSpinField();
-        wettkampfName = new javax.swing.JTextField();
-        wettkampfAbteilung = new javax.swing.JComboBox();
         buttonBegegnung = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableBegegnungen = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
+        wettkampfFee = new javax.swing.JLabel();
+        wettkampfName2 = new javax.swing.JLabel();
+        wettkampfName = new javax.swing.JLabel();
+        wettkampfDate = new javax.swing.JLabel();
+        wettkampfAbteilung = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Suppor My Sprts - Wettkampf bearbeiten");
-        setAlwaysOnTop(true);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Allgemeine Informationen");
@@ -75,22 +77,6 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         jLabel5.setMinimumSize(new java.awt.Dimension(59, 25));
         jLabel5.setPreferredSize(new java.awt.Dimension(59, 25));
 
-        wettkampfDatum.setDate(new Date());
-        wettkampfDatum.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        wettkampfDatum.setMinSelectableDate(new Date());
-        wettkampfDatum.setPreferredSize(new java.awt.Dimension(87, 25));
-
-        wettkampfGebühr.setPreferredSize(new java.awt.Dimension(29, 25));
-
-        wettkampfName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-
-        wettkampfAbteilung.setEditable(true);
-        wettkampfAbteilung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wettkampfAbteilungActionPerformed(evt);
-            }
-        });
-
         buttonBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         buttonBegegnung.setText("Begegnung hinzufügen");
         buttonBegegnung.setPreferredSize(new java.awt.Dimension(73, 25));
@@ -105,7 +91,7 @@ public class WettkampfErstellung extends javax.swing.JFrame {
             }
         });
 
-        tableBegegnungen.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        tableBegegnungen.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tableBegegnungen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -128,6 +114,16 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel6.setText("Gebühr");
 
+        wettkampfFee.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        wettkampfName2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        wettkampfName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        wettkampfDate.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        wettkampfAbteilung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,26 +131,32 @@ public class WettkampfErstellung extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(wettkampfDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(wettkampfName)
-                                .addComponent(wettkampfAbteilung, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(wettkampfGebühr, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE)))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(wettkampfName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(18, 18, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(wettkampfFee, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(wettkampfDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                    .addComponent(wettkampfName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(wettkampfAbteilung, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                                .addGap(385, 385, 385)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,37 +164,38 @@ public class WettkampfErstellung extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(wettkampfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wettkampfName, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wettkampfFee, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wettkampfDate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(wettkampfGebühr, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(wettkampfDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(wettkampfAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wettkampfAbteilung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+                .addGap(18, 25, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(wettkampfName2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void wettkampfAbteilungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wettkampfAbteilungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_wettkampfAbteilungActionPerformed
-
     private void buttonBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBegegnungMouseClicked
         // TODO add your handling code here:
+        BegnungenErstellenFrame f = new BegnungenErstellenFrame(this);
+        f.setVisible(true);
     }//GEN-LAST:event_buttonBegegnungMouseClicked
 
     private void buttonBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnungActionPerformed
@@ -246,18 +249,37 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableBegegnungen;
-    private javax.swing.JComboBox wettkampfAbteilung;
-    private com.toedter.calendar.JDateChooser wettkampfDatum;
-    private com.toedter.components.JSpinField wettkampfGebühr;
-    private javax.swing.JTextField wettkampfName;
+    private javax.swing.JLabel wettkampfAbteilung;
+    private javax.swing.JLabel wettkampfDate;
+    private javax.swing.JLabel wettkampfFee;
+    private javax.swing.JLabel wettkampfName;
+    private javax.swing.JLabel wettkampfName2;
     // End of variables declaration//GEN-END:variables
 
     private void fillTableWithCompetitions() throws RemoteException {
-        ICompetitionController controller = GUIController.getCompetitionController();
-        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
         
-        for(IMeeting m: controller.getCompetitionMeetings(curCompetition)){
-            tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName(), m.getPointsA(), m.getPointsB(),m.getCompetition().getDateOfCompetition()});
+        DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
+
+        for (IMeeting m : controller.getCompetitionMeetings(curCompetition)) {
+            if (m != null) {
+                tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName(), m.getPointsA(), m.getPointsB(), m.getCompetition().getDateOfCompetition()});
+            } else {
+                System.out.println("NO MEETINGS FOR THESE COMPETITION");
+            }
+        }
+    }
+
+    private void fillGeneralInformation() throws RemoteException {
+        for (ICompetition c : controller.getAllCompetitions()) {
+            if (c.getId().equals(curCompetition)) {
+                System.out.println("FOUND COMPETITION");
+                wettkampfName.setText(c.getName());
+                wettkampfFee.setText(String.valueOf(c.getCompetitionfee()));
+                wettkampfDate.setText(c.getDateOfCompetition().toString());
+                wettkampfAbteilung.setText(c.getDepartment().getName());
+            } else {
+                //NOTHING
+            }
         }
     }
 }

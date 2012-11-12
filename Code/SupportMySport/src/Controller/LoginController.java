@@ -5,6 +5,10 @@
 package Controller;
 
 import Controller.interfaces.ILoginController;
+import Domaene.DomainFacade;
+import Persistence.FunctionRole;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,17 +21,17 @@ import javax.naming.NamingException;
 public class LoginController implements ILoginController {
 
     @Override
-    public boolean auth(String id, String pw) {
+    public boolean auth(String username, String pw) {
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
         env.put(Context.PROVIDER_URL, "ldaps://ldap.fhv.at:636/dc=uclv,dc=net");
 
 
         env.put(Context.SECURITY_AUTHENTICATION, "simple");
-        if (id.equals("tf-test")) {
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + id + ",ou=apps,dc=uclv,dc=net"); // specify the username
+        if (username.equals("tf-test")) {
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + username + ",ou=apps,dc=uclv,dc=net"); // specify the username
         } else {
-            env.put(Context.SECURITY_PRINCIPAL, "uid=" + id + ",ou=fhv,ou=People,dc=uclv,dc=net"); // specify the username
+            env.put(Context.SECURITY_PRINCIPAL, "uid=" + username + ",ou=fhv,ou=People,dc=uclv,dc=net"); // specify the username
         }
 
         env.put(Context.SECURITY_CREDENTIALS, pw);
@@ -41,5 +45,15 @@ public class LoginController implements ILoginController {
         }
 
         return false;
+    }
+
+    @Override
+    public Collection<String> getRolses(String username) {
+        DomainFacade f = new DomainFacade();
+        ArrayList<String> al = new ArrayList<String>();
+        for (FunctionRole r : f.getRolesOfClubmember(username)) {
+            al.add(r.getName());
+        }
+        return al;
     }
 }

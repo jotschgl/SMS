@@ -42,11 +42,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="dateDatum" alignment="0" max="32767" attributes="0"/>
                           <Component id="textWettkampf" alignment="0" max="32767" attributes="0"/>
-                          <Component id="comboAbteilung" alignment="0" max="32767" attributes="0"/>
                           <Component id="spinnerGebühr" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Component id="comboAbteilung" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="saveWettkampf" min="-2" pref="276" max="-2" attributes="0"/>
+                  <Component id="saveWettkampf" alignment="0" min="-2" pref="276" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="189" max="32767" attributes="0"/>
           </Group>
@@ -74,12 +74,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel5" alignment="3" pref="27" max="32767" attributes="0"/>
                   <Component id="comboAbteilung" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
               <Component id="saveWettkampf" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -147,16 +147,6 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="comboAbteilung">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboAbteilungActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -183,6 +173,16 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="saveWettkampfMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboAbteilung">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboAbteilungActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

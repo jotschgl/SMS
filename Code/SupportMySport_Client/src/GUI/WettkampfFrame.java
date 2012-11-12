@@ -50,6 +50,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 lastSelectedRow = tableWettkampf.getSelectedRow();
                 System.out.println(lastSelectedRow);
+                System.out.println(competitions.get(lastSelectedRow).getName());
                 fillMeetingTable(competitions.get(lastSelectedRow).getMeetings());
             }
         });
@@ -377,7 +378,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
         try {
             DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
             ICompetitionController controller = GUIController.getCompetitionController();
-
+            resetAllRows(tablemodel);
+            tablemodel.setRowCount(0);
+           
             int i = 0;
             for (ICompetition com : controller.getAllCompetitions()) {
                 competitions.put(i++, com);
@@ -391,8 +394,10 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     private void fillMeetingTable(Set<Meeting> meetings) {
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnung.getModel();
-        int i = 1;
+        resetAllRows(tablemodel);
+
         tablemodel.setRowCount(0);
+        int i = 1;
         for (IMeeting m : meetings) {
             tablemodel.addRow(new Object[]{i++, m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName()});
         }
@@ -401,6 +406,12 @@ public class WettkampfFrame extends javax.swing.JFrame {
     private void showWettkampfErstellung() throws RemoteException {
         WettkampfErstellung wE = new WettkampfErstellung(competitions.get(lastSelectedRow).getId());
         wE.setVisible(true);
+    }
+
+    private void resetAllRows(DefaultTableModel model) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+        }
     }
 
     void updateTable() {

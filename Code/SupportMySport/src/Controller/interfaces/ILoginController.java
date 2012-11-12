@@ -4,12 +4,15 @@
  */
 package Controller.interfaces;
 
+import java.util.Collection;
+
 /**
  *
  * @author Johannes
  */
 public interface ILoginController {
 
-    boolean auth(String id, String pw);
-    
+    boolean auth(String username, String pw);
+
+    public Collection<String> getRolses(String username);
 }

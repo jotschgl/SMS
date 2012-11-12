@@ -48,9 +48,9 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         dateDatum = new com.toedter.calendar.JDateChooser();
-        comboAbteilung = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
         saveWettkampf = new javax.swing.JButton();
+        comboAbteilung = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Neuen Wettkampf");
@@ -78,12 +78,6 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         dateDatum.setMinSelectableDate(new Date());
         dateDatum.setPreferredSize(new java.awt.Dimension(87, 25));
 
-        comboAbteilung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboAbteilungActionPerformed(evt);
-            }
-        });
-
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Abteilung");
         jLabel5.setMaximumSize(new java.awt.Dimension(59, 25));
@@ -95,6 +89,12 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         saveWettkampf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saveWettkampfMouseClicked(evt);
+            }
+        });
+
+        comboAbteilung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAbteilungActionPerformed(evt);
             }
         });
 
@@ -117,8 +117,8 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textWettkampf)
-                            .addComponent(comboAbteilung, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spinnerGebühr, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(spinnerGebühr, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboAbteilung, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(saveWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(189, Short.MAX_VALUE))
         );
@@ -141,19 +141,15 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(32, 32, 32)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(comboAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
                 .addComponent(saveWettkampf)
-                .addGap(31, 31, 31))
+                .addGap(53, 53, 53))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void comboAbteilungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAbteilungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboAbteilungActionPerformed
 
     private void saveWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveWettkampfMouseClicked
         // TODO add your handling code here:
@@ -170,6 +166,10 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_saveWettkampfMouseClicked
+
+    private void comboAbteilungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAbteilungActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboAbteilungActionPerformed
 
     /**
      * @param args the command line arguments
