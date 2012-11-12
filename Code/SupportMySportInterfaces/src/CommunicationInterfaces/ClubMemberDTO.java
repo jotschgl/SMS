@@ -3,6 +3,7 @@ package CommunicationInterfaces;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 /**
  *
@@ -38,8 +39,9 @@ public class ClubMemberDTO implements Serializable {
         this.phone = phone;
         this.gender = gender;
         this.birthday = birthday;
+        this.clubMembersRoles = new LinkedList<FunctionRoleDTO>();
     }
-    
+
     public ClubMemberDTO(String firstname, String lastname, String username, String street, String city, String country, String zip, String email, String phone, char gender, Date birthday, Collection<FunctionRoleDTO> allRoles) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -244,12 +246,12 @@ public class ClubMemberDTO implements Serializable {
     public void setSport(SportDTO sport) {
         this.sport = sport;
     }
-    
-    public Collection<FunctionRoleDTO> getAllFunctionRolesOfClubMember(){
+
+    public Collection<FunctionRoleDTO> getAllFunctionRolesOfClubMember() {
         return this.clubMembersRoles;
     }
-    
-    public void addFunctionRole(FunctionRoleDTO function){
+
+    public void addFunctionRole(FunctionRoleDTO function) {
         this.clubMembersRoles.add(function);
     }
 }

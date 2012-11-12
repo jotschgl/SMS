@@ -7,6 +7,7 @@ package Communication;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import Controller.ClubMemberController;
+import Controller.LoginController;
 import Persistence.ClubMember;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -21,10 +22,12 @@ public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implemen
 
     private ClubMemberController clubMemberController;
     private DTOAssembler dtoAssembler;
+    private LoginController loginController;
 
     public ClubMemberDTOControllerFactory() throws RemoteException {
         clubMemberController = new ClubMemberController();
         dtoAssembler = new DTOAssembler();
+        loginController = new LoginController();
     }
 
     @Override
@@ -39,5 +42,20 @@ public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implemen
             allClubMembers.add(dtoAssembler.createClubMemberDTO(clubMember));
         }
         return allClubMembers;
+    }
+
+    @Override
+    public ClubMemberDTO getClubmemberByUserName(String username) throws RemoteException {
+        return dtoAssembler.createClubMemberDTO(clubMemberController.getClubmemberByUserName(username));
+    }
+
+    @Override
+    public ClubMemberDTO getLoggedInClubmember() throws RemoteException {
+        return dtoAssembler.createClubMemberDTO(loginController.getLoggedinClubmember());
+    }
+
+    @Override
+    public boolean login(String username, String password)throws RemoteException  {
+        return loginController.auth(username, password);
     }
 }

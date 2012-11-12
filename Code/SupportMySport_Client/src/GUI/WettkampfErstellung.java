@@ -4,11 +4,10 @@
  */
 package GUI;
 
-import Controller.interfaces.ICompetitionController;
-import Persistence.interfaces.ICompetition;
-import Persistence.interfaces.IMeeting;
+import CommunicationInterfaces.CompetitionDTO;
+import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.MeetingDTO;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -22,10 +21,10 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     /**
      * Creates new form WettkampfErstellung
      */
-    private Integer curCompetition;
-    private ICompetitionController controller;
+    private CompetitionDTO curCompetition;
+    private ICompetitionDTOControllerFactory controller;
 
-    public WettkampfErstellung(Integer comptetition) throws RemoteException {
+    public WettkampfErstellung(CompetitionDTO comptetition) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
         setVisible(true);
@@ -33,7 +32,7 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         this.curCompetition = comptetition;
         fillTableWithCompetitions();
         fillGeneralInformation();
-        tableBegegnungen.setAutoCreateRowSorter(true);  
+        tableBegegnungen.setAutoCreateRowSorter(true);
     }
 
     /**
@@ -257,12 +256,12 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTableWithCompetitions() throws RemoteException {
-        
+
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
 
-        for (IMeeting m : controller.getCompetitionMeetings(curCompetition)) {
+        for (MeetingDTO m : curCompetition.getAllCompetitionMeetings()) {
             if (m != null) {
-                tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName(), m.getPointsA(), m.getPointsB(), m.getCompetition().getDateOfCompetition()});
+                tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getTeamName(), m.getTeamByTeamBId().getTeamName(), m.getPointsA(), m.getPointsB(), m.getCompetition().getDateOfCompetition()});
             } else {
                 System.out.println("NO MEETINGS FOR THESE COMPETITION");
             }
@@ -270,16 +269,10 @@ public class WettkampfErstellung extends javax.swing.JFrame {
     }
 
     private void fillGeneralInformation() throws RemoteException {
-        for (ICompetition c : controller.getAllCompetitions()) {
-            if (c.getId().equals(curCompetition)) {
-                System.out.println("FOUND COMPETITION");
-                wettkampfName.setText(c.getName());
-                wettkampfFee.setText(String.valueOf(c.getCompetitionfee()));
-                wettkampfDate.setText(c.getDateOfCompetition().toString());
-                wettkampfAbteilung.setText(c.getDepartment().getName());
-            } else {
-                //NOTHING
-            }
-        }
+        System.out.println("FOUND COMPETITION");
+        wettkampfName.setText(curCompetition.getName());
+        wettkampfFee.setText(String.valueOf(curCompetition.getCompetitionfee()));
+        wettkampfDate.setText(curCompetition.getDateOfCompetition().toString());
+        wettkampfAbteilung.setText(curCompetition.getDepartment().getDepartmentName());
     }
 }

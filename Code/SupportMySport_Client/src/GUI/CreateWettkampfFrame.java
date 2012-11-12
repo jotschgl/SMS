@@ -4,8 +4,9 @@
  */
 package GUI;
 
-import Controller.interfaces.ICompetitionController;
-import Persistence.interfaces.IDepartment;
+import CommunicationInterfaces.CompetitionDTO;
+import CommunicationInterfaces.DepartmentDTO;
+import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,12 +20,13 @@ import javax.swing.JOptionPane;
  */
 public class CreateWettkampfFrame extends javax.swing.JFrame {
 
-    private HashMap<String, IDepartment> depmap = new HashMap<String, IDepartment>();
-    private ICompetitionController controller;
+    private HashMap<String, DepartmentDTO> depmap = new HashMap<String, DepartmentDTO>();
+    private ICompetitionDTOControllerFactory controller;
     /**
      * Creates new form CreateWettkampfFrame
      */
     private WettkampfFrame _prevFrame;
+
     public CreateWettkampfFrame(WettkampfFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -153,17 +155,18 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
 
     private void saveWettkampfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveWettkampfMouseClicked
         // TODO add your handling code here:
-        if(!checkInput()){
+        if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMess);
-        }
-        else{
+        } else {
             try {
-                controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
+                controller.createNewCompetition(new CompetitionDTO(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate()));
+                //   controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
                 this._prevFrame.updateTable();
                 this.setVisible(false);
             } catch (RemoteException ex) {
                 Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
     }//GEN-LAST:event_saveWettkampfMouseClicked
 
@@ -217,33 +220,33 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
     private com.toedter.components.JSpinField spinnerGebühr;
     private javax.swing.JTextField textWettkampf;
     // End of variables declaration//GEN-END:variables
-    
     private StringBuilder errorMess;
+
     private boolean checkInput() {
         boolean validate = true;
         errorMess = new StringBuilder("Folgende Fehler\n\n");
-        
+
         //Name
-        if(textWettkampf.getText().equals("")){
+        if (textWettkampf.getText().equals("")) {
             errorMess.append("Namen");
             validate = false;
         }
-        
+
         return validate;
     }
 
     private void getAllDepartments() {
         try {
             controller = GUIController.getCompetitionController();
-            
-            for(IDepartment d : controller.getAllDepartments()){
-                depmap.put(d.getName(), d);
-                comboAbteilung.addItem(d.getName());
+
+            for (DepartmentDTO d : controller.getAllDepartments()) {
+                depmap.put(d.getDepartmentName(), d);
+                comboAbteilung.addItem(d.getDepartmentName());
             }
-            
+
         } catch (RemoteException ex) {
             Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 }

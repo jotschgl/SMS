@@ -4,11 +4,11 @@
  */
 package GUI;
 
-import Controller.interfaces.ICompetitionController;
-import Persistence.Meeting;
-import Persistence.interfaces.ICompetition;
-import Persistence.interfaces.IMeeting;
+import CommunicationInterfaces.CompetitionDTO;
+import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.MeetingDTO;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
@@ -32,7 +32,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
      * Creates new form WettkampfFrame
      */
     private int lastSelectedRow;
-    private HashMap<Integer, ICompetition> competitions = new HashMap<Integer, ICompetition>();
+    private HashMap<Integer, CompetitionDTO> competitions = new HashMap<Integer, CompetitionDTO>();
 
     public WettkampfFrame() {
         initComponents();
@@ -49,9 +49,11 @@ public class WettkampfFrame extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 lastSelectedRow = tableWettkampf.getSelectedRow();
-                System.out.println(lastSelectedRow);
-                System.out.println(competitions.get(lastSelectedRow).getName());
-                fillMeetingTable(competitions.get(lastSelectedRow).getMeetings());
+                if (lastSelectedRow >= 0) {
+                    System.out.println(lastSelectedRow);
+                    System.out.println(competitions.get(tableWettkampf.convertRowIndexToModel(lastSelectedRow)).getName());
+                    fillMeetingTable(competitions.get((tableWettkampf.convertRowIndexToModel(lastSelectedRow))).getAllCompetitionMeetings());
+                }
             }
         });
 
@@ -377,14 +379,14 @@ public class WettkampfFrame extends javax.swing.JFrame {
     private void fillTable() {
         try {
             DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
-            ICompetitionController controller = GUIController.getCompetitionController();
+            ICompetitionDTOControllerFactory controller = GUIController.getCompetitionController();
             resetAllRows(tablemodel);
             tablemodel.setRowCount(0);
-           
+
             int i = 0;
-            for (ICompetition com : controller.getAllCompetitions()) {
+            for (CompetitionDTO com : controller.getAllCompetitions()) {
                 competitions.put(i++, com);
-                tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getName()});
+                tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getDepartmentName()});
             }
         } catch (RemoteException ex) {
             Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,19 +394,19 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     }
 
-    private void fillMeetingTable(Set<Meeting> meetings) {
+    private void fillMeetingTable(Collection<MeetingDTO> meetings) {
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnung.getModel();
         resetAllRows(tablemodel);
 
         tablemodel.setRowCount(0);
         int i = 1;
-        for (IMeeting m : meetings) {
-            tablemodel.addRow(new Object[]{i++, m.getTeamByTeamAId().getName(), m.getTeamByTeamBId().getName()});
+        for (MeetingDTO m : meetings) {
+            tablemodel.addRow(new Object[]{i++, m.getTeamByTeamAId().getTeamName(), m.getTeamByTeamBId().getTeamName()});
         }
     }
 
     private void showWettkampfErstellung() throws RemoteException {
-        WettkampfErstellung wE = new WettkampfErstellung(competitions.get(lastSelectedRow).getId());
+        WettkampfErstellung wE = new WettkampfErstellung(competitions.get((tableWettkampf.convertRowIndexToModel(lastSelectedRow))));
         wE.setVisible(true);
     }
 

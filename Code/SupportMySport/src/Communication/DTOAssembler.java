@@ -122,6 +122,7 @@ public class DTOAssembler {
     }
 
     public ClubMember updateClubMemberEntity(ClubMemberDTO clubMemberDTO) {
+        
         Set<FunctionRole> allRoles = new HashSet<FunctionRole>();
         for (FunctionRoleDTO funcDTO : clubMemberDTO.getAllFunctionRolesOfClubMember()) {
             allRoles.add(updateFunctionRoleEntity(funcDTO));

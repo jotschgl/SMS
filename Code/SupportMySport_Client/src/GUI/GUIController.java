@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import Communication.ClubMemberDTO;
-import Communication.interfaces.IUseCaseControllerFactory;
-import Controller.interfaces.IClubMemberController;
-import Controller.interfaces.ICompetitionController;
+import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.IUseCaseControllerFactory;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -22,16 +22,17 @@ import java.util.logging.Logger;
  */
 public class GUIController {
 
-    private static IUseCaseControllerFactory factory;
-    private static ICompetitionController competController;
-    private static IClubMemberController memberController;
+    private static CommunicationInterfaces.IUseCaseControllerFactory factory;
+    private static ICompetitionDTOControllerFactory competController;
+    private static IClubMemberDTOControllerFactory memberController;
+    private static ClubMemberDTO loggedInMember;
 
     public static void initRMI(String ip) {
         if (factory == null) {
             try {
                 Registry reg = LocateRegistry.getRegistry(ip);
                 factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
-                
+
                 competController = factory.createCompetitionController();
                 memberController = factory.createClubMemberController();
 
@@ -45,11 +46,15 @@ public class GUIController {
         }
     }
 
-    public static IClubMemberController getClubMemberController() {
+    public static IClubMemberDTOControllerFactory getClubMemberController() {
         return memberController;
     }
 
-    static ICompetitionController getCompetitionController() {
+    static ICompetitionDTOControllerFactory getCompetitionController() {
         return competController;
+    }
+
+    static void setLoggedInMember(ClubMemberDTO loggedInClubmember) {
+        loggedInMember = loggedInClubmember;
     }
 }

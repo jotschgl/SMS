@@ -4,8 +4,8 @@
  */
 package GUI;
 
-import Communication.ClubMemberDTO;
-import Controller.interfaces.IClubMemberController;
+import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ public class MitgliedFrame extends JFrame {
      */
     private MitgliedverwaltungFrame _prevframe;
     private boolean upadteMember = false;
-    private IClubMemberController controller;
+    private IClubMemberDTOControllerFactory controller;
     private ClubMemberDTO member;
 
     public MitgliedFrame(MitgliedverwaltungFrame frame) {
@@ -279,7 +279,7 @@ public class MitgliedFrame extends JFrame {
         if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMEssage);
         } else {
-            IClubMemberController cont = GUIController.getClubMemberController();
+            IClubMemberDTOControllerFactory cont = GUIController.getClubMemberController();
             try {
                 if (upadteMember) {
                     member.setFirstname(textVorname.getText());

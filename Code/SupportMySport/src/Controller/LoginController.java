@@ -4,11 +4,7 @@
  */
 package Controller;
 
-import Controller.interfaces.ILoginController;
-import Domaene.DomainFacade;
-import Persistence.FunctionRole;
-import java.util.ArrayList;
-import java.util.Collection;
+import Persistence.ClubMember;
 import java.util.Hashtable;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -18,9 +14,10 @@ import javax.naming.NamingException;
  *
  * @author Johannes
  */
-public class LoginController implements ILoginController {
+public class LoginController {
 
-    @Override
+    private ClubMember loggedInMember;
+
     public boolean auth(String username, String pw) {
         Hashtable<String, String> env = new Hashtable<String, String>();
         env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -37,6 +34,8 @@ public class LoginController implements ILoginController {
         env.put(Context.SECURITY_CREDENTIALS, pw);
         try {
             Context ctx = new InitialContext(env);
+            ClubMemberController c = new ClubMemberController();
+            loggedInMember = c.getClubmemberByUserName(username);
             System.out.println("You have Access");
             return true;
 
@@ -47,13 +46,7 @@ public class LoginController implements ILoginController {
         return false;
     }
 
-    @Override
-    public Collection<String> getRolses(String username) {
-        DomainFacade f = new DomainFacade();
-        ArrayList<String> al = new ArrayList<String>();
-        for (FunctionRole r : f.getRolesOfClubmember(username)) {
-            al.add(r.getName());
-        }
-        return al;
+    public ClubMember getLoggedinClubmember() {
+        return loggedInMember;
     }
 }

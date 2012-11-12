@@ -4,10 +4,7 @@
  */
 package GUI;
 
-import Controller.interfaces.IClubMemberController;
-import Controller.interfaces.ICompetitionController;
-import Persistence.interfaces.ICompetitionTeam;
-import javax.swing.table.DefaultTableModel;
+import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 
 /**
  *
@@ -19,6 +16,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
      * Creates new form BegnungenErstellenFrame
      */
     private WettkampfErstellung prevFrame;
+
     public BegnungenErstellenFrame(WettkampfErstellung frame) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -158,7 +156,6 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
 
     private void buttonErstellungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonErstellungMouseClicked
         // TODO add your handling code here:
-        
     }//GEN-LAST:event_buttonErstellungMouseClicked
 
     private void buttonErstellungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonErstellungActionPerformed
@@ -217,8 +214,6 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTable() {
-        IClubMemberController controller = GUIController.getClubMemberController();
-        
-        
+        IClubMemberDTOControllerFactory controller = GUIController.getClubMemberController();
     }
 }

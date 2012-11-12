@@ -4,8 +4,8 @@
  */
 package GUI;
 
-import Communication.ClubMemberDTO;
-import Controller.interfaces.IClubMemberController;
+import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -15,7 +15,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -253,7 +252,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
             resetAllRows(model);
             model.setRowCount(0);
             int i = 0;
-            IClubMemberController cmc = GUIController.getClubMemberController();
+            IClubMemberDTOControllerFactory cmc = GUIController.getClubMemberController();
             for (ClubMemberDTO member : cmc.getAllClubMembers()) {
                 members.put(i++, member);
                 model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});

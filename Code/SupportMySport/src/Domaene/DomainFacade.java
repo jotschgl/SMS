@@ -131,8 +131,12 @@ public class DomainFacade {
     public Collection<FunctionRole> getAllRoles() {
         return clubMemberManager.getAllRoles();
     }
-    
-    public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID){
-        return competitionTeamManager.getAllClubMembersOfCompetitionTeam(teamID,competitionID);
+
+    public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID) {
+        return competitionTeamManager.getAllClubMembersOfCompetitionTeam(teamID, competitionID);
+    }
+
+    public ClubMember getClubmemberByUserName(String username) {
+        return clubMemberManager.getClubmemberByUserName(username);
     }
 }
