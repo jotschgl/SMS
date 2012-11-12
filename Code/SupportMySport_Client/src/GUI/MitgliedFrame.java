@@ -24,8 +24,8 @@ public class MitgliedFrame extends JFrame {
      */
     private MitgliedverwaltungFrame _prevframe;
     private boolean upadteMember = false;
-    private String updateMemberEmail;
     private IClubMemberController controller;
+    private ClubMemberDTO member;
 
     public MitgliedFrame(MitgliedverwaltungFrame frame) {
         initComponents();
@@ -33,12 +33,12 @@ public class MitgliedFrame extends JFrame {
         this._prevframe = frame;
     }
 
-    public MitgliedFrame(MitgliedverwaltungFrame frame, String mail) throws RemoteException {
+    public MitgliedFrame(MitgliedverwaltungFrame frame, ClubMemberDTO member) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
         this._prevframe = frame;
-        this.updateMemberEmail = mail;
-        this.prefillMemberData(updateMemberEmail);
+        this.member = member;
+        this.prefillMemberData();
     }
 
     /**
@@ -282,40 +282,34 @@ public class MitgliedFrame extends JFrame {
             IClubMemberController cont = GUIController.getClubMemberController();
             try {
                 if (upadteMember) {
-                    //if updateMember ist set true, update the UserInformation
-                    controller = GUIController.getClubMemberController();
-                    for (ClubMemberDTO m : controller.getAllClubMembers()) {
-                        //get ClubMemberDTO and set the Deatasil from the UI
-                        if (m.getMail().equals(updateMemberEmail)) {
-                            m.setFirstname(textVorname.getText());
-                            m.setLastname(textNachname.getText());
-                            m.setMail(textEmail.getText());
-                            m.setPhone(textTelefon.getText());
-                            m.setStreet(textStraße.getText());
-                            m.setCity(textStadt.getText());
-                            m.setCountry(textLand.getText());
-                            m.setBirthday(dateGeb.getDate());
-                            m.setUsername(textUsername.getText());
-                            m.setGender(comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm');
-                            System.out.println("member update with email: " +updateMemberEmail);
-                            
-                            //updateInformation
-                            cont.createOrUpdateClubMember(m);
-                        }
-                    }
-                }
-                else
-                {
+                    member.setFirstname(textVorname.getText());
+                    member.setLastname(textNachname.getText());
+                    member.setMail(textEmail.getText());
+                    member.setPhone(textTelefon.getText());
+                    member.setStreet(textStraße.getText());
+                    member.setCity(textStadt.getText());
+                    member.setCountry(textLand.getText());
+                    member.setBirthday(dateGeb.getDate());
+                    member.setUsername(textUsername.getText());
+                    member.setGender(comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm');
+                    System.out.println("member update with email: " + member.getMail());
+
+                    //updateInformation
+                    cont.createOrUpdateClubMember(member);
+
+                } else {
+
                     //if upatedMember is false --> create new MemberDTO
                     System.out.println("new member insert");
                     cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+
                 }
-                this._prevframe.updateTable();
-                this.setVisible(false);
             } catch (RemoteException ex) {
                 Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+            this._prevframe.updateTable();
 
+            this.setVisible(false);
         }
 
         //TODO: new MemberAction
@@ -343,16 +337,24 @@ public class MitgliedFrame extends JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MitgliedFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MitgliedFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -443,23 +445,20 @@ public class MitgliedFrame extends JFrame {
         return validate;
     }
 
-    private void prefillMemberData(String mail) throws RemoteException {
-        System.out.println("MEMBER-Mail:" + mail);
-        controller = GUIController.getClubMemberController();
-        for (ClubMemberDTO m : controller.getAllClubMembers()) {
-            if (m.getMail().equals(mail)) {
-                textVorname.setText(m.getFirstname());
-                textNachname.setText(m.getLastname());
-                textStraße.setText(m.getStreet());
-                textLand.setText(m.getCountry());
-                textStadt.setText(m.getCity());
-                textTelefon.setText(m.getPhone());
-                dateGeb.setDate(m.getBirthday());
-                textUsername.setText(m.getUsername());
-                textEmail.setText(m.getMail());
-                textPLZ.setText(m.getZip());
-                upadteMember = true;
-            }
-        }
+    private void prefillMemberData() throws RemoteException {
+        System.out.println("MEMBER-Mail:" + member.getMail());
+
+        textVorname.setText(member.getFirstname());
+        textNachname.setText(member.getLastname());
+        textStraße.setText(member.getStreet());
+        textLand.setText(member.getCountry());
+        textStadt.setText(member.getCity());
+        textTelefon.setText(member.getPhone());
+        dateGeb.setDate(member.getBirthday());
+        textUsername.setText(member.getUsername());
+        textEmail.setText(member.getMail());
+        textPLZ.setText(member.getZip());
+        upadteMember = true;
+
     }
 }

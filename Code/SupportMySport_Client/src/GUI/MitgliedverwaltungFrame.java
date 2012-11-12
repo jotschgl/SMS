@@ -47,10 +47,12 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 lastSelectedRow = tableMitglied.getSelectedRow();
-                System.out.println(lastSelectedRow);
-
-                System.out.println(members.get(lastSelectedRow).getFirstname());
-                System.out.println(members.get(lastSelectedRow).getMail());
+                if (lastSelectedRow >= 0) {
+                    System.out.println(lastSelectedRow);
+                    System.out.println(tableMitglied.convertRowIndexToModel(lastSelectedRow));
+                    System.out.println(members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)).getFirstname());
+                    System.out.println(members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)).getMail());
+                }
             }
         });
     }
@@ -168,7 +170,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
             } else {
                 try {
                     System.out.println("CLICKED");
-                    MitgliedFrame mf = new MitgliedFrame(this, members.get(lastSelectedRow).getMail());
+                    MitgliedFrame mf = new MitgliedFrame(this, members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)));
                     mf.setVisible(true);
                 } catch (RemoteException ex) {
                     Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
