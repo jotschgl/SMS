@@ -5,6 +5,11 @@
 package GUI;
 
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.TeamDTO;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,12 +22,17 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
      */
     private WettkampfErstellung prevFrame;
 
-    public BegnungenErstellenFrame(WettkampfErstellung frame) {
+    public BegnungenErstellenFrame(WettkampfErstellung frame) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.fillTable();
         this.prevFrame = frame;
+    }
+    
+    //Constructor für Begegnung bearbeiten
+    public BegnungenErstellenFrame(WettkampfErstellung frame, String id){
+        
     }
 
     /**
@@ -196,7 +206,11 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BegnungenErstellenFrame(null).setVisible(true);
+                try {
+                    new BegnungenErstellenFrame(null).setVisible(true);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(BegnungenErstellenFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -213,7 +227,12 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner resultTeam1;
     // End of variables declaration//GEN-END:variables
 
-    private void fillTable() {
-        IClubMemberDTOControllerFactory controller = GUIController.getClubMemberController();
+    private void fillTable() throws RemoteException {
+        ICompetitionDTOControllerFactory controller = GUIController.getCompetitionController();
+        
+        for(TeamDTO team : controller.getAllTeams()){
+            comboTeam1.addItem(team.getTeamName());
+            comboTeam2.addItem(team.getTeamName());
+        }
     }
 }

@@ -193,8 +193,13 @@ public class WettkampfErstellung extends javax.swing.JFrame {
 
     private void buttonBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBegegnungMouseClicked
         // TODO add your handling code here:
-        BegnungenErstellenFrame f = new BegnungenErstellenFrame(this);
-        f.setVisible(true);
+        BegnungenErstellenFrame f;
+        try {
+            f = new BegnungenErstellenFrame(this);
+            f.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WettkampfErstellung.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonBegegnungMouseClicked
 
     private void buttonBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnungActionPerformed

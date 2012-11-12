@@ -7,6 +7,7 @@ package GUI;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
@@ -25,6 +26,7 @@ public class GUIController {
     private static CommunicationInterfaces.IUseCaseControllerFactory factory;
     private static ICompetitionDTOControllerFactory competController;
     private static IClubMemberDTOControllerFactory memberController;
+    private static IRoleDTOControllerFactory roleController;
     private static ClubMemberDTO loggedInMember;
 
     public static void initRMI(String ip) {
@@ -35,6 +37,7 @@ public class GUIController {
 
                 competController = factory.createCompetitionController();
                 memberController = factory.createClubMemberController();
+                roleController = factory.createRoleController();
 
             } catch (NotBoundException ex) {
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,5 +59,9 @@ public class GUIController {
 
     static void setLoggedInMember(ClubMemberDTO loggedInClubmember) {
         loggedInMember = loggedInClubmember;
+    }
+
+    static IRoleDTOControllerFactory getRoleControllerFactory() {
+       return roleController;
     }
 }

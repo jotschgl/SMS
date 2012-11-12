@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Raphaela
@@ -16,7 +20,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
     public WelcomeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         //GUIController.initRMI("localhost");
     }
 
@@ -36,6 +40,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         MitgliedverwaltungButton = new javax.swing.JButton();
         WettkampfverwaltungButton = new javax.swing.JButton();
+        RollenverwaltungKnopf = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,6 +89,18 @@ public class WelcomeFrame extends javax.swing.JFrame {
             }
         });
 
+        RollenverwaltungKnopf.setBackground(new java.awt.Color(153, 255, 153));
+        RollenverwaltungKnopf.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        RollenverwaltungKnopf.setText("Rollenverwaltung");
+        RollenverwaltungKnopf.setMaximumSize(new java.awt.Dimension(187, 25));
+        RollenverwaltungKnopf.setMinimumSize(new java.awt.Dimension(187, 25));
+        RollenverwaltungKnopf.setPreferredSize(new java.awt.Dimension(187, 25));
+        RollenverwaltungKnopf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RollenverwaltungKnopfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,11 +121,13 @@ public class WelcomeFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(UserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(MitgliedverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(WettkampfverwaltungButton)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(MitgliedverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(WettkampfverwaltungButton))))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,7 +145,9 @@ public class WelcomeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(WettkampfverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MitgliedverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,9 +168,20 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void WettkampfverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WettkampfverwaltungButtonActionPerformed
         WettkampfFrame wF = new WettkampfFrame();
-         wF.setVisible(true);
-        
+        wF.setVisible(true);
+
     }//GEN-LAST:event_WettkampfverwaltungButtonActionPerformed
+
+    private void RollenverwaltungKnopfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollenverwaltungKnopfActionPerformed
+        // TODO add your handling code here:
+        MitgliedRolleZuteilenFrame mf;
+        try {
+            mf = new MitgliedRolleZuteilenFrame();
+            mf.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_RollenverwaltungKnopfActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +221,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MitgliedverwaltungButton;
     private javax.swing.JTextField RolleTextField;
+    private javax.swing.JButton RollenverwaltungKnopf;
     private javax.swing.JTextField UserTextField;
     private javax.swing.JButton WettkampfverwaltungButton;
     private javax.swing.JLabel jLabel1;
