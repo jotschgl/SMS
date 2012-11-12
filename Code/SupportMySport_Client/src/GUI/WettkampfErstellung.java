@@ -195,7 +195,7 @@ public class WettkampfErstellung extends javax.swing.JFrame {
         // TODO add your handling code here:
         BegnungenErstellenFrame f;
         try {
-            f = new BegnungenErstellenFrame(this);
+            f = new BegnungenErstellenFrame(this, curCompetition);
             f.setVisible(true);
         } catch (RemoteException ex) {
             Logger.getLogger(WettkampfErstellung.class.getName()).log(Level.SEVERE, null, ex);
