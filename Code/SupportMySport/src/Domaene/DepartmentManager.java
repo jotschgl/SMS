@@ -9,41 +9,50 @@ import Persistence.PersistenceManager;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class DepartmentManager {
-     private PersistenceManager persistenceManager;
-    
-    public DepartmentManager(){
+
+    private PersistenceManager persistenceManager;
+
+    public DepartmentManager() {
         persistenceManager = new PersistenceManager();
     }
-    
-    public List<Department> getAllDepartments(){
+
+    public List<Department> getAllDepartments() {
         List<Department> departments = new LinkedList<Department>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department");
-        for(Object obj : result){
-            departments.add((Department)obj);
+        for (Object obj : result) {
+            departments.add((Department) obj);
         }
         return departments;
     }
-    
-    public Department getDepartmentById(int id){
+
+    public Department getDepartmentById(int id) {
         return (Department) persistenceManager.getObjectById(Department.class, id);
     }
-    
-    public Department getDepartmentById(Department department){
+
+    public Department getDepartmentById(Department department) {
         return (Department) persistenceManager.getObjectById(Department.class, department.getId());
     }
-    
-    public Department getDepartmentByName(String name){
-         Department dep = null;
-         List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.name LIKE '" +name+ "')");
-         if(result.size() == 1){
-             dep = (Department) result.get(0);
-         }
-         return dep;
+
+    public Department getDepartmentByName(String name) {
+        Department dep = null;
+        List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.name LIKE '" + name + "')");
+        if (result.size() == 1) {
+            dep = (Department) result.get(0);
+        }
+        return dep;
     }
-    
+
     public void createOrUpdateDepartment(Department department) {
         persistenceManager.update(department);
+    }
+
+    Department getDepartmentOfLoggedInMember(int id) {
+        Department dep = null;
+        List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.departmentChief_id = " + id);
+        if (result.size() == 1) {
+            dep = (Department) result.get(0);
+        }
+        return dep;
     }
 }

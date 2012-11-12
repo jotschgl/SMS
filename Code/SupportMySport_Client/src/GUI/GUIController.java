@@ -5,6 +5,7 @@
 package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.DepartmentDTO;
 import CommunicationInterfaces.FunctionRoleDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
@@ -74,8 +75,21 @@ public class GUIController {
         }
         return rights;
     }
-    
-    static IRoleDTOControllerFactory getRoleControllerFactory() {
-       return roleController;
+
+    public static IRoleDTOControllerFactory getRoleControllerFactory() {
+        return roleController;
+    }
+
+    public static ClubMemberDTO getLoggedInMember() {
+        return loggedInMember;
+    }
+
+    static DepartmentDTO getDepartmentOfLoggedInDepartmentChief() {
+        try {
+            return competController.getDepartmentOfLoggedInDepartmentChief(loggedInMember);
+        } catch (RemoteException ex) {
+            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
