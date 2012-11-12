@@ -5,15 +5,18 @@
 package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.FunctionRoleDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
+import CommunicationInterfaces.RoleRightDTO;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +29,6 @@ public class GUIController {
     private static CommunicationInterfaces.IUseCaseControllerFactory factory;
     private static ICompetitionDTOControllerFactory competController;
     private static IClubMemberDTOControllerFactory memberController;
-    private static IRoleDTOControllerFactory roleController;
     private static ClubMemberDTO loggedInMember;
 
     public static void initRMI(String ip) {
@@ -37,7 +39,6 @@ public class GUIController {
 
                 competController = factory.createCompetitionController();
                 memberController = factory.createClubMemberController();
-                roleController = factory.createRoleController();
 
             } catch (NotBoundException ex) {
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,7 +62,13 @@ public class GUIController {
         loggedInMember = loggedInClubmember;
     }
 
-    static IRoleDTOControllerFactory getRoleControllerFactory() {
-       return roleController;
+    static Collection<RoleRightDTO> getRightsOfLoggedinUser() {
+        Collection<FunctionRoleDTO> roles = loggedInMember.getAllFunctionRolesOfClubMember();
+        LinkedList<RoleRightDTO> rights = new LinkedList<RoleRightDTO>();
+        for (FunctionRoleDTO role : roles) {
+            rights.add(role.getRoleRight());
+
+        }
+        return rights;
     }
 }
