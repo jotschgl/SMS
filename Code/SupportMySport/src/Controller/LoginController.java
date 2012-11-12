@@ -36,6 +36,9 @@ public class LoginController {
             Context ctx = new InitialContext(env);
             ClubMemberController c = new ClubMemberController();
             loggedInMember = c.getClubmemberByUserName(username);
+            if (loggedInMember == null) {
+                return false;
+            }
             System.out.println("You have Access");
             return true;
 
