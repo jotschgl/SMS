@@ -1,7 +1,6 @@
 package Persistence;
-// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
+// Generated 11.11.2012 20:07:48 by Hibernate Tools 3.2.1.GA
 
-import Persistence.interfaces.ICompetition;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,15 +23,15 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Competition", catalog = "c1teamf")
-public class Competition implements ICompetition {
+public class Competition implements java.io.Serializable {
 
-    private Integer id; 
+    private Integer id;
     private Department department;
     private String name;
     private double competitionfee;
     private Date dateOfCompetition;
     private Set<Meeting> meetings = new HashSet<Meeting>(0);
-    private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
+    private Set<CompetitionTeam> competitionTeams = new HashSet(0);
 
     public Competition() {
     }
@@ -44,7 +43,7 @@ public class Competition implements ICompetition {
         this.dateOfCompetition = dateOfCompetition;
     }
 
-    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Set<Meeting> meetings, Set<CompetitionTeam> competitionTeams) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Set meetings, Set competitionTeams) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
@@ -56,80 +55,66 @@ public class Competition implements ICompetition {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    @Override
     public Integer getId() {
         return this.id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "department_id", nullable = false)
-    @Override
     public Department getDepartment() {
         return this.department;
     }
 
-    @Override
     public void setDepartment(Department department) {
         this.department = department;
     }
 
     @Column(name = "name", nullable = false, length = 45)
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @Column(name = "competitionfee", nullable = false, precision = 22, scale = 0)
-    @Override
     public double getCompetitionfee() {
         return this.competitionfee;
     }
 
-    @Override
     public void setCompetitionfee(double competitionfee) {
         this.competitionfee = competitionfee;
     }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "dateOfCompetition", nullable = false, length = 10)
-    @Override
     public Date getDateOfCompetition() {
         return this.dateOfCompetition;
     }
 
-    @Override
     public void setDateOfCompetition(Date dateOfCompetition) {
         this.dateOfCompetition = dateOfCompetition;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
-    @Override
     public Set<Meeting> getMeetings() {
         return this.meetings;
     }
 
-    @Override
     public void setMeetings(Set<Meeting> meetings) {
         this.meetings = meetings;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
-    @Override
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
     }
 
-    @Override
     public void setCompetitionTeams(Set<CompetitionTeam> competitionTeams) {
         this.competitionTeams = competitionTeams;
     }

@@ -1,5 +1,5 @@
 package Persistence;
-// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
+// Generated 11.11.2012 20:07:48 by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -65,7 +65,7 @@ public class ClubMember implements java.io.Serializable {
         this.birthday = birthday;
     }
 
-    public ClubMember(String firstname, String lastname, String username, String street, String city, String country, String zip, String email, String phone, char gender, Date birthday, Boolean membershipfeePayed, Set<CompetitionTeam> competitionTeams, Set<Federation> federations, Set<Team> teams, Set<FunctionRole> functionRoles, Set<Department> departments, Set<Team> teams_1) {
+    public ClubMember(String firstname, String lastname, String username, String street, String city, String country, String zip, String email, String phone, char gender, Date birthday, Boolean membershipfeePayed, Set competitionTeams, Set federations, Set teams, Set functionRoles, Set departments, Set teams_1) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;

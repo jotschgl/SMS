@@ -4,11 +4,9 @@
  */
 package Controller;
 
-import Communication.ClubMemberDTO;
 import Persistence.ClubMember;
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.AfterClass;
@@ -25,14 +23,7 @@ public class ClubMemberControllerTest {
     private ClubMemberController clubMemberController;
     
     public ClubMemberControllerTest() {
-        try
-        {
-            clubMemberController = new ClubMemberController();
-        }
-        catch (RemoteException ex)
-        {
-            Logger.getLogger(ClubMemberControllerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         clubMemberController = new ClubMemberController();
     }
     
     @BeforeClass
@@ -61,9 +52,9 @@ public class ClubMemberControllerTest {
         try
         {
             System.out.println("* ClubMemberControllerTest: testGetAllClubMembers");
-            Collection<ClubMemberDTO> result = clubMemberController.getAllClubMembers();
+            Collection<ClubMember> result = clubMemberController.getAllClubMembers();
             System.out.println("Anzahl gefundener ClubMembers: " + result.size());
-            for(ClubMemberDTO cm : result){
+            for(ClubMember cm : result){
                 System.out.println(cm.getLastname());
             }
         }
@@ -82,9 +73,9 @@ public class ClubMemberControllerTest {
         {
             System.out.println("* ClubMemberControllerTest: testSearchMemberByAttributes");
             String attributes = "a";
-            Collection<ClubMemberDTO> result = clubMemberController.searchMemberByAttributes(attributes);
+            Collection<ClubMember> result = clubMemberController.searchMemberByAttributes(attributes);
             System.out.println("Anzahl gefundener ClubMembers: " + result.size());
-            for(ClubMemberDTO cm : result){
+            for(ClubMember cm : result){
                 System.out.println(cm.getLastname());
             }
         }

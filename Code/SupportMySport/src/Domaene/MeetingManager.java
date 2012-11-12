@@ -15,6 +15,16 @@ import java.util.List;
 
 public class MeetingManager {
 
+    private PersistenceManager persistenceManager;
+    
+    public MeetingManager(){
+        persistenceManager = new PersistenceManager();
+    }
+    
+    public void createOrUpdateMeeting(Meeting meeting){
+        persistenceManager.update(meeting);
+    }
+    
     public void addResultsToCompetitionMeeting(int teamAId, int teamBId, int pointsA, int pointsB, int competitionId) {
        
         PersistenceManager persistenceManager = new PersistenceManager();

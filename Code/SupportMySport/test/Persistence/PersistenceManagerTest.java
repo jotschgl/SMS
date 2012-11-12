@@ -120,7 +120,7 @@ public class PersistenceManagerTest {
         ClubMember mem = (ClubMember)result.get(0);
         System.out.println(mem.getLastname());
     }
-    
+    @Ignore
     @Test
     public void testShowAllTeamsOfCompetition(){
         System.out.println("* PersistenceManagerTest: testHQLQuerieShowAllTeamsOfCompetition");
@@ -128,5 +128,12 @@ public class PersistenceManagerTest {
         for(CompetitionTeam t : comp.getCompetitionTeams()){
             System.out.println(t.getTeam().getName());
         }
+    }
+    
+    @Test
+    public void testHqlQuerie(){
+        System.out.println("* PersistenceManagerTest: testHQLQuerie");
+        List result = mng.getObjectsByHQLQuery("From Department");
+        System.out.println(result.size());
     }
 }

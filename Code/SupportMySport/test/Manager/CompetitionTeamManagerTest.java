@@ -7,10 +7,13 @@ package Manager;
 import Domaene.CompetitionTeamManager;
 import Persistence.ClubMember;
 import Persistence.Competition;
+import Persistence.CompetitionTeam;
 import Persistence.CompetitionTeamId;
 import Persistence.PersistenceManager;
 import Persistence.Team;
+import java.util.Collection;
 import java.util.List;
+import javax.sound.midi.Soundbank;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -63,11 +66,23 @@ public class CompetitionTeamManagerTest {
         
     }
     
+    @Ignore
     @Test
     public void showAllTeamsOfCompetitionTest(){
        List<Team> list = compTeamManager.showAllTeamsOfCompetition(1);
        for(Team t : list){
            System.out.println(t.getName());
        }
+    }
+    
+    @Test
+    public void testGetCompetitionData(){
+        Collection<CompetitionTeam> result = compTeamManager.getCompetitionData(1);
+        for(CompetitionTeam t : result){
+            System.out.println(t.getCompetition().getName());
+            System.out.println(t.getTeam().getName());
+            System.out.println(t.getClubMember().getLastname());
+            System.out.println();
+        }
     }
 }

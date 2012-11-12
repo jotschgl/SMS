@@ -4,7 +4,6 @@
  */
 package Domaene;
 
-import Persistence.Department;
 import Persistence.PersistenceManager;
 import Persistence.Sport;
 import java.util.LinkedList;

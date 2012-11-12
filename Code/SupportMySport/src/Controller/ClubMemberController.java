@@ -1,51 +1,32 @@
 package Controller;
 
-import Communication.ClubMemberDTO;
-import Controller.interfaces.IClubMemberController;
 import Domaene.DomainFacade;
 import Persistence.ClubMember;
+import Persistence.FunctionRole;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
-import java.util.LinkedList;
 
-public class ClubMemberController extends UnicastRemoteObject implements IClubMemberController
-{
+public class ClubMemberController {
+    
     private DomainFacade myDomainFacade;
 
-    public ClubMemberController() throws RemoteException
-    {
-        super();
+    public ClubMemberController() {
         myDomainFacade = new DomainFacade();
     }
 
-    @Override
-    public void createOrUpdateClubMember(ClubMemberDTO clubMember) throws RemoteException
-    {
-        ClubMember mem = new ClubMember(clubMember.getFirstname(), clubMember.getLastname(), clubMember.getUsername(), clubMember.getStreet(), clubMember.getCity(), clubMember.getCountry(), clubMember.getZip(), clubMember.getMail(), clubMember.getPhone(), clubMember.getGender(), clubMember.getBirthday());
-        myDomainFacade.createOrUpdateClubMember(mem);
+    public void createOrUpdateClubMember(ClubMember clubMember) throws RemoteException {
+        myDomainFacade.createOrUpdateClubMember(clubMember);
     }
 
-    @Override
-    public Collection<ClubMemberDTO> getAllClubMembers() throws RemoteException
-    {
-        Collection<ClubMemberDTO> retval = new LinkedList<ClubMemberDTO>();
-        for (ClubMember member : myDomainFacade.getAllClubMembers())
-        {
-            retval.add(new ClubMemberDTO(member));
-        }
-        return retval;
+    public Collection<ClubMember> getAllClubMembers() throws RemoteException {
+        return myDomainFacade.getAllClubMembers();
     }
 
-    @Override
-    public Collection<ClubMemberDTO> searchMemberByAttributes(String attributes) throws RemoteException
-    {
-        Collection<ClubMemberDTO> retval = new LinkedList<ClubMemberDTO>();
-        for (ClubMember member : myDomainFacade.searchMemberByAttributes(attributes))
-        {
-            retval.add(new ClubMemberDTO(member));
-        }
-        return retval;
-
+    public Collection<ClubMember> searchMemberByAttributes(String attributes) throws RemoteException {
+        return myDomainFacade.searchMemberByAttributes(attributes);
+    }
+    
+    public Collection<FunctionRole> getAllRoles() throws RemoteException{
+        return myDomainFacade.getAllRoles();
     }
 }

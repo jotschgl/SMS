@@ -5,7 +5,9 @@
 package Domaene;
 
 import Persistence.ClubMember;
+import Persistence.FunctionRole;
 import Persistence.PersistenceManager;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class ClubMemberManager {
         persistenceManager.update(clubMember);
     }
 
-    public List<ClubMember> searchMembersByAttributes(String attributes) {
+    public Collection<ClubMember> searchMembersByAttributes(String attributes) {
         List<ClubMember> foundClubMembers = new LinkedList<ClubMember>();
         String hqlQuerie = "FROM ClubMember cb WHERE (cb.firstname LIKE '%" + attributes + "%' or cb.lastname LIKE '%" + attributes + "%')";
         List<Object> results = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
@@ -50,5 +52,13 @@ public class ClubMemberManager {
             foundClubMembers.add((ClubMember) obj);
         }
         return foundClubMembers;
+    }
+    
+    public Collection<FunctionRole> getAllRoles(){
+        List<FunctionRole> allRoles = new LinkedList<FunctionRole>();
+        for(Object obj : persistenceManager.getObjectsByHQLQuery("FROM FunctionRole")){
+            allRoles.add((FunctionRole)obj);
+        }
+        return allRoles;
     }
 }

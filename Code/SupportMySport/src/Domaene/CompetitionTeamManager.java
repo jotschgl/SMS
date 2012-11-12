@@ -7,8 +7,10 @@ import Persistence.CompetitionTeamId;
 import Persistence.Meeting;
 import Persistence.PersistenceManager;
 import Persistence.Team;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingDeque;
 
 
 public class CompetitionTeamManager {
@@ -38,6 +40,27 @@ public class CompetitionTeamManager {
             allTeams.add(compTeam.getTeam());
         }
         return allTeams;
+    }
+    
+    public Collection<CompetitionTeam> getCompetitionData(int competitionID){
+        Collection<CompetitionTeam> competitionData = new LinkedList<CompetitionTeam>();
+        for(Object obj : persistenceManager.getObjectsByHQLQuery("From CompetitionTeam compt where compt.competition.id = '" + competitionID + "'")){
+            competitionData.add((CompetitionTeam)obj);
+        }
+        return competitionData;
+    }
+    
+    public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID){
+        Collection<ClubMember> allClubMemberOfCompetitionTeam = new LinkedList<ClubMember>();
+        CompetitionTeam curCompTeam;
+        Collection allCompetitionTeams = persistenceManager.getObjectsByHQLQuery("From CompetitionTeam");
+        for(Object obj : allCompetitionTeams){
+            curCompTeam = (CompetitionTeam)obj;
+            if(curCompTeam.getTeam().getId() == teamID && curCompTeam.getCompetition().getId() == competitionID){
+                allClubMemberOfCompetitionTeam.add(curCompTeam.getClubMember());
+            }
+        }
+        return allClubMemberOfCompetitionTeam;
     }
     
 }

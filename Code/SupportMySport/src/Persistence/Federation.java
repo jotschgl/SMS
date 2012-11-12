@@ -1,7 +1,6 @@
 package Persistence;
-// Generated 28.10.2012 20:58:08 by Hibernate Tools 3.2.1.GA
+// Generated 11.11.2012 20:07:48 by Hibernate Tools 3.2.1.GA
 
-import Persistence.interfaces.IFederation;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -24,7 +23,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Federation", catalog = "c1teamf", uniqueConstraints =
 @UniqueConstraint(columnNames = "name"))
-public class Federation implements IFederation {
+public class Federation implements java.io.Serializable {
 
     private Integer id;
     private String name;
@@ -39,7 +38,7 @@ public class Federation implements IFederation {
         this.name = name;
     }
 
-    public Federation(String name, String website, Set<ClubMember> clubMembers, Set<League> leagues) {
+    public Federation(String name, String website, Set clubMembers, Set leagues) {
         this.name = name;
         this.website = website;
         this.clubMembers = clubMembers;
@@ -49,34 +48,28 @@ public class Federation implements IFederation {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    @Override
     public Integer getId() {
         return this.id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
 
     @Column(name = "name", unique = true, nullable = false, length = 45)
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
     @Column(name = "website", length = 45)
-    @Override
     public String getWebsite() {
         return this.website;
     }
 
-    @Override
     public void setWebsite(String website) {
         this.website = website;
     }
@@ -85,23 +78,19 @@ public class Federation implements IFederation {
     @JoinTable(name = "MemberFederation", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "federation_id", nullable = false, updatable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
-    @Override
     public Set<ClubMember> getClubMembers() {
         return this.clubMembers;
     }
 
-    @Override
     public void setClubMembers(Set<ClubMember> clubMembers) {
         this.clubMembers = clubMembers;
     }
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "federation")
-    @Override
     public Set<League> getLeagues() {
         return this.leagues;
     }
 
-    @Override
     public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
     }

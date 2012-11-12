@@ -4,10 +4,8 @@
  */
 package Domaene;
 
-import Persistence.ClubMember;
 import Persistence.Department;
 import Persistence.PersistenceManager;
-import Persistence.interfaces.IDepartment;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class DepartmentManager {
         persistenceManager = new PersistenceManager();
     }
     
-    public List<IDepartment> getAllDepartments(){
-        List<IDepartment> departments = new LinkedList<IDepartment>();
+    public List<Department> getAllDepartments(){
+        List<Department> departments = new LinkedList<Department>();
         List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department");
         for(Object obj : result){
             departments.add((Department)obj);

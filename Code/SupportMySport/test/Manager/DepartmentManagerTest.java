@@ -5,11 +5,9 @@
 package Manager;
 
 import Domaene.DepartmentManager;
-import Domaene.MeetingManager;
 import Persistence.ClubMember;
 import Persistence.Department;
 import Persistence.PersistenceManager;
-import Persistence.interfaces.IDepartment;
 import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -25,7 +23,7 @@ public class DepartmentManagerTest {
      public void getAllDepartmentsTest(){
         
         DepartmentManager dm = new DepartmentManager();
-        List<IDepartment> dep = dm.getAllDepartments();
+        List<Department> dep = dm.getAllDepartments();
         System.out.println("");
         System.out.println("In get all departments test.");
         System.out.println("Listlenght " + dep.size());

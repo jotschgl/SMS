@@ -4,11 +4,9 @@
  */
 package Communication;
 
-import Communication.interfaces.IUseCaseControllerFactory;
-import Controller.interfaces.IClubMemberController;
-import java.net.MalformedURLException;
+import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import CommunicationInterfaces.IUseCaseControllerFactory;
 import java.rmi.AccessException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -16,7 +14,6 @@ import java.rmi.registry.Registry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -55,12 +52,9 @@ public class RMITest {
     public void testRMI() {
         try {
             Registry reg = LocateRegistry.getRegistry("localhost");
-            String[] x = reg.list();
             IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
-            IClubMemberController cmc = factory.createClubMemberController();
-            for (ClubMemberDTO member : cmc.getAllClubMembers()) {
-                System.out.println(member.getFirstname());
-            }
+            IClubMemberDTOControllerFactory cmc = factory.createClubMemberController();
+            System.out.println(cmc.getAllClubMembers().size());
         } catch (NotBoundException ex) {
             Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AccessException ex) {
@@ -68,8 +62,5 @@ public class RMITest {
         } catch (RemoteException ex) {
             Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-
     }
 }
