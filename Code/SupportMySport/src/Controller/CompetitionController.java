@@ -78,4 +78,9 @@ public class CompetitionController {
     public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID){
         return domainFacade.getAllClubMembersOfCompetitionTeam(teamID,competitionID);
     }
+    
+    public Department getDepartmentOfLoggedInMember(int id)
+    {
+        return domainFacade.getDepartmentOfLoggedInMember(id);
+    }
 }

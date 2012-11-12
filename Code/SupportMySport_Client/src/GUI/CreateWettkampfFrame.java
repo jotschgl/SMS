@@ -30,7 +30,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
     public CreateWettkampfFrame(WettkampfFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.getAllDepartments();
+        // this.getAllDepartments();
         this._prevFrame = frame;
     }
 
@@ -50,9 +50,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         dateDatum = new com.toedter.calendar.JDateChooser();
-        jLabel5 = new javax.swing.JLabel();
         saveWettkampf = new javax.swing.JButton();
-        comboAbteilung = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Neuen Wettkampf");
@@ -80,23 +78,11 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         dateDatum.setMinSelectableDate(new Date());
         dateDatum.setPreferredSize(new java.awt.Dimension(87, 25));
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setText("Abteilung");
-        jLabel5.setMaximumSize(new java.awt.Dimension(59, 25));
-        jLabel5.setMinimumSize(new java.awt.Dimension(59, 25));
-        jLabel5.setPreferredSize(new java.awt.Dimension(59, 25));
-
         saveWettkampf.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         saveWettkampf.setText("Wettkampf erstellen");
         saveWettkampf.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saveWettkampfMouseClicked(evt);
-            }
-        });
-
-        comboAbteilung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboAbteilungActionPerformed(evt);
             }
         });
 
@@ -111,7 +97,6 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,8 +104,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(textWettkampf)
-                            .addComponent(spinnerGebühr, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboAbteilung, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(spinnerGebühr, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(saveWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(189, Short.MAX_VALUE))
         );
@@ -141,11 +125,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(dateDatum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(comboAbteilung, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(saveWettkampf)
                 .addGap(53, 53, 53))
         );
@@ -159,7 +139,7 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, errorMess);
         } else {
             try {
-                controller.createNewCompetition(new CompetitionDTO(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate()));
+                controller.createNewCompetition(new CompetitionDTO(GUIController.getDepartmentOfLoggedInDepartmentChief(), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate()));
                 //   controller.createNewCompetition(depmap.get(comboAbteilung.getSelectedItem()), textWettkampf.getText(), spinnerGebühr.getValue(), dateDatum.getDate());
                 this._prevFrame.updateTable();
                 this.setVisible(false);
@@ -169,10 +149,6 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_saveWettkampfMouseClicked
-
-    private void comboAbteilungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAbteilungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboAbteilungActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,12 +185,10 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox comboAbteilung;
     private com.toedter.calendar.JDateChooser dateDatum;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JButton saveWettkampf;
     private com.toedter.components.JSpinField spinnerGebühr;
@@ -234,19 +208,18 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
 
         return validate;
     }
-
-    private void getAllDepartments() {
-        try {
-            controller = GUIController.getCompetitionController();
-
-            for (DepartmentDTO d : controller.getAllDepartments()) {
-                depmap.put(d.getDepartmentName(), d);
-                comboAbteilung.addItem(d.getDepartmentName());
-            }
-
-        } catch (RemoteException ex) {
-            Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
+//    private void getAllDepartments() {
+//        try {
+//            controller = GUIController.getCompetitionController();
+//
+//            for (DepartmentDTO d : controller.getAllDepartments()) {
+//                depmap.put(d.getDepartmentName(), d);
+//                comboAbteilung.addItem(d.getDepartmentName());
+//            }
+//
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 }

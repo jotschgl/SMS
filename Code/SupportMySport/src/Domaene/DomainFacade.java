@@ -139,4 +139,8 @@ public class DomainFacade {
     public ClubMember getClubmemberByUserName(String username) {
         return clubMemberManager.getClubmemberByUserName(username);
     }
+
+    public Department getDepartmentOfLoggedInMember(int id) {
+        return departmentManager.getDepartmentOfLoggedInMember(id);
+    }
 }

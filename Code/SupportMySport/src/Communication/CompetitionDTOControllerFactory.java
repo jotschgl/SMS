@@ -4,6 +4,7 @@
  */
 package Communication;
 
+import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.DepartmentDTO;
@@ -67,7 +68,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     public Collection<MeetingDTO> getAllMeetingsOfCompetition(CompetitionDTO competition) throws RemoteException {
         Collection<MeetingDTO> allMeetings = new LinkedList<MeetingDTO>();
         for (Meeting meeting : competitionController.getCompetitionMeetings(competition.getId())) {
-            allMeetings.add(dtoAssembler.createMeetingDTO(meeting,competition));
+            allMeetings.add(dtoAssembler.createMeetingDTO(meeting, competition));
         }
         return allMeetings;
     }
@@ -112,5 +113,11 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
             allCompetitionTeams.add(dtoAssembler.createCompetitionTeamDTO(team, map.get(team)));
         }
         return allCompetitionTeams;
+    }
+
+    @Override
+    public DepartmentDTO getDepartmentOfLoggedInDepartmentChief(ClubMemberDTO loggedInMember) throws RemoteException {
+        Department d = competitionController.getDepartmentOfLoggedInMember(loggedInMember.getId());
+        return dtoAssembler.createDepartmentDTO(d);
     }
 }

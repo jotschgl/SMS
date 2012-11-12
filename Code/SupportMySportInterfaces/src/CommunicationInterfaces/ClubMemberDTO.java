@@ -26,6 +26,7 @@ public class ClubMemberDTO implements Serializable {
     private Boolean membershipFeePayed;
     private SportDTO sport;
     private Collection<FunctionRoleDTO> clubMembersRoles;
+    private DepartmentDTO department;
 
     public ClubMemberDTO(String firstname, String lastname, String username, String street, String city, String country, String zip, String email, String phone, char gender, Date birthday) {
         this.firstname = firstname;
@@ -253,5 +254,13 @@ public class ClubMemberDTO implements Serializable {
 
     public void addFunctionRole(FunctionRoleDTO function) {
         this.clubMembersRoles.add(function);
+    }
+
+    public DepartmentDTO getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(DepartmentDTO department) {
+        this.department = department;
     }
 }

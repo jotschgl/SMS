@@ -22,7 +22,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
     public WelcomeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        setRoleUseCases();
         //GUIController.initRMI("localhost");
     }
 
@@ -237,17 +237,19 @@ public class WelcomeFrame extends javax.swing.JFrame {
         boolean competitions = false;
         boolean rollen = false;
         for (RoleRightDTO right : rights) {
+            System.out.println(right.getName());
             if (right.getName().equals("createMember")) {
                 memberverwaltung = true;
             }
             if (right.getName().equals("createCompetition")) {
                 competitions = true;
             }
-            if (right.getName().equals("createMember")) {
-                memberverwaltung = true;
+            if (right.getName().equals("admin")) {
+                rollen = true;
             }
         }
         MitgliedverwaltungButton.setVisible(memberverwaltung);
         WettkampfverwaltungButton.setVisible(competitions);
+        RollenverwaltungKnopf.setVisible(rollen);
     }
 }
