@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import CommunicationInterfaces.RoleRightDTO;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
