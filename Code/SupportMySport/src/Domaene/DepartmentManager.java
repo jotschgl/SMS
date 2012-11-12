@@ -49,9 +49,13 @@ public class DepartmentManager {
 
     Department getDepartmentOfLoggedInMember(int id) {
         Department dep = null;
-        List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.departmentChief_id = " + id);
-        if (result.size() == 1) {
-            dep = (Department) result.get(0);
+        try {
+            List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.clubMember = '" + id + "'");
+            if (result.size() == 1) {
+                dep = (Department) result.get(0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return dep;
     }
