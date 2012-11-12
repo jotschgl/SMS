@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import CommunicationInterfaces.RoleRightDTO;
+import java.util.Collection;
+
 /**
  *
  * @author Raphaela
@@ -16,8 +19,8 @@ public class WelcomeFrame extends javax.swing.JFrame {
     public WelcomeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         //GUIController.initRMI("localhost");
+        setRoleUseCases();
     }
 
     /**
@@ -147,8 +150,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void WettkampfverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WettkampfverwaltungButtonActionPerformed
         WettkampfFrame wF = new WettkampfFrame();
-         wF.setVisible(true);
-        
+        wF.setVisible(true);
     }//GEN-LAST:event_WettkampfverwaltungButtonActionPerformed
 
     /**
@@ -195,4 +197,24 @@ public class WelcomeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+    private void setRoleUseCases() {
+        Collection<RoleRightDTO> rights = GUIController.getRightsOfLoggedinUser();
+        boolean memberverwaltung = false;
+        boolean competitions = false;
+        boolean rollen = false;
+        for (RoleRightDTO right : rights) {
+            if (right.getName().equals("createMember")) {
+                memberverwaltung = true;
+            }
+            if (right.getName().equals("createCompetition")) {
+                competitions = true;
+            }
+            if (right.getName().equals("createMember")) {
+                memberverwaltung = true;
+            }
+        }
+        MitgliedverwaltungButton.setVisible(memberverwaltung);
+        WettkampfverwaltungButton.setVisible(competitions);
+    }
 }

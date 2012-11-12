@@ -5,14 +5,18 @@
 package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.FunctionRoleDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
+import CommunicationInterfaces.RoleRightDTO;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -56,5 +60,15 @@ public class GUIController {
 
     static void setLoggedInMember(ClubMemberDTO loggedInClubmember) {
         loggedInMember = loggedInClubmember;
+    }
+
+    static Collection<RoleRightDTO> getRightsOfLoggedinUser() {
+        Collection<FunctionRoleDTO> roles = loggedInMember.getAllFunctionRolesOfClubMember();
+        LinkedList<RoleRightDTO> rights = new LinkedList<RoleRightDTO>();
+        for (FunctionRoleDTO role : roles) {
+            rights.add(role.getRoleRight());
+
+        }
+        return rights;
     }
 }
