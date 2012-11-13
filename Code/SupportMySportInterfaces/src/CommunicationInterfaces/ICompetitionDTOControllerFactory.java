@@ -39,4 +39,8 @@ public interface ICompetitionDTOControllerFactory extends Remote {
     public void updateCompetition(CompetitionDTO competition) throws RemoteException;
 
     public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teams) throws RemoteException;
+
+    public CompetitionDTO getCompetitionByID(int id) throws RemoteException;
+
+    public void deleteMeeting(MeetingDTO meeting) throws RemoteException;
 }

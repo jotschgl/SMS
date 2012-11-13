@@ -8,11 +8,15 @@ import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.MeetingDTO;
+import CommunicationInterfaces.TeamDTO;
 import java.awt.Frame;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +30,8 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
      */
     private CompetitionDTO curCompetition;
     private ICompetitionDTOControllerFactory controller;
+    private Collection<TeamDTO> angemeldeteTeams = new LinkedList<TeamDTO>();
+    private HashMap<Integer, MeetingDTO> meetings = new HashMap<Integer, MeetingDTO>();
 
     public WettkampfBearbeitung(CompetitionDTO comptetition) throws RemoteException {
         initComponents();
@@ -33,7 +39,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         setVisible(true);
         this.controller = GUIController.getCompetitionController();
         this.curCompetition = comptetition;
-        fillTableWithCompetitions();
+        fillMeetingTable();
         fillGeneralInformation();
         fillTableCompTeams();
         tableBegegnungen.setAutoCreateRowSorter(true);
@@ -52,12 +58,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        buttonBegegnung = new javax.swing.JButton();
+        buttonChangeBegegnung = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableBegegnungen = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         wettkampfFee = new javax.swing.JLabel();
-        wettkampfName2 = new javax.swing.JLabel();
         wettkampfName = new javax.swing.JLabel();
         wettkampfDate = new javax.swing.JLabel();
         wettkampfAbteilung = new javax.swing.JLabel();
@@ -68,6 +73,8 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         buttonAddTeam = new javax.swing.JButton();
         buttonRemoveTeam = new javax.swing.JButton();
         buttonAddPlayers = new javax.swing.JButton();
+        buttonBegegnung1 = new javax.swing.JButton();
+        buttonDeleteMeeting = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Suppor My Sprts - Wettkampf bearbeiten");
@@ -87,17 +94,12 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         jLabel5.setMinimumSize(new java.awt.Dimension(59, 25));
         jLabel5.setPreferredSize(new java.awt.Dimension(59, 25));
 
-        buttonBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        buttonBegegnung.setText("Begegnung hinzufügen");
-        buttonBegegnung.setPreferredSize(new java.awt.Dimension(73, 25));
-        buttonBegegnung.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonBegegnungMouseClicked(evt);
-            }
-        });
-        buttonBegegnung.addActionListener(new java.awt.event.ActionListener() {
+        buttonChangeBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        buttonChangeBegegnung.setText("Begegnung bearbeiten");
+        buttonChangeBegegnung.setPreferredSize(new java.awt.Dimension(73, 25));
+        buttonChangeBegegnung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBegegnungActionPerformed(evt);
+                buttonChangeBegegnungActionPerformed(evt);
             }
         });
 
@@ -125,8 +127,6 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         jLabel6.setText("Gebühr");
 
         wettkampfFee.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-
-        wettkampfName2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         wettkampfName.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
@@ -184,6 +184,24 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
 
         buttonAddPlayers.setText("Spieler zu Mannschaft hinzufügen / entfernen");
 
+        buttonBegegnung1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        buttonBegegnung1.setText("Begegnung hinzufügen");
+        buttonBegegnung1.setPreferredSize(new java.awt.Dimension(73, 25));
+        buttonBegegnung1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBegegnung1ActionPerformed(evt);
+            }
+        });
+
+        buttonDeleteMeeting.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        buttonDeleteMeeting.setText("Begegnung löschen");
+        buttonDeleteMeeting.setPreferredSize(new java.awt.Dimension(73, 25));
+        buttonDeleteMeeting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteMeetingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -191,15 +209,6 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(wettkampfName2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -225,9 +234,22 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
                                 .addGap(53, 53, 53)
                                 .addComponent(buttonRemoveTeam))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(buttonAddPlayers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(22, 22, 22)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(buttonAddPlayers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonBegegnung1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonChangeBegegnung, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonDeleteMeeting, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,32 +289,31 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonAddPlayers)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(wettkampfName2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonChangeBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonBegegnung1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonDeleteMeeting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonBegegnungMouseClicked
-        // TODO add your handling code here:
-        BegnungenErstellenFrame f;
-        try {
-            f = new BegnungenErstellenFrame(this, curCompetition);
-            f.setVisible(true);
-        } catch (RemoteException ex) {
-            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
+    private void buttonChangeBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChangeBegegnungActionPerformed
+        if (tableBegegnungen.getSelectedRows().length == 0) {
+            JOptionPane.showMessageDialog(this, "Begegnung auswählen!");
+        } else {
+            BegnungenErstellenFrame f;
+            try {
+                f = new BegnungenErstellenFrame(this, angemeldeteTeams, meetings.get(tableBegegnungen.convertRowIndexToModel(tableBegegnungen.getSelectedRow())));
+                f.setVisible(true);
+            } catch (RemoteException ex) {
+                Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_buttonBegegnungMouseClicked
-
-    private void buttonBegegnungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnungActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonBegegnungActionPerformed
+    }//GEN-LAST:event_buttonChangeBegegnungActionPerformed
 
     private void buttonAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddTeamActionPerformed
         Frame f = new AddTeamToCompetitionFrame(curCompetition, this);
@@ -303,48 +324,37 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonRemoveTeamActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void buttonBegegnung1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnung1ActionPerformed
+        BegnungenErstellenFrame f;
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WettkampfBearbeitung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WettkampfBearbeitung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WettkampfBearbeitung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WettkampfBearbeitung.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            f = new BegnungenErstellenFrame(this, angemeldeteTeams, curCompetition);
+            f.setVisible(true);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_buttonBegegnung1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+    private void buttonDeleteMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMeetingActionPerformed
+        if (tableBegegnungen.getSelectedRows().length == 0) {
+            JOptionPane.showMessageDialog(this, "Begegnung auswählen!");
+        } else {
+            int i = JOptionPane.showConfirmDialog(this, "Wirklich löschen?");
+            if (i == JOptionPane.OK_OPTION) {
                 try {
-                    new WettkampfBearbeitung(null).setVisible(true);
+                    GUIController.getCompetitionController().deleteMeeting(meetings.remove(tableBegegnungen.convertRowIndexToModel(tableBegegnungen.getSelectedRow())));
+                    updateTableMeeting();
                 } catch (RemoteException ex) {
                     Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });
-    }
+        }
+    }//GEN-LAST:event_buttonDeleteMeetingActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddPlayers;
     private javax.swing.JButton buttonAddTeam;
-    private javax.swing.JButton buttonBegegnung;
+    private javax.swing.JButton buttonBegegnung1;
+    private javax.swing.JButton buttonChangeBegegnung;
+    private javax.swing.JButton buttonDeleteMeeting;
     private javax.swing.JButton buttonRemoveTeam;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -361,15 +371,22 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     private javax.swing.JLabel wettkampfDate;
     private javax.swing.JLabel wettkampfFee;
     private javax.swing.JLabel wettkampfName;
-    private javax.swing.JLabel wettkampfName2;
     // End of variables declaration//GEN-END:variables
 
-    private void fillTableWithCompetitions() throws RemoteException {
+    void updateTableMeeting() throws RemoteException {
+        curCompetition = GUIController.getCompetitionController().getCompetitionByID(curCompetition.getId());
+        fillMeetingTable();
+    }
+
+    private void fillMeetingTable() {
 
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
-
+        tablemodel.setRowCount(0);
+        meetings.clear();
+        int i = 0;
         for (MeetingDTO m : curCompetition.getAllCompetitionMeetings()) {
             if (m != null) {
+                meetings.put(i++, m);
                 tablemodel.addRow(new Object[]{m.getTeamByTeamAId().getTeamName(), m.getTeamByTeamBId().getTeamName(), m.getPointsA(), m.getPointsB(), m.getCompetition().getDateOfCompetition()});
             } else {
                 System.out.println("NO MEETINGS FOR THESE COMPETITION");
@@ -388,8 +405,10 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     public void fillTableCompTeams() throws RemoteException {
         Collection<CompetitionTeamDTO> compTeams = controller.getTeamsAndClubMembersOfCompetition(curCompetition.getId());
         DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();
+        model.setRowCount(0);
         int i = 0;
         for (CompetitionTeamDTO comp : compTeams) {
+            angemeldeteTeams.add(comp.getTeam());
             model.addRow(new Object[]{++i, comp.getTeam().getTeamName(), (comp.getAllClubMembersOfCompetitionTeam().size() > 0 ? "intern" : "extern")});
         }
     }

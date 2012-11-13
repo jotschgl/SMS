@@ -6,9 +6,13 @@ package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,22 +25,30 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
      * Creates new form BegnungenErstellenFrame
      */
     private WettkampfBearbeitung prevFrame;
+    private Collection<TeamDTO> teams;
     private CompetitionDTO competition;
-    private ICompetitionDTOControllerFactory competitionController;
-    private boolean updateCompetition = false;
-    private HashMap <Integer, TeamDTO> teams = new HashMap<Integer, TeamDTO>();
-
-    public BegnungenErstellenFrame(WettkampfBearbeitung frame, CompetitionDTO controller) throws RemoteException {
+    
+    public BegnungenErstellenFrame(WettkampfBearbeitung frame, Collection<TeamDTO> teams, CompetitionDTO competition) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
         this.prevFrame = frame;
-        this.competition = controller;
-        this.fillTable();
+        this.teams = teams;
+        this.competition = competition;
+        this.fillCombos();
         this.setVisible(true);
     }
-
+    private MeetingDTO meeting;
     //Constructor für Begegnung bearbeiten
-    public BegnungenErstellenFrame(WettkampfBearbeitung frame, String id) {
+
+    public BegnungenErstellenFrame(WettkampfBearbeitung frame, Collection<TeamDTO> teams, MeetingDTO meeting) throws RemoteException {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.prevFrame = frame;
+        this.teams = teams;
+        this.meeting = meeting;
+        this.fillCombos();
+        this.selectCombos();
+        this.setVisible(true);
     }
 
     /**
@@ -56,8 +68,8 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
         buttonErstellung = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        restultTeam2 = new javax.swing.JSpinner();
-        resultTeam1 = new javax.swing.JSpinner();
+        pointsTeam2 = new javax.swing.JSpinner();
+        pointsTeam1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sports - Begegnung erstellen");
@@ -75,19 +87,9 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
         comboTeam2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         comboTeam1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        comboTeam1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboTeam1ActionPerformed(evt);
-            }
-        });
 
         buttonErstellung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         buttonErstellung.setText("Begegnung Speichern");
-        buttonErstellung.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonErstellungMouseClicked(evt);
-            }
-        });
         buttonErstellung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonErstellungActionPerformed(evt);
@@ -100,9 +102,11 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setText("Punkte Team 1");
 
-        restultTeam2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        pointsTeam2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        pointsTeam2.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
-        resultTeam1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        pointsTeam1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        pointsTeam1.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,8 +127,8 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(resultTeam1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                    .addComponent(restultTeam2)))
+                                    .addComponent(pointsTeam1, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                    .addComponent(pointsTeam2)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -155,11 +159,11 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resultTeam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pointsTeam1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(restultTeam2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pointsTeam2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87)
                 .addComponent(buttonErstellung)
                 .addGap(22, 22, 22))
@@ -168,27 +172,34 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonErstellungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonErstellungMouseClicked
-        // TODO add your handling code here:
-        if (!updateCompetition) {
-            if (comboTeam1.getSelectedItem().equals(comboTeam2.getSelectedItem())) {
-                JOptionPane.showMessageDialog(this, "Andere Teams Wählen!");
-            } else {
-                TeamDTO team1= teams.get(comboTeam1.getSelectedIndex());
-                TeamDTO team2= teams.get(comboTeam2.getSelectedIndex());
+    private void buttonErstellungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonErstellungActionPerformed
+        if (comboTeam1.getSelectedItem().equals(comboTeam2.getSelectedItem())) {
+            JOptionPane.showMessageDialog(this, "Andere Teams Wählen!");
+        } else {
+            try {
+                TeamDTO team1 = (TeamDTO) comboTeam1.getSelectedItem();
+                TeamDTO team2 = (TeamDTO) comboTeam2.getSelectedItem();
                 System.out.println(team1.getTeamName());
                 System.out.println(team2.getTeamName());
+                if (meeting == null) {
+                    MeetingDTO m = new MeetingDTO(competition, team1, team2);
+                    m.setPointsA((Integer) pointsTeam1.getValue());
+                    m.setPointsB((Integer) pointsTeam2.getValue());
+                    GUIController.getCompetitionController().createOrUpdateMeeting(m);
+                }
+                if (competition == null) {
+                    meeting.setTeamByTeamAId(team1);
+                    meeting.setTeamByTeamBId(team2);
+                    meeting.setPointsA((Integer) pointsTeam1.getValue());
+                    meeting.setPointsB((Integer) pointsTeam2.getValue());
+                    GUIController.getCompetitionController().createOrUpdateMeeting(meeting);
+                }
+                prevFrame.updateTableMeeting();
+            } catch (RemoteException ex) {
+                Logger.getLogger(BegnungenErstellenFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_buttonErstellungMouseClicked
-
-    private void buttonErstellungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonErstellungActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_buttonErstellungActionPerformed
-
-    private void comboTeam1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTeam1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboTeam1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,17 +237,21 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JSpinner restultTeam2;
-    private javax.swing.JSpinner resultTeam1;
+    private javax.swing.JSpinner pointsTeam1;
+    private javax.swing.JSpinner pointsTeam2;
     // End of variables declaration//GEN-END:variables
 
-    private void fillTable() throws RemoteException {
-        int i = 0;
-        competitionController = GUIController.getCompetitionController();
-        for (TeamDTO team : competitionController.getAllTeams()) {
-            comboTeam1.addItem(team.getTeamName());
-            comboTeam2.addItem(team.getTeamName());
-            teams.put(i++, team);
+    private void fillCombos() throws RemoteException {
+        for (TeamDTO team : teams) {
+            comboTeam1.addItem(team);
+            comboTeam2.addItem(team);
         }
+    }
+    
+    private void selectCombos() {
+        comboTeam1.setSelectedItem(meeting.getTeamByTeamAId());
+        comboTeam2.setSelectedItem(meeting.getTeamByTeamBId());
+        pointsTeam1.setValue(meeting.getPointsA() != null ? meeting.getPointsA() : 0);
+        pointsTeam2.setValue(meeting.getPointsB() != null ? meeting.getPointsB() : 0);
     }
 }

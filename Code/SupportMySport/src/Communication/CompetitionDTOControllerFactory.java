@@ -152,6 +152,16 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
 
     @Override
     public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teams) throws RemoteException {
-       competitionController.saveOrUpdateCompetitionTeams(dtoAssembler.saveOrUpdateCompetitionTeams(teams));
+        competitionController.saveOrUpdateCompetitionTeams(dtoAssembler.saveOrUpdateCompetitionTeams(teams));
+    }
+
+    @Override
+    public CompetitionDTO getCompetitionByID(int id) throws RemoteException {
+        return dtoAssembler.createCompetitonDTO(competitionController.getCompetitionByID(id));
+    }
+
+    @Override
+    public void deleteMeeting(MeetingDTO meeting) throws RemoteException {
+        competitionController.deleteMeeting(dtoAssembler.updateMeetingEntity(meeting));
     }
 }

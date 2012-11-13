@@ -100,4 +100,12 @@ public class CompetitionController {
     public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeam> teams) {
         domainFacade.saveOrUpdateCompetitionTeams(teams);
     }
+
+    public Competition getCompetitionByID(int id) {
+        return domainFacade.getCompetitionById(id);
+    }
+
+    public void deleteMeeting(Meeting meeting) {
+        domainFacade.deleteMeeting(meeting);
+    }
 }

@@ -151,4 +151,8 @@ public class DomainFacade {
     public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeam> teams) {
         competitionTeamManager.saveOrUpdateCompetitionTeams(teams);
     }
+
+    public void deleteMeeting(Meeting meeting) {
+        meetingManager.deleteMeeting(meeting);
+    }
 }

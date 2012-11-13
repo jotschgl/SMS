@@ -52,7 +52,9 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableTeams = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Mannschaft auswählen");
+        setResizable(false);
 
         buttonAdd.setText("Hinzufügen");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {

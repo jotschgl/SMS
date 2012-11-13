@@ -141,7 +141,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 GUIController.setLoggedInMember(GUIController.getClubMemberController().getLoggedInClubmember());
                 System.out.println("Logged In");
                 WelcomeFrame wf = new WelcomeFrame();
+                this.setVisible(false);
                 wf.setVisible(true);
+
             } else {
                 System.out.println("Fail");
                 JOptionPane.showMessageDialog(rootPane, "Login failed. \nUsername or password false!!", "Login failed", JOptionPane.ERROR_MESSAGE);

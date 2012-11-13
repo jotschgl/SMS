@@ -5,13 +5,11 @@
 package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.RoleRightDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -80,7 +78,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableBegegnung = new javax.swing.JTable();
         textFieldRowFilter = new javax.swing.JTextField();
-        btnBearbBegegnung = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Support My Sport - Wettkampf berarbeiten");
@@ -181,13 +179,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
             }
         });
 
-        btnBearbBegegnung.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        btnBearbBegegnung.setText("Begegnung bearbeiten");
-        btnBearbBegegnung.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBearbBegegnungMouseClicked(evt);
-            }
-        });
+        jLabel1.setText("Suchen:");
 
         javax.swing.GroupLayout panelRightLayout = new javax.swing.GroupLayout(panelRight);
         panelRight.setLayout(panelRightLayout);
@@ -198,12 +190,13 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 .addComponent(labelBegegnungen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(panelRightLayout.createSequentialGroup()
-                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelRightLayout.createSequentialGroup()
-                        .addComponent(textFieldRowFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnBearbBegegnung, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldRowFilter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 28, Short.MAX_VALUE))
         );
         panelRightLayout.setVerticalGroup(
@@ -216,8 +209,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldRowFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBearbBegegnung))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -279,29 +272,6 @@ public class WettkampfFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBearbWettkampfMouseClicked
 
-    private void btnBearbBegegnungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBearbBegegnungMouseClicked
-        int[] selectedRows = tableBegegnung.getSelectedRows();
-
-        if (tableBegegnung.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(panelRight, "Keine Begegnungen vorhanden");
-        } else {
-            //keim Wettkampf gewählt
-            if (selectedRows.length == 0) {
-                JOptionPane.showMessageDialog(panelRight, "Wählen Sie einen Begegnungen aus!");
-            } else {
-                //Wenn die Anwtort mit ja bestätigt wird, wird ein neues Fenster aufgehen
-                int reply = JOptionPane.showConfirmDialog(panelRight, "Möchten Sie die markierte Begegnung bearbeiten", "Nachricht", JOptionPane.YES_NO_OPTION);
-                if (reply == JOptionPane.YES_OPTION) {
-                    try {
-                        showWettkampfErstellung();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_btnBearbBegegnungMouseClicked
-
     private void textFieldRowFilterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldRowFilterKeyReleased
         String text = textFieldRowFilter.getText();
         if (text.length() == 0) {
@@ -346,9 +316,9 @@ public class WettkampfFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBearbBegegnung;
     private javax.swing.JButton btnBearbWettkampf;
     private javax.swing.JButton btnErsteWettkampf;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelBegegnungen;

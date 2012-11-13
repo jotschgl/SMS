@@ -90,6 +90,8 @@ public class DTOAssembler {
 
     public MeetingDTO createMeetingDTO(Meeting meeting, CompetitionDTO competition) {
         MeetingDTO meetingDTO = new MeetingDTO(competition, createTeamDTO(meeting.getTeamByTeamAId()), createTeamDTO(meeting.getTeamByTeamBId()));
+        meetingDTO.setPointsA(meeting.getPointsA());
+        meetingDTO.setPointsB(meeting.getPointsB());
         meetingDTO.setId(meeting.getId());
         return meetingDTO;
     }
@@ -173,6 +175,8 @@ public class DTOAssembler {
 
     public Meeting updateMeetingEntity(MeetingDTO meetingDTO) {
         Meeting meeting = new Meeting(updateCompetitionEntity(meetingDTO.getCompetition()), updateTeamEntity(meetingDTO.getTeamByTeamAId()), updateTeamEntity(meetingDTO.getTeamByTeamBId()));
+        meeting.setPointsA(meetingDTO.getPointsA());
+        meeting.setPointsB(meetingDTO.getPointsB());
         if (meetingDTO.getId() != -1) {
             meeting.setId(meetingDTO.getId());
         }
