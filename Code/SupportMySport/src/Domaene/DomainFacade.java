@@ -143,4 +143,12 @@ public class DomainFacade {
     public Department getDepartmentOfLoggedInMember(int id) {
         return departmentManager.getDepartmentOfLoggedInMember(id);
     }
+
+    public Collection<Sport> getSportsOfDepartment(Department d) {
+        return sportManager.getSportsOfDepartment(d);
+    }
+
+    public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeam> teams) {
+        competitionTeamManager.saveOrUpdateCompetitionTeams(teams);
+    }
 }

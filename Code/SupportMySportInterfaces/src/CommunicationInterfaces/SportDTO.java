@@ -5,19 +5,21 @@
 package CommunicationInterfaces;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 /**
  *
  * @author Dennis
  */
 public class SportDTO implements Serializable {
-    
+
     private Integer id = -1;
     private String name;
     private DepartmentDTO department;
     private RuleDTO rule;
-    
-    public SportDTO(String name, DepartmentDTO department, RuleDTO rule){
+    private Collection<LeagueDTO> leagues;
+
+    public SportDTO(String name, DepartmentDTO department, RuleDTO rule) {
         this.name = name;
         this.department = department;
         this.rule = rule;
@@ -77,5 +79,18 @@ public class SportDTO implements Serializable {
      */
     public void setRule(RuleDTO rule) {
         this.rule = rule;
+    }
+
+    public Collection<LeagueDTO> getLeagues() {
+        return leagues;
+    }
+
+    public void setLeagues(Collection<LeagueDTO> leagues) {
+        this.leagues = leagues;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

@@ -1,10 +1,12 @@
 package Controller;
 
+import CommunicationInterfaces.SportDTO;
 import Domaene.DomainFacade;
 import Persistence.*;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class CompetitionController {
 
@@ -58,29 +60,44 @@ public class CompetitionController {
     public Collection<Department> getAllDepartments() throws RemoteException {
         return domainFacade.getAllDepartments();
     }
-    
-    public void createOrUpdateMeeting(Meeting meeting){
+
+    public void createOrUpdateMeeting(Meeting meeting) {
         domainFacade.createOrUpdateMeeting(meeting);
     }
-     
-    public Collection<Sport> getAllSports(){
+
+    public Collection<Sport> getAllSports() {
         return domainFacade.getAllSports();
     }
-    
-    public Collection<Team> getAllTeams(){
+
+    public Collection<Team> getAllTeams() {
         return domainFacade.getAllTeams();
     }
-    
-    public Collection<CompetitionTeam> getCompetitionData(int competitionID){
+
+    public Collection<CompetitionTeam> getCompetitionData(int competitionID) {
         return domainFacade.getCompetitionData(competitionID);
     }
-    
-    public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID){
-        return domainFacade.getAllClubMembersOfCompetitionTeam(teamID,competitionID);
+
+    public Collection<ClubMember> getAllClubMembersOfCompetitionTeam(int teamID, int competitionID) {
+        return domainFacade.getAllClubMembersOfCompetitionTeam(teamID, competitionID);
     }
-    
-    public Department getDepartmentOfLoggedInMember(int id)
-    {
+
+    public Department getDepartmentOfLoggedInMember(int id) {
         return domainFacade.getDepartmentOfLoggedInMember(id);
+    }
+
+    public Collection<Sport> getSportsOfDepartment(Department d) {
+        return domainFacade.getSportsOfDepartment(d);
+    }
+
+    public Collection<Competition> getCompetitionsOfDepartment(Department department) {
+        return domainFacade.getCompetitionByDepartmentId(department.getId());
+    }
+
+    public void updateCompetition(Competition competition) {
+        domainFacade.updateExistingCompetition(competition);
+    }
+
+    public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeam> teams) {
+        domainFacade.saveOrUpdateCompetitionTeams(teams);
     }
 }

@@ -20,13 +20,13 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     /**
      * Creates new form BegnungenErstellenFrame
      */
-    private WettkampfErstellung prevFrame;
+    private WettkampfBearbeitung prevFrame;
     private CompetitionDTO competition;
     private ICompetitionDTOControllerFactory competitionController;
     private boolean updateCompetition = false;
     private HashMap <Integer, TeamDTO> teams = new HashMap<Integer, TeamDTO>();
 
-    public BegnungenErstellenFrame(WettkampfErstellung frame, CompetitionDTO controller) throws RemoteException {
+    public BegnungenErstellenFrame(WettkampfBearbeitung frame, CompetitionDTO controller) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
         this.prevFrame = frame;
@@ -36,7 +36,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     }
 
     //Constructor für Begegnung bearbeiten
-    public BegnungenErstellenFrame(WettkampfErstellung frame, String id) {
+    public BegnungenErstellenFrame(WettkampfBearbeitung frame, String id) {
     }
 
     /**

@@ -7,6 +7,7 @@ package GUI;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.MeetingDTO;
+import CommunicationInterfaces.RoleRightDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -56,7 +57,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
                 }
             }
         });
-
+        setRoleUseCases();
     }
 
     /**
@@ -131,15 +132,12 @@ public class WettkampfFrame extends javax.swing.JFrame {
             .addGroup(panelLeftLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(lableWettkampf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelLeftLayout.createSequentialGroup()
-                        .addGroup(panelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(panelLeftLayout.createSequentialGroup()
-                                .addComponent(btnErsteWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)
-                                .addComponent(btnBearbWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLeftLayout.createSequentialGroup()
+                        .addComponent(btnErsteWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(btnBearbWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelLeftLayout.setVerticalGroup(
@@ -377,21 +375,15 @@ public class WettkampfFrame extends javax.swing.JFrame {
     }
 
     private void fillTable() {
-        try {
-            DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
-            ICompetitionDTOControllerFactory controller = GUIController.getCompetitionController();
-            resetAllRows(tablemodel);
-            tablemodel.setRowCount(0);
+        DefaultTableModel tablemodel = (DefaultTableModel) tableWettkampf.getModel();
+        resetAllRows(tablemodel);
+        tablemodel.setRowCount(0);
 
-            int i = 0;
-            for (CompetitionDTO com : controller.getAllCompetitions()) {
-                competitions.put(i++, com);
-                tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getDepartmentName()});
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(WettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+        int i = 0;
+        for (CompetitionDTO com : GUIController.getCompetitionsOfDepartmentOfLoggedInMember()) {
+            competitions.put(i++, com);
+            tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getDepartmentName()});
         }
-
     }
 
     private void fillMeetingTable(Collection<MeetingDTO> meetings) {
@@ -406,7 +398,7 @@ public class WettkampfFrame extends javax.swing.JFrame {
     }
 
     private void showWettkampfErstellung() throws RemoteException {
-        WettkampfErstellung wE = new WettkampfErstellung(competitions.get((tableWettkampf.convertRowIndexToModel(lastSelectedRow))));
+        WettkampfBearbeitung wE = new WettkampfBearbeitung(competitions.get((tableWettkampf.convertRowIndexToModel(lastSelectedRow))));
         wE.setVisible(true);
     }
 
@@ -418,5 +410,19 @@ public class WettkampfFrame extends javax.swing.JFrame {
 
     void updateTable() {
         fillTable();
+    }
+
+    private void setRoleUseCases() {
+        Collection<RoleRightDTO> rights = GUIController.getRightsOfLoggedinUser();
+
+        boolean createCompetition = false;
+
+        for (RoleRightDTO right : rights) {
+            System.out.println(right.getName());
+            if (right.getName().equals("createCompetition")) {
+                createCompetition = true;
+            }
+        }
+        btnErsteWettkampf.setVisible(createCompetition);
     }
 }
