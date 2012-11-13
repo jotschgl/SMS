@@ -3,6 +3,7 @@ package Controller;
 import Domaene.DomainFacade;
 import Persistence.ClubMember;
 import Persistence.FunctionRole;
+import Persistence.Team;
 import java.rmi.RemoteException;
 import java.util.Collection;
 
@@ -32,5 +33,9 @@ public class ClubMemberController {
 
     public ClubMember getClubmemberByUserName(String username) {
         return myDomainFacade.getClubmemberByUserName(username);
+    }
+
+    public Collection<ClubMember> getAllTeamMembers(Team team) {
+       return myDomainFacade.getAllTeamMembers(team);
     }
 }

@@ -32,7 +32,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     private ICompetitionDTOControllerFactory controller;
     private Collection<TeamDTO> angemeldeteTeams = new LinkedList<TeamDTO>();
     private HashMap<Integer, MeetingDTO> meetings = new HashMap<Integer, MeetingDTO>();
-
+    
     public WettkampfBearbeitung(CompetitionDTO comptetition) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -183,6 +183,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         });
 
         buttonAddPlayers.setText("Spieler zu Mannschaft hinzufügen / entfernen");
+        buttonAddPlayers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddPlayersActionPerformed(evt);
+            }
+        });
 
         buttonBegegnung1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         buttonBegegnung1.setText("Begegnung hinzufügen");
@@ -314,16 +319,16 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonChangeBegegnungActionPerformed
-
+    
     private void buttonAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddTeamActionPerformed
         Frame f = new AddTeamToCompetitionFrame(curCompetition, this);
         f.setVisible(true);
     }//GEN-LAST:event_buttonAddTeamActionPerformed
-
+    
     private void buttonRemoveTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveTeamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonRemoveTeamActionPerformed
-
+    
     private void buttonBegegnung1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnung1ActionPerformed
         BegnungenErstellenFrame f;
         try {
@@ -333,7 +338,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonBegegnung1ActionPerformed
-
+    
     private void buttonDeleteMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMeetingActionPerformed
         if (tableBegegnungen.getSelectedRows().length == 0) {
             JOptionPane.showMessageDialog(this, "Begegnung auswählen!");
@@ -349,6 +354,15 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonDeleteMeetingActionPerformed
+    
+    private void buttonAddPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddPlayersActionPerformed
+        try {
+            CreateCompetitionTeam cct = new CreateCompetitionTeam(new CompetitionTeamDTO(GUIController.getCompetitionController().getAllTeams().toArray(new TeamDTO[0])[0]));        // TODO add your handling code here:
+            cct.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_buttonAddPlayersActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddPlayers;
     private javax.swing.JButton buttonAddTeam;
@@ -377,9 +391,9 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         curCompetition = GUIController.getCompetitionController().getCompetitionByID(curCompetition.getId());
         fillMeetingTable();
     }
-
+    
     private void fillMeetingTable() {
-
+        
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
         tablemodel.setRowCount(0);
         meetings.clear();
@@ -393,7 +407,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void fillGeneralInformation() throws RemoteException {
         System.out.println("FOUND COMPETITION");
         wettkampfName.setText(curCompetition.getName());
@@ -401,7 +415,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         wettkampfDate.setText(curCompetition.getDateOfCompetition().toString());
         wettkampfAbteilung.setText(curCompetition.getDepartment().getDepartmentName());
     }
-
+    
     public void fillTableCompTeams() throws RemoteException {
         Collection<CompetitionTeamDTO> compTeams = controller.getTeamsAndClubMembersOfCompetition(curCompetition.getId());
         DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();

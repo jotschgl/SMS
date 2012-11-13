@@ -155,4 +155,8 @@ public class DomainFacade {
     public void deleteMeeting(Meeting meeting) {
         meetingManager.deleteMeeting(meeting);
     }
+
+    public Collection<ClubMember> getAllTeamMembers(Team team) {
+        return clubMemberManager.getAllTeamMembers(team);
+    }
 }

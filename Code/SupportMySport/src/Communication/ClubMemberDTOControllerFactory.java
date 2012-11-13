@@ -6,6 +6,7 @@ package Communication;
 
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import CommunicationInterfaces.TeamDTO;
 import Controller.ClubMemberController;
 import Controller.LoginController;
 import Persistence.ClubMember;
@@ -55,7 +56,17 @@ public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implemen
     }
 
     @Override
-    public boolean login(String username, String password)throws RemoteException  {
+    public boolean login(String username, String password) throws RemoteException {
         return loginController.auth(username, password);
+    }
+
+    @Override
+    public Collection<ClubMemberDTO> getAllTeamMembers(TeamDTO team) throws RemoteException {
+        Collection<ClubMember> members = clubMemberController.getAllTeamMembers(dtoAssembler.updateTeamEntity(team));
+        LinkedList<ClubMemberDTO> membersDTO = new LinkedList<ClubMemberDTO>();
+        for (ClubMember clubMember : members) {
+            membersDTO.add(dtoAssembler.createClubMemberDTO(clubMember));
+        }
+        return membersDTO;
     }
 }
