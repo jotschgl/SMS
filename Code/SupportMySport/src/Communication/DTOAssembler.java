@@ -20,6 +20,7 @@ import Controller.CompetitionController;
 import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;
+import Persistence.CompetitionTeamId;
 import Persistence.Department;
 import Persistence.Federation;
 import Persistence.FunctionRole;
