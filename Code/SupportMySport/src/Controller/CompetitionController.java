@@ -97,4 +97,8 @@ public class CompetitionController {
     public void deleteMeeting(Meeting meeting) {
         domainFacade.deleteMeeting(meeting);
     }
+    
+    public Collection<Team> getAllTeamsOfSport(int sportID){
+        return domainFacade.getAllTeamsOfSport(sportID);
+    }
 }

@@ -155,4 +155,8 @@ public class DomainFacade {
     public Collection<ClubMember> getAllTeamMembers(Team team) {
         return clubMemberManager.getAllTeamMembers(team);
     }
+
+    public Collection<Team> getAllTeamsOfSport(int sportID) {
+        return sportManager.getAllTeamsOfSport(sportID);
+    }
 }

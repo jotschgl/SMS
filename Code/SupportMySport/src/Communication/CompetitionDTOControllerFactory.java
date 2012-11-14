@@ -9,25 +9,19 @@ import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.DepartmentDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.LeagueDTO;
 import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.SportDTO;
 import CommunicationInterfaces.TeamDTO;
 import Controller.CompetitionController;
-import Persistence.ClubMember;
 import Persistence.Competition;
-import Persistence.CompetitionTeam;
 import Persistence.Department;
-import Persistence.League;
 import Persistence.Meeting;
 import Persistence.Sport;
 import Persistence.Team;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
@@ -145,4 +139,14 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     public void deleteMeeting(MeetingDTO meeting) throws RemoteException {
         competitionController.deleteMeeting(dtoAssembler.updateMeetingEntity(meeting));
     }
+
+    @Override
+    public Collection<TeamDTO> getAllTeamsOfSport(int sportID) throws RemoteException {
+        Collection<TeamDTO> allTeamDTOsOfSport = new LinkedList<TeamDTO>();
+        for(Team team : competitionController.getAllTeamsOfSport(sportID)){
+            allTeamDTOsOfSport.add(dtoAssembler.createTeamDTO(team));
+        }
+        return allTeamDTOsOfSport;
+    }
+
 }

@@ -7,6 +7,7 @@ package Domaene;
 import Persistence.Department;
 import Persistence.PersistenceManager;
 import Persistence.Sport;
+import Persistence.Team;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,5 +57,13 @@ public class SportManager {
             sports.add((Sport) obj);
         }
         return sports;
+    }
+
+    public Collection<Team> getAllTeamsOfSport(int sportID) {
+        List<Team> result = new LinkedList<Team>();
+        for(Object obj : persistenceManager.getObjectsByHQLQuery("FROM Team t where t.sport = " + sportID)){
+            result.add((Team)obj);
+        }
+        return result;
     }
 }
