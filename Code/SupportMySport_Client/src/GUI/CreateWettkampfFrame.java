@@ -192,7 +192,11 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
                 String wettkampf = textWettkampf.getText();
                 int value = spinnerGebuehr.getValue();
                 Date date = dateDatum.getDate();
-                CompetitionDTO comp = new CompetitionDTO(department, wettkampf, value, date);
+                SportDTO s = (SportDTO) comboSport.getSelectedItem();
+                CompetitionDTO comp = new CompetitionDTO(department, wettkampf, value, date, s, false);
+                if (comboLiga.getSelectedItem() instanceof LeagueDTO) {
+                    comp.setLeague((LeagueDTO) comboLiga.getSelectedItem());
+                }
                 controller.createNewCompetition(comp);
 
                 this._prevFrame.updateTable();
@@ -287,7 +291,6 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
 
     private void fillSportsCombo() {
         comboSport.removeAllItems();
-        comboSport.addItem("Keine");
         for (SportDTO sport : sports) {
             comboSport.addItem(sport);
         }

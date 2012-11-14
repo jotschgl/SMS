@@ -50,8 +50,8 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
                 lastSelectedRow = tableMitglied.getSelectedRow();
                 if (lastSelectedRow >= 0) {
 
-                    System.out.println(lastSelectedRow);
                     ClubMemberDTO member = _members.get((tableMitglied.convertRowIndexToModel(lastSelectedRow)));
+                    System.out.println(member.getFirstname() + " valuechange " + lastSelectedRow);
                     tableRolle.setModel(new RoleTableModel(member.getAllFunctionRolesOfClubMember()));
                     RoleTableModel alleRollen = new RoleTableModel();
                     for (FunctionRoleDTO role : allRoles) {
@@ -60,8 +60,8 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
                         }
                     }
                     tableAlleRollen.setModel(alleRollen);
-                    ((RoleTableModel) tableAlleRollen.getModel()).fireTableDataChanged();
-                    ((RoleTableModel) tableRolle.getModel()).fireTableDataChanged();
+                    // ((RoleTableModel) tableAlleRollen.getModel()).fireTableDataChanged();
+                    // ((RoleTableModel) tableRolle.getModel()).fireTableDataChanged();
                 }
             }
         });
@@ -211,16 +211,14 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
     private void btnSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpeichernActionPerformed
         // TODO add your handling code here:
-
+        tableMitglied.setEnabled(false);
         try {
             if (tableMitglied.getSelectedRow() != -1) {
                 int[] rollen = tableAlleRollen.getSelectedRows();
 
                 ClubMemberDTO member = _members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow));
-                for (int i : rollen) {
-                    moveUp(member, i);
-                }
-
+                System.out.println(member.getFirstname() + " ");
+                moveUp(member, rollen);
                 memberController.createOrUpdateClubMember(member);
             }
 
@@ -229,27 +227,29 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        tableMitglied.setEnabled(true);
 
     }//GEN-LAST:event_btnSpeichernActionPerformed
 
     private void buttonEnfternenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnfternenActionPerformed
         // TODO add your handling code here:
+        tableMitglied.setEnabled(false);
         try {
             if (tableMitglied.getSelectedRow() != -1) {
                 int[] rollen = tableRolle.getSelectedRows();
 
                 ClubMemberDTO member = _members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow));
-                for (int i : rollen) {
-                    moveDown(member, i);
-                }
+
+                moveDown(member, rollen);
+
                 memberController.createOrUpdateClubMember(member);
             }
-            updateTable();
 
 
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        tableMitglied.setEnabled(true);
 
 
     }//GEN-LAST:event_buttonEnfternenActionPerformed
@@ -279,28 +279,36 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
         }
     }
 
-    private void moveUp(ClubMemberDTO member, int i) {
+    private void moveUp(ClubMemberDTO member, int[] rollen) {
         RoleTableModel modelTop = (RoleTableModel) tableRolle.getModel();
         RoleTableModel modelDown = (RoleTableModel) tableAlleRollen.getModel();
-        FunctionRoleDTO fr = modelDown.removeRole(tableAlleRollen.convertRowIndexToModel(i));
-        modelTop.addRole(fr);
-        member.addFunctionRole(fr);
+        LinkedList<FunctionRoleDTO> changes = new LinkedList<FunctionRoleDTO>();
+        for (int i : rollen) {
+            changes.add(modelDown.getRole(tableAlleRollen.convertRowIndexToModel(i)));
+        }
+        for (FunctionRoleDTO role : changes) {
+            modelDown.removeRole(role);
+            modelTop.addRole(role);
+            member.addFunctionRole(role);
+        }
         modelDown.fireTableDataChanged();
         modelTop.fireTableDataChanged();
     }
 
-    private void moveDown(ClubMemberDTO member, int i) {
+    private void moveDown(ClubMemberDTO member, int[] rollen) {
         RoleTableModel modelTop = (RoleTableModel) tableRolle.getModel();
         RoleTableModel modelDown = (RoleTableModel) tableAlleRollen.getModel();
-        FunctionRoleDTO fr = modelTop.removeRole(tableRolle.convertRowIndexToModel(i));
-        modelDown.addRole(fr);
-        member.removeFunktionRole(fr);
+        LinkedList<FunctionRoleDTO> changes = new LinkedList<FunctionRoleDTO>();
+        for (int i : rollen) {
+            changes.add(modelTop.getRole(tableAlleRollen.convertRowIndexToModel(i)));
+        }
+        for (FunctionRoleDTO role : changes) {
+            modelTop.removeRole(role);
+            modelDown.addRole(role);
+            member.removeFunktionRole(role);
+        }
         modelDown.fireTableDataChanged();
         modelTop.fireTableDataChanged();
-    }
-
-    private void updateTable() throws RemoteException {
-        filltable();
     }
 
     private class RoleTableModel extends AbstractTableModel {
@@ -337,6 +345,14 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
             FunctionRoleDTO role = roles.toArray(new FunctionRoleDTO[0])[i];
             roles.remove(role);
             return role;
+        }
+
+        private FunctionRoleDTO getRole(int i) {
+            return roles.toArray(new FunctionRoleDTO[0])[i];
+        }
+
+        private void removeRole(FunctionRoleDTO role) {
+            roles.remove(role);
         }
     }
 }

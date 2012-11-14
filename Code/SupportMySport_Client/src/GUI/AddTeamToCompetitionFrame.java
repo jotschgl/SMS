@@ -124,10 +124,9 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
             for (int i : rows) {
                 TeamDTO team = _teammap.get(tableTeams.convertRowIndexToModel(i));
 
-                // CompetitionTeamDTO ct = new CompetitionTeamDTO(team);
-                //  ct.setCompetition(competition);
-                //  competition.addTeamToCompetition(ct);
-                //  comteams.add(ct);
+                CompetitionTeamDTO ct = new CompetitionTeamDTO(team, competition);
+                competition.addTeamToCompetition(ct);
+
             }
             GUIController.getCompetitionController().updateCompetition(competition);
             //  preFrame.fillTableCompTeams();
@@ -142,7 +141,7 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void fillTable() throws RemoteException {
-        Collection<TeamDTO> teams = GUIController.getCompetitionController().getAllTeams();
+        Collection<TeamDTO> teams = GUIController.getCompetitionController().getAllTeamsOfSport(competition.getSport().getId());
         Collection<CompetitionTeamDTO> comteams = competition.getAllTeamsOfCompetition();
         DefaultTableModel model = (DefaultTableModel) tableTeams.getModel();
         model.setRowCount(0);
