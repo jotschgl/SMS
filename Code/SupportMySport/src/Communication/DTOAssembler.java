@@ -30,19 +30,15 @@ import Persistence.Rule;
 import Persistence.Sport;
 import Persistence.Team;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import sun.security.jgss.spi.MechanismFactory;
 
 /**
  *
  * @author Dennis
  */
 public class DTOAssembler {
-
-    private CompetitionController competitionController = new CompetitionController();
 
     public DepartmentDTO createDepartmentDTO(Department department) {
         DepartmentDTO departmentDTO = new DepartmentDTO(createClubMemberDTO(department.getClubMember()), department.getName());
@@ -70,21 +66,9 @@ public class DTOAssembler {
             competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(compTeam,competitionDTO));
         }
         if(competition.getLeague() != null){
-            competitionDTO.setLeague(createLeagueDTO(competition.getLeague()));
+            competitionDTO.setLeague(createLeagueDTO(competition.getLeague(),competitionDTO.getSport()));
         }
         return competitionDTO; 
-//        HashMap<Team, LinkedList<ClubMember>> competitionTeamClubMember = new HashMap<Team, LinkedList<ClubMember>>();
-//        for (CompetitionTeam compTeam : competition.getCompetitionTeams()) {
-//            if (!competitionTeamClubMember.containsKey(compTeam.getTeam())) {
-//                competitionTeamClubMember.put(compTeam.getTeam(), new LinkedList<ClubMember>());
-//                for (ClubMember clubMember : competitionController.getAllClubMembersOfCompetitionTeam(compTeam.getTeam().getId(), compTeam.getCompetition().getId())) {
-//                    competitionTeamClubMember.get(compTeam.getTeam()).add(clubMember);
-//                }
-//            }
-//        }
-//        for (Team t : competitionTeamClubMember.keySet()) {
-//            competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(t, competitionTeamClubMember.get(t)));
-//        }
     }
 
     public TeamDTO createTeamDTO(Team team) {
@@ -113,7 +97,7 @@ public class DTOAssembler {
         Collection<League> leagues = sport.getLeagues();
         LinkedList<LeagueDTO> dtos = new LinkedList<LeagueDTO>();
         for (League league : leagues) {
-            dtos.add(createLeagueDTO(league));
+            dtos.add(createLeagueDTO(league,sportDTO));
         }
         sportDTO.setLeagues(dtos);
         return sportDTO;
@@ -242,8 +226,8 @@ public class DTOAssembler {
         return sport;
     }
 
-    public LeagueDTO createLeagueDTO(League league) {
-        LeagueDTO leagueDTO = new LeagueDTO(league.getName(), createSportDTO(league.getSport()), createFederationDTO(league.getFederation()));
+    public LeagueDTO createLeagueDTO(League league, SportDTO sportDTO) {
+        LeagueDTO leagueDTO = new LeagueDTO(league.getName(), sportDTO, createFederationDTO(league.getFederation()));
         leagueDTO.setId(league.getId());
         return leagueDTO;
     }
