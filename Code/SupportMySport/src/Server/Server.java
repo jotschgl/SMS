@@ -4,6 +4,7 @@
  */
 package Server;
 
+import Communication.Corba.Server.CompetitionResultsCorbaServer;
 import Communication.UseCaseControllerFactory;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -24,6 +25,11 @@ public class Server
     {
         try
         {
+            //Starting the ORB
+            CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
+            corbaServer.initServer(null);
+            
+            //Starting RMI
             Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             System.setProperty("java.rmi.server.codebase", Server.class.getProtectionDomain().getCodeSource().getLocation().toString());
             UseCaseControllerFactory factory = new UseCaseControllerFactory();
