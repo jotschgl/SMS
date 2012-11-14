@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -200,7 +201,7 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
     private void btnSpeichernActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpeichernActionPerformed
         // TODO add your handling code here:
-        
+
         try {
             if (tableMitglied.getSelectedRow() != -1) {
                 int[] rollen = tableAlleRollen.getSelectedRows();
@@ -211,10 +212,12 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
                 }
 
                 memberController.createOrUpdateClubMember(member);
+                updateTable();
+                fillROOLETable(member.getAllFunctionRolesOfClubMember());
             }
-            updateTable();
-            
-            
+
+
+
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -223,14 +226,14 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
     private void buttonEnfternenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEnfternenActionPerformed
         // TODO add your handling code here:
-         try {
+        try {
             if (tableMitglied.getSelectedRow() != -1) {
                 int[] rollen = tableRolle.getSelectedRows();
 
                 ClubMemberDTO member = _members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow));
                 for (int i : rollen) {
-                    for(FunctionRoleDTO funRoleDTO : member.getAllFunctionRolesOfClubMember()){
-                        if(funRoleDTO.getId() == _roles.get(i).getId()){
+                    for (FunctionRoleDTO funRoleDTO : member.getAllFunctionRolesOfClubMember()) {
+                        if (funRoleDTO.getId() == _roles.get(i).getId()) {
                             member.getAllFunctionRolesOfClubMember().remove(funRoleDTO);
                         }
                     }
@@ -239,13 +242,13 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
                 memberController.createOrUpdateClubMember(member);
             }
             updateTable();
-            
-            
+
+
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+
     }//GEN-LAST:event_buttonEnfternenActionPerformed
 
     /**
@@ -314,7 +317,7 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
         roleFactory = GUIController.getRoleControllerFactory();
         DefaultTableModel roleModel = (DefaultTableModel) tableAlleRollen.getModel();
-
+        roleModel.setRowCount(0);
         i = 0;
         for (FunctionRoleDTO f : roleFactory.getAllRoles()) {
             roleModel.addRow(new Object[]{f.getName()});
@@ -326,10 +329,10 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
     private void fillROOLETable(Collection<FunctionRoleDTO> allFunctionRolesOfClubMember) {
         System.out.println(allFunctionRolesOfClubMember.size());
         DefaultTableModel memberRolteModel = (DefaultTableModel) tableRolle.getModel();
-        
+
         memberRolteModel.setRowCount(0);
         for (FunctionRoleDTO f : allFunctionRolesOfClubMember) {
-            
+
             memberRolteModel.addRow(new Object[]{f.getName()});
 
         }
@@ -337,5 +340,38 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
     private void updateTable() throws RemoteException {
         filltable();
+    }
+
+    private class RoleTableModel extends AbstractTableModel {
+
+        public RoleTableModel(Collection<FunctionRoleDTO> roles) {
+            this.roles = roles;
+        }
+        private Collection<FunctionRoleDTO> roles;
+
+        @Override
+        public int getRowCount() {
+            return roles.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 1;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            return roles.toArray(new FunctionRoleDTO[0])[rowIndex].getName();
+        }
+
+        public void addRole(FunctionRoleDTO role) {
+            roles.add(role);
+        }
+
+        public FunctionRoleDTO removeRole(int i) {
+            FunctionRoleDTO role = roles.toArray(new FunctionRoleDTO[0])[i];
+            roles.remove(role);
+            return role;
+        }
     }
 }

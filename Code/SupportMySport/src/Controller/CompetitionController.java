@@ -1,12 +1,10 @@
 package Controller;
 
-import CommunicationInterfaces.SportDTO;
 import Domaene.DomainFacade;
 import Persistence.*;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
 
 public class CompetitionController {
 
