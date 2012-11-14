@@ -99,25 +99,6 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<CompetitionTeamDTO> getTeamsAndClubMembersOfCompetition(int competitionID) throws RemoteException {
-        Collection<CompetitionTeamDTO> allCompetitionTeams = new LinkedList<CompetitionTeamDTO>();
-        Collection<CompetitionTeam> allCompetitionTeamsOfCompetition = competitionController.getCompetitionData(competitionID);
-        HashMap<Team, LinkedList<ClubMember>> map = new HashMap<Team, LinkedList<ClubMember>>();
-        for (CompetitionTeam compTeam : allCompetitionTeamsOfCompetition) {
-            if (map.containsKey(compTeam.getTeam())) {
-                map.get(compTeam.getTeam()).add(compTeam.getClubMember());
-            } else {
-                map.put(compTeam.getTeam(), new LinkedList<ClubMember>());
-                map.get(compTeam.getTeam()).add(compTeam.getClubMember());
-            }
-        }
-        for (Team team : map.keySet()) {
-            allCompetitionTeams.add(dtoAssembler.createCompetitionTeamDTO(team, map.get(team)));
-        }
-        return allCompetitionTeams;
-    }
-
-    @Override
     public DepartmentDTO getDepartmentOfLoggedInDepartmentChief(ClubMemberDTO loggedInMember) throws RemoteException {
         Department d = competitionController.getDepartmentOfLoggedInMember(loggedInMember.getId());
         return dtoAssembler.createDepartmentDTO(d);
