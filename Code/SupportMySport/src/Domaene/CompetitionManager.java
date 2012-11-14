@@ -6,10 +6,7 @@ import Persistence.Competition;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-/**
- *
- * @author rafa
- */
+
 public class CompetitionManager {
 
     private PersistenceManager persistenceManager;
