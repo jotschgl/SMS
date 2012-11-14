@@ -13,7 +13,6 @@ import java.util.Collection;
  * @author Dennis
  */
 public interface IRoleDTOControllerFactory extends Remote {
-    
+
     public Collection<FunctionRoleDTO> getAllRoles() throws RemoteException;
-    
 }

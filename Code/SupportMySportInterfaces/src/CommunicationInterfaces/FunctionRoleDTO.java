@@ -11,12 +11,12 @@ import java.io.Serializable;
  * @author Dennis
  */
 public class FunctionRoleDTO implements Serializable {
-    
+
     private int id = -1;
     private RoleRightDTO roleRight;
-    private String name;  
-            
-    public FunctionRoleDTO(RoleRightDTO roleRight, String name){
+    private String name;
+
+    public FunctionRoleDTO(RoleRightDTO roleRight, String name) {
         this.name = name;
         this.roleRight = roleRight;
     }
@@ -61,5 +61,27 @@ public class FunctionRoleDTO implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FunctionRoleDTO other = (FunctionRoleDTO) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
 }

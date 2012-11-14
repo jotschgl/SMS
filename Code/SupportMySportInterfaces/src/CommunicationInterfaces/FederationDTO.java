@@ -39,6 +39,4 @@ public class FederationDTO implements Serializable {
     public void setWebsite(String website) {
         this.website = website;
     }
-    
-    
 }

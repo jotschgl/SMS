@@ -10,18 +10,18 @@ import java.io.Serializable;
  *
  * @author Dennis
  */
-public class RuleDTO implements Serializable{
- 
-    private Integer  id = -1;
+public class RuleDTO implements Serializable {
+
+    private Integer id = -1;
     private Integer numberOfPlayers;
     private Integer pointswin;
     private Integer pointsdraw;
     private Integer pointslose;
-    
-    public RuleDTO (Integer numberOfPlayers, Integer pointswin, Integer pointsdraw, Integer pointslose){
-        
+
+    public RuleDTO(Integer numberOfPlayers, Integer pointswin, Integer pointsdraw, Integer pointslose) {
+
         this.numberOfPlayers = numberOfPlayers;
-        this.pointswin =  pointswin;
+        this.pointswin = pointswin;
         this.pointsdraw = pointsdraw;
         this.pointslose = pointslose;
     }
@@ -94,5 +94,5 @@ public class RuleDTO implements Serializable{
      */
     public void setPointslose(Integer pointslose) {
         this.pointslose = pointslose;
-    } 
+    }
 }

@@ -11,6 +11,7 @@ import CommunicationInterfaces.IRoleDTOControllerFactory;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ListSelectionModel;
@@ -32,10 +33,11 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
     private HashMap<Integer, FunctionRoleDTO> _roles = new HashMap<Integer, FunctionRoleDTO>();
     private int lastSelectedRow;
     private IClubMemberDTOControllerFactory memberController;
-    private IRoleDTOControllerFactory roleFactory;
+    private Collection<FunctionRoleDTO> allRoles;
 
     public MitgliedRolleZuteilenFrame() throws RemoteException {
         initComponents();
+        allRoles = GUIController.getRoleControllerFactory().getAllRoles();
         setLocationRelativeTo(null);
         filltable();
         ListSelectionModel cellSelectionmodel = tableMitglied.getSelectionModel();
@@ -47,9 +49,19 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 lastSelectedRow = tableMitglied.getSelectedRow();
                 if (lastSelectedRow >= 0) {
+
                     System.out.println(lastSelectedRow);
-                    System.out.println(_members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow)).getFirstname());
-                    fillROOLETable(_members.get((tableMitglied.convertRowIndexToModel(lastSelectedRow))).getAllFunctionRolesOfClubMember());
+                    ClubMemberDTO member = _members.get((tableMitglied.convertRowIndexToModel(lastSelectedRow)));
+                    tableRolle.setModel(new RoleTableModel(member.getAllFunctionRolesOfClubMember()));
+                    RoleTableModel alleRollen = new RoleTableModel();
+                    for (FunctionRoleDTO role : allRoles) {
+                        if (!member.getAllFunctionRolesOfClubMember().contains(role)) {
+                            alleRollen.addRole(role);
+                        }
+                    }
+                    tableAlleRollen.setModel(alleRollen);
+                    ((RoleTableModel) tableAlleRollen.getModel()).fireTableDataChanged();
+                    ((RoleTableModel) tableRolle.getModel()).fireTableDataChanged();
                 }
             }
         });
@@ -99,7 +111,7 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tableMitglied);
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel3.setText("aktuelle Rollen");
+        jLabel3.setText("vergebene Rollen");
 
         tableAlleRollen.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tableAlleRollen.setModel(new javax.swing.table.DefaultTableModel(
@@ -121,7 +133,7 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setText("neue Rollen");
+        jLabel4.setText("nicht vergebene Rollen");
 
         tableRolle.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         tableRolle.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,19 +168,17 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(185, 185, 185))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(buttonEnfternen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnSpeichern, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -208,12 +218,10 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
                 ClubMemberDTO member = _members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow));
                 for (int i : rollen) {
-                    member.addFunctionRole(_roles.get(tableAlleRollen.convertRowIndexToModel(i)));
+                    moveUp(member, i);
                 }
 
                 memberController.createOrUpdateClubMember(member);
-                updateTable();
-                fillROOLETable(member.getAllFunctionRolesOfClubMember());
             }
 
 
@@ -232,13 +240,8 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
                 ClubMemberDTO member = _members.get(tableMitglied.convertRowIndexToModel(lastSelectedRow));
                 for (int i : rollen) {
-                    for (FunctionRoleDTO funRoleDTO : member.getAllFunctionRolesOfClubMember()) {
-                        if (funRoleDTO.getId() == _roles.get(i).getId()) {
-                            member.getAllFunctionRolesOfClubMember().remove(funRoleDTO);
-                        }
-                    }
+                    moveDown(member, i);
                 }
-
                 memberController.createOrUpdateClubMember(member);
             }
             updateTable();
@@ -250,45 +253,6 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buttonEnfternenActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new MitgliedRolleZuteilenFrame().setVisible(true);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(MitgliedRolleZuteilenFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSpeichern;
     private javax.swing.JButton buttonEnfternen;
@@ -307,35 +271,32 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
     private void filltable() throws RemoteException {
         memberController = GUIController.getClubMemberController();
         DefaultTableModel mitgliedModel = (DefaultTableModel) tableMitglied.getModel();
-
         int i = 0;
         mitgliedModel.setRowCount(0);
         for (ClubMemberDTO m : memberController.getAllClubMembers()) {
             mitgliedModel.addRow(new Object[]{m.getFirstname(), m.getLastname(), m.getMail()});
             _members.put(i++, m);
         }
-
-        roleFactory = GUIController.getRoleControllerFactory();
-        DefaultTableModel roleModel = (DefaultTableModel) tableAlleRollen.getModel();
-        roleModel.setRowCount(0);
-        i = 0;
-        for (FunctionRoleDTO f : roleFactory.getAllRoles()) {
-            roleModel.addRow(new Object[]{f.getName()});
-            _roles.put(i++, f);
-        }
-
     }
 
-    private void fillROOLETable(Collection<FunctionRoleDTO> allFunctionRolesOfClubMember) {
-        System.out.println(allFunctionRolesOfClubMember.size());
-        DefaultTableModel memberRolteModel = (DefaultTableModel) tableRolle.getModel();
+    private void moveUp(ClubMemberDTO member, int i) {
+        RoleTableModel modelTop = (RoleTableModel) tableRolle.getModel();
+        RoleTableModel modelDown = (RoleTableModel) tableAlleRollen.getModel();
+        FunctionRoleDTO fr = modelDown.removeRole(tableAlleRollen.convertRowIndexToModel(i));
+        modelTop.addRole(fr);
+        member.addFunctionRole(fr);
+        modelDown.fireTableDataChanged();
+        modelTop.fireTableDataChanged();
+    }
 
-        memberRolteModel.setRowCount(0);
-        for (FunctionRoleDTO f : allFunctionRolesOfClubMember) {
-
-            memberRolteModel.addRow(new Object[]{f.getName()});
-
-        }
+    private void moveDown(ClubMemberDTO member, int i) {
+        RoleTableModel modelTop = (RoleTableModel) tableRolle.getModel();
+        RoleTableModel modelDown = (RoleTableModel) tableAlleRollen.getModel();
+        FunctionRoleDTO fr = modelTop.removeRole(tableRolle.convertRowIndexToModel(i));
+        modelDown.addRole(fr);
+        member.removeFunktionRole(fr);
+        modelDown.fireTableDataChanged();
+        modelTop.fireTableDataChanged();
     }
 
     private void updateTable() throws RemoteException {
@@ -343,6 +304,10 @@ public class MitgliedRolleZuteilenFrame extends javax.swing.JFrame {
     }
 
     private class RoleTableModel extends AbstractTableModel {
+
+        public RoleTableModel() {
+            roles = new LinkedList<FunctionRoleDTO>();
+        }
 
         public RoleTableModel(Collection<FunctionRoleDTO> roles) {
             this.roles = roles;

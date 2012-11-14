@@ -11,12 +11,12 @@ import java.io.Serializable;
  * @author Dennis
  */
 public class DepartmentDTO implements Serializable {
-    
+
     private int id = -1;
     private ClubMemberDTO departmentChief;
     private String departmentName;
-    
-    public DepartmentDTO(ClubMemberDTO departmentChief,String departmentName){
+
+    public DepartmentDTO(ClubMemberDTO departmentChief, String departmentName) {
         this.departmentName = departmentName;
         this.departmentChief = departmentChief;
     }

@@ -32,7 +32,7 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
      */
     public CreateCompetitionTeam(CompetitionTeamDTO compTeam) throws RemoteException {
         initComponents();
-        tableCompTeam.setModel(new MemberTableModel(compTeam.getAllClubMembersOfCompetitionTeam()));
+        // tableCompTeam.setModel(new MemberTableModel(compTeam.getAllClubMembersOfCompetitionTeam()));
         this.compTeam = compTeam;
         this.members = GUIController.getClubMemberController().getAllTeamMembers(compTeam.getTeam());
         tableTeam.setModel(new MemberTableModel(members));
