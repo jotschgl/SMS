@@ -10,8 +10,9 @@ import org.omg.CosNaming.NameComponent;
 import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 
-public class CompetitionResultsCorbaServer {
+public class CompetitionResultsCorbaServer implements Runnable{
 
+    
     public void initServer(String[] args) {
         try {
             // create and initialize the ORB
@@ -48,5 +49,10 @@ public class CompetitionResultsCorbaServer {
             e.printStackTrace(System.out);
         }
         System.out.println("HelloServer Exiting ...");
+    }
+
+    @Override
+    public void run() {
+       initServer(null);
     }
 }

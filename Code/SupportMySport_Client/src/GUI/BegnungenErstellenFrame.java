@@ -27,7 +27,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
     private WettkampfBearbeitung prevFrame;
     private Collection<TeamDTO> teams;
     private CompetitionDTO competition;
-    
+
     public BegnungenErstellenFrame(WettkampfBearbeitung frame, Collection<TeamDTO> teams, CompetitionDTO competition) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -181,20 +181,16 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
                 TeamDTO team2 = (TeamDTO) comboTeam2.getSelectedItem();
                 System.out.println(team1.getTeamName());
                 System.out.println(team2.getTeamName());
-                if (meeting == null) {
-                    MeetingDTO m = new MeetingDTO(competition, team1, team2);
-                    m.setPointsA((Integer) pointsTeam1.getValue());
-                    m.setPointsB((Integer) pointsTeam2.getValue());
-                    GUIController.getCompetitionController().createOrUpdateMeeting(m);
-                }
-                if (competition == null) {
-                    meeting.setTeamByTeamAId(team1);
-                    meeting.setTeamByTeamBId(team2);
-                    meeting.setPointsA((Integer) pointsTeam1.getValue());
-                    meeting.setPointsB((Integer) pointsTeam2.getValue());
-                    GUIController.getCompetitionController().createOrUpdateMeeting(meeting);
-                }
+
+                MeetingDTO m = new MeetingDTO(competition, team1, team2);
+                m.setPointsA((Integer) pointsTeam1.getValue());
+                m.setPointsB((Integer) pointsTeam2.getValue());
+                competition.addMeetingToCompetition(m);
+                //GUIController.getCompetitionController().updateCompetition(competition);
+
+
                 prevFrame.updateTableMeeting();
+                this.dispose();
             } catch (RemoteException ex) {
                 Logger.getLogger(BegnungenErstellenFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -247,7 +243,7 @@ public class BegnungenErstellenFrame extends javax.swing.JFrame {
             comboTeam2.addItem(team);
         }
     }
-    
+
     private void selectCombos() {
         comboTeam1.setSelectedItem(meeting.getTeamByTeamAId());
         comboTeam2.setSelectedItem(meeting.getTeamByTeamBId());

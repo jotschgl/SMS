@@ -5,10 +5,13 @@
 package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
+import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -20,21 +23,28 @@ import javax.swing.table.DefaultTableModel;
 public class CreateCompetitionTeam extends javax.swing.JFrame {
 
     private boolean changed = false;
-    private CompetitionTeamDTO compTeam;
+    private TeamDTO team;
+    private CompetitionDTO curComp;
     Collection<ClubMemberDTO> members;
-    private HashMap<Integer, ClubMemberDTO> left = new HashMap<Integer, ClubMemberDTO>();
-    private HashMap<Integer, ClubMemberDTO> right = new HashMap<Integer, ClubMemberDTO>();
-    private HashMap<Integer, Integer> idsLeft = new HashMap<Integer, Integer>();
-    private HashMap<Integer, Integer> idsRight = new HashMap<Integer, Integer>();
+    LinkedList<CompetitionTeamDTO> compTeamMembers = new LinkedList<CompetitionTeamDTO>();
 
     /**
      * Creates new form CreateCompetitionTeam
      */
-    public CreateCompetitionTeam(CompetitionTeamDTO compTeam) throws RemoteException {
+    public CreateCompetitionTeam(CompetitionDTO curCompetition, TeamDTO team) throws RemoteException {
         initComponents();
-        // tableCompTeam.setModel(new MemberTableModel(compTeam.getAllClubMembersOfCompetitionTeam()));
-        this.compTeam = compTeam;
-        this.members = GUIController.getClubMemberController().getAllTeamMembers(compTeam.getTeam());
+
+        this.team = team;
+        this.curComp = curCompetition;
+        LinkedList<ClubMemberDTO> competitionTeamMembers = new LinkedList<ClubMemberDTO>();
+        for (CompetitionTeamDTO ct : curComp.getAllTeamsOfCompetition()) {
+            if (team.equals(ct.getTeam())) {
+                competitionTeamMembers.add(ct.getClubMember());
+            }
+        }
+        this.compTeamMembers = compTeamMembers;
+        tableCompTeam.setModel(new MemberTableModel(competitionTeamMembers));
+        this.members = team.getAllClubMembers();
         tableTeam.setModel(new MemberTableModel(members));
     }
 
@@ -232,6 +242,18 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
 
         public MemberTableModel(Collection<ClubMemberDTO> members) {
             this.members = members;
+        }
+
+        @Override
+        public String getColumnName(int col) {
+            switch (col) {
+                case 0:
+                    return "Vorname";
+                case 1:
+                    return "Nachname";
+                default:
+                    return "";
+            }
         }
 
         @Override

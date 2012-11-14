@@ -17,7 +17,7 @@ import org.omg.CORBA.ORB;
 
 public class CompetitionResultsImpl extends CompetitionsResultsPOA {
 
-    DomainFacade _facade;
+    DomainFacade _facade = new DomainFacade();
     
     private ORB orb;
     
@@ -29,9 +29,9 @@ public class CompetitionResultsImpl extends CompetitionsResultsPOA {
 		orb.shutdown(false);
     }
     
-    public void CompetitionResultsImp(DomainFacade facade){
-        _facade = facade;
-    }
+//    public void CompetitionResultsImp(DomainFacade facade){
+//        _facade = facade;
+//    }
     
     public String getCompetitionResults(String liga, String sport, String datum) {
        

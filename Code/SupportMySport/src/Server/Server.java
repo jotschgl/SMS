@@ -16,19 +16,17 @@ import java.util.logging.Logger;
  *
  * @author Johannes
  */
-public class Server
-{
+public class Server {
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
-        try
-        {
+    public static void main(String[] args) {
+        try {
             //Starting the ORB
-            CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
-            corbaServer.initServer(null);
-            
+//            CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
+//            new Thread(corbaServer).start();
+
             //Starting RMI
             Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             System.setProperty("java.rmi.server.codebase", Server.class.getProtectionDomain().getCodeSource().getLocation().toString());
@@ -36,9 +34,7 @@ public class Server
             reg.rebind("UseCaseControllerFactory", factory);
             System.out.println("Object bound");
             System.out.println("Waiting for Clients...");
-        }
-        catch (RemoteException ex)
-        {
+        } catch (RemoteException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

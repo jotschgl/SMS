@@ -9,6 +9,7 @@ import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.TeamDTO;
+import GUI.helper.RealCompetitionTeamDTO;
 import java.awt.Frame;
 import java.rmi.RemoteException;
 import java.util.Collection;
@@ -32,7 +33,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     private ICompetitionDTOControllerFactory controller;
     private Collection<TeamDTO> angemeldeteTeams = new LinkedList<TeamDTO>();
     private HashMap<Integer, MeetingDTO> meetings = new HashMap<Integer, MeetingDTO>();
-    
+
     public WettkampfBearbeitung(CompetitionDTO comptetition) throws RemoteException {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -41,7 +42,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         this.curCompetition = comptetition;
         fillMeetingTable();
         fillGeneralInformation();
-        //fillTableCompTeams();
+        fillTableCompTeams();
         tableBegegnungen.setAutoCreateRowSorter(true);
     }
 
@@ -78,6 +79,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Suppor My Sprts - Wettkampf bearbeiten");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("Allgemeine Informationen");
@@ -319,16 +325,16 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonChangeBegegnungActionPerformed
-    
+
     private void buttonAddTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddTeamActionPerformed
         Frame f = new AddTeamToCompetitionFrame(curCompetition, this);
         f.setVisible(true);
     }//GEN-LAST:event_buttonAddTeamActionPerformed
-    
+
     private void buttonRemoveTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveTeamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonRemoveTeamActionPerformed
-    
+
     private void buttonBegegnung1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBegegnung1ActionPerformed
         BegnungenErstellenFrame f;
         try {
@@ -338,7 +344,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buttonBegegnung1ActionPerformed
-    
+
     private void buttonDeleteMeetingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteMeetingActionPerformed
         if (tableBegegnungen.getSelectedRows().length == 0) {
             JOptionPane.showMessageDialog(this, "Begegnung auswählen!");
@@ -346,7 +352,8 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             int i = JOptionPane.showConfirmDialog(this, "Wirklich löschen?");
             if (i == JOptionPane.OK_OPTION) {
                 try {
-                    GUIController.getCompetitionController().deleteMeeting(meetings.remove(tableBegegnungen.convertRowIndexToModel(tableBegegnungen.getSelectedRow())));
+                    curCompetition.getAllCompetitionMeetings().remove(meetings.remove(tableBegegnungen.convertRowIndexToModel(tableBegegnungen.getSelectedRow())));
+
                     updateTableMeeting();
                 } catch (RemoteException ex) {
                     Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,15 +361,28 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonDeleteMeetingActionPerformed
-    
+
     private void buttonAddPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddPlayersActionPerformed
         try {
-         //   CreateCompetitionTeam cct = new CreateCompetitionTeam(new CompetitionTeamDTO(GUIController.getCompetitionController().getAllTeams().toArray(new TeamDTO[0])[0]));        // TODO add your handling code here:
-         //   cct.setVisible(true);
+            if (tableCompTeams.getSelectedRowCount() != 0) {
+                TeamDTO team = angemeldeteTeams.toArray(new TeamDTO[0])[tableCompTeams.convertRowIndexToModel(tableCompTeams.getSelectedRow())];
+                CreateCompetitionTeam cct = new CreateCompetitionTeam(curCompetition, team);        // TODO add your handling code here:
+                cct.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "Team auswählen!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_buttonAddPlayersActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            GUIController.getCompetitionController().updateCompetition(curCompetition);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddPlayers;
     private javax.swing.JButton buttonAddTeam;
@@ -388,12 +408,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void updateTableMeeting() throws RemoteException {
-        curCompetition = GUIController.getCompetitionController().getCompetitionByID(curCompetition.getId());
         fillMeetingTable();
     }
-    
+
     private void fillMeetingTable() {
-        
+
         DefaultTableModel tablemodel = (DefaultTableModel) tableBegegnungen.getModel();
         tablemodel.setRowCount(0);
         meetings.clear();
@@ -407,7 +426,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void fillGeneralInformation() throws RemoteException {
         System.out.println("FOUND COMPETITION");
         wettkampfName.setText(curCompetition.getName());
@@ -415,15 +434,16 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         wettkampfDate.setText(curCompetition.getDateOfCompetition().toString());
         wettkampfAbteilung.setText(curCompetition.getDepartment().getDepartmentName());
     }
-    
-//    public void fillTableCompTeams() throws RemoteException {
-//        Collection<CompetitionTeamDTO> compTeams = controller.getTeamsAndClubMembersOfCompetition(curCompetition.getId());
-//        DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();
-//        model.setRowCount(0);
-//        int i = 0;
-//        for (CompetitionTeamDTO comp : compTeams) {
-//            angemeldeteTeams.add(comp.getTeam());
-//            model.addRow(new Object[]{++i, comp.getTeam().getTeamName(), (comp.getAllClubMembersOfCompetitionTeam().size() > 0 ? "intern" : "extern")});
-//        }
-//    }
+
+    public void fillTableCompTeams() throws RemoteException {
+        RealCompetitionTeamDTO.addAllCompetitionTeamDTO(curCompetition.getAllTeamsOfCompetition());
+        Collection<TeamDTO> teams = RealCompetitionTeamDTO.getAllTeamsOfCompetition(curCompetition);
+        DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();
+        model.setRowCount(0);
+        int i = 0;
+        for (TeamDTO team : teams) {
+            angemeldeteTeams.add(team);
+            model.addRow(new Object[]{++i, team.getTeamName()});
+        }
+    }
 }
