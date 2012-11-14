@@ -8,7 +8,9 @@ import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.DepartmentDTO;
+import CommunicationInterfaces.FederationDTO;
 import CommunicationInterfaces.FunctionRoleDTO;
+import CommunicationInterfaces.LeagueDTO;
 import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.RoleRightDTO;
 import CommunicationInterfaces.RuleDTO;
@@ -19,7 +21,9 @@ import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;
 import Persistence.Department;
+import Persistence.Federation;
 import Persistence.FunctionRole;
+import Persistence.League;
 import Persistence.Meeting;
 import Persistence.RoleRight;
 import Persistence.Rule;
@@ -71,7 +75,7 @@ public class DTOAssembler {
                 }
             }
         }
-        for(Team t : competitionTeamClubMember.keySet()){
+        for (Team t : competitionTeamClubMember.keySet()) {
             competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(t, competitionTeamClubMember.get(t)));
         }
         return competitionDTO;
@@ -85,6 +89,8 @@ public class DTOAssembler {
 
     public MeetingDTO createMeetingDTO(Meeting meeting, CompetitionDTO competition) {
         MeetingDTO meetingDTO = new MeetingDTO(competition, createTeamDTO(meeting.getTeamByTeamAId()), createTeamDTO(meeting.getTeamByTeamBId()));
+        meetingDTO.setPointsA(meeting.getPointsA());
+        meetingDTO.setPointsB(meeting.getPointsB());
         meetingDTO.setId(meeting.getId());
         return meetingDTO;
     }
@@ -98,6 +104,12 @@ public class DTOAssembler {
     public SportDTO createSportDTO(Sport sport) {
         SportDTO sportDTO = new SportDTO(sport.getName(), createDepartmentDTO(sport.getDepartment()), createRuleDTO(sport.getRule()));
         sportDTO.setId(sport.getId());
+        Collection<League> leagues = sport.getLeagues();
+        LinkedList<LeagueDTO> dtos = new LinkedList<LeagueDTO>();
+        for (League league : leagues) {
+            dtos.add(createLeagueDTO(league));
+        }
+        sportDTO.setLeagues(dtos);
         return sportDTO;
     }
 
@@ -122,7 +134,7 @@ public class DTOAssembler {
     }
 
     public ClubMember updateClubMemberEntity(ClubMemberDTO clubMemberDTO) {
-        
+
         Set<FunctionRole> allRoles = new HashSet<FunctionRole>();
         for (FunctionRoleDTO funcDTO : clubMemberDTO.getAllFunctionRolesOfClubMember()) {
             allRoles.add(updateFunctionRoleEntity(funcDTO));
@@ -154,7 +166,7 @@ public class DTOAssembler {
 
     public Team updateTeamEntity(TeamDTO teamDTO) {
         Team team = new Team(teamDTO.getTeamName());
-        if (team.getId() != -1) {
+        if (teamDTO.getId() != -1) {
             team.setId(teamDTO.getId());
         }
         return team;
@@ -162,7 +174,9 @@ public class DTOAssembler {
 
     public Meeting updateMeetingEntity(MeetingDTO meetingDTO) {
         Meeting meeting = new Meeting(updateCompetitionEntity(meetingDTO.getCompetition()), updateTeamEntity(meetingDTO.getTeamByTeamAId()), updateTeamEntity(meetingDTO.getTeamByTeamBId()));
-        if (meeting.getId() != -1) {
+        meeting.setPointsA(meetingDTO.getPointsA());
+        meeting.setPointsB(meetingDTO.getPointsB());
+        if (meetingDTO.getId() != -1) {
             meeting.setId(meetingDTO.getId());
         }
         return meeting;
@@ -198,5 +212,33 @@ public class DTOAssembler {
             sport.setId(sportDTO.getId());
         }
         return sport;
+    }
+
+    public LeagueDTO createLeagueDTO(League l) {
+        LeagueDTO dto = new LeagueDTO();
+        dto.setFederation(this.createFederationDTO(l.getFederation()));
+        dto.setId(l.getId());
+        dto.setName(l.getName());
+        return dto;
+    }
+
+    public FederationDTO createFederationDTO(Federation federation) {
+        FederationDTO dto = new FederationDTO();
+        dto.setId(federation.getId());
+        dto.setName(federation.getName());
+        dto.setWebsite(federation.getWebsite());
+        return dto;
+    }
+
+    Collection<CompetitionTeam> saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teamsDTO) {
+        Collection<CompetitionTeam> teams = new LinkedList<CompetitionTeam>();
+        for (CompetitionTeamDTO team : teamsDTO) {
+            CompetitionTeam newTeam = new CompetitionTeam();
+            newTeam.setCompetition(updateCompetitionEntity(team.getCompetition()));
+            newTeam.setTeam(updateTeamEntity(team.getTeam()));
+            teams.add(newTeam);
+            //TODO ID
+        }
+        return teams;
     }
 }

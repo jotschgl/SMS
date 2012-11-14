@@ -241,7 +241,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
             if (right.getName().equals("createMember")) {
                 memberverwaltung = true;
             }
-            if (right.getName().equals("createCompetition")) {
+            if (right.getName().equals("createCompetition") || right.getName().equals("changeCompetition")) {
                 competitions = true;
             }
             if (right.getName().equals("admin")) {

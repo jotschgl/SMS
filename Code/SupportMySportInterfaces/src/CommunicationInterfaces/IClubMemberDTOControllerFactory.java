@@ -23,4 +23,6 @@ public interface IClubMemberDTOControllerFactory extends Remote {
     public ClubMemberDTO getLoggedInClubmember() throws RemoteException;
 
     public boolean login(String username, String password) throws RemoteException;
+
+    public Collection<ClubMemberDTO> getAllTeamMembers(TeamDTO team) throws RemoteException;
 }

@@ -7,6 +7,7 @@ package Domaene;
 import Persistence.ClubMember;
 import Persistence.FunctionRole;
 import Persistence.PersistenceManager;
+import Persistence.Team;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,5 +71,15 @@ public class ClubMemberManager {
         } else {
             return null;
         }
+    }
+
+    public Collection<ClubMember> getAllTeamMembers(Team team) {
+        List<ClubMember> foundClubMembers = new LinkedList<ClubMember>();
+        String hqlQuerie = "SELECT DISTINCT cm FROM ClubMember cm join cm.teams t WHERE t.name = '" + team.getName() + "'";
+        List<Object> results = persistenceManager.getObjectsByHQLQuery(hqlQuerie);
+        for (Object obj : results) {
+            foundClubMembers.add((ClubMember) obj);
+        }
+        return foundClubMembers;
     }
 }

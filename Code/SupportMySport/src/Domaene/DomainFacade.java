@@ -82,10 +82,6 @@ public class DomainFacade {
         competitionManager.updateExistingCompetition(competition);
     }
 
-    public void addMemberToCompetition(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) {
-        competitionTeamManager.addMemberToCompetition(competitionTeamId, team, competition, member);
-    }
-
     public void removeMemberFromCompetition(int memberId, int competitionId, int teamId) {
         competitionTeamManager.removeMemberFromCompetition(memberId, competitionId, teamId);
 
@@ -142,5 +138,21 @@ public class DomainFacade {
 
     public Department getDepartmentOfLoggedInMember(int id) {
         return departmentManager.getDepartmentOfLoggedInMember(id);
+    }
+
+    public Collection<Sport> getSportsOfDepartment(Department d) {
+        return sportManager.getSportsOfDepartment(d);
+    }
+
+    public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeam> teams) {
+        competitionTeamManager.saveOrUpdateCompetitionTeams(teams);
+    }
+
+    public void deleteMeeting(Meeting meeting) {
+        meetingManager.deleteMeeting(meeting);
+    }
+
+    public Collection<ClubMember> getAllTeamMembers(Team team) {
+        return clubMemberManager.getAllTeamMembers(team);
     }
 }

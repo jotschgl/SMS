@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,7 +21,7 @@ import javax.persistence.Table;
 @Table(name = "CompetitionTeam", catalog = "c1teamf")
 public class CompetitionTeam implements java.io.Serializable {
 
-    private CompetitionTeamId id;
+    private int id;
     private Team team;
     private Competition competition;
     private ClubMember clubMember;
@@ -26,29 +29,25 @@ public class CompetitionTeam implements java.io.Serializable {
     public CompetitionTeam() {
     }
 
-    public CompetitionTeam(CompetitionTeamId id, Team team, Competition competition, ClubMember clubMember) {
-        this.id = id;
+    public CompetitionTeam(Team team, Competition competition, ClubMember clubMember) {
         this.team = team;
         this.competition = competition;
         this.clubMember = clubMember;
     }
 
-    @EmbeddedId
-    @AttributeOverrides({
-        @AttributeOverride(name = "teamId", column =
-        @Column(name = "team_id", nullable = false)),
-        @AttributeOverride(name = "clubMemberId", column =
-        @Column(name = "clubMember_id", nullable = false))})
-    public CompetitionTeamId getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", unique = true, nullable = false)
+    public int getId() {
         return this.id;
     }
 
-    public void setId(CompetitionTeamId id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "team_id", nullable = false)
     public Team getTeam() {
         return this.team;
     }
@@ -68,7 +67,7 @@ public class CompetitionTeam implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "clubMember_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "clubMember_id", nullable = true)
     public ClubMember getClubMember() {
         return this.clubMember;
     }
