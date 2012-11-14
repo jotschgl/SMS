@@ -3,7 +3,6 @@ package Domaene;
 import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;
-import Persistence.CompetitionTeamId;
 import Persistence.Meeting;
 import Persistence.PersistenceManager;
 import Persistence.Team;
@@ -20,10 +19,6 @@ public class CompetitionTeamManager {
         persistenceManager = new PersistenceManager();
     }
 
-    public void addMemberToCompetition(CompetitionTeamId competitionTeamId, Team team, Competition competition, ClubMember member) {
-        CompetitionTeam ct = new CompetitionTeam(competitionTeamId, team, competition, member);
-        persistenceManager.save(ct);
-    }
 
     public void removeMemberFromCompetition(int memberId, int competitionId, int teamId) {
         String hqlQuerie = "FROM CompetitionTeam WHERE (clubMember_id = " + memberId + " AND competition_id = " + competitionId + " AND team_id = " + teamId + ")";

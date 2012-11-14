@@ -120,16 +120,16 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         try {
             int[] rows = tableTeams.getSelectedRows();
-            Collection<CompetitionTeamDTO> comteams = new LinkedList<CompetitionTeamDTO>();
+            //Collection<CompetitionTeamDTO> comteams = new LinkedList<CompetitionTeamDTO>();
             for (int i : rows) {
                 TeamDTO team = _teammap.get(tableTeams.convertRowIndexToModel(i));
 
                 CompetitionTeamDTO ct = new CompetitionTeamDTO(team);
                 ct.setCompetition(competition);
-
-                comteams.add(ct);
+                competition.addTeamToCompetition(ct);
+              //  comteams.add(ct);
             }
-            GUIController.getCompetitionController().saveOrUpdateCompetitionTeams(comteams);
+            GUIController.getCompetitionController().updateCompetition(competition);
             preFrame.fillTableCompTeams();
         } catch (RemoteException ex) {
             Logger.getLogger(AddTeamToCompetitionFrame.class.getName()).log(Level.SEVERE, null, ex);

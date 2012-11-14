@@ -82,10 +82,6 @@ public class DomainFacade {
         competitionManager.updateExistingCompetition(competition);
     }
 
-    public void addMemberToCompetition(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) {
-        competitionTeamManager.addMemberToCompetition(competitionTeamId, team, competition, member);
-    }
-
     public void removeMemberFromCompetition(int memberId, int competitionId, int teamId) {
         competitionTeamManager.removeMemberFromCompetition(memberId, competitionId, teamId);
 

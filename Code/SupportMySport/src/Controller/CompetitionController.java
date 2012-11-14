@@ -24,10 +24,6 @@ public class CompetitionController {
         domainFacade.createNewCompetition(competition);
     }
 
-    public void addMemberToCompetitionTeam(ClubMember member, Competition competition, Team team, CompetitionTeamId competitionTeamId) throws RemoteException {
-        domainFacade.addMemberToCompetition(member, competition, team, competitionTeamId);
-    }
-
     public void removeMemberFromCompetitionTeam(ClubMember member, Competition competition, Team team) throws RemoteException {
         domainFacade.removeMemberFromCompetition(member.getId(), competition.getId(), team.getId());
     }

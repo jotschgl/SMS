@@ -4,9 +4,8 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://81.89.102.206:3306/c1teamf?zeroDateTimeBehavior=convertToNull</property>
-        <property name="hibernate.connection.username">c1teamf</property>
-        <property name="hibernate.connection.password">smsteamf</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/c1teamf?zeroDateTimeBehavior=convertToNull</property>
+        <property name="hibernate.connection.username">root</property>
         <mapping class="Persistence.Federation"/>
         <mapping class="Persistence.Rule"/>
         <mapping class="Persistence.League"/>
@@ -21,6 +20,5 @@
         <mapping class="Persistence.PersistenceManager"/>
         <mapping class="Persistence.Sport"/>
         <mapping class="Persistence.HibernateUtil"/>
-        <mapping class="Persistence.CompetitionTeamId"/>
     </session-factory>
 </hibernate-configuration>
