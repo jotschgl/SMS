@@ -27,27 +27,34 @@ public class Competition implements java.io.Serializable {
 
     private Integer id;
     private Department department;
+    private League league;
+    private Sport sport;
     private String name;
     private double competitionfee;
     private Date dateOfCompetition;
+    private Boolean completed;
     private Set<Meeting> meetings = new HashSet<Meeting>(0);
     private Set<CompetitionTeam> competitionTeams = new HashSet(0);
 
     public Competition() {
     }
 
-    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Sport sport, Boolean completed) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
         this.dateOfCompetition = dateOfCompetition;
+        this.sport = sport;
+        this.completed = completed;
     }
 
-    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Set meetings, Set competitionTeams) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition,Sport sport, Boolean completed, Set meetings, Set competitionTeams) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
         this.dateOfCompetition = dateOfCompetition;
+        this.sport = sport;
+        this.completed = completed;
         this.meetings = meetings;
         this.competitionTeams = competitionTeams;
     }
@@ -117,5 +124,43 @@ public class Competition implements java.io.Serializable {
 
     public void setCompetitionTeams(Set<CompetitionTeam> competitionTeams) {
         this.competitionTeams = competitionTeams;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "league_id", nullable = true)
+    public League getLeague() {
+        return league;
+    }
+
+    /**
+     * @param league the league to set
+     */
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sport_id", nullable = false)
+    public Sport getSport() {
+        return sport;
+    }
+
+    /**
+     * @param sport the sport to set
+     */
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
+
+    @Column(name = "completed")
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    /**
+     * @param completed the completed to set
+     */
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }
