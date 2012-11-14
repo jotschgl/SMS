@@ -70,11 +70,6 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public void createOrUpdateMeeting(MeetingDTO meeting) throws RemoteException {
-        competitionController.createOrUpdateMeeting(dtoAssembler.updateMeetingEntity(meeting));
-    }
-
-    @Override
     public Collection<SportDTO> getAllSports() throws RemoteException {
         Collection<SportDTO> allSports = new LinkedList<SportDTO>();
         for (Sport sport : competitionController.getAllSports()) {
@@ -133,11 +128,6 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     @Override
     public CompetitionDTO getCompetitionByID(int id) throws RemoteException {
         return dtoAssembler.createCompetitonDTO(competitionController.getCompetitionByID(id));
-    }
-
-    @Override
-    public void deleteMeeting(MeetingDTO meeting) throws RemoteException {
-        competitionController.deleteMeeting(dtoAssembler.updateMeetingEntity(meeting));
     }
 
     @Override

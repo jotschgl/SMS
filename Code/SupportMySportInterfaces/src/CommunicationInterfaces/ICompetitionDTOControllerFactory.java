@@ -22,8 +22,6 @@ public interface ICompetitionDTOControllerFactory extends Remote {
 
     public Collection<MeetingDTO> getAllMeetingsOfCompetition(CompetitionDTO competition) throws RemoteException;
 
-    public void createOrUpdateMeeting(MeetingDTO meeting) throws RemoteException;
-
     public Collection<SportDTO> getAllSports() throws RemoteException;
 
     public Collection<TeamDTO> getAllTeams() throws RemoteException;
@@ -39,8 +37,6 @@ public interface ICompetitionDTOControllerFactory extends Remote {
     public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teams) throws RemoteException;
 
     public CompetitionDTO getCompetitionByID(int id) throws RemoteException;
-
-    public void deleteMeeting(MeetingDTO meeting) throws RemoteException;
     
     public Collection<TeamDTO> getAllTeamsOfSport(int sportID) throws RemoteException;
 }
