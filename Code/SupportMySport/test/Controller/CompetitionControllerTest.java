@@ -54,13 +54,6 @@ public class CompetitionControllerTest {
         }
     }
     
-    @Test
-    public void testCreateNewCompetition(){
-        LinkedList<Department> allDep = (LinkedList<Department>) departmentManager.getAllDepartments();
-        Competition comp = new Competition(allDep.getFirst(), "TestCompetition", 1234, new Date());
-        competitionManager.createNewCompetition(comp);
-    }
-    
     @Ignore
     @Test
     public void testGetAllDepartments(){

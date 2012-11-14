@@ -4,7 +4,6 @@ import Domaene.DomainFacade;
 import Persistence.*;
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.Date;
 
 public class CompetitionController {
 
@@ -12,10 +11,6 @@ public class CompetitionController {
 
     public CompetitionController() {
         domainFacade = new DomainFacade();
-    }
-
-    public void createNewCompetition(Department dep, String competitionName, double fee, Date date) throws RemoteException {
-        domainFacade.createNewCompetition(new Competition((Department) dep, competitionName, fee, date));
     }
 
     public void createNewCompetition(Competition competition) throws RemoteException {

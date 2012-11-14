@@ -14,8 +14,15 @@ public class LeagueDTO implements Serializable {
 
     private Integer id;
     private FederationDTO federation;
+    private SportDTO sport;
     private String name;
 
+    public LeagueDTO(String name, SportDTO sport, FederationDTO federation){
+        this.federation = federation;
+        this.name = name;
+        this.sport = sport;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -58,5 +65,19 @@ public class LeagueDTO implements Serializable {
     @Override
     public String toString() {
         return getName();
+    }
+
+    /**
+     * @return the sport
+     */
+    public SportDTO getSport() {
+        return sport;
+    }
+
+    /**
+     * @param sport the sport to set
+     */
+    public void setSport(SportDTO sport) {
+        this.sport = sport;
     }
 }

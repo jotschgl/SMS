@@ -45,21 +45,6 @@ public class CompetitionDTOControllerFactoryTest {
     }
 
     /**
-     * Test of createNewCompetition method, of class
-     * CompetitionDTOControllerFactory.
-     */
-    @Ignore
-    @Test
-    public void testCreateNewCompetition() throws Exception {
-        System.out.println("* CompetitionDTOControllerFactoryTest: testCreateNewCompetition");
-        LinkedList<DepartmentDTO> result = (LinkedList<DepartmentDTO>) instance.getAllDepartments();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yy");
-        Date date = dateFormat.parse("12.12.2012");
-        CompetitionDTO comp = new CompetitionDTO(result.getFirst(), "WM 2014", 1234, date);
-        instance.createNewCompetition(comp);
-    }
-
-    /**
      * Test of getAllDepartments method, of class
      * CompetitionDTOControllerFactory.
      */

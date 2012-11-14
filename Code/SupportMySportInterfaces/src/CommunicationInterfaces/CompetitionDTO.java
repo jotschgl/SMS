@@ -20,14 +20,19 @@ public class CompetitionDTO implements Serializable {
     private String name;
     private double competitionfee;
     private Date dateOfCompetition;
+    private LeagueDTO league;
+    private SportDTO sport;
+    private Boolean completed;
     private Collection<MeetingDTO> allMeetingsOfCompetition;
     private Collection<CompetitionTeamDTO> allTeamsOfCompetition;
 
-    public CompetitionDTO(DepartmentDTO responsibleDepartment, String competitionName, double competitionfee, Date dateOfCompetition) {
+    public CompetitionDTO(DepartmentDTO responsibleDepartment, String competitionName, double competitionfee, Date dateOfCompetition, SportDTO sport, Boolean completed) {
         this.department = responsibleDepartment;
         this.name = competitionName;
         this.competitionfee = competitionfee;
         this.dateOfCompetition = dateOfCompetition;
+        this.sport = sport;
+        this.completed = completed;
         allMeetingsOfCompetition = new LinkedList<MeetingDTO>();
         allTeamsOfCompetition = new LinkedList<CompetitionTeamDTO>();
     }
@@ -120,5 +125,47 @@ public class CompetitionDTO implements Serializable {
 
     public Collection<CompetitionTeamDTO> getAllTeamsOfCompetition() {
         return allTeamsOfCompetition;
+    }
+
+    /**
+     * @return the league
+     */
+    public LeagueDTO getLeague() {
+        return league;
+    }
+
+    /**
+     * @param league the league to set
+     */
+    public void setLeague(LeagueDTO league) {
+        this.league = league;
+    }
+
+    /**
+     * @return the sport
+     */
+    public SportDTO getSport() {
+        return sport;
+    }
+
+    /**
+     * @param sport the sport to set
+     */
+    public void setSport(SportDTO sport) {
+        this.sport = sport;
+    }
+
+    /**
+     * @return the completed
+     */
+    public Boolean getCompleted() {
+        return completed;
+    }
+
+    /**
+     * @param completed the completed to set
+     */
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
     }
 }

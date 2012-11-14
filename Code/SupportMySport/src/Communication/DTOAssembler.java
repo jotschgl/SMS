@@ -61,13 +61,16 @@ public class DTOAssembler {
     }
 
     public CompetitionDTO createCompetitonDTO(Competition competition) {
-        CompetitionDTO competitionDTO = new CompetitionDTO(createDepartmentDTO(competition.getDepartment()), competition.getName(), competition.getCompetitionfee(), competition.getDateOfCompetition());
+        CompetitionDTO competitionDTO = new CompetitionDTO(createDepartmentDTO(competition.getDepartment()), competition.getName(), competition.getCompetitionfee(), competition.getDateOfCompetition(), createSportDTO(competition.getSport()), competition.getCompleted());
         competitionDTO.setId(competition.getId());
         for (Meeting meet : competition.getMeetings()) {
             competitionDTO.addMeetingToCompetition(createMeetingDTO(meet, competitionDTO));
         }
         for(CompetitionTeam compTeam : competition.getCompetitionTeams()){
             competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(compTeam,competitionDTO));
+        }
+        if(competition.getLeague() != null){
+            competitionDTO.setLeague(createLeagueDTO(competition.getLeague()));
         }
         return competitionDTO; 
 //        HashMap<Team, LinkedList<ClubMember>> competitionTeamClubMember = new HashMap<Team, LinkedList<ClubMember>>();
@@ -161,10 +164,14 @@ public class DTOAssembler {
     }
 
     public Competition updateCompetitionEntity(CompetitionDTO competitionDTO) {
-        Competition comp = new Competition(updateDepartmentEntity(competitionDTO.getDepartment()), competitionDTO.getName(), competitionDTO.getCompetitionfee(), competitionDTO.getDateOfCompetition());
+        Competition comp = new Competition(updateDepartmentEntity(competitionDTO.getDepartment()), competitionDTO.getName(), competitionDTO.getCompetitionfee(), competitionDTO.getDateOfCompetition(), updateSportEntity(competitionDTO.getSport()), competitionDTO.getCompleted());
         if (competitionDTO.getId() != -1) {
             comp.setId(competitionDTO.getId());
         }
+        if(competitionDTO.getLeague() != null){
+            comp.setLeague(updateLeagueEntity(competitionDTO.getLeague()));
+        }
+        
         Set allMeetings = new HashSet();
         for(MeetingDTO meeting : competitionDTO.getAllCompetitionMeetings()){
             allMeetings.add(updateMeetingEntity(meeting));
@@ -235,20 +242,38 @@ public class DTOAssembler {
         return sport;
     }
 
-    public LeagueDTO createLeagueDTO(League l) {
-        LeagueDTO dto = new LeagueDTO();
-        dto.setFederation(this.createFederationDTO(l.getFederation()));
-        dto.setId(l.getId());
-        dto.setName(l.getName());
-        return dto;
+    public LeagueDTO createLeagueDTO(League league) {
+        LeagueDTO leagueDTO = new LeagueDTO(league.getName(), createSportDTO(league.getSport()), createFederationDTO(league.getFederation()));
+        leagueDTO.setId(league.getId());
+        return leagueDTO;
     }
 
     public FederationDTO createFederationDTO(Federation federation) {
-        FederationDTO dto = new FederationDTO();
-        dto.setId(federation.getId());
-        dto.setName(federation.getName());
-        dto.setWebsite(federation.getWebsite());
-        return dto;
+        FederationDTO federationDTO = new FederationDTO(federation.getName());
+        if(federation.getWebsite() != null){
+            federationDTO.setWebsite(federation.getWebsite());
+        }
+        federationDTO.setId(federation.getId());
+        return federationDTO;
+    }
+    
+    public League updateLeagueEntity(LeagueDTO leagueDTO){
+        League league = new League(updateSportEntity(leagueDTO.getSport()), updateFederationEntity(leagueDTO.getFederation()), leagueDTO.getName());
+        if(leagueDTO.getId() != -1){
+            league.setId(leagueDTO.getId());
+        }
+        return league;
+    }
+    
+    public Federation updateFederationEntity(FederationDTO federationDTO){
+        Federation fed = new Federation(federationDTO.getName());
+        if(federationDTO.getWebsite() != null){
+            fed.setWebsite(federationDTO.getWebsite());
+        }
+        if(federationDTO.getId() != -1){
+            fed.setId(federationDTO.getId());
+        }
+        return fed;
     }
 
     Collection<CompetitionTeam> saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teamsDTO) {

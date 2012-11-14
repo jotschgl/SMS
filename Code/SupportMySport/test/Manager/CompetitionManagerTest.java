@@ -135,30 +135,6 @@ public class CompetitionManagerTest {
     
     @Ignore
     @Test
-    public void createNewCompetition() throws ParseException{
-        
-        //Setting up the required parameters for a competition
-        PersistenceManager mngr = new PersistenceManager();
-        Department dep = (Department) mngr.getObjectById(Department.class, 1);
-        Random generator = new Random( 19580427 );
-        int r = generator.nextInt();
-        int fee = 200;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd");
-        String dateTo = "2013-01-12";
-        Date date = formatter.parse(dateTo);
-        
-        Competition comp = new Competition(dep, r+"", fee, date);
-        CompetitionManager mng = new CompetitionManager();
-        mng.createNewCompetition(comp);
-        
-        System.out.println();
-        System.out.println("Running test on insertNewCompetition:");
-        System.out.println("Check database for new entry");
-        System.out.println();
-    }
-    
-    @Ignore
-    @Test
     public void testUpdateExistingCompetition(){
         
         //Getting an existing Competition

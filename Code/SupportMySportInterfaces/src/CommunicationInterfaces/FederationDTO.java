@@ -12,10 +12,14 @@ import java.io.Serializable;
  */
 public class FederationDTO implements Serializable {
 
-    private Integer id;
+    private Integer id = -1;
     private String name;
     private String website;
-
+    
+    public FederationDTO(String name){
+        this.name = name;        
+    }
+    
     public Integer getId() {
         return id;
     }
