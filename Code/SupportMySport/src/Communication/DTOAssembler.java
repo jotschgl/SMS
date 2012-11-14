@@ -169,7 +169,7 @@ public class DTOAssembler {
             comp.setId(competitionDTO.getId());
         }
         if(competitionDTO.getLeague() != null){
-            comp.setLeague(updateLeagueEntity(competitionDTO.getLeague()));
+            comp.setLeague(updateLeagueEntity(competitionDTO.getLeague(), competitionDTO.getSport()));
         }
         
         Set allMeetings = new HashSet();
@@ -257,8 +257,8 @@ public class DTOAssembler {
         return federationDTO;
     }
     
-    public League updateLeagueEntity(LeagueDTO leagueDTO){
-        League league = new League(updateSportEntity(leagueDTO.getSport()), updateFederationEntity(leagueDTO.getFederation()), leagueDTO.getName());
+    public League updateLeagueEntity(LeagueDTO leagueDTO, SportDTO sportDTO){
+        League league = new League(updateSportEntity(sportDTO), updateFederationEntity(leagueDTO.getFederation()), leagueDTO.getName());
         if(leagueDTO.getId() != -1){
             league.setId(leagueDTO.getId());
         }
