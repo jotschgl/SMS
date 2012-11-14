@@ -5,6 +5,8 @@
 package CommunicationInterfaces;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  *
@@ -14,9 +16,11 @@ public class TeamDTO implements Serializable {
 
     private int id = -1;
     private String teamName;
+    private Collection<ClubMemberDTO> allClubMembers;
 
     public TeamDTO(String name) {
         this.teamName = name;
+        allClubMembers = new LinkedList<ClubMemberDTO>();
     }
 
     /**
@@ -46,6 +50,8 @@ public class TeamDTO implements Serializable {
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
+    
+    
 
     @Override
     public String toString() {
@@ -72,5 +78,16 @@ public class TeamDTO implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the allClubMembers
+     */
+    public Collection<ClubMemberDTO> getAllClubMembers() {
+        return allClubMembers;
+    }
+    
+    public void addClubMemberToTeam(ClubMemberDTO clubMember){
+        allClubMembers.add(clubMember);
     }
 }
