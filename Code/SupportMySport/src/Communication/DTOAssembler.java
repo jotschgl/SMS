@@ -174,7 +174,7 @@ public class DTOAssembler {
         
         Set allMeetings = new HashSet();
         for(MeetingDTO meeting : competitionDTO.getAllCompetitionMeetings()){
-            allMeetings.add(updateMeetingEntity(meeting));
+            allMeetings.add(updateMeetingEntity(meeting,comp));
         }
         comp.setMeetings(allMeetings);
         Set allCompetitionTeams = new HashSet();
@@ -200,8 +200,8 @@ public class DTOAssembler {
         return team;
     }
 
-    public Meeting updateMeetingEntity(MeetingDTO meetingDTO) {
-        Meeting meeting = new Meeting(updateCompetitionEntity(meetingDTO.getCompetition()), updateTeamEntity(meetingDTO.getTeamByTeamAId()), updateTeamEntity(meetingDTO.getTeamByTeamBId()));
+    public Meeting updateMeetingEntity(MeetingDTO meetingDTO,Competition competition) {
+        Meeting meeting = new Meeting(competition, updateTeamEntity(meetingDTO.getTeamByTeamAId()), updateTeamEntity(meetingDTO.getTeamByTeamBId()));
         meeting.setPointsA(meetingDTO.getPointsA());
         meeting.setPointsB(meetingDTO.getPointsB());
         if (meetingDTO.getId() != -1) {

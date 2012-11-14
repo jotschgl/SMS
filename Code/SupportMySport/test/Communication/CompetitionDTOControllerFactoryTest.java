@@ -77,21 +77,6 @@ public class CompetitionDTOControllerFactoryTest {
     }
 
     /**
-     * Test of createOrUpdateMeeting method, of class
-     * CompetitionDTOControllerFactory.
-     */
-    @Ignore
-    @Test
-    public void testCreateOrUpdateMeeting() throws Exception {
-        System.out.println("createOrUpdateMeeting");
-        MeetingDTO meeting = null;
-        CompetitionDTOControllerFactory instance = new CompetitionDTOControllerFactory();
-        instance.createOrUpdateMeeting(meeting);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getAllSports method, of class CompetitionDTOControllerFactory.
      */
     @Ignore
