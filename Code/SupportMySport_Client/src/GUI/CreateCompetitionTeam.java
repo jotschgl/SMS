@@ -32,7 +32,7 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
      */
     public CreateCompetitionTeam(CompetitionTeamDTO compTeam) throws RemoteException {
         initComponents();
-        tableCompTeam.setModel(new MemberTableModel(compTeam.getAllClubMembersOfCompetitionTeam()));
+        // tableCompTeam.setModel(new MemberTableModel(compTeam.getAllClubMembersOfCompetitionTeam()));
         this.compTeam = compTeam;
         this.members = GUIController.getClubMemberController().getAllTeamMembers(compTeam.getTeam());
         tableTeam.setModel(new MemberTableModel(members));
@@ -200,34 +200,6 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
     private javax.swing.JTable tableCompTeam;
     private javax.swing.JTable tableTeam;
     // End of variables declaration//GEN-END:variables
-
-    private void fillTables() {
-        fillCompMemberTable();
-        fillMemberTable();
-    }
-
-    private void fillCompMemberTable() {
-        DefaultTableModel model = (DefaultTableModel) tableCompTeam.getModel();
-        model.setRowCount(0);
-        right.clear();
-        for (ClubMemberDTO cm : compTeam.getAllClubMembersOfCompetitionTeam()) {
-            right.put(cm.getId(), cm);
-            model.addRow(new Object[]{cm.getFirstname(), cm.getLastname()});
-        }
-    }
-
-    private void fillMemberTable() {
-        DefaultTableModel model = (DefaultTableModel) tableTeam.getModel();
-        model.setRowCount(0);
-        left.clear();
-
-        for (ClubMemberDTO cm : members) {
-            if (!right.containsValue(cm)) {
-                left.put(cm.getId(), cm);
-                model.addRow(new Object[]{cm.getFirstname(), cm.getLastname()});
-            }
-        }
-    }
 
     private void removeRight() {
         if (tableCompTeam.getSelectedRowCount() != 0) {

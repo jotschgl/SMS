@@ -83,6 +83,4 @@ public class CompetitionTeamDTO implements Serializable {
     public void setCompetition(CompetitionDTO competition) {
         this.competition = competition;
     }
-
-   
 }

@@ -11,11 +11,11 @@ import java.rmi.RemoteException;
  *
  * @author Johannes
  */
-public interface IUseCaseControllerFactory extends Remote
-{
+public interface IUseCaseControllerFactory extends Remote {
+
     public IClubMemberDTOControllerFactory createClubMemberController() throws RemoteException;
 
     public ICompetitionDTOControllerFactory createCompetitionController() throws RemoteException;
-    
+
     public IRoleDTOControllerFactory createRoleController() throws RemoteException;
 }

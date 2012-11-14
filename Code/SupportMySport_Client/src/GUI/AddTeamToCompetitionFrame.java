@@ -124,13 +124,13 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
             for (int i : rows) {
                 TeamDTO team = _teammap.get(tableTeams.convertRowIndexToModel(i));
 
-                CompetitionTeamDTO ct = new CompetitionTeamDTO(team);
-                ct.setCompetition(competition);
-                competition.addTeamToCompetition(ct);
-              //  comteams.add(ct);
+                // CompetitionTeamDTO ct = new CompetitionTeamDTO(team);
+                //  ct.setCompetition(competition);
+                //  competition.addTeamToCompetition(ct);
+                //  comteams.add(ct);
             }
             GUIController.getCompetitionController().updateCompetition(competition);
-            preFrame.fillTableCompTeams();
+            //  preFrame.fillTableCompTeams();
         } catch (RemoteException ex) {
             Logger.getLogger(AddTeamToCompetitionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

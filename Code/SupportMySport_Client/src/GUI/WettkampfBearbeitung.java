@@ -41,7 +41,7 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         this.curCompetition = comptetition;
         fillMeetingTable();
         fillGeneralInformation();
-        fillTableCompTeams();
+        //fillTableCompTeams();
         tableBegegnungen.setAutoCreateRowSorter(true);
     }
 
@@ -357,8 +357,8 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     
     private void buttonAddPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddPlayersActionPerformed
         try {
-            CreateCompetitionTeam cct = new CreateCompetitionTeam(new CompetitionTeamDTO(GUIController.getCompetitionController().getAllTeams().toArray(new TeamDTO[0])[0]));        // TODO add your handling code here:
-            cct.setVisible(true);
+         //   CreateCompetitionTeam cct = new CreateCompetitionTeam(new CompetitionTeamDTO(GUIController.getCompetitionController().getAllTeams().toArray(new TeamDTO[0])[0]));        // TODO add your handling code here:
+         //   cct.setVisible(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -416,14 +416,14 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
         wettkampfAbteilung.setText(curCompetition.getDepartment().getDepartmentName());
     }
     
-    public void fillTableCompTeams() throws RemoteException {
-        Collection<CompetitionTeamDTO> compTeams = controller.getTeamsAndClubMembersOfCompetition(curCompetition.getId());
-        DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();
-        model.setRowCount(0);
-        int i = 0;
-        for (CompetitionTeamDTO comp : compTeams) {
-            angemeldeteTeams.add(comp.getTeam());
-            model.addRow(new Object[]{++i, comp.getTeam().getTeamName(), (comp.getAllClubMembersOfCompetitionTeam().size() > 0 ? "intern" : "extern")});
-        }
-    }
+//    public void fillTableCompTeams() throws RemoteException {
+//        Collection<CompetitionTeamDTO> compTeams = controller.getTeamsAndClubMembersOfCompetition(curCompetition.getId());
+//        DefaultTableModel model = (DefaultTableModel) tableCompTeams.getModel();
+//        model.setRowCount(0);
+//        int i = 0;
+//        for (CompetitionTeamDTO comp : compTeams) {
+//            angemeldeteTeams.add(comp.getTeam());
+//            model.addRow(new Object[]{++i, comp.getTeam().getTeamName(), (comp.getAllClubMembersOfCompetitionTeam().size() > 0 ? "intern" : "extern")});
+//        }
+//    }
 }

@@ -11,19 +11,18 @@ import java.io.Serializable;
  * @author Dennis
  */
 public class RoleRightDTO implements Serializable {
-    
+
     private int id = -1;
-    
     private String name;
-    
-    public RoleRightDTO(String name){
+
+    public RoleRightDTO(String name) {
         this.name = name;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
-    
+
     /**
      * @return the id
      */

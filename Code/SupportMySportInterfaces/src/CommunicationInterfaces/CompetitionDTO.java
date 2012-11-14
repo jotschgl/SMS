@@ -14,7 +14,7 @@ import java.util.LinkedList;
  * @author Dennis
  */
 public class CompetitionDTO implements Serializable {
-    
+
     private int id = -1;
     private DepartmentDTO department;
     private String name;
@@ -22,13 +22,13 @@ public class CompetitionDTO implements Serializable {
     private Date dateOfCompetition;
     private Collection<MeetingDTO> allMeetingsOfCompetition;
     private Collection<CompetitionTeamDTO> allTeamsOfCompetition;
-    
-    public CompetitionDTO(DepartmentDTO responsibleDepartment, String competitionName, double competitionfee, Date dateOfCompetition){
+
+    public CompetitionDTO(DepartmentDTO responsibleDepartment, String competitionName, double competitionfee, Date dateOfCompetition) {
         this.department = responsibleDepartment;
         this.name = competitionName;
         this.competitionfee = competitionfee;
         this.dateOfCompetition = dateOfCompetition;
-        allMeetingsOfCompetition =  new LinkedList<MeetingDTO>();
+        allMeetingsOfCompetition = new LinkedList<MeetingDTO>();
         allTeamsOfCompetition = new LinkedList<CompetitionTeamDTO>();
     }
 
@@ -101,24 +101,24 @@ public class CompetitionDTO implements Serializable {
     public void setDateOfCompetition(Date dateOfCompetition) {
         this.dateOfCompetition = dateOfCompetition;
     }
-    
-    public void addMeetingToCompetition(MeetingDTO meeting){
+
+    public void addMeetingToCompetition(MeetingDTO meeting) {
         allMeetingsOfCompetition.add(meeting);
     }
-    
-    public Collection<MeetingDTO> getAllCompetitionMeetings(){
+
+    public Collection<MeetingDTO> getAllCompetitionMeetings() {
         return allMeetingsOfCompetition;
     }
-    
-    public void setAllCompetitionMeetings(Collection<MeetingDTO> allMeetingDTOs){
+
+    public void setAllCompetitionMeetings(Collection<MeetingDTO> allMeetingDTOs) {
         allMeetingsOfCompetition = allMeetingDTOs;
     }
-    
-    public void addTeamToCompetition(CompetitionTeamDTO team){
+
+    public void addTeamToCompetition(CompetitionTeamDTO team) {
         allTeamsOfCompetition.add(team);
     }
-    
-    public Collection<CompetitionTeamDTO> getAllTeamsOfCompetition(){
+
+    public Collection<CompetitionTeamDTO> getAllTeamsOfCompetition() {
         return allTeamsOfCompetition;
     }
 }

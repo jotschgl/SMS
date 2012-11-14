@@ -10,15 +10,15 @@ import java.io.Serializable;
  *
  * @author Dennis
  */
-public class MeetingDTO implements Serializable{
-    
+public class MeetingDTO implements Serializable {
+
     private Integer id = -1;
     private CompetitionDTO competition;
     private TeamDTO teamByTeamAId;
     private TeamDTO teamByTeamBId;
     private Integer pointsA;
     private Integer pointsB;
-    
+
     public MeetingDTO(CompetitionDTO competition, TeamDTO teamByTeamAId, TeamDTO teamByTeamBId) {
         this.competition = competition;
         this.teamByTeamAId = teamByTeamAId;
@@ -108,5 +108,4 @@ public class MeetingDTO implements Serializable{
     public void setPointsB(Integer pointsB) {
         this.pointsB = pointsB;
     }
-    
 }
