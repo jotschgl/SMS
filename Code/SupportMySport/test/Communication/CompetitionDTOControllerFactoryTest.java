@@ -4,9 +4,7 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.DepartmentDTO;
 import CommunicationInterfaces.MeetingDTO;
 import java.rmi.RemoteException;
@@ -17,10 +15,10 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  *
@@ -73,32 +71,6 @@ public class CompetitionDTOControllerFactoryTest {
         for (DepartmentDTO dep : result) {
             System.out.println(dep.getDepartmentName());
             System.out.println(dep.getDepartmentChief().getFirstname());
-        }
-    }
-
-    /**
-     * Test of getAllCompetitions method, of class
-     * CompetitionDTOControllerFactory.
-     */
-    @Test
-    public void testGetAllCompetitions() throws Exception {
-        System.out.println("* CompetitionDTOControllerFactoryTest: testGetAllCompetitions");
-        LinkedList<CompetitionDTO> result = (LinkedList<CompetitionDTO>) instance.getAllCompetitions();
-        for (CompetitionDTO comp : result) {
-            System.out.print("Competition name: ");
-            System.out.println(comp.getName());
-            for(CompetitionTeamDTO compTeamDTO : comp.getAllTeamsOfCompetition()){
-                System.out.print("Competition team: ");
-                System.out.println(compTeamDTO.getTeam().getTeamName());
-                System.out.print("Club Members of Competition Team: ");
-                for(ClubMemberDTO clubMemberDTO : compTeamDTO.getAllClubMembersOfCompetitionTeam()){
-                    System.out.print(clubMemberDTO.getLastname());
-                    System.out.print(" , ");
-                }
-                System.out.println();
-            }
-            System.out.println();
-            System.out.println();
         }
     }
 
@@ -159,23 +131,6 @@ public class CompetitionDTOControllerFactoryTest {
         CompetitionDTOControllerFactory instance = new CompetitionDTOControllerFactory();
         Collection expResult = null;
         Collection result = instance.getAllTeams();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getTeamsAndClubMembersOfCompetition method, of class
-     * CompetitionDTOControllerFactory.
-     */
-    @Ignore
-    @Test
-    public void testGetTeamsAndClubMembersOfCompetition() throws Exception {
-        System.out.println("getTeamsAndClubMembersOfCompetition");
-        int competitionID = 0;
-        CompetitionDTOControllerFactory instance = new CompetitionDTOControllerFactory();
-        Collection expResult = null;
-        Collection result = instance.getTeamsAndClubMembersOfCompetition(competitionID);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

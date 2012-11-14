@@ -66,19 +66,22 @@ public class DTOAssembler {
         for (Meeting meet : competition.getMeetings()) {
             competitionDTO.addMeetingToCompetition(createMeetingDTO(meet, competitionDTO));
         }
-        HashMap<Team, LinkedList<ClubMember>> competitionTeamClubMember = new HashMap<Team, LinkedList<ClubMember>>();
-        for (CompetitionTeam compTeam : competition.getCompetitionTeams()) {
-            if (!competitionTeamClubMember.containsKey(compTeam.getTeam())) {
-                competitionTeamClubMember.put(compTeam.getTeam(), new LinkedList<ClubMember>());
-                for (ClubMember clubMember : competitionController.getAllClubMembersOfCompetitionTeam(compTeam.getTeam().getId(), compTeam.getCompetition().getId())) {
-                    competitionTeamClubMember.get(compTeam.getTeam()).add(clubMember);
-                }
-            }
+        for(CompetitionTeam compTeam : competition.getCompetitionTeams()){
+            competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(compTeam,competitionDTO));
         }
-        for (Team t : competitionTeamClubMember.keySet()) {
-            competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(t, competitionTeamClubMember.get(t)));
-        }
-        return competitionDTO;
+        return competitionDTO; 
+//        HashMap<Team, LinkedList<ClubMember>> competitionTeamClubMember = new HashMap<Team, LinkedList<ClubMember>>();
+//        for (CompetitionTeam compTeam : competition.getCompetitionTeams()) {
+//            if (!competitionTeamClubMember.containsKey(compTeam.getTeam())) {
+//                competitionTeamClubMember.put(compTeam.getTeam(), new LinkedList<ClubMember>());
+//                for (ClubMember clubMember : competitionController.getAllClubMembersOfCompetitionTeam(compTeam.getTeam().getId(), compTeam.getCompetition().getId())) {
+//                    competitionTeamClubMember.get(compTeam.getTeam()).add(clubMember);
+//                }
+//            }
+//        }
+//        for (Team t : competitionTeamClubMember.keySet()) {
+//            competitionDTO.addTeamToCompetition(createCompetitionTeamDTO(t, competitionTeamClubMember.get(t)));
+//        }
     }
 
     public TeamDTO createTeamDTO(Team team) {
@@ -113,11 +116,12 @@ public class DTOAssembler {
         return sportDTO;
     }
 
-    public CompetitionTeamDTO createCompetitionTeamDTO(Team team, Collection<ClubMember> compClubMembers) {
-        CompetitionTeamDTO compTeamDTO = new CompetitionTeamDTO(createTeamDTO(team));
-        for (ClubMember clubMember : compClubMembers) {
-            compTeamDTO.addClubMemmberToCompetitionTeam(createClubMemberDTO(clubMember));
+    public CompetitionTeamDTO createCompetitionTeamDTO(CompetitionTeam compTeam, CompetitionDTO compDTO) {
+        CompetitionTeamDTO compTeamDTO = new CompetitionTeamDTO(createTeamDTO(compTeam.getTeam()), compDTO);
+        if(compTeam.getClubMember() != null){
+            compTeamDTO.setClubMember(createClubMemberDTO(compTeam.getClubMember()));
         }
+        compTeamDTO.setId(compTeam.getId());
         return compTeamDTO;
     }
 
@@ -161,9 +165,26 @@ public class DTOAssembler {
         if (competitionDTO.getId() != -1) {
             comp.setId(competitionDTO.getId());
         }
+        Set allMeetings = new HashSet();
+        for(MeetingDTO meeting : competitionDTO.getAllCompetitionMeetings()){
+            allMeetings.add(updateMeetingEntity(meeting));
+        }
+        comp.setMeetings(allMeetings);
+        Set allCompetitionTeams = new HashSet();
+        for(CompetitionTeamDTO compTeamDTO : competitionDTO.getAllTeamsOfCompetition()){
+            CompetitionTeam team = new CompetitionTeam(updateTeamEntity(compTeamDTO.getTeam()), comp, null);
+            if(compTeamDTO.getClubMember() != null){
+                team.setClubMember(updateClubMemberEntity(compTeamDTO.getClubMember()));
+            }
+            if(compTeamDTO.getId() != -1){
+                team.setId(compTeamDTO.getId());
+            }
+            allCompetitionTeams.add(team);
+        }
+        comp.setCompetitionTeams(allCompetitionTeams);
         return comp;
     }
-
+    
     public Team updateTeamEntity(TeamDTO teamDTO) {
         Team team = new Team(teamDTO.getTeamName());
         if (teamDTO.getId() != -1) {

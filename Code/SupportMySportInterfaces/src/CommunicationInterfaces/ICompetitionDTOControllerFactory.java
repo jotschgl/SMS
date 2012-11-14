@@ -28,8 +28,6 @@ public interface ICompetitionDTOControllerFactory extends Remote {
 
     public Collection<TeamDTO> getAllTeams() throws RemoteException;
 
-    public Collection<CompetitionTeamDTO> getTeamsAndClubMembersOfCompetition(int competitionID) throws RemoteException;
-
     public DepartmentDTO getDepartmentOfLoggedInDepartmentChief(ClubMemberDTO loggedInMember) throws RemoteException;
 
     public Collection<SportDTO> getSportsOfDepartment(DepartmentDTO d) throws RemoteException;
