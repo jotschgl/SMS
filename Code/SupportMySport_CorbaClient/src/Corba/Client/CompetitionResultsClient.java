@@ -3,6 +3,7 @@ package Corba.Client;
 
 import CORBA_Competitions.CompetitionsResults;
 import CORBA_Competitions.CompetitionsResultsHelper;
+import java.util.Properties;
 import org.omg.CORBA.ORB;
 import org.omg.CORBA.Object;
 import org.omg.CosNaming.NamingContextExt;
@@ -16,8 +17,11 @@ public class CompetitionResultsClient {
 
     public static void main(String[] args) {
         try {
+            Properties probs = new Properties();
+            probs.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            probs.put("org.omg.CORBA.ORBInitialPort", "1050");
             // create and initialize the ORB
-            ORB orb = ORB.init(args, null);
+            ORB orb = ORB.init(args, probs);
             
             // get the root naming context
             Object objRef = orb.resolve_initial_references("NameService");
