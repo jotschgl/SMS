@@ -268,4 +268,46 @@ public class ClubMember implements java.io.Serializable {
     public void setTeams_1(Set<Team> teams_1) {
         this.teams_1 = teams_1;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 17 * hash + (this.firstname != null ? this.firstname.hashCode() : 0);
+        hash = 17 * hash + (this.lastname != null ? this.lastname.hashCode() : 0);
+        hash = 17 * hash + (this.username != null ? this.username.hashCode() : 0);
+        hash = 17 * hash + (this.street != null ? this.street.hashCode() : 0);
+        hash = 17 * hash + (this.city != null ? this.city.hashCode() : 0);
+        hash = 17 * hash + (this.country != null ? this.country.hashCode() : 0);
+        hash = 17 * hash + (this.zip != null ? this.zip.hashCode() : 0);
+        hash = 17 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 17 * hash + (this.phone != null ? this.phone.hashCode() : 0);
+        hash = 17 * hash + this.gender;
+        hash = 17 * hash + (this.birthday != null ? this.birthday.hashCode() : 0);
+        hash = 17 * hash + (this.membershipfeePayed != null ? this.membershipfeePayed.hashCode() : 0);
+        hash = 17 * hash + (this.competitionTeams != null ? this.competitionTeams.hashCode() : 0);
+        hash = 17 * hash + (this.federations != null ? this.federations.hashCode() : 0);
+        hash = 17 * hash + (this.teams != null ? this.teams.hashCode() : 0);
+        hash = 17 * hash + (this.functionRoles != null ? this.functionRoles.hashCode() : 0);
+        hash = 17 * hash + (this.departments != null ? this.departments.hashCode() : 0);
+        hash = 17 * hash + (this.teams_1 != null ? this.teams_1.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClubMember other = (ClubMember) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

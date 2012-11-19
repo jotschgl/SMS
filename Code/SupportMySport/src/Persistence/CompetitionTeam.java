@@ -1,10 +1,7 @@
 package Persistence;
 // Generated 11.11.2012 20:07:48 by Hibernate Tools 3.2.1.GA
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

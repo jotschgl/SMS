@@ -26,7 +26,6 @@ public class FunctionRole implements java.io.Serializable {
     private Integer id;
     private RoleRight roleRight;
     private String name;
-    private Set<ClubMember> clubMembers = new HashSet<ClubMember>(0);
 
     public FunctionRole() {
     }
@@ -34,12 +33,6 @@ public class FunctionRole implements java.io.Serializable {
     public FunctionRole(RoleRight roleRight, String name) {
         this.roleRight = roleRight;
         this.name = name;
-    }
-
-    public FunctionRole(RoleRight roleRight, String name, Set clubMembers) {
-        this.roleRight = roleRight;
-        this.name = name;
-        this.clubMembers = clubMembers;
     }
 
     @Id
@@ -72,15 +65,27 @@ public class FunctionRole implements java.io.Serializable {
         this.name = name;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "MemberFunctionRole", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "functionRole_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
-    public Set<ClubMember> getClubMembers() {
-        return this.clubMembers;
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 59 * hash + (this.roleRight != null ? this.roleRight.hashCode() : 0);
+        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
     }
 
-    public void setClubMembers(Set<ClubMember> clubMembers) {
-        this.clubMembers = clubMembers;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FunctionRole other = (FunctionRole) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 }
