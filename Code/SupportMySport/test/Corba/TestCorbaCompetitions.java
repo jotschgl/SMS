@@ -24,9 +24,15 @@ public class TestCorbaCompetitions {
  
         CompetitionResultsImpl compResults = new CompetitionResultsImpl();
         
+        //"Liga 2", "Handball", "2013-06-07"
+        
          String date = "2013-12-11";
          String liga = "Liga 1";
          String sport = "Fußball";
+         
+         //date = "2013-06-07";
+         //liga = "Liga 2";
+         //sport = "Handball";
                  
          String s = compResults.getCompetitionResults(liga, sport, date);
          System.out.println();
