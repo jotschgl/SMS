@@ -34,7 +34,12 @@ public class CompetitionResultsClient {
             CompetitionsResults competitionResultsStub = CompetitionsResultsHelper.narrow(ncRef.resolve_str("CompetitionsResultsObject"));
             
             System.out.println("Obtained a handle on server object: " + competitionResultsStub);
-            competitionResultsStub.getCompetitionResults("Liga 2", "Handball", "2013-06-07");
+            System.out.println(competitionResultsStub.getCompetitionResults("Liga 1", "Fußball", "2013-12-11"));
+            System.out.println(competitionResultsStub.getCompetitionResults("Liga 1", "Fußball", "2013-12-11"));
+            System.out.println(competitionResultsStub.getCompetitionResults("Liga 1", "Fußball", "2013-12-11"));
+            String a = competitionResultsStub.getCompetitionResults("Liga 2", "Handball", "2013-06-07");
+            
+            System.out.println(a);
         
         } catch (Exception ex) {
             System.out.println("ERROR: " + ex);
