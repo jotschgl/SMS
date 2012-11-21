@@ -18,11 +18,12 @@ import java.util.LinkedList;
  */
 public class RealCompetitionTeamDTO {
 
-    private static LinkedList<CompetitionTeamDTO> mainlist = new LinkedList<CompetitionTeamDTO>();
+    private HashSet<CompetitionTeamDTO> mainlist = new HashSet<CompetitionTeamDTO>();
     private Collection<ClubMemberDTO> members;
     private TeamDTO team;
 
     public Collection<ClubMemberDTO> getMembers() {
+        System.out.println(members.size());
         return members;
     }
 
@@ -47,20 +48,22 @@ public class RealCompetitionTeamDTO {
     }
     private CompetitionDTO competition;
 
-    public static void addCompetitionTeamDTO(CompetitionTeamDTO ctd) {
+    public void addCompetitionTeamDTO(CompetitionTeamDTO ctd) {
         mainlist.add(ctd);
     }
 
-    public static void addAllCompetitionTeamDTO(Collection<CompetitionTeamDTO> ctds) {
+    public void addAllCompetitionTeamDTO(Collection<CompetitionTeamDTO> ctds) {
         mainlist.addAll(ctds);
     }
 
-    public static RealCompetitionTeamDTO getRealCompTeamTDO(TeamDTO team, CompetitionDTO comp) {
+    public RealCompetitionTeamDTO getRealCompTeamTDO(TeamDTO team, CompetitionDTO comp) {
         RealCompetitionTeamDTO rctd = new RealCompetitionTeamDTO();
         LinkedList<ClubMemberDTO> member = new LinkedList<ClubMemberDTO>();
         for (CompetitionTeamDTO ctd : mainlist) {
             if (team.equals(ctd.getTeam()) && comp.equals(ctd.getCompetition())) {
-                member.add(ctd.getClubMember());
+                if (ctd.getClubMember() != null) {
+                    member.add(ctd.getClubMember());
+                }
             }
         }
         rctd.setCompetition(comp);
@@ -69,7 +72,7 @@ public class RealCompetitionTeamDTO {
         return rctd;
     }
 
-    public static Collection<TeamDTO> getAllTeamsOfCompetition(CompetitionDTO comp) {
+    public Collection<TeamDTO> getAllTeamsOfCompetition(CompetitionDTO comp) {
         HashSet<TeamDTO> teamset = new HashSet<TeamDTO>();
         for (CompetitionTeamDTO competitionTeamDTO : mainlist) {
             if (competitionTeamDTO.getCompetition().equals(comp)) {
@@ -77,5 +80,15 @@ public class RealCompetitionTeamDTO {
             }
         }
         return teamset;
+    }
+
+    public Collection<CompetitionTeamDTO> getAllCompetitionTeamDTOsWithTeam(TeamDTO team) {
+        LinkedList<CompetitionTeamDTO> list = new LinkedList<CompetitionTeamDTO>();
+        for (CompetitionTeamDTO competitionTeamDTO : mainlist) {
+            if (competitionTeamDTO.getTeam().equals(team)) {
+                list.add(competitionTeamDTO);
+            }
+        }
+        return list;
     }
 }

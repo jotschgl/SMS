@@ -118,22 +118,27 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-        //  try {
-        int[] rows = tableTeams.getSelectedRows();
-        //Collection<CompetitionTeamDTO> comteams = new LinkedList<CompetitionTeamDTO>();
-        for (int i : rows) {
-            TeamDTO team = _teammap.get(tableTeams.convertRowIndexToModel(i));
+        try {
+            //  try {
+            int[] rows = tableTeams.getSelectedRows();
+            //Collection<CompetitionTeamDTO> comteams = new LinkedList<CompetitionTeamDTO>();
+            for (int i : rows) {
+                TeamDTO team = _teammap.get(tableTeams.convertRowIndexToModel(i + 1));
 
-            CompetitionTeamDTO ct = new CompetitionTeamDTO(team, competition);
-            competition.addTeamToCompetition(ct);
+                CompetitionTeamDTO ct = new CompetitionTeamDTO(team, competition);
+                competition.addTeamToCompetition(ct);
 
+            }
+            preFrame.fillTableCompTeams();
+            this.dispose();
+            // GUIController.getCompetitionController().updateCompetition(competition);
+            //  preFrame.fillTableCompTeams();
+            //        } catch (RemoteException ex) {
+            //            Logger.getLogger(AddTeamToCompetitionFrame.class.getName()).log(Level.SEVERE, null, ex);
+            //        }
+        } catch (RemoteException ex) {
+            Logger.getLogger(AddTeamToCompetitionFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.dispose();
-        // GUIController.getCompetitionController().updateCompetition(competition);
-        //  preFrame.fillTableCompTeams();
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(AddTeamToCompetitionFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
     }//GEN-LAST:event_buttonAddActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
@@ -148,6 +153,7 @@ public class AddTeamToCompetitionFrame extends javax.swing.JFrame {
         model.setRowCount(0);
         int i = 0;
         for (TeamDTO team : teams) {
+
             boolean add = true;
             for (CompetitionTeamDTO comteam : comteams) {
                 if (comteam.getTeam().getId() == team.getId()) {
