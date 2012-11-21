@@ -8,6 +8,7 @@ import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import CommunicationInterfaces.TeamDTO;
+import GUI.helper.RealCompetitionTeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +23,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CreateCompetitionTeam extends javax.swing.JFrame {
 
-    private boolean changed = false;
     private TeamDTO team;
     private CompetitionDTO curComp;
     Collection<ClubMemberDTO> members;
@@ -36,14 +36,10 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
 
         this.team = team;
         this.curComp = curCompetition;
-        LinkedList<ClubMemberDTO> competitionTeamMembers = new LinkedList<ClubMemberDTO>();
-        for (CompetitionTeamDTO ct : curComp.getAllTeamsOfCompetition()) {
-            if (team.equals(ct.getTeam())) {
-                competitionTeamMembers.add(ct.getClubMember());
-            }
-        }
-        this.compTeamMembers = compTeamMembers;
-        tableCompTeam.setModel(new MemberTableModel(competitionTeamMembers));
+        RealCompetitionTeamDTO rcompteam = new RealCompetitionTeamDTO();
+        rcompteam.addAllCompetitionTeamDTO(curComp.getAllTeamsOfCompetition());
+        rcompteam = rcompteam.getRealCompTeamTDO(team, curComp);
+        tableCompTeam.setModel(new MemberTableModel(rcompteam.getMembers()));
         this.members = team.getAllClubMembers();
         tableTeam.setModel(new MemberTableModel(members));
     }
@@ -63,9 +59,8 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
         tableTeam = new javax.swing.JTable();
         buttonAdd = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
-        buttonSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -142,26 +137,19 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             }
         });
 
-        buttonSave.setText("Speichern");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(buttonRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(buttonRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -178,33 +166,26 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
                         .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (changed) {
-            JOptionPane.showConfirmDialog(this, "Daten wurden geändert, speichern?", "Speichern?", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-        }
+        speichern();
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
-        changed = true;
         removeLeft();
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveActionPerformed
-        changed = true;
         removeRight();
     }//GEN-LAST:event_buttonRemoveActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonRemove;
-    private javax.swing.JButton buttonSave;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableCompTeam;
@@ -226,7 +207,6 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
         if (tableTeam.getSelectedRowCount() != 0) {
             MemberTableModel modelLeft = (MemberTableModel) tableTeam.getModel();
             MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
-            i = tableTeam.getSelectedRow();
             System.out.println(i);
             int rowindex = tableTeam.convertRowIndexToModel(i);
             System.out.println(rowindex);
@@ -235,6 +215,19 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             modelRight.fireTableDataChanged();
         }
     }
+
+    private void speichern() {
+        Collection<ClubMemberDTO> newMembers = ((MemberTableModel) tableCompTeam.getModel()).members;
+        Collection<CompetitionTeamDTO> list1 = new LinkedList<CompetitionTeamDTO>(curComp.getAllTeamsOfCompetition());
+        for (CompetitionTeamDTO compteam : list1) {
+            if (compteam.getTeam() == team && compteam.getCompetition() == curComp) {
+                curComp.getAllTeamsOfCompetition().remove(compteam);
+            }
+        }
+        for (ClubMemberDTO member : newMembers) {
+            curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, member, curComp));
+        }
+    } 
 
     private class MemberTableModel extends AbstractTableModel {
 
@@ -269,11 +262,17 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
             ClubMemberDTO m = (ClubMemberDTO) members.toArray()[rowIndex];
-            if (columnIndex == 1) {
-                return m.getFirstname();
-            } else {
-                return m.getLastname();
+            if (m != null) {
+                switch (columnIndex) {
+                    case 0:
+                        return m.getFirstname();
+                    case 1:
+                        return m.getLastname();
+                    default:
+                        return "";
+                }
             }
+            return "";
         }
 
         public ClubMemberDTO removeMember(int row) {
