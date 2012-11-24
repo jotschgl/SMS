@@ -109,8 +109,9 @@ public class InvitationPublisher {
              * now start with the message related things
             **/
             TextMessage message = topicSession.createTextMessage();
-            final String MSG_TEXT = subject+" "+competitionDate+" "+competitionName+" "+messageBody; //TODO: make an xml format for the message
-
+            
+            final String MSG_TEXT = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><invitation><subject>"+subject+"</subject><date>"+competitionDate+"</date><competitionName>"+competitionName+"</competitionName><messageBody>"+messageBody+"</messageBody></invitation>";
+            
             try {
                 message = topicSession.createTextMessage();
                 message.setText(MSG_TEXT);
