@@ -88,9 +88,9 @@ public class CompetitionResultsImpl extends CompetitionsResultsPOA {
 
         for (Object obj : meetings) {
             sb.append(((Meeting) obj).getTeamByTeamAId().getName() + ":" + ((Meeting) obj).getPointsA());
-            sb.append("\n" + ((Meeting) obj).getTeamByTeamBId().getName() + ":" + ((Meeting) obj).getPointsB());
-            sb.append("\n\n");
+            sb.append(" " + ((Meeting) obj).getTeamByTeamBId().getName() + ":" + ((Meeting) obj).getPointsB());
         }
+        sb.append("\n");
         return sb.toString();
     }
 }
