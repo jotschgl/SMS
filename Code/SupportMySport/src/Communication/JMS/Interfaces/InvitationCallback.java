@@ -1,6 +1,6 @@
 package Communication.JMS.Interfaces;
 
-import Communication.JMS.InvitationMessageObject;
+import CommunicationInterfaces.CompetitionDTO;
         
 public interface InvitationCallback {
     
@@ -8,6 +8,6 @@ public interface InvitationCallback {
      *
      * @param message
      */
-    public void gettingInvitationFromMessageListener(InvitationMessageObject message);
+    public void gettingInvitationFromMessageListener(CompetitionDTO message);
     
 }

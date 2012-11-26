@@ -5,6 +5,7 @@
 package Controller;
 
 import Domaene.DomainFacade;
+import Persistence.Department;
 import Persistence.Team;
 import java.util.Collection;
 

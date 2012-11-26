@@ -5,6 +5,7 @@
 package Communication.JMS;
 
 import Communication.JMS.Interfaces.InvitationCallback;
+import CommunicationInterfaces.CompetitionDTO;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -113,9 +114,10 @@ public class InvitationsSubscriber {
          */
         public void onMessage(Message message) {            
             if(message instanceof ObjectMessage){
-                InvitationMessageObject invMsgObj = (InvitationMessageObject) message;
-                System.out.println("SUBSCRIBER: " + "Reading message: " + invMsgObj.getCompetitionDate() + " " + invMsgObj.getCompetitionName() + " " + invMsgObj.getMessageBody());
-                invCallback.gettingInvitationFromMessageListener(invMsgObj);
+                Message test = message;
+                //CompetitionDTO invMsgObj = (CompetitionDTO) message;
+                //System.out.println("SUBSCRIBER: " + "Reading message: " + invMsgObj.getName() + " " + invMsgObj.getDateOfCompetition() + " " + invMsgObj.getSport());
+                //invCallback.gettingInvitationFromMessageListener(invMsgObj);
             }
         }
     }

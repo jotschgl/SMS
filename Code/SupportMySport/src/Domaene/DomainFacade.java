@@ -8,6 +8,7 @@ import Communication.JMS.InitialSubscritptionManager;
 import Communication.JMS.Interfaces.InvitationCallback;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationsSubscriber;
+import CommunicationInterfaces.CompetitionDTO;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -49,8 +50,8 @@ public class DomainFacade {
     public void initializeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId) {
         initSubManager.initialSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
-    public void sendInvitations(String connectionFactroyName, String topicConnectionName, String subject, String competitionDate, String competitionName, String messageBody){
-       invitManager.publishMessages(connectionFactroyName, topicConnectionName, subject, competitionDate, competitionName, messageBody);
+    public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO){
+       invitManager.publishMessages(connectionFactroyName, topicConnectionName, compDTO);
     }
     public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, InvitationCallback invCallback){
         invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, invCallback);
