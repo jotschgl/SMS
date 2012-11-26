@@ -183,7 +183,6 @@ public class DTOAssembler {
                 team.setId(compTeamDTO.getId());
             } else{
                 instance.initializeSubscriber("jms/competitionFactory", "jms/competitionTopic", ""+team.getClubMember().getId());
-                instance.sendInvitations("jms/competitionFactory", "jms/competitionTopic", null, null, null, null);
             }
             allCompetitionTeams.add(team);
         }
