@@ -187,6 +187,7 @@ public class DTOAssembler {
             allCompetitionTeams.add(team);
         }
         comp.setCompetitionTeams(allCompetitionTeams);
+        instance.sendInvitations("jms/competitionFactory", "jms/competitionTopic", competitionDTO);
         return comp;
     }
     
