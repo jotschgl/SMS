@@ -8,7 +8,7 @@ package MessageInterfaces;
  *
  * @author Johannes
  */
-public interface IInvitationMessage {
+public interface IInvitationMessage extends IMessageObject{
 
     public String getCompetitionDate();
 
@@ -19,4 +19,7 @@ public interface IInvitationMessage {
     public String getSubject();
     
     public int getCompetitionID();
+    
+    @Override
+    public String toString();
 }

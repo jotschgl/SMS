@@ -44,8 +44,8 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
         for (TeamDTO teamDTO : allTeamsOfDepartment) {
             comboTeam.addItem(teamDTO);
         }
-        tableCompTeam.setEnabled(false);
-        tableTeam.setEnabled(false);
+        tableTeamMembers.setEnabled(false);
+        tableAllMembers.setEnabled(false);
         buttonAdd.setEnabled(false);
         buttonRemove.setEnabled(false);
     }
@@ -61,9 +61,9 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
 
         buttonRemove = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableTeam = new javax.swing.JTable();
+        tableAllMembers = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableCompTeam = new javax.swing.JTable();
+        tableTeamMembers = new javax.swing.JTable();
         buttonAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         comboTeam = new javax.swing.JComboBox();
@@ -77,7 +77,7 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
             }
         });
 
-        tableTeam.setModel(new javax.swing.table.DefaultTableModel(
+        tableAllMembers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -103,9 +103,9 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableTeam);
+        jScrollPane2.setViewportView(tableAllMembers);
 
-        tableCompTeam.setModel(new javax.swing.table.DefaultTableModel(
+        tableTeamMembers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -131,7 +131,7 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tableCompTeam);
+        jScrollPane1.setViewportView(tableTeamMembers);
 
         buttonAdd.setText(">>");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +176,7 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane2)
@@ -205,8 +205,8 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
             if (selectedTeam != null) {
                 speichern();
             } else {
-                tableCompTeam.setEnabled(true);
-                tableTeam.setEnabled(true);
+                tableTeamMembers.setEnabled(true);
+                tableAllMembers.setEnabled(true);
                 buttonAdd.setEnabled(true);
                 buttonRemove.setEnabled(true);
             }
@@ -223,27 +223,27 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tableCompTeam;
-    private javax.swing.JTable tableTeam;
+    private javax.swing.JTable tableAllMembers;
+    private javax.swing.JTable tableTeamMembers;
     // End of variables declaration//GEN-END:variables
 
     private void removeRight() {
-        if (tableCompTeam.getSelectedRowCount() != 0) {
-            MemberTableModel modelLeft = (MemberTableModel) tableTeam.getModel();
-            MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
-            modelLeft.addMember(modelRight.removeMember(tableCompTeam.convertRowIndexToModel(tableCompTeam.getSelectedRow())));
+        if (tableTeamMembers.getSelectedRowCount() != 0) {
+            MemberTableModel modelLeft = (MemberTableModel) tableAllMembers.getModel();
+            MemberTableModel modelRight = (MemberTableModel) tableTeamMembers.getModel();
+            modelLeft.addMember(modelRight.removeMember(tableTeamMembers.convertRowIndexToModel(tableTeamMembers.getSelectedRow())));
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
     }
 
     private void removeLeft() {
-        int i = tableTeam.getSelectedRow();
-        if (tableTeam.getSelectedRowCount() != 0) {
-            MemberTableModel modelLeft = (MemberTableModel) tableTeam.getModel();
-            MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
+        int i = tableAllMembers.getSelectedRow();
+        if (tableAllMembers.getSelectedRowCount() != 0) {
+            MemberTableModel modelLeft = (MemberTableModel) tableAllMembers.getModel();
+            MemberTableModel modelRight = (MemberTableModel) tableTeamMembers.getModel();
             System.out.println(i);
-            int rowindex = tableTeam.convertRowIndexToModel(i);
+            int rowindex = tableAllMembers.convertRowIndexToModel(i);
             System.out.println(rowindex);
             modelRight.addMember(modelLeft.removeMember(rowindex));
             modelLeft.fireTableDataChanged();
@@ -253,22 +253,22 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
 
     private void speichern() {
         selectedTeam.getAllClubMembers().clear();
-        for (ClubMemberDTO member : ((MemberTableModel) tableCompTeam.getModel()).members) {
+        for (ClubMemberDTO member : ((MemberTableModel) tableTeamMembers.getModel()).members) {
             selectedTeam.addClubMemberToTeam(member);
         }
     }
 
     private void fillTables() throws RemoteException {
         if (selectedTeam != null) {
-            Collection<ClubMemberDTO> teamMember = selectedTeam.getAllClubMembers();
-            tableTeam.setModel(new MemberTableModel(teamMember));
+            Collection<ClubMemberDTO> teamMembers = selectedTeam.getAllClubMembers();
+            tableAllMembers.setModel(new MemberTableModel(teamMembers));
             Collection<ClubMemberDTO> allMembers = GUIController.getClubMemberController().getAllClubMembers();
             for (ClubMemberDTO dto : allMembers) {
-                if (teamMember.contains(dto)) {
+                if (teamMembers.contains(dto)) {
                     allMembers.remove(dto);
                 }
             }
-            tableCompTeam.setModel(new MemberTableModel(allMembers));
+            tableTeamMembers.setModel(new MemberTableModel(allMembers));
         }
     }
 

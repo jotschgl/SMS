@@ -4,17 +4,48 @@
  */
 package GUI;
 
+import MessageInterfaces.IInvitationMessage;
+import MessageInterfaces.IMessageObject;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author Johannes
  */
 public class MessageGUI extends javax.swing.JFrame {
 
+    private DefaultListModel list;
+
     /**
      * Creates new form MessageGUI
      */
     public MessageGUI() {
-        initComponents();
+        try {
+            initComponents();
+            list = ((DefaultListModel) jList1.getModel());
+            list.removeAllElements();
+            for (Object o : GUIController.getMessageController().getMessages()) {
+                list.addElement(o);
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(MessageGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jList1.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Object o = jList1.getSelectedValue();
+                if (o instanceof IMessageObject) {
+                    if (o instanceof IInvitationMessage) {
+                        panelMessage = new SportlerMessagePanel(MessageGUI.this, (IInvitationMessage) o);
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -90,41 +121,6 @@ public class MessageGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MessageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MessageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MessageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MessageGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MessageGUI().setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
@@ -132,4 +128,8 @@ public class MessageGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel panelMessage;
     // End of variables declaration//GEN-END:variables
+
+    void removeMessage(IInvitationMessage message) {
+        list.removeElement(message);
+    }
 }
