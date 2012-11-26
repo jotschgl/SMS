@@ -4,11 +4,13 @@
  */
 package Communication.JMS;
 
+import java.io.Serializable;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -49,8 +51,6 @@ public class InvitationPublisher {
      */
     public void publishMessages(String connectionFactroyName, String topicConnectionName, String subject, String competitionDate, String competitionName, String messageBody) {
         
-        try {
-            
             try {
                 this.factoryName = connectionFactroyName;
                 this.topicName = topicConnectionName;
@@ -108,14 +108,13 @@ public class InvitationPublisher {
              * initialization related things finished
              * now start with the message related things
             **/
-            TextMessage message = topicSession.createTextMessage();
-            
-            final String MSG_TEXT = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><invitation><subject>"+subject+"</subject><date>"+competitionDate+"</date><competitionName>"+competitionName+"</competitionName><messageBody>"+messageBody+"</messageBody></invitation>";
+            ObjectMessage message = null;
+            InvitationMessageObject invObj = new InvitationMessageObject(subject, competitionDate, competitionName, messageBody);
             
             try {
-                message = topicSession.createTextMessage();
-                message.setText(MSG_TEXT);
-                System.out.println("PUBLISHER: Publishing " + "message: " + message.getText());
+                //message = topicSession.createTextMessage();
+                message = topicSession.createObjectMessage(invObj);
+                System.out.println("PUBLISHER: Publishing messag");
                 topicPublisher.publish(message);
                 /*
                  * Send a non-text control message indicating end
@@ -125,10 +124,7 @@ public class InvitationPublisher {
             } catch (JMSException e) {
                 System.err.println("Exception occurred in publishMessages: " + e.toString());
             }
-        } catch (JMSException ex) {
-            Logger.getLogger(InvitationPublisher.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        } 
 
     /**
      * Closes the connection.
@@ -143,5 +139,5 @@ public class InvitationPublisher {
                 System.err.println("Exception occurred in finish: " + e.toString());
             }
         }
-    }
+    } 
 }
