@@ -6,6 +6,7 @@ package Communication;
 
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
 import java.rmi.RemoteException;
@@ -34,6 +35,11 @@ public class UseCaseControllerFactory extends UnicastRemoteObject implements  IU
     @Override
     public IRoleDTOControllerFactory createRoleController() throws RemoteException {
         return new RoleDTOControllerFactory();
+    }
+
+    @Override
+    public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

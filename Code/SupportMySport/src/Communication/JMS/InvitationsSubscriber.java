@@ -114,9 +114,10 @@ public class InvitationsSubscriber {
          */
         public void onMessage(Message message) {            
             if(message instanceof ObjectMessage){
-                CompetitionDTO invMsgObj = (CompetitionDTO) message;
-                System.out.println("SUBSCRIBER: " + "Reading message: " + invMsgObj.getName() + " " + invMsgObj.getDateOfCompetition() + " " + invMsgObj.getSport());
-                invCallback.gettingInvitationFromMessageListener(invMsgObj);
+                Message test = message;
+                //CompetitionDTO invMsgObj = (CompetitionDTO) message;
+                //System.out.println("SUBSCRIBER: " + "Reading message: " + invMsgObj.getName() + " " + invMsgObj.getDateOfCompetition() + " " + invMsgObj.getSport());
+                //invCallback.gettingInvitationFromMessageListener(invMsgObj);
             }
         }
     }
