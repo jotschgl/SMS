@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,6 +41,7 @@ public class ClubMember implements java.io.Serializable {
     private String phone;
     private char gender;
     private Date birthday;
+    private Sport sport;
     private Boolean membershipfeePayed;
     private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
     private Set<Federation> federations = new HashSet<Federation>(0);
@@ -227,10 +229,7 @@ public class ClubMember implements java.io.Serializable {
         this.federations = federations;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "team_id", nullable = false, updatable = false)})
+    @ManyToMany(mappedBy="clubMembers")
     public Set<Team> getTeams() {
         return this.teams;
     }
@@ -287,7 +286,6 @@ public class ClubMember implements java.io.Serializable {
         hash = 17 * hash + (this.membershipfeePayed != null ? this.membershipfeePayed.hashCode() : 0);
         hash = 17 * hash + (this.competitionTeams != null ? this.competitionTeams.hashCode() : 0);
         hash = 17 * hash + (this.federations != null ? this.federations.hashCode() : 0);
-        hash = 17 * hash + (this.teams != null ? this.teams.hashCode() : 0);
         hash = 17 * hash + (this.functionRoles != null ? this.functionRoles.hashCode() : 0);
         hash = 17 * hash + (this.departments != null ? this.departments.hashCode() : 0);
         hash = 17 * hash + (this.teams_1 != null ? this.teams_1.hashCode() : 0);
@@ -308,6 +306,17 @@ public class ClubMember implements java.io.Serializable {
         }
         return true;
     }
-    
-    
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "sport_id", nullable = true)
+    public Sport getSport() {
+        return sport;
+    }
+
+    /**
+     * @param sport the sport to set
+     */
+    public void setSport(Sport sport) {
+        this.sport = sport;
+    }
 }

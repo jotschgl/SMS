@@ -6,6 +6,8 @@ package Domaene;
 
 import Persistence.Department;
 import Persistence.PersistenceManager;
+import Persistence.Team;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,5 +60,14 @@ public class DepartmentManager {
             e.printStackTrace();
         }
         return dep;
+    }
+    
+    public Collection<Team> getAllTeamsOfDepartment(int departmentID){
+        Department dep = (Department) persistenceManager.getObjectById(Department.class, departmentID);
+        return dep.getTeams();
+    }
+
+    public void updateTeam(Team teamToUpdate) {
+        persistenceManager.update(teamToUpdate);
     }
 }

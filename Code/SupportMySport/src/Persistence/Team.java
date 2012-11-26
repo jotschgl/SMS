@@ -120,8 +120,8 @@ public class Team implements java.io.Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "MemberTeam", catalog = "c1teamf", joinColumns = {
-        @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "clubMember_id", nullable = false, updatable = false)})
+        @JoinColumn(name = "team_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "clubMember_id")})
     public Set<ClubMember> getClubMembers() {
         return this.clubMembers;
     }

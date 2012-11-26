@@ -184,4 +184,12 @@ public class DomainFacade {
     public Collection<Team> getAllTeamsOfSport(int sportID) {
         return sportManager.getAllTeamsOfSport(sportID);
     }
+    
+    public Collection<Team> getAllTeamsOfDepartment(int departmentID){
+        return departmentManager.getAllTeamsOfDepartment(departmentID);
+    }
+
+    public void updateTeam(Team teamToUpdate) {
+        departmentManager.updateTeam(teamToUpdate);
+    }
 }

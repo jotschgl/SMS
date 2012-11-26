@@ -5,6 +5,7 @@
 package Domaene;
 
 import Persistence.ClubMember;
+import Persistence.Department;
 import Persistence.FunctionRole;
 import Persistence.PersistenceManager;
 import Persistence.Team;
