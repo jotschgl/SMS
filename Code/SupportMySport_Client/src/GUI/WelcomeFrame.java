@@ -209,7 +209,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void checkMessages() {
         try {
-               buttonMessage.setVisible(GUIController.getMessageController().hasMessage());
+            buttonMessage.setVisible(GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + ""));
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

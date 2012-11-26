@@ -10,7 +10,7 @@ import CommunicationInterfaces.CompetitionDTO;
 import Controller.LoginController;
 import Domaene.DomainFacade;
 import MessageInterfaces.IMessageControllerFactory;
-import MessageInterfaces.IMessageObject;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -36,33 +36,23 @@ public class MessageControllerFactory implements IMessageControllerFactory {
     }
 
     @Override
-    public Collection<IMessageObject> getMessages(String clientID) throws RemoteException {
+    public Collection<Serializable> getMessages(String clientID) throws RemoteException {
         dm.listenForInvitations(clientID, clientID, clientID, mc);
         return mc.getMo();
     }
 
-    @Override
-    public void zusagen(IMessageObject message, ClubMemberDTO member) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void absagen(IMessageObject message, ClubMemberDTO member) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     class MessageCollector implements InvitationCallback {
 
-        List<IMessageObject> mo = new LinkedList<IMessageObject>();
+        List<Serializable> mo = new LinkedList<Serializable>();
 
-        public List<IMessageObject> getMo() {
+        public List<Serializable> getMo() {
             return mo;
         }
 
         @Override
         public void gettingInvitationFromMessageListener(CompetitionDTO message) {
-            IMessageObject m = (IMessageObject) message;
-            mo.add(m);
+
+            mo.add(message);
         }
 
         public boolean hasMessages() {
