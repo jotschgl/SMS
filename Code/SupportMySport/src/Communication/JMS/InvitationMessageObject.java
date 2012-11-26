@@ -1,9 +1,8 @@
 package Communication.JMS;
 
-import MessageInterfaces.IInvitationMessage;
 import java.io.Serializable;
 
-public class InvitationMessageObject implements Serializable, IInvitationMessage{
+public class InvitationMessageObject implements Serializable {
         
         String subject;
         String competitionDate;
@@ -11,22 +10,22 @@ public class InvitationMessageObject implements Serializable, IInvitationMessage
         String messageBody;
         int id;
 
-    @Override
+    
         public String getSubject() {
             return subject;
         }
 
-    @Override
+ 
         public String getCompetitionDate() {
             return competitionDate;
         }
 
-    @Override
+  
         public String getCompetitionName() {
             return competitionName;
         }
 
-    @Override
+    
         public String getMessageBody() {
             return messageBody;
         }
@@ -39,7 +38,7 @@ public class InvitationMessageObject implements Serializable, IInvitationMessage
             this.id                 = id;
         }
 
-    @Override
+  
     public int getCompetitionID() {
        return id;
     }

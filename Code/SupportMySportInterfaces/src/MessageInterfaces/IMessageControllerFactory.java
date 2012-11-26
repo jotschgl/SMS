@@ -14,14 +14,9 @@ import java.util.Collection;
  * @author Johannes
  */
 public interface IMessageControllerFactory extends Remote {
-    
-    public void subscribe(ClubMemberDTO member) throws RemoteException;
 
     public boolean hasMessage() throws RemoteException;
 
-    public Collection<IMessageObject> getMessages() throws RemoteException;
-    
-    public void zusagen(IMessageObject message, ClubMemberDTO member) throws RemoteException;
-    
-    public void absagen(IMessageObject message, ClubMemberDTO member) throws RemoteException;
+    public Collection<?> getMessages() throws RemoteException;
+
 }
