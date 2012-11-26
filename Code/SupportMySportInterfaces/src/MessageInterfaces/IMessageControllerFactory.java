@@ -17,9 +17,9 @@ public interface IMessageControllerFactory extends Remote {
     
     public void subscribe(ClubMemberDTO member) throws RemoteException;
 
-    public boolean hasMessage() throws RemoteException;
+    public boolean hasMessage(String ClientId) throws RemoteException;
 
-    public Collection<IMessageObject> getMessages() throws RemoteException;
+    public Collection<IMessageObject> getMessages(String clientID) throws RemoteException;
     
     public void zusagen(IMessageObject message, ClubMemberDTO member) throws RemoteException;
     

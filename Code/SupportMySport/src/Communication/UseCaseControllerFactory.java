@@ -9,6 +9,7 @@ import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
+import MessageInterfaces.IMessageControllerFactory;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -40,6 +41,11 @@ public class UseCaseControllerFactory extends UnicastRemoteObject implements  IU
     @Override
     public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException {
         return new DepartmentDTOControllerFactory();
+    }
+
+    @Override
+    public IMessageControllerFactory createMessageControllerFactory() throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
