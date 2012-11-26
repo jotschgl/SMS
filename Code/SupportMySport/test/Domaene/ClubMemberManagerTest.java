@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
@@ -42,6 +43,7 @@ public class ClubMemberManagerTest {
     public void tearDown() {
     }
 
+    @Ignore
     @Test
     public void testGetAllTeamMembers() {
         try {
@@ -57,5 +59,18 @@ public class ClubMemberManagerTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Ignore
+    @Test
+    public void testGetAllClubMembers() {
+        System.out.println("testGetAllClubMembers");
+        ClubMemberManager mng = new ClubMemberManager();
+        for (ClubMember mem : mng.getAllClubMembers()) {
+            System.out.println(mem.getLastname());
+            if (mem.getSport() != null) {
+                System.out.println(mem.getSport().getName());
+            }
+        }
     }
 }

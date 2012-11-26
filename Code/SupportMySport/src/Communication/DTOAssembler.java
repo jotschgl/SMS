@@ -4,6 +4,7 @@
  */
 package Communication;
 
+import Communication.JMS.InitialSubscritptionManager;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
@@ -16,7 +17,7 @@ import CommunicationInterfaces.RoleRightDTO;
 import CommunicationInterfaces.RuleDTO;
 import CommunicationInterfaces.SportDTO;
 import CommunicationInterfaces.TeamDTO;
-import Controller.CompetitionController;
+import Domaene.DomainFacade;
 import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;
@@ -39,19 +40,24 @@ import java.util.Set;
  * @author Dennis
  */
 public class DTOAssembler {
+    
+    DomainFacade instance = new DomainFacade();
 
     public DepartmentDTO createDepartmentDTO(Department department) {
         DepartmentDTO departmentDTO = new DepartmentDTO(createClubMemberDTO(department.getClubMember()), department.getName());
         departmentDTO.setId(department.getId());
         return departmentDTO;
     }
-
+    
     public ClubMemberDTO createClubMemberDTO(ClubMember clubMemberEntity) {
         Collection<FunctionRoleDTO> allRoles = new LinkedList<FunctionRoleDTO>();
         for (FunctionRole role : clubMemberEntity.getFunctionRoles()) {
             allRoles.add(createFunctionRoleDTO(role));
         }
         ClubMemberDTO clubMemberDTO = new ClubMemberDTO(clubMemberEntity.getFirstname(), clubMemberEntity.getLastname(), clubMemberEntity.getUsername(), clubMemberEntity.getStreet(), clubMemberEntity.getCity(), clubMemberEntity.getCountry(), clubMemberEntity.getZip(), clubMemberEntity.getEmail(), clubMemberEntity.getPhone(), clubMemberEntity.getGender(), clubMemberEntity.getBirthday(), allRoles);   
+        if(clubMemberEntity.getSport() != null){
+            clubMemberDTO.setSport(createSportDTO(clubMemberEntity.getSport()));
+        }
         clubMemberDTO.setId(clubMemberEntity.getId());
         return clubMemberDTO;
     }
@@ -139,6 +145,9 @@ public class DTOAssembler {
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
         }
+        if(clubMemberDTO.getSport() != null){
+         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
+        }
         return clubMember;
     }
 
@@ -172,6 +181,8 @@ public class DTOAssembler {
             }
             if(compTeamDTO.getId() != -1){
                 team.setId(compTeamDTO.getId());
+            } else{
+                instance.initializeSubscriber("jms/competitionFactory", "jms/competitionTopic", ""+team.getClubMember().getId());
             }
             allCompetitionTeams.add(team);
         }

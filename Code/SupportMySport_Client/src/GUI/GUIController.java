@@ -10,6 +10,7 @@ import CommunicationInterfaces.DepartmentDTO;
 import CommunicationInterfaces.FunctionRoleDTO;
 import CommunicationInterfaces.IClubMemberDTOControllerFactory;
 import CommunicationInterfaces.ICompetitionDTOControllerFactory;
+import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
 import CommunicationInterfaces.RoleRightDTO;
@@ -34,6 +35,7 @@ public class GUIController {
     private static IClubMemberDTOControllerFactory memberController;
     private static IRoleDTOControllerFactory roleController;
     private static ClubMemberDTO loggedInMember;
+    private static IDepartmentDTOControllerFactory departmentController;
 
     public static void initRMI(String ip) {
         if (factory == null) {
@@ -44,6 +46,7 @@ public class GUIController {
                 competController = factory.createCompetitionController();
                 memberController = factory.createClubMemberController();
                 roleController = factory.createRoleController();
+                departmentController = factory.createDepartmentController();
 
             } catch (NotBoundException ex) {
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,5 +106,9 @@ public class GUIController {
             }
         }
         return null;
+    }
+
+    public static IDepartmentDTOControllerFactory getDepartmentController() {
+        return departmentController;
     }
 }

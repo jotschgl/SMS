@@ -18,4 +18,6 @@ public interface IUseCaseControllerFactory extends Remote {
     public ICompetitionDTOControllerFactory createCompetitionController() throws RemoteException;
 
     public IRoleDTOControllerFactory createRoleController() throws RemoteException;
+
+    public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException;
 }

@@ -36,39 +36,15 @@ public class WelcomeFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        UserTextField = new javax.swing.JTextField();
-        RolleTextField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         MitgliedverwaltungButton = new javax.swing.JButton();
         WettkampfverwaltungButton = new javax.swing.JButton();
         RollenverwaltungKnopf = new javax.swing.JButton();
+        buttonTeammitglierderverwaltung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Welcome");
-
-        UserTextField.setToolTipText("");
-        UserTextField.setPreferredSize(new java.awt.Dimension(84, 22));
-        UserTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserTextFieldActionPerformed(evt);
-            }
-        });
-
-        RolleTextField.setPreferredSize(new java.awt.Dimension(84, 22));
-        RolleTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RolleTextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("User:");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Rolle:");
 
         MitgliedverwaltungButton.setBackground(new java.awt.Color(153, 255, 153));
         MitgliedverwaltungButton.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
@@ -103,6 +79,15 @@ public class WelcomeFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonTeammitglierderverwaltung.setBackground(new java.awt.Color(255, 255, 153));
+        buttonTeammitglierderverwaltung.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        buttonTeammitglierderverwaltung.setText("Teammitglierderverwaltung");
+        buttonTeammitglierderverwaltung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTeammitglierderverwaltungActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -112,61 +97,41 @@ public class WelcomeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(201, 201, 201)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(RolleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(UserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(333, 333, 333))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(buttonTeammitglierderverwaltung))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(MitgliedverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(WettkampfverwaltungButton))))
-                .addContainerGap(242, Short.MAX_VALUE))
+                            .addComponent(WettkampfverwaltungButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UserTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RolleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(96, 96, 96)
+                .addComponent(jLabel1)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(WettkampfverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MitgliedverwaltungButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RollenverwaltungKnopf, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonTeammitglierderverwaltung, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RolleTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RolleTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RolleTextFieldActionPerformed
-
     private void MitgliedverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MitgliedverwaltungButtonActionPerformed
         MitgliedverwaltungFrame mv = new MitgliedverwaltungFrame();
         mv.setVisible(true);
     }//GEN-LAST:event_MitgliedverwaltungButtonActionPerformed
-
-    private void UserTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserTextFieldActionPerformed
 
     private void WettkampfverwaltungButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WettkampfverwaltungButtonActionPerformed
         WettkampfFrame wF = new WettkampfFrame();
@@ -184,6 +149,12 @@ public class WelcomeFrame extends javax.swing.JFrame {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_RollenverwaltungKnopfActionPerformed
+
+    private void buttonTeammitglierderverwaltungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTeammitglierderverwaltungActionPerformed
+        MitgliederZuTeamFrame mf = new MitgliederZuTeamFrame();
+        mf.setVisible(true);
+
+    }//GEN-LAST:event_buttonTeammitglierderverwaltungActionPerformed
 
     /**
      * @param args the command line arguments
@@ -222,13 +193,10 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton MitgliedverwaltungButton;
-    private javax.swing.JTextField RolleTextField;
     private javax.swing.JButton RollenverwaltungKnopf;
-    private javax.swing.JTextField UserTextField;
     private javax.swing.JButton WettkampfverwaltungButton;
+    private javax.swing.JButton buttonTeammitglierderverwaltung;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 
     private void setRoleUseCases() {
@@ -236,6 +204,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         boolean memberverwaltung = false;
         boolean competitions = false;
         boolean rollen = false;
+        boolean setmembertoteam = false;
         for (RoleRightDTO right : rights) {
             System.out.println(right.getName());
             if (right.getName().equals("createMember")) {
@@ -244,6 +213,9 @@ public class WelcomeFrame extends javax.swing.JFrame {
             if (right.getName().equals("createCompetition") || right.getName().equals("changeCompetition")) {
                 competitions = true;
             }
+            if (right.getName().equals("createCompetition")) {
+                setmembertoteam = true;
+            }
             if (right.getName().equals("admin")) {
                 rollen = true;
             }
@@ -251,5 +223,6 @@ public class WelcomeFrame extends javax.swing.JFrame {
         MitgliedverwaltungButton.setVisible(memberverwaltung);
         WettkampfverwaltungButton.setVisible(competitions);
         RollenverwaltungKnopf.setVisible(rollen);
+        buttonTeammitglierderverwaltung.setVisible(setmembertoteam);
     }
 }

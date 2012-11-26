@@ -6,6 +6,7 @@ package Communication;
 
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.FunctionRoleDTO;
+import CommunicationInterfaces.SportDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class ClubMemberDTOControllerFactoryTest {
     
     private ClubMemberDTOControllerFactory instance;
     private RoleDTOControllerFactory roleInstance;
+    private CompetitionDTOControllerFactory compInstance;
     
     public ClubMemberDTOControllerFactoryTest() {
         try {
@@ -55,6 +57,7 @@ public class ClubMemberDTOControllerFactoryTest {
         instance.createOrUpdateClubMember(clubMemberDTO);
     }
 
+    @Ignore
     @Test
     public void testAddFunctionRoleToClubMember() throws Exception {
         System.out.println("* ClubMemberDTOControllerFactoryTest: testAddFunctionRoleToClubMember");
@@ -116,6 +119,19 @@ public class ClubMemberDTOControllerFactoryTest {
         for(Object res : result){
             curClubMember = (ClubMemberDTO)res;
             System.out.println(curClubMember.getFirstname());
+        }
+    }
+    
+    @Test
+    public void testAddSportToClubMember() throws RemoteException{
+        System.out.println("* ClubMemberDTOControllerFactoryTest: testAddSportToClubMember");
+        Collection<ClubMemberDTO> allClubMems = instance.getAllClubMembers();
+        LinkedList<SportDTO> allSports = (LinkedList<SportDTO>) compInstance.getAllSports();
+        for(ClubMemberDTO clubMem : allClubMems){
+            if(clubMem.getLastname().equals("Bushido")){
+                clubMem.setSport(allSports.getFirst());
+                instance.createOrUpdateClubMember(clubMem);
+            }
         }
     }
 }
