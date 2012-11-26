@@ -217,17 +217,33 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
     }
 
     private void speichern() {
+        Collection<CompetitionTeamDTO> comTeams = curComp.getAllTeamsOfCompetition();
         Collection<ClubMemberDTO> newMembers = ((MemberTableModel) tableCompTeam.getModel()).members;
-        Collection<CompetitionTeamDTO> list1 = new LinkedList<CompetitionTeamDTO>(curComp.getAllTeamsOfCompetition());
-        for (CompetitionTeamDTO compteam : list1) {
-            if (compteam.getTeam() == team && compteam.getCompetition() == curComp) {
-                curComp.getAllTeamsOfCompetition().remove(compteam);
+        RealCompetitionTeamDTO rctDTO = new RealCompetitionTeamDTO();
+        rctDTO = rctDTO.getRealCompTeamTDO(team, curComp);
+        Collection<ClubMemberDTO> removeMember = new LinkedList<ClubMemberDTO>();
+        Collection<ClubMemberDTO> addMember = new LinkedList<ClubMemberDTO>();
+
+        for (ClubMemberDTO member : rctDTO.getMembers()) {
+            if (!newMembers.contains(member)) {
+                removeMember.add(member);
             }
         }
         for (ClubMemberDTO member : newMembers) {
+            if (!rctDTO.getMembers().contains(member)) {
+                addMember.add(member);
+            }
+        }
+
+        for (CompetitionTeamDTO comTeam : comTeams) {
+            if (removeMember.contains(comTeam.getClubMember())) {
+                curComp.getAllTeamsOfCompetition().remove(comTeam);
+            }
+        }
+        for (ClubMemberDTO member : addMember) {
             curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, member, curComp));
         }
-    } 
+    }
 
     private class MemberTableModel extends AbstractTableModel {
 
