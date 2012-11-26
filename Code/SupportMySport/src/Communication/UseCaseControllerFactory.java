@@ -39,7 +39,7 @@ public class UseCaseControllerFactory extends UnicastRemoteObject implements  IU
 
     @Override
     public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new DepartmentDTOControllerFactory();
     }
     
 }

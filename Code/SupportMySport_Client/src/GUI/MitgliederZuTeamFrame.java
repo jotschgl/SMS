@@ -5,11 +5,15 @@
 package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
+import CommunicationInterfaces.DepartmentDTO;
+import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -21,19 +25,21 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
     private TeamDTO selectedTeam;
     private static Collection<TeamDTO> allTeamsOfDepartment;
 
-    static {
-        try {
-            allTeamsOfDepartment = GUIController.getDepartmentController().getAllTeamsOfDepartment(GUIController.getLoggedInMember().getDepartment().getId());
-        } catch (RemoteException ex) {
-            Logger.getLogger(MitgliederZuTeamFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     /**
      * Creates new form MitgliederZuTeamFrame
      */
     public MitgliederZuTeamFrame() {
         initComponents();
+        try {
+            DepartmentDTO dep = GUIController.getDepartmentOfLoggedInDepartmentChief();
+            if (GUIController.getDepartmentController().getAllTeamsOfDepartment(dep.getId()) != null) {
+                allTeamsOfDepartment = GUIController.getDepartmentController().getAllTeamsOfDepartment(dep.getId());
+            } else {
+                allTeamsOfDepartment = new LinkedList<TeamDTO>();
+            }
+        } catch (RemoteException ex) {
+            Logger.getLogger(MitgliederZuTeamFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         comboTeam.removeAllItems();
         for (TeamDTO teamDTO : allTeamsOfDepartment) {
             comboTeam.addItem(teamDTO);
@@ -253,15 +259,17 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
     }
 
     private void fillTables() throws RemoteException {
-        Collection<ClubMemberDTO> teamMember = selectedTeam.getAllClubMembers();
-        tableTeam.setModel(new MemberTableModel(teamMember));
-        Collection<ClubMemberDTO> allMembers = GUIController.getClubMemberController().getAllClubMembers();
-        for (ClubMemberDTO dto : allMembers) {
-            if (teamMember.contains(dto)) {
-                allMembers.remove(dto);
+        if (selectedTeam != null) {
+            Collection<ClubMemberDTO> teamMember = selectedTeam.getAllClubMembers();
+            tableTeam.setModel(new MemberTableModel(teamMember));
+            Collection<ClubMemberDTO> allMembers = GUIController.getClubMemberController().getAllClubMembers();
+            for (ClubMemberDTO dto : allMembers) {
+                if (teamMember.contains(dto)) {
+                    allMembers.remove(dto);
+                }
             }
+            tableCompTeam.setModel(new MemberTableModel(allMembers));
         }
-        tableCompTeam.setModel(new MemberTableModel(allMembers));
     }
 
     private class MemberTableModel extends AbstractTableModel {
