@@ -4,6 +4,7 @@
  */
 package Communication.JMS;
 
+import CommunicationInterfaces.CompetitionDTO;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -49,7 +50,7 @@ public class InvitationPublisher {
      * @param messageBody           --> the body of the Message
      * @param competitionDate       --> the Date of the Competition
      */
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, String subject, String competitionDate, String competitionName, String messageBody) {
+    public void publishMessages(String connectionFactroyName, String topicConnectionName, CompetitionDTO competitionDTO) {
         
             try {
                 this.factoryName = connectionFactroyName;
@@ -109,11 +110,10 @@ public class InvitationPublisher {
              * now start with the message related things
             **/
             ObjectMessage message = null;
-            InvitationMessageObject invObj = new InvitationMessageObject(subject, competitionDate, competitionName, messageBody);
             
             try {
                 //message = topicSession.createTextMessage();
-                message = topicSession.createObjectMessage(invObj);
+                message = topicSession.createObjectMessage(competitionDTO);
                 System.out.println("PUBLISHER: Publishing messag");
                 topicPublisher.publish(message);
                 /*
