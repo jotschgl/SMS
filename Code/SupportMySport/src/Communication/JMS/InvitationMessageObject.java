@@ -9,6 +9,7 @@ public class InvitationMessageObject implements Serializable, IInvitationMessage
         String competitionDate;
         String competitionName;
         String messageBody;
+        int id;
 
     @Override
         public String getSubject() {
@@ -30,10 +31,16 @@ public class InvitationMessageObject implements Serializable, IInvitationMessage
             return messageBody;
         }
         
-        public InvitationMessageObject (String subject, String competitionDate, String competitionName, String messageBody){
+        public InvitationMessageObject (String subject, String competitionDate, String competitionName, String messageBody, int id){
             this.subject            = subject;
             this.competitionDate    = competitionDate;
             this.competitionName    = competitionName;
             this.messageBody        = messageBody;
+            this.id                 = id;
         }
+
+    @Override
+    public int getCompetitionID() {
+       return id;
+    }
     }

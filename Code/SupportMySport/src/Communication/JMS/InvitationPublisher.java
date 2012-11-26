@@ -109,7 +109,7 @@ public class InvitationPublisher {
              * now start with the message related things
             **/
             ObjectMessage message = null;
-            InvitationMessageObject invObj = new InvitationMessageObject(subject, competitionDate, competitionName, messageBody);
+            InvitationMessageObject invObj = new InvitationMessageObject(subject, competitionDate, competitionName, messageBody,0);
             
             try {
                 //message = topicSession.createTextMessage();

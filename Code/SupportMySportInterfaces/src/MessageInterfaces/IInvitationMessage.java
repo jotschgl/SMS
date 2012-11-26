@@ -18,4 +18,5 @@ public interface IInvitationMessage {
 
     public String getSubject();
     
+    public int getCompetitionID();
 }

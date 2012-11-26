@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import MessageInterfaces.IInvitationMessage;
+
 /**
  *
  * @author Johannes
@@ -13,8 +15,12 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     /**
      * Creates new form MessagePanel
      */
-    public SportlerMessagePanel() {
+    public SportlerMessagePanel(IInvitationMessage message) {
         initComponents();
+        textFieldDatum.setText(message.getCompetitionDate());
+        textFieldNachricht.setText(message.getMessageBody());
+        textFieldSubject.setText(message.getSubject());
+        textFieldWettkampf.setText(message.getCompetitionName());
     }
 
     /**
@@ -45,8 +51,18 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
         jLabel3.setText("Nachricht:");
 
         buttonZusagen.setText("Zusagen");
+        buttonZusagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonZusagenActionPerformed(evt);
+            }
+        });
 
         buttonAbsagen.setText("Absagen");
+        buttonAbsagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAbsagenActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Subject:");
 
@@ -116,6 +132,14 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonZusagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZusagenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonZusagenActionPerformed
+
+    private void buttonAbsagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbsagenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAbsagenActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAbsagen;
