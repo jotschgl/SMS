@@ -112,7 +112,9 @@ public class InvitationPublisher {
             ObjectMessage message = null;
             
             try {
+                System.out.println("DTO IS NULL");
                 //message = topicSession.createTextMessage();
+               
                 message = topicSession.createObjectMessage(competitionDTO);
                 System.out.println("PUBLISHER: Publishing messag");
                 topicPublisher.publish(message);
@@ -124,6 +126,8 @@ public class InvitationPublisher {
             } catch (JMSException e) {
                 System.err.println("Exception occurred in publishMessages: " + e.toString());
             }
+            
+            finish();
         } 
 
     /**

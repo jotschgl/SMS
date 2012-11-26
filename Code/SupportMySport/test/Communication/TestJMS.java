@@ -36,7 +36,7 @@ public class TestJMS {
     @Ignore
     public void testunsubscribeSubscription() throws Exception {
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
-        unsubMngr.unsubscribeSubscription("jms/Topic1", "jms/Weltmeisterschaft", "mustersubscriber");
+        unsubMngr.unsubscribeSubscription("jms/Topic1", "jms/Weltmeisterschaft", "44");
         //Tested method and it worked
     }
 
@@ -49,7 +49,7 @@ public class TestJMS {
 
         //Subscriber an subscriber
         InitialSubscritptionManager initMngr = new InitialSubscritptionManager();
-        initMngr.initialSubscription("jms/Topic1", "jms/Weltmeisterschaft", "mustersubscriber");
+        initMngr.initialSubscription("jms/Topic1", "jms/Weltmeisterschaft", "44");
 
         try {
             Thread.sleep(1000);
@@ -69,7 +69,7 @@ public class TestJMS {
         invPub.finish();
 
         InvitationsSubscriber invSubs = new InvitationsSubscriber();
-        invSubs.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", "mustersubscriber", iITCI);
+        invSubs.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", "44", iITCI);
 
         try {
             Thread.sleep(1000);
@@ -79,7 +79,7 @@ public class TestJMS {
         invSubs.finish();
 
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
-        unsubMngr.unsubscribeSubscription("jms/Topic1", "jms/Weltmeisterschaft", "mustersubscriber");
+        unsubMngr.unsubscribeSubscription("jms/Topic1", "jms/Weltmeisterschaft", "44");
 
         try {
             Thread.sleep(1000);

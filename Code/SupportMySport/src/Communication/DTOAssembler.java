@@ -181,9 +181,11 @@ public class DTOAssembler {
             }
             if(compTeamDTO.getId() != -1){
                 team.setId(compTeamDTO.getId());
-            } else{
                 
-                instance.initializeSubscriber("jms/Topic1", "jms/Weltmeisterschaft", ""+team.getClubMember().getId());
+            }else{
+                //new comp team has been added
+                instance.initializeSubscriber("jms/Topic1", "jms/Weltmeisterschaft", ""+compTeamDTO.getClubMember().getId());
+                
             }
             allCompetitionTeams.add(team);
         }
