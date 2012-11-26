@@ -45,7 +45,7 @@ public class UseCaseControllerFactory extends UnicastRemoteObject implements  IU
 
     @Override
     public IMessageControllerFactory createMessageControllerFactory() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+       return new MessageControllerFactory();
     }
     
 }

@@ -12,6 +12,7 @@ import Domaene.DomainFacade;
 import MessageInterfaces.IMessageControllerFactory;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,10 +21,14 @@ import java.util.List;
  *
  * @author rafa
  */
-public class MessageControllerFactory implements IMessageControllerFactory {
+public class MessageControllerFactory extends UnicastRemoteObject implements IMessageControllerFactory {
 
     DomainFacade dm = new DomainFacade();
     MessageCollector mc = new MessageCollector();
+    
+    public MessageControllerFactory() throws RemoteException{
+        
+    }
 
     @Override
     public void subscribe(ClubMemberDTO member) throws RemoteException {
@@ -37,7 +42,7 @@ public class MessageControllerFactory implements IMessageControllerFactory {
 
     @Override
     public Collection<Serializable> getMessages(String clientID) throws RemoteException {
-        dm.listenForInvitations(clientID, clientID, clientID, mc);
+        dm.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", clientID, mc);
         return mc.getMo();
     }
 

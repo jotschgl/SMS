@@ -48,10 +48,10 @@ public class DomainFacade {
     
     // <editor-fold defaultstate="collapsed" desc="JMS Specific Calls">
     public void initializeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId) {
-        initSubManager.initialSubscription(connectionFactroyName, topicConnectionName, subScriberId);
+       new InitialSubscritptionManager().initialSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
     public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO){
-       invitManager.publishMessages(connectionFactroyName, topicConnectionName, compDTO);
+       new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO);
     }
     public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, InvitationCallback invCallback){
         invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, invCallback);
