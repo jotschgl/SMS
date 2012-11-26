@@ -6,6 +6,7 @@ package Communication;
 
 import Communication.JMS.InitialSubscritptionManager;
 import Communication.JMS.Interfaces.InvitationCallback;
+import Communication.JMS.InvitationMessageObject;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
@@ -92,11 +93,16 @@ public class TestJMS {
     
     class IimplementTheCallbackInterface implements InvitationCallback{
 
-        @Override
-        public void gettingInvitationFromMessageListener(String message) {
-            System.out.println("This ist the call back and I recieved a message: " + message);
-        }
         
+        @Override
+        public void gettingInvitationFromMessageListener(InvitationMessageObject message) {
+            System.out.println("Date: " +       message.getCompetitionDate());
+            System.out.println("Subject " +     message.getSubject());
+            System.out.println("MessageBody " + message.getMessageBody());
+            System.out.println("CompName " +    message.getCompetitionName()); 
     }
     
+    }
 }
+
+

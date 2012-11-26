@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -110,17 +111,11 @@ public class InvitationsSubscriber {
          *
          * @param message the incoming message
          */
-        public void onMessage(Message message) {
-            if (message instanceof TextMessage) {
-                TextMessage msg = (TextMessage) message;
-
-                try {
-                    System.out.println("SUBSCRIBER: " + "Reading message: " + msg.getText());
-                    //Passing the Message to the callbackInstance
-                    invCallback.gettingInvitationFromMessageListener(msg.getText());
-                } catch (JMSException e) {
-                    System.err.println("Exception in onMessage(): " + e.toString());
-                }
+        public void onMessage(Message message) {            
+            if(message instanceof ObjectMessage){
+                InvitationMessageObject invMsgObj = (InvitationMessageObject) message;
+                System.out.println("SUBSCRIBER: " + "Reading message: " + invMsgObj.getCompetitionDate() + " " + invMsgObj.getCompetitionName() + " " + invMsgObj.getMessageBody());
+                invCallback.gettingInvitationFromMessageListener(invMsgObj);
             }
         }
     }

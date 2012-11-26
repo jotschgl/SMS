@@ -1,15 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Communication.JMS.Interfaces;
 
-/**
- *
- * @author rafa
- */
+import Communication.JMS.InvitationMessageObject;
+        
 public interface InvitationCallback {
     
-    public void gettingInvitationFromMessageListener(String message);
+    /**
+     *
+     * @param message
+     */
+    public void gettingInvitationFromMessageListener(InvitationMessageObject message);
     
 }
