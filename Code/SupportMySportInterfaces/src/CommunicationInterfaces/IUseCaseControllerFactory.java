@@ -4,6 +4,7 @@
  */
 package CommunicationInterfaces;
 
+import MessageInterfaces.IMessageControllerFactory;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -20,4 +21,6 @@ public interface IUseCaseControllerFactory extends Remote {
     public IRoleDTOControllerFactory createRoleController() throws RemoteException;
 
     public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException;
+    
+    public IMessageControllerFactory createMessageControllerFactory() throws RemoteException;
 }

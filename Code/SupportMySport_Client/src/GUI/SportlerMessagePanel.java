@@ -5,6 +5,9 @@
 package GUI;
 
 import MessageInterfaces.IInvitationMessage;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,8 +18,13 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     /**
      * Creates new form MessagePanel
      */
-    public SportlerMessagePanel(IInvitationMessage message) {
+    private MessageGUI prev;
+    private IInvitationMessage message;
+
+    public SportlerMessagePanel(MessageGUI prev, IInvitationMessage message) {
         initComponents();
+        this.prev = prev;
+        this.message = message;
         textFieldDatum.setText(message.getCompetitionDate());
         textFieldNachricht.setText(message.getMessageBody());
         textFieldSubject.setText(message.getSubject());
@@ -134,13 +142,22 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonZusagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZusagenActionPerformed
-        // TODO add your handling code here:
+        try {
+            GUIController.getMessageController().zusagen(message, GUIController.getLoggedInMember());
+            prev.removeMessage(message);
+        } catch (RemoteException ex) {
+            Logger.getLogger(SportlerMessagePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonZusagenActionPerformed
 
     private void buttonAbsagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbsagenActionPerformed
-        // TODO add your handling code here:
+        try {
+            GUIController.getMessageController().absagen(message, GUIController.getLoggedInMember());
+            prev.removeMessage(message);
+        } catch (RemoteException ex) {
+            Logger.getLogger(SportlerMessagePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonAbsagenActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAbsagen;
     private javax.swing.JButton buttonZusagen;

@@ -14,6 +14,7 @@ import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.IRoleDTOControllerFactory;
 import CommunicationInterfaces.IUseCaseControllerFactory;
 import CommunicationInterfaces.RoleRightDTO;
+import MessageInterfaces.IMessageControllerFactory;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -36,6 +37,7 @@ public class GUIController {
     private static IRoleDTOControllerFactory roleController;
     private static ClubMemberDTO loggedInMember;
     private static IDepartmentDTOControllerFactory departmentController;
+    private static IMessageControllerFactory messageController;
 
     public static void initRMI(String ip) {
         if (factory == null) {
@@ -47,7 +49,7 @@ public class GUIController {
                 memberController = factory.createClubMemberController();
                 roleController = factory.createRoleController();
                 departmentController = factory.createDepartmentController();
-
+                messageController = factory.createMessageControllerFactory();
             } catch (NotBoundException ex) {
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (AccessException ex) {
@@ -110,5 +112,9 @@ public class GUIController {
 
     public static IDepartmentDTOControllerFactory getDepartmentController() {
         return departmentController;
+    }
+
+    public static IMessageControllerFactory getMessageController() {
+        return messageController;
     }
 }
