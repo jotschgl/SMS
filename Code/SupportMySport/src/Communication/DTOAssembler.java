@@ -55,9 +55,9 @@ public class DTOAssembler {
             allRoles.add(createFunctionRoleDTO(role));
         }
         ClubMemberDTO clubMemberDTO = new ClubMemberDTO(clubMemberEntity.getFirstname(), clubMemberEntity.getLastname(), clubMemberEntity.getUsername(), clubMemberEntity.getStreet(), clubMemberEntity.getCity(), clubMemberEntity.getCountry(), clubMemberEntity.getZip(), clubMemberEntity.getEmail(), clubMemberEntity.getPhone(), clubMemberEntity.getGender(), clubMemberEntity.getBirthday(), allRoles);   
-        if(clubMemberEntity.getSport() != null){
-            clubMemberDTO.setSport(createSportDTO(clubMemberEntity.getSport()));
-        }
+//        if(clubMemberEntity.getSport() != null){
+//            clubMemberDTO.setSport(createSportDTO(clubMemberEntity.getSport()));
+//        }
         clubMemberDTO.setId(clubMemberEntity.getId());
         return clubMemberDTO;
     }
@@ -145,9 +145,9 @@ public class DTOAssembler {
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
         }
-        if(clubMemberDTO.getSport() != null){
-         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
-        }
+//        if(clubMemberDTO.getSport() != null){
+//         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
+//        }
         return clubMember;
     }
 
