@@ -37,7 +37,7 @@ public class MessageControllerFactory implements IMessageControllerFactory {
 
     @Override
     public Collection<Serializable> getMessages(String clientID) throws RemoteException {
-        dm.listenForInvitations(clientID, clientID, clientID, mc);
+        dm.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", clientID, mc);
         return mc.getMo();
     }
 
