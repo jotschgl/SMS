@@ -10,7 +10,6 @@ import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
 import CommunicationInterfaces.CompetitionDTO;
-import Domaene.CompetitionManager;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -4,12 +4,13 @@
  */
 package GUI;
 
-import MessageInterfaces.IInvitationMessage;
-import MessageInterfaces.IMessageObject;
+import CommunicationInterfaces.CompetitionDTO;
+import java.awt.Panel;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -29,7 +30,7 @@ public class MessageGUI extends javax.swing.JFrame {
             initComponents();
             list = ((DefaultListModel) jList1.getModel());
             list.removeAllElements();
-            for (Object o : GUIController.getMessageController().getMessages()) {
+            for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + "")) {
                 list.addElement(o);
             }
         } catch (RemoteException ex) {
@@ -39,11 +40,11 @@ public class MessageGUI extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Object o = jList1.getSelectedValue();
-                if (o instanceof IMessageObject) {
-                    if (o instanceof IInvitationMessage) {
-                        panelMessage = new SportlerMessagePanel(MessageGUI.this, (IInvitationMessage) o);
-                    }
+
+                if (o instanceof CompetitionDTO) {
+                    panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
                 }
+
             }
         });
     }
@@ -129,7 +130,15 @@ public class MessageGUI extends javax.swing.JFrame {
     private javax.swing.JPanel panelMessage;
     // End of variables declaration//GEN-END:variables
 
-    void removeMessage(IInvitationMessage message) {
+    void removeMessage(Object message) {
         list.removeElement(message);
+    }
+
+    void selectNR1() {
+        if (!list.isEmpty()) {
+            jList1.setSelectedIndex(0);
+        } else {
+            panelMessage = new JPanel();
+        }
     }
 }
