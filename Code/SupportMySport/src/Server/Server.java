@@ -24,8 +24,8 @@ public class Server {
     public static void main(String[] args) {
         try {
             //Starting the ORB
-//            CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
-//            new Thread(corbaServer).start();
+            CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
+            new Thread(corbaServer).start();
 
             //Starting RMI
             Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);

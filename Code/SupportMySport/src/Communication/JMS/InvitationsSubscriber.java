@@ -61,7 +61,8 @@ public class InvitationsSubscriber {
         props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
 
         try {
-            context = new InitialContext(props);
+            context = new InitialContext();
+            //context = new InitialContext(props);
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactoryName);
             connection = topicConnectionFactory.createTopicConnection();
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
