@@ -180,6 +180,7 @@ public class DTOAssembler {
             }
             if (compTeamDTO.getId() != -1) {
                 team.setId(compTeamDTO.getId());
+
             } else {
                 if (compTeamDTO.getClubMember() != null) {
                     instance.initializeSubscriber("jms/Topic1", "jms/Weltmeisterschaft", "" + team.getClubMember().getId());

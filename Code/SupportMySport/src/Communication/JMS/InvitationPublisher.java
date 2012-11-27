@@ -79,7 +79,7 @@ public class InvitationPublisher {
                 //GET THE CONTEXT
                 //SHOULD ALSO WORK
                 context = new InitialContext();
-             //   context = new InitialContext(props);
+                //context = new InitialContext(props);
                 //GET THE FACTORY
                 topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactroyName);
                 //GET A TOPICCONNECTION
@@ -112,9 +112,11 @@ public class InvitationPublisher {
             ObjectMessage message = null;
             
             try {
+                System.out.println("DTO IS NULL");
                 //message = topicSession.createTextMessage();
+               
                 message = topicSession.createObjectMessage(competitionDTO);
-                System.out.println("PUBLISHER: Publishing messag");
+                System.out.println("PUBLISHER: Publishing message");
                 topicPublisher.publish(message);
                 /*
                  * Send a non-text control message indicating end
@@ -124,6 +126,8 @@ public class InvitationPublisher {
             } catch (JMSException e) {
                 System.err.println("Exception occurred in publishMessages: " + e.toString());
             }
+            
+            finish();
         } 
 
     /**
