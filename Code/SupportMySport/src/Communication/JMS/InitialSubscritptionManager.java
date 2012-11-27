@@ -75,8 +75,8 @@ public class InitialSubscritptionManager {
         try {
             //GET THE CONTEXT
             //SHOULD ALSO WORK
-            //context = new InitialContext();
-            context = new InitialContext(props);
+            context = new InitialContext();
+            //context = new InitialContext(props);
             //GET THE FACTORY
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactroyName);
             //GET A TOPICCONNECTION
