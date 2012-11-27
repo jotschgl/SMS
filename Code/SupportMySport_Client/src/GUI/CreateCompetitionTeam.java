@@ -196,7 +196,13 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
         if (tableCompTeam.getSelectedRowCount() != 0) {
             MemberTableModel modelLeft = (MemberTableModel) tableTeam.getModel();
             MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
-            modelLeft.addMember(modelRight.removeMember(tableCompTeam.convertRowIndexToModel(tableCompTeam.getSelectedRow())));
+            ClubMemberDTO curClubMem = modelRight.removeMember(tableCompTeam.convertRowIndexToModel(tableCompTeam.getSelectedRow()));
+            modelLeft.addMember(curClubMem);
+            for(CompetitionTeamDTO compTeamDTO : curComp.getAllTeamsOfCompetition()){
+                if(compTeamDTO.getClubMember().getId() == curClubMem.getId() && compTeamDTO.getCompetition().getId() == curClubMem.getId()){
+                    curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
+                }
+            }
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
@@ -210,39 +216,47 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             System.out.println(i);
             int rowindex = tableTeam.convertRowIndexToModel(i);
             System.out.println(rowindex);
-            modelRight.addMember(modelLeft.removeMember(rowindex));
+            ClubMemberDTO curClubMember = modelLeft.removeMember(rowindex);
+            modelRight.addMember(curClubMember);
+            curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, curClubMember, curComp));
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
     }
 
     private void speichern() {
-        Collection<CompetitionTeamDTO> comTeams = curComp.getAllTeamsOfCompetition();
-        Collection<ClubMemberDTO> newMembers = ((MemberTableModel) tableCompTeam.getModel()).members;
-        RealCompetitionTeamDTO rctDTO = new RealCompetitionTeamDTO();
-        rctDTO = rctDTO.getRealCompTeamTDO(team, curComp);
-        Collection<ClubMemberDTO> removeMember = new LinkedList<ClubMemberDTO>();
-        Collection<ClubMemberDTO> addMember = new LinkedList<ClubMemberDTO>();
-
-        for (ClubMemberDTO member : rctDTO.getMembers()) {
-            if (!newMembers.contains(member)) {
-                removeMember.add(member);
-            }
-        }
-        for (ClubMemberDTO member : newMembers) {
-            if (!rctDTO.getMembers().contains(member)) {
-                addMember.add(member);
-            }
-        }
-
-        for (CompetitionTeamDTO comTeam : comTeams) {
-            if (removeMember.contains(comTeam.getClubMember())) {
-                curComp.getAllTeamsOfCompetition().remove(comTeam);
-            }
-        }
-        for (ClubMemberDTO member : addMember) {
-            curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, member, curComp));
-        }
+        
+//        Collection<CompetitionTeamDTO> comTeams = curComp.getAllTeamsOfCompetition();
+//        Collection<ClubMemberDTO> newMembers = ((MemberTableModel) tableCompTeam.getModel()).members;
+//        RealCompetitionTeamDTO rctDTO = new RealCompetitionTeamDTO();
+//        rctDTO = rctDTO.getRealCompTeamTDO(team, curComp);
+//        Collection<ClubMemberDTO> removeMember = new LinkedList<ClubMemberDTO>();
+//        Collection<ClubMemberDTO> addMember = new LinkedList<ClubMemberDTO>();
+//
+//        for(ClubMemberDTO cmDTO : newMembers){
+//            for(CompetitionTeamDTO compTeamDTO : comTeams){
+//                
+//            }
+//        }
+//        for (ClubMemberDTO member : rctDTO.getMembers()) {
+//            if (!newMembers.contains(member)) {
+//                removeMember.add(member);
+//            }
+//        }
+//        for (ClubMemberDTO member : newMembers) {
+//            if (!rctDTO.getMembers().contains(member)) {
+//                addMember.add(member);
+//            }
+//        }
+//
+//        for (CompetitionTeamDTO comTeam : comTeams) {
+//            if (removeMember.contains(comTeam.getClubMember())) {
+//                curComp.getAllTeamsOfCompetition().remove(comTeam);
+//            }
+//        }
+//        for (ClubMemberDTO member : addMember) {
+//            curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, member, curComp));
+//        }
     }
 
     private class MemberTableModel extends AbstractTableModel {
