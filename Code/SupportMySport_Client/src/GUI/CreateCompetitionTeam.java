@@ -11,11 +11,8 @@ import CommunicationInterfaces.TeamDTO;
 import GUI.helper.RealCompetitionTeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -198,9 +195,11 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
             ClubMemberDTO curClubMem = modelRight.removeMember(tableCompTeam.convertRowIndexToModel(tableCompTeam.getSelectedRow()));
             modelLeft.addMember(curClubMem);
-            for(CompetitionTeamDTO compTeamDTO : curComp.getAllTeamsOfCompetition()){
-                if(compTeamDTO.getClubMember().getId() == curClubMem.getId() && compTeamDTO.getCompetition().getId() == curClubMem.getId()){
-                    curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
+            for (CompetitionTeamDTO compTeamDTO : curComp.getAllTeamsOfCompetition()) {
+                if (compTeamDTO.getClubMember() != null) {
+                    if (compTeamDTO.getClubMember().getId() == curClubMem.getId() && compTeamDTO.getCompetition().getId() == curComp.getId()) {
+                        curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
+                    }
                 }
             }
             modelLeft.fireTableDataChanged();
@@ -219,13 +218,13 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             ClubMemberDTO curClubMember = modelLeft.removeMember(rowindex);
             modelRight.addMember(curClubMember);
             curComp.getAllTeamsOfCompetition().add(new CompetitionTeamDTO(team, curClubMember, curComp));
+
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
     }
 
     private void speichern() {
-        
 //        Collection<CompetitionTeamDTO> comTeams = curComp.getAllTeamsOfCompetition();
 //        Collection<ClubMemberDTO> newMembers = ((MemberTableModel) tableCompTeam.getModel()).members;
 //        RealCompetitionTeamDTO rctDTO = new RealCompetitionTeamDTO();
