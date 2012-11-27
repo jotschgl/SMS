@@ -71,7 +71,7 @@ public class InvitationsSubscriber {
             invListener = new InvitationListener(invCallback);
             sub.setMessageListener(invListener);
             connection.start();
-
+            System.out.println("Connection with topic started at InvitationSubscriber");
         } catch (JMSException ex) {
             System.err.println("Exception in listenToMessages(): " + ex.toString());
         } catch (NamingException ex) {
@@ -120,6 +120,7 @@ public class InvitationsSubscriber {
                 try {
                     CompetitionDTO invMsgObj = (CompetitionDTO) m.getObject();
                     invCallback.gettingInvitationFromMessageListener(invMsgObj);
+                    System.out.println("In onMessage of InvitationSubsciber and receiving a message.");
                 } catch (JMSException ex) {
                     Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
                 }
