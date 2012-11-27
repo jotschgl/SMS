@@ -88,7 +88,7 @@ public class InitialSubscritptionManager {
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
             session.createDurableSubscriber(topics, subScriberId);
-            
+            System.out.println("Subscribing user with the ID " + subScriberId);
             finish();
 
         } catch (JMSException ex) {

@@ -116,7 +116,7 @@ public class InvitationPublisher {
                 //message = topicSession.createTextMessage();
                
                 message = topicSession.createObjectMessage(competitionDTO);
-                System.out.println("PUBLISHER: Publishing messag");
+                System.out.println("PUBLISHER: Publishing message");
                 topicPublisher.publish(message);
                 /*
                  * Send a non-text control message indicating end

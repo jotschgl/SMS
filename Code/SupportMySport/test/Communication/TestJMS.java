@@ -33,15 +33,23 @@ public class TestJMS {
         //Tested method, worked
     }
 
-    @Ignore
+    @Test
     public void testunsubscribeSubscription() throws Exception {
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
         unsubMngr.unsubscribeSubscription("jms/Topic1", "jms/Weltmeisterschaft", "44");
         //Tested method and it worked
     }
+    
+    @Ignore
+    public void testSubscription() throws Exception {
+        IimplementTheCallbackInterface iITCI = new IimplementTheCallbackInterface();
+        InvitationsSubscriber invSubs = new InvitationsSubscriber();
+        invSubs.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", "44", iITCI);
+    }
+    
 
     //IN THIS METHOD THE CALL TO THE CALLBACKINSTANCE should happen
-    @Test
+    @Ignore
     public void testInitilSub_PublishManager_Subscriber_AndUnsubscribe() {
 
         CompetitionDTO comDTO = new CompetitionDTO(null, "billiard", 2020202, new Date(), null, Boolean.TRUE);
