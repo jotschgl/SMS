@@ -196,7 +196,6 @@ public class DTOAssembler {
         } catch (InterruptedException ex) {
             Logger.getLogger(DTOAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
         return comp;
     }

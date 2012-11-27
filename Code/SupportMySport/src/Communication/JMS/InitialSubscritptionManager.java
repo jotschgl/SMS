@@ -5,20 +5,15 @@
 package Communication.JMS;
 
 import java.util.Properties;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.jms.TopicConnection;
 import javax.jms.TopicConnectionFactory;
 import javax.jms.TopicSession;
 import javax.jms.TopicSubscriber;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -30,7 +25,6 @@ import javax.naming.NamingException;
  */
 public class InitialSubscritptionManager {
 
-    private Properties props;
     private InitialContext context;
     private TopicConnectionFactory topicConnectionFactory;
     private TopicConnection connection;
@@ -66,7 +60,7 @@ public class InitialSubscritptionManager {
             topics = (Topic) context.lookup(topicConnectionName);
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
-            topicSubscriber  = session.createDurableSubscriber(topics, subScriberId);
+            topicSubscriber  = session.createDurableSubscriber(topics, topicConnectionName);
             System.out.println("Subscribing user with the ID " + subScriberId);
 
         } catch (JMSException ex) {
