@@ -42,7 +42,7 @@ public class MessageControllerFactory extends UnicastRemoteObject implements IMe
 
     @Override
     public Collection<Serializable> getMessages(String clientID) throws RemoteException {
-        dm.listenForInvitations("jms/Topic1", "jms/Weltmeisterschaft", clientID, mc);
+        dm.listenForInvitations("smsFactory", "smsTopic", clientID, mc);
         return mc.getMo();
     }
 

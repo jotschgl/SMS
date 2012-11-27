@@ -45,7 +45,6 @@ public class LoginController {
         } catch (NamingException e) {
             System.out.println("Wrong pw or username");
         }
-
         return false;
     }
 

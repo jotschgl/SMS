@@ -28,7 +28,7 @@ public class MessageGUI extends javax.swing.JFrame {
     public MessageGUI() {
         try {
             initComponents();
-            list = ((DefaultListModel) jList1.getModel());
+            list = (DefaultListModel) jList1.getModel();
             list.removeAllElements();
             for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
                 list.addElement(o);

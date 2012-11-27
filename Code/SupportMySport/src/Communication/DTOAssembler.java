@@ -33,6 +33,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -183,13 +185,19 @@ public class DTOAssembler {
 
             } else {
                 if (compTeamDTO.getClubMember() != null) {
-                    instance.initializeSubscriber("jms/Topic1", "jms/Weltmeisterschaft", "" + team.getClubMember().getId());
+                    instance.initializeSubscriber("smsFactory", "smsTopic", team.getClubMember().getId() + "");
                 }
             }
             allCompetitionTeams.add(team);
         }
         comp.setCompetitionTeams(allCompetitionTeams);
-        instance.sendInvitations("jms/Topic1", "jms/Weltmeisterschaft", competitionDTO);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DTOAssembler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
         return comp;
     }
 

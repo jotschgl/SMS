@@ -209,7 +209,10 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void checkMessages() {
         try {
-            buttonMessage.setVisible(GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + ""));
+            GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + "");
+            boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
+            buttonMessage.setVisible(b);
+            System.out.println("Got new messages: " + b);   
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
