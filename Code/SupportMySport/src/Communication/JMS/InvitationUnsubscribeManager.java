@@ -78,7 +78,10 @@ public class InvitationUnsubscribeManager {
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
             // unsubscribe the durable topic subscriber
-            session.unsubscribe(subscriberId);            
+            session.unsubscribe(subscriberId);
+            
+            finish();
+            
         } catch (JMSException ex) {
             System.out.println("Exception occured in initialSubscription: " + ex.toString());
         } catch (NamingException ex) {
