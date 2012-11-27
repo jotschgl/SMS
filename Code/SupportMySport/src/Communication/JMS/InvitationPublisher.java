@@ -54,27 +54,6 @@ public class InvitationPublisher {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;
-            //SET THE PROPERTIES FOR JNDI
-            //NOT NECESSARYLY FOR RUNNING LOCAL BUT WHEN CALLING AN EXTERNAL JMS
-            //THIS SETTINGS SHALL BE SETTED
-            props = new Properties();
-
-            props.setProperty("java.naming.factory.initial",
-                    "com.sun.enterprise.naming.SerialInitContextFactory");
-
-            props.setProperty("java.naming.factory.url.pkgs",
-                    "com.sun.enterprise.naming");
-
-            props.setProperty("java.naming.factory.state",
-                    "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-
-            // optional.  Defaults to localhost.  Only needed if web server is running 
-            // on a different host than the appserver    
-            props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-
-            // optional.  Defaults to 3700.  Only needed if target orb port is not 3700.
-            props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-
             //GET THE CONTEXT
             //SHOULD ALSO WORK
             context = new InitialContext();
@@ -99,12 +78,6 @@ public class InvitationPublisher {
             ObjectMessage message = topicSession.createObjectMessage(competitionDTO);
             System.out.println("PUBLISHER: Publishing message");
             topicPublisher.publish(message);
-            /*
-             * Send a non-text control message indicating end
-             * of messages.
-             */
-            topicPublisher.publish(topicSession.createMessage());
-
         } catch (JMSException ex) {
             Logger.getLogger(InvitationPublisher.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {

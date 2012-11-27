@@ -39,27 +39,7 @@ public class InvitationsSubscriber {
     InvitationListener invListener = null;
     Properties props = null;
 
-    public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, InvitationCallback invCallback) {
-
-        props = new Properties();
-
-        props.setProperty("java.naming.factory.initial",
-                "com.sun.enterprise.naming.SerialInitContextFactory");
-
-        props.setProperty("java.naming.factory.url.pkgs",
-                "com.sun.enterprise.naming");
-
-        props.setProperty("java.naming.factory.state",
-                "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-
-
-        // optional.  Defaults to localhost.  Only needed if web server is running 
-        // on a different host than the appserver    
-        props.setProperty("org.omg.CORBA.ORBInitialHost", "localhost");
-
-        // optional.  Defaults to 3700.  Only needed if target orb port is not 3700.
-        props.setProperty("org.omg.CORBA.ORBInitialPort", "3700");
-
+    public void listenForInvitations(String connectionFactoryName, String topicName, String clientId, InvitationCallback invCallback) {
         try {
             context = new InitialContext();
             //context = new InitialContext(props);
@@ -67,7 +47,8 @@ public class InvitationsSubscriber {
             connection = topicConnectionFactory.createTopicConnection();
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             topics = (Topic) context.lookup(topicName);
-            sub = session.createDurableSubscriber(topics, ClientId);
+            String newClientId = topicName + clientId;
+            sub = session.createDurableSubscriber(topics, newClientId);
             invListener = new InvitationListener(invCallback);
             sub.setMessageListener(invListener);
             connection.start();
@@ -84,14 +65,18 @@ public class InvitationsSubscriber {
      */
     public void finish() {
         try {
-            if(sub != null)       
+            if (sub != null) {
                 sub.close();
-            if(session != null)    
+            }
+            if (session != null) {
                 session.close();
-            if(connection != null)
+            }
+            if (connection != null) {
                 connection.close();
-            if(context != null)
+            }
+            if (context != null) {
                 context.close();
+            }
         } catch (NamingException ex) {
             Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JMSException ex) {
@@ -118,10 +103,10 @@ public class InvitationsSubscriber {
          *
          * @param message the incoming message
          */
-        public void onMessage(Message message) {            
-            if(message instanceof ObjectMessage){
-                
-                ObjectMessage m = (ObjectMessage) message;        
+        public void onMessage(Message message) {
+            if (message instanceof ObjectMessage) {
+
+                ObjectMessage m = (ObjectMessage) message;
                 try {
                     CompetitionDTO invMsgObj = (CompetitionDTO) m.getObject();
                     invCallback.gettingInvitationFromMessageListener(invMsgObj);

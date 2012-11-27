@@ -185,7 +185,7 @@ public class DTOAssembler {
 
             } else {
                 if (compTeamDTO.getClubMember() != null) {
-                    instance.initializeSubscriber("smsFactory", "smsTopics", team.getClubMember().getId() + "");
+                    instance.initializeSubscriber("smsFactory", "smsTopic", team.getClubMember().getId() + "");
                 }
             }
             allCompetitionTeams.add(team);
@@ -197,7 +197,7 @@ public class DTOAssembler {
             Logger.getLogger(DTOAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        instance.sendInvitations("smsFactory", "smsTopics", competitionDTO);
+        instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
         return comp;
     }
 
