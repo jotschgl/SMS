@@ -83,14 +83,19 @@ public class InvitationsSubscriber {
      * Closes the connection.
      */
     public void finish() {
-        if (connection != null) {
-            try {
-                connection.close();
-                session.close();
+        try {
+            if(sub != null)       
                 sub.close();
-            } catch (JMSException ex) {
-                Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            if(session != null)    
+                session.close();
+            if(connection != null)
+                connection.close();
+            if(context != null)
+                context.close();
+        } catch (NamingException ex) {
+            Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JMSException ex) {
+            Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

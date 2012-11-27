@@ -36,7 +36,7 @@ public class InitialSubscritptionManager {
     private TopicConnection connection;
     private TopicSession session;
     private Topic topics;
-    private TopicSubscriber sub;
+    private TopicSubscriber topicSubscriber;
 
     /**
      *
@@ -80,21 +80,22 @@ public class InitialSubscritptionManager {
             //GET THE FACTORY
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactroyName);
             //GET A TOPICCONNECTION
-            connection = topicConnectionFactory.createTopicConnection();
+            connection = topicConnectionFactory.createTopicConnection();            
             //START A SESSION
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             //CHECK IF THE TOPIC IS THERE
             topics = (Topic) context.lookup(topicConnectionName);
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
-            session.createDurableSubscriber(topics, subScriberId);
+            topicSubscriber  = session.createDurableSubscriber(topics, subScriberId);
             System.out.println("Subscribing user with the ID " + subScriberId);
-            finish();
 
         } catch (JMSException ex) {
             System.out.println("Exception occured in initialSubscription: " + ex.toString());
         } catch (NamingException ex) {
             System.out.println("Exception occured in initialSubscription: " + ex.toString());
+        } finally {
+            finish();
         }
     }
 
@@ -102,14 +103,32 @@ public class InitialSubscritptionManager {
      * Closes the connection.
      */
     public void finish() {
-
-        if (session != null) {
-            try {
-                connection.close();
-                session.close();
-            } catch (JMSException ex) {
-                Logger.getLogger(InitialSubscritptionManager.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            
+            if(topicSubscriber != null){
+                topicSubscriber.close();
             }
+            
+            if (session != null) {
+                session.close();
+            }
+
+            if (connection != null) {
+                connection.close();
+            }
+
+            if (context != null) {
+                try {
+                    context.close();
+                    
+                } catch (NamingException ex) {
+                    Logger.getLogger(InitialSubscritptionManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (JMSException ex) {
+            Logger.getLogger(InitialSubscritptionManager.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
     }
 }
