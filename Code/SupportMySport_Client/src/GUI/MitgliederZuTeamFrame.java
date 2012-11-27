@@ -10,6 +10,7 @@ import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
 
     private TeamDTO selectedTeam;
     private static Collection<TeamDTO> allTeamsOfDepartment;
+    private HashSet<TeamDTO> changedTeams = new HashSet<TeamDTO>();
 
     /**
      * Creates new form MitgliederZuTeamFrame
@@ -32,15 +34,18 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
         initComponents();
         try {
             DepartmentDTO dep = GUIController.getDepartmentOfLoggedInDepartmentChief();
-            if (GUIController.getDepartmentController().getAllTeamsOfDepartment(dep.getId()) != null) {
-                allTeamsOfDepartment = GUIController.getDepartmentController().getAllTeamsOfDepartment(dep.getId());
+            Collection<TeamDTO> depTeams = GUIController.getDepartmentController().getAllTeamsOfDepartment(dep.getId());
+            if (depTeams != null) {
+                allTeamsOfDepartment = depTeams;
             } else {
+                System.out.println("Error");
                 allTeamsOfDepartment = new LinkedList<TeamDTO>();
             }
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliederZuTeamFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
         comboTeam.removeAllItems();
+        comboTeam.addItem("<select Team>");
         for (TeamDTO teamDTO : allTeamsOfDepartment) {
             comboTeam.addItem(teamDTO);
         }
@@ -67,8 +72,15 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
         buttonAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         comboTeam = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         buttonRemove.setText("<<");
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +161,10 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Verfügbare Mitglieder");
+
+        jLabel3.setText("Teammitglieder");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,35 +173,50 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                    .addComponent(buttonRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(buttonRemove, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(181, 181, 181))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(comboTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(140, 140, 140)
                         .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 172, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -203,24 +234,36 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
     private void comboTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTeamActionPerformed
         try {
             if (selectedTeam != null) {
-                speichern();
+                //früher mal gabs hier coolen code
             } else {
                 tableTeamMembers.setEnabled(true);
                 tableAllMembers.setEnabled(true);
                 buttonAdd.setEnabled(true);
                 buttonRemove.setEnabled(true);
             }
-            selectedTeam = (TeamDTO) comboTeam.getSelectedItem();
-            fillTables();
+            Object o = comboTeam.getSelectedItem();
+            if (o instanceof TeamDTO) {
+                selectedTeam = (TeamDTO) o;
+                changedTeams.add(selectedTeam);
+                fillTables();
+            }
         } catch (RemoteException ex) {
             Logger.getLogger(MitgliederZuTeamFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_comboTeamActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+
+        speichern();
+
+    }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JComboBox comboTeam;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableAllMembers;
@@ -231,44 +274,69 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
         if (tableTeamMembers.getSelectedRowCount() != 0) {
             MemberTableModel modelLeft = (MemberTableModel) tableAllMembers.getModel();
             MemberTableModel modelRight = (MemberTableModel) tableTeamMembers.getModel();
-            modelLeft.addMember(modelRight.removeMember(tableTeamMembers.convertRowIndexToModel(tableTeamMembers.getSelectedRow())));
+            int[] is = tableTeamMembers.getSelectedRows();
+            LinkedList<ClubMemberDTO> removs = new LinkedList<ClubMemberDTO>();
+            for (int i : is) {
+                int rowindex = tableTeamMembers.convertRowIndexToModel(i);
+                removs.add(modelRight.getMember(rowindex));
+
+            }
+            for (ClubMemberDTO member : removs) {
+                modelRight.members.remove(member);
+                modelLeft.addMember(member);
+            }
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
     }
 
     private void removeLeft() {
-        int i = tableAllMembers.getSelectedRow();
+        int[] is = tableAllMembers.getSelectedRows();
+
         if (tableAllMembers.getSelectedRowCount() != 0) {
+            LinkedList<ClubMemberDTO> removs = new LinkedList<ClubMemberDTO>();
             MemberTableModel modelLeft = (MemberTableModel) tableAllMembers.getModel();
             MemberTableModel modelRight = (MemberTableModel) tableTeamMembers.getModel();
-            System.out.println(i);
-            int rowindex = tableAllMembers.convertRowIndexToModel(i);
-            System.out.println(rowindex);
-            modelRight.addMember(modelLeft.removeMember(rowindex));
+            for (int i : is) {
+                int rowindex = tableAllMembers.convertRowIndexToModel(i);
+
+                removs.add(modelLeft.getMember(rowindex));
+            }
+            for (ClubMemberDTO member : removs) {
+                modelRight.addMember(member);
+                modelLeft.members.remove(member);
+            }
             modelLeft.fireTableDataChanged();
             modelRight.fireTableDataChanged();
         }
     }
 
     private void speichern() {
-        selectedTeam.getAllClubMembers().clear();
-        for (ClubMemberDTO member : ((MemberTableModel) tableTeamMembers.getModel()).members) {
-            selectedTeam.addClubMemberToTeam(member);
+        for (TeamDTO team : changedTeams) {
+            try {
+                System.out.println(team.getTeamName());
+                GUIController.getDepartmentController().updateTeam(team);
+            } catch (RemoteException ex) {
+                Logger.getLogger(MitgliederZuTeamFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     private void fillTables() throws RemoteException {
         if (selectedTeam != null) {
             Collection<ClubMemberDTO> teamMembers = selectedTeam.getAllClubMembers();
-            tableAllMembers.setModel(new MemberTableModel(teamMembers));
+            tableTeamMembers.setModel(new MemberTableModel(teamMembers));
             Collection<ClubMemberDTO> allMembers = GUIController.getClubMemberController().getAllClubMembers();
+            LinkedList<ClubMemberDTO> removeMemver = new LinkedList<ClubMemberDTO>();
             for (ClubMemberDTO dto : allMembers) {
                 if (teamMembers.contains(dto)) {
-                    allMembers.remove(dto);
+                    removeMemver.add(dto);
                 }
             }
-            tableTeamMembers.setModel(new MemberTableModel(allMembers));
+            for (ClubMemberDTO member : removeMemver) {
+                allMembers.remove(member);
+            }
+            tableAllMembers.setModel(new MemberTableModel(allMembers));
         }
     }
 
@@ -322,6 +390,10 @@ public class MitgliederZuTeamFrame extends javax.swing.JFrame {
             ClubMemberDTO member = (ClubMemberDTO) members.toArray()[row];
             members.remove(member);
             return member;
+        }
+
+        public ClubMemberDTO getMember(int index) {
+            return (ClubMemberDTO) members.toArray()[index];
         }
 
         public void addMember(ClubMemberDTO member) {
