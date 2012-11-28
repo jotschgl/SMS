@@ -38,6 +38,7 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -46,9 +47,23 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
         textFieldDatum = new javax.swing.JTextField();
         textFieldWettkampf = new javax.swing.JTextField();
 
+        setLayout(new java.awt.GridBagLayout());
+
         jLabel1.setText("Wettkampf:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(14, 10, 0, 0);
+        add(jLabel1, gridBagConstraints);
 
         jLabel2.setText("Datum:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 32, 0, 0);
+        add(jLabel2, gridBagConstraints);
 
         buttonZusagen.setText("Zusagen");
         buttonZusagen.addActionListener(new java.awt.event.ActionListener() {
@@ -56,6 +71,12 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
                 buttonZusagenActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 4, 11, 0);
+        add(buttonZusagen, gridBagConstraints);
 
         buttonAbsagen.setText("Absagen");
         buttonAbsagen.addActionListener(new java.awt.event.ActionListener() {
@@ -63,48 +84,33 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
                 buttonAbsagenActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 39, 11, 58);
+        add(buttonAbsagen, gridBagConstraints);
 
         textFieldDatum.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 181;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 4, 0, 58);
+        add(textFieldDatum, gridBagConstraints);
 
         textFieldWettkampf.setEditable(false);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(buttonZusagen)
-                        .addGap(38, 38, 38)
-                        .addComponent(buttonAbsagen))
-                    .addComponent(textFieldWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textFieldDatum, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(textFieldWettkampf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldDatum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonZusagen)
-                    .addComponent(buttonAbsagen))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 181;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 4, 0, 58);
+        add(textFieldWettkampf, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonZusagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonZusagenActionPerformed
@@ -115,8 +121,10 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     private void buttonAbsagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbsagenActionPerformed
         try {
             for (CompetitionTeamDTO compTeamDTO : message.getAllTeamsOfCompetition()) {
-                if ((compTeamDTO.getClubMember().getId() == GUIController.getLoggedInMember().getId()) && (compTeamDTO.getCompetition().getId() == message.getId())) {
-                    message.getAllTeamsOfCompetition().remove(compTeamDTO);
+                if (compTeamDTO.getClubMember() != null) {
+                    if ((compTeamDTO.getClubMember().getId() == GUIController.getLoggedInMember().getId()) && (compTeamDTO.getCompetition().getId() == message.getId())) {
+                        message.getAllTeamsOfCompetition().remove(compTeamDTO);
+                    }
                 }
             }
             GUIController.getCompetitionController().updateCompetition(message);
