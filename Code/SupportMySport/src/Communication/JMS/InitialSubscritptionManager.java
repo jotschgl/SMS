@@ -52,7 +52,7 @@ public class InitialSubscritptionManager {
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactroyName);
             //GET A TOPICCONNECTION
             connection = topicConnectionFactory.createTopicConnection();             
-            connection.setClientID(topicConnectionName);
+            connection.setClientID(subScriberId);
             //START A SESSION
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             //CHECK IF THE TOPIC IS THERE

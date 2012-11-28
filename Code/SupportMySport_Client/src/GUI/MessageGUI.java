@@ -6,6 +6,7 @@ package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
 import java.awt.Panel;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import javax.swing.event.ListSelectionListener;
 public class MessageGUI extends javax.swing.JFrame {
 
     private DefaultListModel list;
+    private Object selectedMessage;
 
     /**
      * Creates new form MessageGUI
@@ -28,7 +30,8 @@ public class MessageGUI extends javax.swing.JFrame {
     public MessageGUI() {
         try {
             initComponents();
-            list = (DefaultListModel) jList1.getModel();
+            list = new DefaultListModel();
+            jList1.setModel(list);
             list.removeAllElements();
             for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
                 list.addElement(o);
@@ -40,8 +43,9 @@ public class MessageGUI extends javax.swing.JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Object o = jList1.getSelectedValue();
-
+                selectedMessage = o;
                 if (o instanceof CompetitionDTO) {
+                    System.out.println("Value Changed");
                     panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
                 }
 
@@ -72,6 +76,11 @@ public class MessageGUI extends javax.swing.JFrame {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(jList1);
 
@@ -122,6 +131,19 @@ public class MessageGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        Object o = jList1.getSelectedValue();
+        if(o!=selectedMessage)
+        {
+            selectedMessage = o;
+                if (o instanceof CompetitionDTO) {
+                    System.out.println("Value Changed");
+                    panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
+                }
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;

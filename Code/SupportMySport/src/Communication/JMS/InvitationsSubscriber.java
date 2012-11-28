@@ -42,10 +42,10 @@ public class InvitationsSubscriber {
             context = new InitialContext();
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactoryName);
             connection = topicConnectionFactory.createTopicConnection();
-            connection.setClientID(topicName);
+            connection.setClientID(clientId);
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             topics = (Topic) context.lookup(topicName);
-            sub = session.createDurableSubscriber(topics, topicName+clientId,null,true);
+            sub = session.createDurableSubscriber(topics, topicName+clientId);
             invListener = new InvitationListener(invCallback);
             sub.setMessageListener(invListener);
             connection.start();
