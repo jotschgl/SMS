@@ -68,6 +68,23 @@ public class PersistenceManager {
         }
     }
     
+    public void merge(Object object){
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            session.merge(object);
+            transaction.commit();
+        } catch (HibernateException ex){
+            if(transaction != null){
+                transaction.rollback();
+            }
+            throw ex;
+        } finally{
+            session.close();
+        }
+    }
+            
+    
     public Object getObjectById(Class type, int id){
         try {
             session = sessionFactory.openSession();

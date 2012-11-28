@@ -230,7 +230,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 try {
-                    Thread.sleep(120000); //2 Minuten
+                    Thread.sleep(3000); //2 Minuten
                     checkMessages();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
