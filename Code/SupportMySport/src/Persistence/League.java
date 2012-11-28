@@ -110,4 +110,28 @@ public class League implements java.io.Serializable {
     public void setTeams_1(Set<Team> teams_1) {
         this.teams_1 = teams_1;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final League other = (League) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

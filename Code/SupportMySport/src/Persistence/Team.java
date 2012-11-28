@@ -33,9 +33,9 @@ public class Team implements java.io.Serializable {
     private ClubMember clubMember;
     private String name;
     private Set<ClubMember> clubMembers = new HashSet<ClubMember>(0);
-//    private Set<Meeting> meetingsForTeamAId = new HashSet<Meeting>(0);
+    private Set<Meeting> meetingsForTeamAId = new HashSet<Meeting>(0);
     private Set<CompetitionTeam> competitionTeams = new HashSet<CompetitionTeam>(0);
-//    private Set<Meeting> meetingsForTeamBId = new HashSet<Meeting>(0);
+    private Set<Meeting> meetingsForTeamBId = new HashSet<Meeting>(0);
     private Set<League> leagues = new HashSet<League>(0);
 
     public Team() {
@@ -52,9 +52,9 @@ public class Team implements java.io.Serializable {
         this.clubMember = clubMember;
         this.name = name;
         this.clubMembers = clubMembers;
-//        this.meetingsForTeamAId = meetingsForTeamAId;
+        this.meetingsForTeamAId = meetingsForTeamAId;
         this.competitionTeams = competitionTeams;
-//        this.meetingsForTeamBId = meetingsForTeamBId;
+        this.meetingsForTeamBId = meetingsForTeamBId;
         this.leagues = leagues;
     }
 
@@ -130,14 +130,14 @@ public class Team implements java.io.Serializable {
         this.clubMembers = clubMembers;
     }
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamAId")
-//    public Set<Meeting> getMeetingsForTeamAId() {
-//        return this.meetingsForTeamAId;
-//    }
-//
-//    public void setMeetingsForTeamAId(Set<Meeting> meetingsForTeamAId) {
-//        this.meetingsForTeamAId = meetingsForTeamAId;
-//    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamAId")
+    public Set<Meeting> getMeetingsForTeamAId() {
+        return this.meetingsForTeamAId;
+    }
+
+    public void setMeetingsForTeamAId(Set<Meeting> meetingsForTeamAId) {
+        this.meetingsForTeamAId = meetingsForTeamAId;
+    }
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "team")
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
@@ -147,14 +147,14 @@ public class Team implements java.io.Serializable {
         this.competitionTeams = competitionTeams;
     }
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamBId")
-//    public Set<Meeting> getMeetingsForTeamBId() {
-//        return this.meetingsForTeamBId;
-//    }
-//
-//    public void setMeetingsForTeamBId(Set<Meeting> meetingsForTeamBId) {
-//        this.meetingsForTeamBId = meetingsForTeamBId;
-//    }
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "teamByTeamBId")
+    public Set<Meeting> getMeetingsForTeamBId() {
+        return this.meetingsForTeamBId;
+    }
+
+    public void setMeetingsForTeamBId(Set<Meeting> meetingsForTeamBId) {
+        this.meetingsForTeamBId = meetingsForTeamBId;
+    }
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {

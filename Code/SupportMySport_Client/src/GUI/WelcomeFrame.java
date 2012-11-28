@@ -23,6 +23,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setRoleUseCases();
+        checkMessages();
         new MessageChecker();
         //GUIController.initRMI("localhost");
     }
@@ -229,9 +230,8 @@ public class WelcomeFrame extends javax.swing.JFrame {
         public void run() {
             while (true) {
                 try {
-                    checkMessages();
                     Thread.sleep(120000); //2 Minuten
-
+                    checkMessages();
                 } catch (InterruptedException ex) {
                     Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -14,18 +14,22 @@ import java.util.Collection;
  * @author Dennis
  */
 public class DepartmentController {
-    
+
     private DomainFacade facade;
-    
-    public DepartmentController(){
+
+    public DepartmentController() {
         facade = new DomainFacade();
     }
-    
-    public Collection<Team> getAllTeamsOfDepartment(int departmentID){
+
+    public Collection<Team> getAllTeamsOfDepartment(int departmentID) {
         return facade.getAllTeamsOfDepartment(departmentID);
     }
 
     public void updateTeam(Team teamToUpdate) {
-        facade.updateTeam(teamToUpdate);
+        try {
+            facade.updateTeam(teamToUpdate);
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 }
