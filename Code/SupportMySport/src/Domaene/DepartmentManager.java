@@ -68,6 +68,6 @@ public class DepartmentManager {
     }
 
     public void updateTeam(Team teamToUpdate) {
-        persistenceManager.update(teamToUpdate);
+        persistenceManager.merge(teamToUpdate);
     }
 }
