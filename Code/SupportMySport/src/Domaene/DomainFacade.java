@@ -6,6 +6,7 @@ package Domaene;
 
 import Communication.JMS.InitialSubscritptionManager;
 import Communication.JMS.InvitationPublisher;
+import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
 import Communication.JMS.NewMemberPublisher;
 import CommunicationInterfaces.ClubMemberDTO;
@@ -44,10 +45,7 @@ public class DomainFacade {
         sportManager = new SportManager();
         teamManager = new TeamManager();
         
-        //JMS RELATED FIELDS
-        initSubManager = new InitialSubscritptionManager();
-        invitManager = new InvitationPublisher();
-        invitSubscriber = new InvitationsSubscriber();
+ 
     }
     
     // <editor-fold defaultstate="collapsed" desc="JMS Specific Calls">
@@ -61,10 +59,10 @@ public class DomainFacade {
         new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO);
     }
     public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, IMessageCollector mc){
-        invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, mc);
+        new InvitationsSubscriber().listenForInvitations(connectionFactoryName, topicName, ClientId, mc);
     }
     public void unsubscribeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId){
-        //TODO: missing
+        new InvitationUnsubscribeManager().unsubscribeSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
     // </editor-fold>
 
