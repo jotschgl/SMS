@@ -6,11 +6,6 @@ package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
 import java.awt.CardLayout;
-import java.awt.Panel;
-import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;

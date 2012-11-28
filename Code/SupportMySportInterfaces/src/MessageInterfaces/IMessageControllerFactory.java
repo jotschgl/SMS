@@ -4,7 +4,6 @@
  */
 package MessageInterfaces;
 
-import CommunicationInterfaces.ClubMemberDTO;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -14,4 +13,5 @@ import java.rmi.RemoteException;
  */
 public interface IMessageControllerFactory extends Remote {
     public void subscribe(int id, IMessageCollector messageCollector) throws RemoteException;
+
 }
