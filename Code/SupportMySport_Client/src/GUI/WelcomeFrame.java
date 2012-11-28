@@ -23,6 +23,11 @@ public class WelcomeFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setRoleUseCases();
+        try {
+            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember());
+        } catch (RemoteException ex) {
+            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
         checkMessages();
         new MessageChecker();
         //GUIController.initRMI("localhost");
@@ -210,7 +215,6 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     private void checkMessages() {
         try {
-            GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + "");
             boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
             buttonMessage.setVisible(b);
             System.out.println("Got new messages: " + b);

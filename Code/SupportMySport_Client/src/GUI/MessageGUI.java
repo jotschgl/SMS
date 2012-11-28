@@ -5,6 +5,7 @@
 package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
+import java.awt.CardLayout;
 import java.awt.Panel;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -44,10 +45,7 @@ public class MessageGUI extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 Object o = jList1.getSelectedValue();
                 selectedMessage = o;
-                if (o instanceof CompetitionDTO) {
-                    System.out.println("Value Changed");
-                    panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
-                }
+                changePanel();
 
             }
         });
@@ -68,7 +66,7 @@ public class MessageGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         panelMessage = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nachrichten:");
 
@@ -87,16 +85,7 @@ public class MessageGUI extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setToolTipText("");
 
-        javax.swing.GroupLayout panelMessageLayout = new javax.swing.GroupLayout(panelMessage);
-        panelMessage.setLayout(panelMessageLayout);
-        panelMessageLayout.setHorizontalGroup(
-            panelMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 487, Short.MAX_VALUE)
-        );
-        panelMessageLayout.setVerticalGroup(
-            panelMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        panelMessage.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +99,7 @@ public class MessageGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -134,16 +123,11 @@ public class MessageGUI extends javax.swing.JFrame {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         Object o = jList1.getSelectedValue();
-        if(o!=selectedMessage)
-        {
+        if (o != selectedMessage) {
             selectedMessage = o;
-                if (o instanceof CompetitionDTO) {
-                    System.out.println("Value Changed");
-                    panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
-            }
+            changePanel();
         }
     }//GEN-LAST:event_jList1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
@@ -162,5 +146,16 @@ public class MessageGUI extends javax.swing.JFrame {
         } else {
             panelMessage = new JPanel();
         }
+    }
+
+    private void changePanel() {
+        CardLayout cl = (CardLayout) panelMessage.getLayout();
+        panelMessage.removeAll();
+
+        if (selectedMessage instanceof CompetitionDTO) {
+            panelMessage.add(new SportlerMessagePanel(this, (CompetitionDTO) selectedMessage), "");
+        }
+        cl.next(panelMessage);
+        pack();
     }
 }

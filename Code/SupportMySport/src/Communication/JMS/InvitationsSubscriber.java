@@ -4,7 +4,7 @@
  */
 package Communication.JMS;
 
-import Communication.JMS.Interfaces.InvitationCallback;
+import MessageInterfaces.InvitationCallback;
 import CommunicationInterfaces.CompetitionDTO;
 import java.util.Properties;
 import java.util.logging.Level;
