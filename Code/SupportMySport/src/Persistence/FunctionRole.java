@@ -1,6 +1,7 @@
 package Persistence;
 // Generated 11.11.2012 20:07:48 by Hibernate Tools 3.2.1.GA
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -64,8 +65,6 @@ public class FunctionRole implements java.io.Serializable {
     public int hashCode() {
         int hash = 3;
         hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 59 * hash + (this.roleRight != null ? this.roleRight.hashCode() : 0);
-        hash = 59 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 
