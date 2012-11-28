@@ -38,7 +38,7 @@ public class DepartmentDTOControllerFactoryTest {
     @Test
     public void testGetAllTeamsOfDepartment() throws Exception {
         System.out.println("testGetAllTeamsOfDepartment");
-        int departmentID = 6;
+        int departmentID = 7;
         DepartmentDTOControllerFactory instance = new DepartmentDTOControllerFactory();
         Collection<TeamDTO> result = instance.getAllTeamsOfDepartment(departmentID);
         System.out.println(result.size());
@@ -50,22 +50,21 @@ public class DepartmentDTOControllerFactoryTest {
     @Test
     public void addMemberToTeam() throws RemoteException {
         System.out.println("testAddMemberToTeam");
-        int departmentID = 3;
+        int departmentID = 7;
         DepartmentDTOControllerFactory instance = new DepartmentDTOControllerFactory();
         ClubMemberDTOControllerFactory clubInstance = new ClubMemberDTOControllerFactory();
         Collection<TeamDTO> result = instance.getAllTeamsOfDepartment(departmentID);
-        ClubMemberDTO clubMemberDTO = clubInstance.getClubmemberByUserName("petlus");
-        if (clubMemberDTO != null) {
-            System.out.println("ClubMember found");
-            System.out.println(clubMemberDTO.getLastname());
-        }
-        System.out.println(result.size());
-        for (TeamDTO team : result) {
-            if (team.getId() == 1) {
-                System.out.println("Team found");
-                team.getAllClubMembers().add(clubMemberDTO);
-                System.out.println("Update Team");
-                instance.updateTeam(team);
+        Collection<ClubMemberDTO> allClubMembers = clubInstance.getAllClubMembers();
+        for(TeamDTO teamDTO : result){
+            if(teamDTO.getId() == 12){
+                System.out.println("JoggingTeamTwo found!");
+                for(ClubMemberDTO clubMemberDTO : allClubMembers){
+                    if(clubMemberDTO.getId() == 55){
+                        System.out.println("JoggerFour found!");
+                        teamDTO.getAllClubMembers().add(clubMemberDTO);
+                        instance.updateTeam(teamDTO);
+                    }
+                }
             }
         }
     }

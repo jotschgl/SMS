@@ -7,7 +7,6 @@ package Communication;
 import Communication.JMS.Interfaces.InvitationCallback;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
-import Controller.LoginController;
 import Domaene.DomainFacade;
 import MessageInterfaces.IMessageControllerFactory;
 import java.io.Serializable;
@@ -56,7 +55,6 @@ public class MessageControllerFactory extends UnicastRemoteObject implements IMe
 
         @Override
         public void gettingInvitationFromMessageListener(CompetitionDTO message) {
-
             mo.add(message);
         }
 

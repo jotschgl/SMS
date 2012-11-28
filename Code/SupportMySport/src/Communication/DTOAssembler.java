@@ -80,6 +80,18 @@ public class DTOAssembler {
 
     public TeamDTO createTeamDTO(Team team) {
         TeamDTO teamDTO = new TeamDTO(team.getName());
+        if (team.getDepartment() != null) {
+            teamDTO.setDepartment(createDepartmentDTO(team.getDepartment()));
+        }
+        if (team.getSport() != null) {
+            teamDTO.setSport(createSportDTO(team.getSport()));
+        }
+        if (team.getLeague() != null) {
+            teamDTO.setLeague(createLeagueDTO(team.getLeague(), createSportDTO(team.getLeague().getSport())));
+        }
+        if (team.getClubMember() != null) {
+            teamDTO.setClubMember(createClubMemberDTO(team.getClubMember()));
+        }
         teamDTO.setId(team.getId());
         for (ClubMember clubMember : team.getClubMembers()) {
             teamDTO.addClubMemberToTeam(createClubMemberDTO(clubMember));
@@ -196,7 +208,6 @@ public class DTOAssembler {
         } catch (InterruptedException ex) {
             Logger.getLogger(DTOAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
         return comp;
     }
@@ -211,6 +222,18 @@ public class DTOAssembler {
             allClubMember.add(updateClubMemberEntity(clubMemberDTO));
         }
         team.setClubMembers(allClubMember);
+        if(teamDTO.getClubMember() != null){
+            team.setClubMember(updateClubMemberEntity(teamDTO.getClubMember()));
+        }
+        if(teamDTO.getDepartment() != null){
+            team.setDepartment(updateDepartmentEntity(teamDTO.getDepartment()));
+        }
+        if(teamDTO.getSport() != null){
+            team.setSport(updateSportEntity(teamDTO.getSport()));
+        }
+        if(teamDTO.getLeague() != null){
+            team.setLeague(updateLeagueEntity(teamDTO.getLeague(), teamDTO.getLeague().getSport()));
+        }
         return team;
     }
 

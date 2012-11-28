@@ -24,6 +24,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setRoleUseCases();
         checkMessages();
+        new MessageChecker();
         //GUIController.initRMI("localhost");
     }
 
@@ -212,9 +213,29 @@ public class WelcomeFrame extends javax.swing.JFrame {
             GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + "");
             boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
             buttonMessage.setVisible(b);
-            System.out.println("Got new messages: " + b);   
+            System.out.println("Got new messages: " + b);
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private class MessageChecker extends Thread {
+
+        public MessageChecker() {
+            this.setDaemon(true);
+            this.start();
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(120000); //2 Minuten
+                    checkMessages();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 }
