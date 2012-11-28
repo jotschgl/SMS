@@ -6,11 +6,8 @@ package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
 import java.awt.CardLayout;
-import java.awt.Panel;
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.LinkedList;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -24,21 +21,22 @@ public class MessageGUI extends javax.swing.JFrame {
 
     private DefaultListModel list;
     private Object selectedMessage;
+    private LinkedList<Serializable> messages;
+    private WelcomeFrame prevFrame;
 
     /**
      * Creates new form MessageGUI
      */
-    public MessageGUI() {
-        try {
-            initComponents();
-            list = new DefaultListModel();
-            jList1.setModel(list);
-            list.removeAllElements();
-            for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
-                list.addElement(o);
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(MessageGUI.class.getName()).log(Level.SEVERE, null, ex);
+    public MessageGUI(LinkedList<Serializable> messages, WelcomeFrame prevFrame) {
+        this.messages = messages;
+        this.prevFrame = prevFrame;
+
+        initComponents();
+        list = new DefaultListModel();
+        jList1.setModel(list);
+        list.removeAllElements();
+        for (Object o : messages) {
+            list.addElement(o);
         }
         jList1.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -67,6 +65,11 @@ public class MessageGUI extends javax.swing.JFrame {
         panelMessage = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("Nachrichten:");
 
@@ -128,6 +131,13 @@ public class MessageGUI extends javax.swing.JFrame {
             changePanel();
         }
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(messages.size() == 0)
+        {
+            prevFrame.setMessageButtonInvisible();
+        }
+    }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
@@ -138,6 +148,7 @@ public class MessageGUI extends javax.swing.JFrame {
 
     void removeMessage(Object message) {
         list.removeElement(message);
+        messages.remove(message);
     }
 
     void selectNR1() {

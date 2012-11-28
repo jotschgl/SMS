@@ -16,9 +16,6 @@ import java.util.Collection;
  */
 public interface IMessageControllerFactory extends Remote {
     
-    public void subscribe(ClubMemberDTO member, IMessageCollector mc) throws RemoteException;
+    public void subscribe(ClubMemberDTO member, InvitationCallback mc) throws RemoteException;
 
-    public boolean hasMessage(String ClientId) throws RemoteException;
-
-    public Collection<Serializable> getMessages(String clientID) throws RemoteException;
 }

@@ -5,8 +5,11 @@
 package GUI;
 
 import CommunicationInterfaces.RoleRightDTO;
+import MessageInterfaces.InvitationCallback;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +19,9 @@ import java.util.logging.Logger;
  */
 public class WelcomeFrame extends javax.swing.JFrame {
 
+    private InvitationCallback callback;
+    private LinkedList<Serializable> messages = new LinkedList<Serializable>();
+
     /**
      * Creates new form WelcomeFrame
      */
@@ -23,14 +29,19 @@ public class WelcomeFrame extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         setRoleUseCases();
+        callback = new InvitationCallback() {
+            @Override
+            public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
+                messages.add(message);
+                WelcomeFrame.this.buttonMessage.setVisible(true);
+            }
+        };
         try {
-            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember());
+            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember(), callback);
+            //GUIController.initRMI("localhost");
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        checkMessages();
-        new MessageChecker();
-        //GUIController.initRMI("localhost");
     }
 
     /**
@@ -174,7 +185,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonTeammitglierderverwaltungActionPerformed
 
     private void buttonMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMessageActionPerformed
-        MessageGUI mg = new MessageGUI();
+        MessageGUI mg = new MessageGUI(messages, this);
         mg.setVisible(true);
     }//GEN-LAST:event_buttonMessageActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -213,33 +224,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         buttonTeammitglierderverwaltung.setVisible(setmembertoteam);
     }
 
-    private void checkMessages() {
-        try {
-            boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
-            buttonMessage.setVisible(b);
-            System.out.println("Got new messages: " + b);
-        } catch (RemoteException ex) {
-            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private class MessageChecker extends Thread {
-
-        public MessageChecker() {
-            this.setDaemon(true);
-            this.start();
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Thread.sleep(3000); //2 Minuten
-                    checkMessages();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+    public void setMessageButtonInvisible() {
+        buttonMessage.setVisible(false);
     }
 }
