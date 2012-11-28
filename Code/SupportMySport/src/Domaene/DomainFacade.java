@@ -5,7 +5,7 @@
 package Domaene;
 
 import Communication.JMS.InitialSubscritptionManager;
-import Communication.JMS.Interfaces.InvitationCallback;
+import MessageInterfaces.InvitationCallback;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationsSubscriber;
 import CommunicationInterfaces.CompetitionDTO;
