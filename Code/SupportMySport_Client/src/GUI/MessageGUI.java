@@ -140,7 +140,7 @@ public class MessageGUI extends javax.swing.JFrame {
                 if (o instanceof CompetitionDTO) {
                     System.out.println("Value Changed");
                     panelMessage = new SportlerMessagePanel(MessageGUI.this, (CompetitionDTO) o);
-                }
+            }
         }
     }//GEN-LAST:event_jList1MouseClicked
 
