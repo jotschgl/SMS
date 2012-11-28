@@ -12,7 +12,6 @@ import Communication.JMS.InvitationsSubscriber;
 import CommunicationInterfaces.CompetitionDTO;
 import Persistence.Competition;
 import Persistence.PersistenceManager;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;

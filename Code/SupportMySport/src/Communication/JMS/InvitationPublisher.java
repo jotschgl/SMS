@@ -69,7 +69,6 @@ public class InvitationPublisher {
             //GET A PUBLISHER and set the mode of the delivery to persistent to keep the date in the topic
             topicPublisher = topicSession.createPublisher(topic);
             topicPublisher.setDeliveryMode(DeliveryMode.PERSISTENT);
-
             /**
              * initialization related things finished now start with the message
              * related things
