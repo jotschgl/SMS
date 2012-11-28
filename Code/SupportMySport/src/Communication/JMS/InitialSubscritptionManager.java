@@ -53,14 +53,14 @@ public class InitialSubscritptionManager {
             //GET A TOPICCONNECTION
             connection = topicConnectionFactory.createTopicConnection(); 
             
-            connection.setClientID(topicConnectionName + subScriberId);
+            connection.setClientID(topicConnectionName);
             //START A SESSION
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             //CHECK IF THE TOPIC IS THERE
             topics = (Topic) context.lookup(topicConnectionName);
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
-            topicSubscriber  = session.createDurableSubscriber(topics, topicConnectionName);
+            topicSubscriber  = session.createDurableSubscriber(topics, topicConnectionName+subScriberId,null,true);
             System.out.println("Subscribing user with the ID " + subScriberId);
 
         } catch (JMSException ex) {

@@ -8,7 +8,6 @@
         <property name="hibernate.connection.username">c1teamf</property>
         <property name="hibernate.connection.password">smsteamf</property>
         <property name="hibernate.dialect"> org.hibernate.dialect.HSQLDialect</property>
-        <property name="show_sql">true</property>
         <mapping class="Persistence.Federation"/>
         <mapping class="Persistence.Rule"/>
         <mapping class="Persistence.League"/>
