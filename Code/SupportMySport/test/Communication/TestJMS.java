@@ -5,13 +5,14 @@
 package Communication;
 
 import Communication.JMS.InitialSubscritptionManager;
-import MessageInterfaces.InvitationCallback;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
 import CommunicationInterfaces.CompetitionDTO;
 import Persistence.Competition;
 import Persistence.PersistenceManager;
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.NamingException;
@@ -35,14 +36,14 @@ public class TestJMS {
         //Tested method, worked
     }
 
-    @Ignore
+    @Test
     public void testunsubscribeSubscription() throws Exception {
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
         unsubMngr.unsubscribeSubscription("smsFactory", "smsTopic", "28");
         //Tested method and it worked
     }
     
-    @Test
+    @Ignore
     public void testPublishing(){
         
         PersistenceManager pm = new PersistenceManager();
@@ -58,7 +59,7 @@ public class TestJMS {
     public void testSubscription() throws Exception {
         IimplementTheCallbackInterface iITCI = new IimplementTheCallbackInterface();
         InvitationsSubscriber invSubs = new InvitationsSubscriber();
-        invSubs.listenForInvitations("smsFactory", "smsTopic", "28", iITCI);
+       // invSubs.listenForInvitations("smsFactory", "smsTopic", "28", iITCI);
         
         Thread.sleep(1000);
         
@@ -102,7 +103,7 @@ public class TestJMS {
         }
 
         InvitationsSubscriber invSubs = new InvitationsSubscriber();
-        invSubs.listenForInvitations("smsFactory", "smsTopic", "28", iITCI);
+       // invSubs.listenForInvitations("smsFactory", "smsTopic", "28", iITCI);
 
         try {
             Thread.sleep(1000);
@@ -122,14 +123,15 @@ public class TestJMS {
         unsubMngr.finish();
     }
 
-    class IimplementTheCallbackInterface implements InvitationCallback {
+    class IimplementTheCallbackInterface  {
 
-        @Override
-        public void gettingInvitationFromMessageListener(CompetitionDTO message) {
-            System.out.println("Date: " + message.getDateOfCompetition());
-            System.out.println("Subject " + message.getSport());
-            System.out.println("MessageBody " + message.getLeague());
-            System.out.println("CompName " + message.getName());
+       
+        public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
+            
+            System.out.println("Date: " + ((CompetitionDTO)message).getDateOfCompetition());
+            System.out.println("Subject " + ((CompetitionDTO)message).getSport());
+            System.out.println("MessageBody " + ((CompetitionDTO)message).getLeague());
+            System.out.println("CompName " + ((CompetitionDTO)message).getName());
         }
     }
 }

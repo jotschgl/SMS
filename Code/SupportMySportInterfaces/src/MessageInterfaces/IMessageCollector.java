@@ -14,9 +14,6 @@ import java.util.List;
  *
  * @author Johannes
  */
-public interface IMessageCollector extends InvitationCallback {
-
-    public List<Serializable> getMessages() throws RemoteException;
-
-    public boolean hasMessages() throws RemoteException;
+public interface IMessageCollector extends Remote{
+ public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException;
 }

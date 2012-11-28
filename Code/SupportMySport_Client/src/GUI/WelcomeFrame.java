@@ -5,6 +5,7 @@
 package GUI;
 
 import CommunicationInterfaces.RoleRightDTO;
+import GUI.Objects.MessageCollector;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -16,21 +17,26 @@ import java.util.logging.Logger;
  */
 public class WelcomeFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form WelcomeFrame
-     */
+MessageCollector messageCollector;
+     
+    
     public WelcomeFrame() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        setRoleUseCases();
         try {
-            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember());
+            try {
+                messageCollector = new MessageCollector();
+            } catch (RemoteException ex) {
+                Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            initComponents();
+            this.setLocationRelativeTo(null);
+            setRoleUseCases();
+            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
+            //checkMessages();
+            //new MessageChecker();
+            //GUIController.initRMI("localhost");
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        checkMessages();
-        new MessageChecker();
-        //GUIController.initRMI("localhost");
     }
 
     /**
@@ -214,13 +220,13 @@ public class WelcomeFrame extends javax.swing.JFrame {
     }
 
     private void checkMessages() {
-        try {
-            boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
-            buttonMessage.setVisible(b);
-            System.out.println("Got new messages: " + b);
-        } catch (RemoteException ex) {
-            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
+//            buttonMessage.setVisible(b);
+//            System.out.println("Got new messages: " + b);
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     private class MessageChecker extends Thread {

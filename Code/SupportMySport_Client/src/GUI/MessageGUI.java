@@ -29,17 +29,17 @@ public class MessageGUI extends javax.swing.JFrame {
      * Creates new form MessageGUI
      */
     public MessageGUI() {
-        try {
-            initComponents();
-            list = new DefaultListModel();
-            jList1.setModel(list);
-            list.removeAllElements();
-            for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
-                list.addElement(o);
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(MessageGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+        initComponents();
+        list = new DefaultListModel();
+        jList1.setModel(list);
+        list.removeAllElements();
+//            for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
+//                list.addElement(o);
+//            }
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(MessageGUI.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         jList1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {

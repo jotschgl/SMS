@@ -4,8 +4,9 @@
  */
 package Communication.JMS;
 
-import MessageInterfaces.InvitationCallback;
 import CommunicationInterfaces.CompetitionDTO;
+import MessageInterfaces.IMessageCollector;
+import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +38,7 @@ public class InvitationsSubscriber {
     InvitationListener invListener = null;
     Properties props = null;
 
-    public void listenForInvitations(String connectionFactoryName, String topicName, String clientId, InvitationCallback invCallback) {
+    public void listenForInvitations(String connectionFactoryName, String topicName, String clientId, IMessageCollector invCallback) {
         try {
             context = new InitialContext();
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactoryName);
@@ -87,10 +88,10 @@ public class InvitationsSubscriber {
      */
     private class InvitationListener implements MessageListener {
 
-        InvitationCallback invCallback;
+        IMessageCollector messageCollector;
 
-        public InvitationListener(InvitationCallback invCallback) {
-            this.invCallback = invCallback;
+        public InvitationListener(IMessageCollector messageCollector) {
+            this.messageCollector = messageCollector;
         }
 
         /**
@@ -106,8 +107,10 @@ public class InvitationsSubscriber {
                 ObjectMessage m = (ObjectMessage) message;
                 try {
                     CompetitionDTO invMsgObj = (CompetitionDTO) m.getObject();
-                    invCallback.gettingInvitationFromMessageListener(invMsgObj);
-                    System.out.println("In onMessage of InvitationSubsciber and receiving a message.");
+                    messageCollector.gettingInvitationFromMessageListener(invMsgObj);
+                    System.out.println("In onMessage of InvitationSubsciber and sending Message to the remote IMessageCollector.");
+                } catch (RemoteException ex) {
+                    Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (JMSException ex) {
                     Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
                 }

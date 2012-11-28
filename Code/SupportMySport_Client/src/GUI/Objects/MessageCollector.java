@@ -6,11 +6,10 @@ package GUI.Objects;
 
 import CommunicationInterfaces.CompetitionDTO;
 import MessageInterfaces.IMessageCollector;
-import MessageInterfaces.InvitationCallback;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,21 +17,19 @@ import java.util.List;
  */
 public class MessageCollector extends UnicastRemoteObject implements IMessageCollector {
 
-    public MessageCollector() throws RemoteException {
+    private LinkedList<CompetitionDTO> competitionDTOS = new LinkedList<CompetitionDTO>();
+    
+    public LinkedList<CompetitionDTO> getCompetitionDTOS() {
+        return competitionDTOS;
     }
-
-    @Override
-    public List<Serializable> getMessages() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public MessageCollector()throws RemoteException{
+        
     }
-
-    @Override
-    public boolean hasMessages() throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
+    
     public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
+        getCompetitionDTOS().add((CompetitionDTO)message);
     }
+
 }

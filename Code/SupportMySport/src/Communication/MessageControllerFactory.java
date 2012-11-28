@@ -4,7 +4,6 @@
  */
 package Communication;
 
-import MessageInterfaces.InvitationCallback;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import Domaene.DomainFacade;
@@ -28,19 +27,7 @@ public class MessageControllerFactory extends UnicastRemoteObject implements IMe
     public MessageControllerFactory() throws RemoteException {
     }
 
-    @Override
-    public void subscribe(ClubMemberDTO member, IMessageCollector mc) throws RemoteException {
-        dm.listenForInvitations("smsFactory", "smsTopic", member.getId() + "", mc);
-    }
-
-    @Override
-    public boolean hasMessage(String clientID) throws RemoteException {
-        return mc.hasMessages();
-    }
-
-    @Override
-    public Collection<Serializable> getMessages(String clientID) throws RemoteException {
-
-        return mc.getMo();
+    public void subscribe(int id, IMessageCollector mc){
+        dm.listenForInvitations("smsFactory", "smsTopic", id + "", mc);
     }
 }

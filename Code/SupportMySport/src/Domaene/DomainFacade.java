@@ -5,12 +5,12 @@
 package Domaene;
 
 import Communication.JMS.InitialSubscritptionManager;
-import MessageInterfaces.InvitationCallback;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationsSubscriber;
 import Communication.JMS.NewMemberPublisher;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
+import MessageInterfaces.IMessageCollector;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -60,8 +60,8 @@ public class DomainFacade {
     public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO){
         new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO);
     }
-    public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, InvitationCallback invCallback){
-        invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, invCallback);
+    public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, IMessageCollector mc){
+        invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, mc);
     }
     public void unsubscribeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId){
         //TODO: missing
