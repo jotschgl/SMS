@@ -36,11 +36,23 @@ public class TestJMS {
         //Tested method, worked
     }
 
-    @Test
+    @Ignore
     public void testunsubscribeSubscription() throws Exception {
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
         unsubMngr.unsubscribeSubscription("smsFactory", "smsTopic", "28");
         //Tested method and it worked
+    }
+    
+    @Test
+    public void testPublishing(){
+        
+        PersistenceManager pm = new PersistenceManager();
+        DTOAssembler asm = new DTOAssembler();
+        Competition com = (Competition) pm.getObjectById(Competition.class, 3);
+        CompetitionDTO comDTO = asm.createCompetitonDTO(com);
+        
+        InvitationPublisher invPub = new InvitationPublisher();
+        invPub.publishMessages("smsFactory", "smsTopic", comDTO);
     }
     
     @Ignore
@@ -48,6 +60,9 @@ public class TestJMS {
         IimplementTheCallbackInterface iITCI = new IimplementTheCallbackInterface();
         InvitationsSubscriber invSubs = new InvitationsSubscriber();
         invSubs.listenForInvitations("smsFactory", "smsTopic", "28", iITCI);
+        
+        Thread.sleep(1000);
+        
     }
     
 
