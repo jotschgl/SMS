@@ -138,7 +138,6 @@ public class Team implements java.io.Serializable {
 //    public void setMeetingsForTeamAId(Set<Meeting> meetingsForTeamAId) {
 //        this.meetingsForTeamAId = meetingsForTeamAId;
 //    }
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "team")
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
@@ -156,7 +155,6 @@ public class Team implements java.io.Serializable {
 //    public void setMeetingsForTeamBId(Set<Meeting> meetingsForTeamBId) {
 //        this.meetingsForTeamBId = meetingsForTeamBId;
 //    }
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TeamLeague", catalog = "c1teamf", joinColumns = {
         @JoinColumn(name = "team_id", nullable = false, updatable = false)}, inverseJoinColumns = {
@@ -167,5 +165,27 @@ public class Team implements java.io.Serializable {
 
     public void setLeagues(Set<League> leagues) {
         this.leagues = leagues;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Team other = (Team) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
     }
 }
