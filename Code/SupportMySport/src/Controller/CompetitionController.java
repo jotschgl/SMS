@@ -70,8 +70,8 @@ public class CompetitionController {
         return domainFacade.getAllClubMembersOfCompetitionTeam(teamID, competitionID);
     }
 
-    public Department getDepartmentOfLoggedInMember(int id) {
-        return domainFacade.getDepartmentOfLoggedInMember(id);
+    public Department getDepartmentOfLoggedInChief(int id) {
+        return domainFacade.getDepartmentOfLoggedInChief(id);
     }
 
     public Collection<Sport> getSportsOfDepartment(Department d) {

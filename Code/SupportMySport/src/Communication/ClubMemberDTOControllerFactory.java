@@ -53,7 +53,7 @@ public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implemen
     @Override
     public ClubMemberDTO getLoggedInClubmember() throws RemoteException {
         ClubMemberDTO res =  dtoAssembler.createClubMemberDTO(loginController.getLoggedinClubmember());
-        System.out.println("test");
+        System.out.println("in getLoggedInClubmember");
         return res;
     }
 

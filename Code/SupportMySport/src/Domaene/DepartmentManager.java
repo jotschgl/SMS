@@ -49,11 +49,11 @@ public class DepartmentManager {
         persistenceManager.update(department);
     }
 
-    Department getDepartmentOfLoggedInMember(int id) {
+    Department getDepartmentOfLoggedInChief(int id) {
         Department dep = null;
         try {
             List<Object> result = persistenceManager.getObjectsByHQLQuery("FROM Department d WHERE d.clubMember = '" + id + "'");
-            if (result.size() == 1) {
+            if (result.size() >= 1) {
                 dep = (Department) result.get(0);
             }
         } catch (Exception e) {

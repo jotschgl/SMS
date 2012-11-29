@@ -99,11 +99,14 @@ public class GUIController {
         return null;
     }
 
-    public static Collection<CompetitionDTO> getCompetitionsOfDepartmentOfLoggedInMember() {
+    public static Collection<CompetitionDTO> getCompetitionsOfDepartmentOfLoggedInDepartmentChief() {
         if (loggedInMember != null) {
             try {
-                return competController.getCompetitionsOfDepartmentOfLoggedInMember(loggedInMember);
+                System.out.println(loggedInMember.getId());
+                return competController.getCompetitionsOfDepartmentOfLoggedInDepartmentChief(getDepartmentOfLoggedInDepartmentChief());
             } catch (RemoteException ex) {
+                Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex){
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

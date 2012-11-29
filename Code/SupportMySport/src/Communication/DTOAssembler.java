@@ -45,9 +45,14 @@ public class DTOAssembler {
     DomainFacade instance = new DomainFacade();
 
     public DepartmentDTO createDepartmentDTO(Department department) {
-        DepartmentDTO departmentDTO = new DepartmentDTO(createClubMemberDTO(department.getClubMember()), department.getName());
-        departmentDTO.setId(department.getId());
-        return departmentDTO;
+        try {
+            DepartmentDTO departmentDTO = new DepartmentDTO(createClubMemberDTO(department.getClubMember()), department.getName());
+            departmentDTO.setId(department.getId());
+            return departmentDTO;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ClubMemberDTO createClubMemberDTO(ClubMember clubMemberEntity) {
@@ -157,8 +162,7 @@ public class DTOAssembler {
         //Check if client created a completely new ClubMemberDTO
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
-        }
-        else{
+        } else {
             instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO);
         }
 //        if(clubMemberDTO.getSport() != null){
@@ -220,16 +224,16 @@ public class DTOAssembler {
             allClubMember.add(updateClubMemberEntity(clubMemberDTO));
         }
         team.setClubMembers(allClubMember);
-        if(teamDTO.getClubMember() != null){
+        if (teamDTO.getClubMember() != null) {
             team.setClubMember(updateClubMemberEntity(teamDTO.getClubMember()));
         }
-        if(teamDTO.getDepartment() != null){
+        if (teamDTO.getDepartment() != null) {
             team.setDepartment(updateDepartmentEntity(teamDTO.getDepartment()));
         }
-        if(teamDTO.getSport() != null){
+        if (teamDTO.getSport() != null) {
             team.setSport(updateSportEntity(teamDTO.getSport()));
         }
-        if(teamDTO.getLeague() != null){
+        if (teamDTO.getLeague() != null) {
             team.setLeague(updateLeagueEntity(teamDTO.getLeague(), teamDTO.getLeague().getSport()));
         }
         return team;
