@@ -203,11 +203,6 @@ public class DTOAssembler {
             allCompetitionTeams.add(team);
         }
         comp.setCompetitionTeams(allCompetitionTeams);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(DTOAssembler.class.getName()).log(Level.SEVERE, null, ex);
-        }
         instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
         return comp;
     }

@@ -350,6 +350,8 @@ public class WettkampfFrame extends javax.swing.JFrame {
         tablemodel.setRowCount(0);
 
         int i = 0;
+        Collection<CompetitionDTO> compDTO = GUIController.getCompetitionsOfDepartmentOfLoggedInMember();
+        System.out.println("Comp");
         for (CompetitionDTO com : GUIController.getCompetitionsOfDepartmentOfLoggedInMember()) {
             competitions.put(i++, com);
             tablemodel.addRow(new Object[]{com.getName(), com.getCompetitionfee(), com.getDateOfCompetition(), com.getDepartment().getDepartmentName()});

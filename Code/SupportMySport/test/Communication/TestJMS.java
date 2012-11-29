@@ -36,13 +36,14 @@ public class TestJMS {
         //Tested method, worked
     }
 
-    @Ignore
+    @Test
     public void testunsubscribeSubscription() throws Exception {
         InvitationUnsubscribeManager unsubMngr = new InvitationUnsubscribeManager();
         unsubMngr.unsubscribeSubscription("smsFactory", "smsTopic", "28");
         //Tested method and it worked
     }
     
+    @Ignore
     @Test
     public void testPublishing(){
         
