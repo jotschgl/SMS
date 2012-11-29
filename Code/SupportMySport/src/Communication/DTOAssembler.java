@@ -158,6 +158,9 @@ public class DTOAssembler {
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
         }
+        else{
+            instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO);
+        }
 //        if(clubMemberDTO.getSport() != null){
 //         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
 //        }
