@@ -167,8 +167,8 @@ public class DomainFacade {
         return clubMemberManager.getClubmemberByUserName(username);
     }
 
-    public Department getDepartmentOfLoggedInMember(int id) {
-        return departmentManager.getDepartmentOfLoggedInMember(id);
+    public Department getDepartmentOfLoggedInChief(int id) {
+        return departmentManager.getDepartmentOfLoggedInChief(id);
     }
 
     public Collection<Sport> getSportsOfDepartment(Department d) {
