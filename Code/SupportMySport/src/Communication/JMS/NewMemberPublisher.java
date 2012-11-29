@@ -4,8 +4,8 @@
  */
 package Communication.JMS;
 
+import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
-import java.io.Serializable;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +13,6 @@ import javax.jms.DeliveryMode;
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.jms.TopicConnection;
 import javax.jms.TopicConnectionFactory;
@@ -25,12 +24,9 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author rafa This class should be used when a message should be added to an
- * Topic This Publisher is used for the UseCase when a Coach sends Invitiations
- * to Teammembers Always keep in Mind that when a Message should arrive at an
- * Subscriber The InitialSubcription must be performed
+ * @author rafa
  */
-public class InvitationPublisher {
+public class NewMemberPublisher {
 
     Properties props;
     Context context;
@@ -42,15 +38,7 @@ public class InvitationPublisher {
     String factoryName = null;
     TopicPublisher topicPublisher = null;
 
-    /**
-     *
-     * @param connectionFactroyName - > the name of the Factory in the JMS
-     * @param topicConnectionName --> the name of the Topic
-     * @param subject --> the subject of the Message
-     * @param messageBody --> the body of the Message
-     * @param competitionDate --> the Date of the Competition
-     */
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, CompetitionDTO competitionDTO) {
+    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO) {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;
@@ -74,8 +62,8 @@ public class InvitationPublisher {
              * related things
              *
              */
-            ObjectMessage message = topicSession.createObjectMessage(competitionDTO);
-            System.out.println("PUBLISHER: Publishing message");
+            ObjectMessage message = topicSession.createObjectMessage(clubMemberDTO);
+            System.out.println("PUBLISHER: Publishing message of NewMember");
             topicPublisher.publish(message);
         } catch (JMSException ex) {
             Logger.getLogger(InvitationPublisher.class.getName()).log(Level.SEVERE, null, ex);
@@ -110,6 +98,5 @@ public class InvitationPublisher {
         } catch (JMSException ex) {
             Logger.getLogger(InvitationPublisher.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }

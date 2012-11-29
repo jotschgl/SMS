@@ -4,21 +4,14 @@
  */
 package MessageInterfaces;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.Collection;
 
 /**
  *
- * @author Johannes
+ * @author rafa
  */
 public interface IMessageControllerFactory extends Remote {
-    
-    public void subscribe(ClubMemberDTO member) throws RemoteException;
+    public void subscribe(int id, IMessageCollector messageCollector) throws RemoteException;
 
-    public boolean hasMessage(String ClientId) throws RemoteException;
-
-    public Collection<Serializable> getMessages(String clientID) throws RemoteException;
 }

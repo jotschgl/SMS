@@ -5,6 +5,7 @@
 package GUI;
 
 import CommunicationInterfaces.RoleRightDTO;
+import GUI.Objects.MessageCollector;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -16,16 +17,26 @@ import java.util.logging.Logger;
  */
 public class WelcomeFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form WelcomeFrame
-     */
+MessageCollector messageCollector;
+     
+    
     public WelcomeFrame() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        setRoleUseCases();
-        checkMessages();
-        new MessageChecker();
-        //GUIController.initRMI("localhost");
+        try {
+            try {
+                messageCollector = new MessageCollector();
+            } catch (RemoteException ex) {
+                Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            initComponents();
+            this.setLocationRelativeTo(null);
+            setRoleUseCases();
+            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
+            //checkMessages();
+            //new MessageChecker();
+            //GUIController.initRMI("localhost");
+        } catch (RemoteException ex) {
+            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -208,34 +219,8 @@ public class WelcomeFrame extends javax.swing.JFrame {
         buttonTeammitglierderverwaltung.setVisible(setmembertoteam);
     }
 
-    private void checkMessages() {
-        try {
-            GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + "");
-            boolean b = GUIController.getMessageController().hasMessage(GUIController.getLoggedInMember().getId() + "");
-            buttonMessage.setVisible(b);
-            System.out.println("Got new messages: " + b);
-        } catch (RemoteException ex) {
-            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
-    private class MessageChecker extends Thread {
-
-        public MessageChecker() {
-            this.setDaemon(true);
-            this.start();
-        }
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Thread.sleep(3000); //2 Minuten
-                    checkMessages();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
+    void setMessageButtonInvisible() {
+        
     }
 }

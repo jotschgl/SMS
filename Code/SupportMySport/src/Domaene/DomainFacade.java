@@ -5,10 +5,13 @@
 package Domaene;
 
 import Communication.JMS.InitialSubscritptionManager;
-import Communication.JMS.Interfaces.InvitationCallback;
 import Communication.JMS.InvitationPublisher;
+import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
+import Communication.JMS.NewMemberPublisher;
+import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
+import MessageInterfaces.IMessageCollector;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -32,6 +35,7 @@ public class DomainFacade {
     private InvitationsSubscriber invitSubscriber;
 
     public DomainFacade() {
+        
         clubMemberManager = new ClubMemberManager();
         competitionManager = new CompetitionManager();
         competitionTeamManager = new CompetitionTeamManager();
@@ -40,10 +44,8 @@ public class DomainFacade {
         departmentManager = new DepartmentManager();
         sportManager = new SportManager();
         teamManager = new TeamManager();
-        //JMS RELATED FIELDS
-        initSubManager = new InitialSubscritptionManager();
-        invitManager = new InvitationPublisher();
-        invitSubscriber = new InvitationsSubscriber();
+        
+ 
     }
     
     // <editor-fold defaultstate="collapsed" desc="JMS Specific Calls">
@@ -53,11 +55,14 @@ public class DomainFacade {
     public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO){
        new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO);
     }
-    public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, InvitationCallback invCallback){
-        invitSubscriber.listenForInvitations(connectionFactoryName, topicName, ClientId, invCallback);
+    public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO){
+        new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO);
+    }
+    public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, IMessageCollector mc){
+        new InvitationsSubscriber().listenForInvitations(connectionFactoryName, topicName, ClientId, mc);
     }
     public void unsubscribeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId){
-        //TODO: missing
+        new InvitationUnsubscribeManager().unsubscribeSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
     // </editor-fold>
 
