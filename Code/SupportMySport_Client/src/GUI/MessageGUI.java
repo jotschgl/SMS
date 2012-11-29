@@ -35,8 +35,13 @@ public class MessageGUI extends javax.swing.JFrame {
         list = new DefaultListModel();
         jList1.setModel(list);
         list.removeAllElements();
+
         this.messages = messages;
         this.prevFrame = prev;
+        for (Serializable m : messages) {
+            list.addElement(m);
+        }
+        
         jList1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -134,6 +139,7 @@ public class MessageGUI extends javax.swing.JFrame {
 
     void removeMessage(Object message) {
         messages.remove(message);
+        list.removeElement(message);
     }
 
     void selectNR1() {
@@ -141,7 +147,7 @@ public class MessageGUI extends javax.swing.JFrame {
             jList1.setSelectedIndex(0);
         } else {
             prevFrame.hideMessageButton();
-           this.setVisible(false);
+            this.setVisible(false);
         }
     }
 
