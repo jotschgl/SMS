@@ -22,11 +22,19 @@ public class WelcomeFrame extends javax.swing.JFrame {
     public WelcomeFrame() {
         try {
             try {
-                messageCollector = new MessageCollector();
+                try {
+                    messageCollector = new MessageCollector(this.getClass().getMethod("showMessageButton", Object.class),this);
+                } catch (NoSuchMethodException ex) {
+                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SecurityException ex) {
+                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (RemoteException ex) {
                 Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
+
             initComponents();
+            hideMessageButton();
             this.setLocationRelativeTo(null);
             setRoleUseCases();
             GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
@@ -219,5 +227,9 @@ public class WelcomeFrame extends javax.swing.JFrame {
 
     void hideMessageButton() {
         buttonMessage.setVisible(false);
+    }
+
+    public void showMessageButton(Object o) {
+        buttonMessage.setVisible(true);
     }
 }
