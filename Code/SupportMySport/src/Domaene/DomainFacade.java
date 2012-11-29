@@ -7,7 +7,6 @@ package Domaene;
 import Communication.JMS.InitialSubscritptionManager;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationsSubscriber;
-import Communication.JMS.NewMemberPublisher;
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.CompetitionDTO;
 import MessageInterfaces.IMessageCollector;
