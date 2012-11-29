@@ -47,6 +47,4 @@ public class MessageCollector extends UnicastRemoteObject implements IMessageCol
             Logger.getLogger(MessageCollector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 }
