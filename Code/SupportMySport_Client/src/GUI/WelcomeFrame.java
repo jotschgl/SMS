@@ -17,9 +17,8 @@ import java.util.logging.Logger;
  */
 public class WelcomeFrame extends javax.swing.JFrame {
 
-MessageCollector messageCollector;
-     
-    
+    MessageCollector messageCollector;
+
     public WelcomeFrame() {
         try {
             try {
@@ -176,11 +175,10 @@ MessageCollector messageCollector;
     private void buttonTeammitglierderverwaltungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTeammitglierderverwaltungActionPerformed
         MitgliederZuTeamFrame mf = new MitgliederZuTeamFrame();
         mf.setVisible(true);
-
     }//GEN-LAST:event_buttonTeammitglierderverwaltungActionPerformed
 
     private void buttonMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMessageActionPerformed
-        MessageGUI mg = new MessageGUI();
+        MessageGUI mg = new MessageGUI(this, messageCollector.getMessages());
         mg.setVisible(true);
     }//GEN-LAST:event_buttonMessageActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -219,8 +217,7 @@ MessageCollector messageCollector;
         buttonTeammitglierderverwaltung.setVisible(setmembertoteam);
     }
 
-
-    void setMessageButtonInvisible() {
-        
+    void hideMessageButton() {
+        buttonMessage.setVisible(false);
     }
 }

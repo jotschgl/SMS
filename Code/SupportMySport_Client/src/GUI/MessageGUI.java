@@ -5,7 +5,11 @@
 package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.Serializable;
+import java.util.Collection;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -19,29 +23,26 @@ public class MessageGUI extends javax.swing.JFrame {
 
     private DefaultListModel list;
     private Object selectedMessage;
+    private Collection<Serializable> messages;
+    private final WelcomeFrame prevFrame;
 
     /**
      * Creates new form MessageGUI
      */
-    public MessageGUI() {
-//        try {
+    public MessageGUI(WelcomeFrame prev, Collection<Serializable> messages) {
+
         initComponents();
         list = new DefaultListModel();
         jList1.setModel(list);
         list.removeAllElements();
-//            for (Object o : GUIController.getMessageController().getMessages(GUIController.getLoggedInMember().getId() + " ")) {
-//                list.addElement(o);
-//            }
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(MessageGUI.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        this.messages = messages;
+        this.prevFrame = prev;
         jList1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Object o = jList1.getSelectedValue();
                 selectedMessage = o;
                 changePanel();
-
             }
         });
     }
@@ -132,14 +133,15 @@ public class MessageGUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void removeMessage(Object message) {
-        list.removeElement(message);
+        messages.remove(message);
     }
 
     void selectNR1() {
         if (!list.isEmpty()) {
             jList1.setSelectedIndex(0);
         } else {
-            panelMessage = new JPanel();
+            prevFrame.hideMessageButton();
+           this.setVisible(false);
         }
     }
 
