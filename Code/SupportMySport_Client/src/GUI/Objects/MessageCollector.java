@@ -17,19 +17,17 @@ import java.util.LinkedList;
  */
 public class MessageCollector extends UnicastRemoteObject implements IMessageCollector {
 
-    private LinkedList<CompetitionDTO> competitionDTOS = new LinkedList<CompetitionDTO>();
-    
-    public LinkedList<CompetitionDTO> getCompetitionDTOS() {
-        return competitionDTOS;
-    }
-    
-    public MessageCollector()throws RemoteException{
-        
-    }
-    
-    public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
-        System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
-        getCompetitionDTOS().add((CompetitionDTO)message);
+    private LinkedList<Serializable> messages = new LinkedList<Serializable>();
+
+    public LinkedList<Serializable> getMessages() {
+        return messages;
     }
 
+    public MessageCollector() throws RemoteException {
+    }
+
+    public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
+        System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
+        messages.add(message);
+    }
 }
