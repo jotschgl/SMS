@@ -22,21 +22,23 @@ import java.util.logging.Logger;
 public class MessageCollector extends UnicastRemoteObject implements IMessageCollector {
 
     private LinkedList<Serializable> messages = new LinkedList<Serializable>();
+    private Object o;
     
     private Method invokeMethod;
     public LinkedList<Serializable> getMessages() {
         return messages;
     }
 
-    public MessageCollector(Method invokeMethod) throws RemoteException {
+    public MessageCollector(Method invokeMethod,Object o) throws RemoteException {
         this.invokeMethod = invokeMethod;
+        this.o = o;
     }
 
     public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
         System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
         messages.add(message);
         try {
-            invokeMethod.invoke(new Object());
+            invokeMethod.invoke(this.o);
         } catch (IllegalAccessException ex) {
             Logger.getLogger(MessageCollector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalArgumentException ex) {
