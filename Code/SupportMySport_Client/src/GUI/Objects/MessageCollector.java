@@ -38,7 +38,7 @@ public class MessageCollector extends UnicastRemoteObject implements IMessageCol
         System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
         messages.add(message);
         try {
-            invokeMethod.invoke(this.o);
+            invokeMethod.invoke(this.o,new Object());
         } catch (IllegalAccessException ex) {
             Logger.getLogger(MessageCollector.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalArgumentException ex) {
@@ -47,6 +47,4 @@ public class MessageCollector extends UnicastRemoteObject implements IMessageCol
             Logger.getLogger(MessageCollector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 }
