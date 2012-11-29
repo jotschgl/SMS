@@ -229,7 +229,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         buttonMessage.setVisible(false);
     }
 
-    public void showMessage(Object o) {
+    public void showMessageButton(Object o) {
         buttonMessage.setVisible(true);
     }
 }
