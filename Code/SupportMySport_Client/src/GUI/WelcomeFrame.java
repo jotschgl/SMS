@@ -23,7 +23,7 @@ public class WelcomeFrame extends javax.swing.JFrame {
         try {
             try {
                 try {
-                    messageCollector = new MessageCollector(this.getClass().getMethod("showMessageButton", Object.class));
+                    messageCollector = new MessageCollector(this.getClass().getMethod("showMessageButton", Object.class),this);
                 } catch (NoSuchMethodException ex) {
                     Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SecurityException ex) {
