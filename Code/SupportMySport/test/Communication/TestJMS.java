@@ -19,10 +19,6 @@ import javax.naming.NamingException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/**
- *
- * @author rafa
- */
 public class TestJMS {
 
     /**

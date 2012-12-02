@@ -53,7 +53,7 @@ public class InvitationUnsubscribeManager {
             topicConnectionFactory = (TopicConnectionFactory) context.lookup(connectionFactroyName);
             //GET A TOPICCONNECTION
             connection = topicConnectionFactory.createTopicConnection();
-            connection.setClientID(subscriberId);
+            connection.setClientID("smsTopic26");
             //START A SESSION
             session = connection.createTopicSession(false, Session.AUTO_ACKNOWLEDGE);
             //CHECK IF THE TOPIC IS THERE
@@ -61,7 +61,7 @@ public class InvitationUnsubscribeManager {
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
             // unsubscribe the durable topic subscriber
-            session.unsubscribe(topicConnectionName+subscriberId);
+            session.unsubscribe("smsTopic");
             finish();
 
         } catch (JMSException ex) {

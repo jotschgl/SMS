@@ -389,11 +389,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddPlayersActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        try {
-            GUIController.getCompetitionController().updateCompetition(curCompetition);
-        } catch (RemoteException ex) {
-            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            GUIController.getCompetitionController().updateCompetition(curCompetition);
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddPlayers;

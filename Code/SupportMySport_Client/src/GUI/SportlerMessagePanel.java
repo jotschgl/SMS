@@ -7,6 +7,7 @@ package GUI;
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -120,12 +121,16 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
 
     private void buttonAbsagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbsagenActionPerformed
         try {
+            LinkedList<CompetitionTeamDTO> removeList = new LinkedList<CompetitionTeamDTO>();
             for (CompetitionTeamDTO compTeamDTO : message.getAllTeamsOfCompetition()) {
                 if (compTeamDTO.getClubMember() != null) {
                     if ((compTeamDTO.getClubMember().getId() == GUIController.getLoggedInMember().getId()) && (compTeamDTO.getCompetition().getId() == message.getId())) {
-                        message.getAllTeamsOfCompetition().remove(compTeamDTO);
+                        removeList.add(compTeamDTO);
                     }
                 }
+            }
+            for (CompetitionTeamDTO competitionTeamDTO : removeList) {
+                message.getAllTeamsOfCompetition().remove(competitionTeamDTO);
             }
             GUIController.getCompetitionController().updateCompetition(message);
             prev.removeMessage(message);
