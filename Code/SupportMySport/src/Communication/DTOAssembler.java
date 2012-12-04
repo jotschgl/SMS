@@ -33,8 +33,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -193,7 +191,7 @@ public class DTOAssembler {
             allMeetings.add(updateMeetingEntity(meeting, comp));
         }
         comp.setMeetings(allMeetings);
-        Set allCompetitionTeams = new HashSet();
+        Set<CompetitionTeam> newCompetitionTeams = new HashSet<CompetitionTeam>();
         for (CompetitionTeamDTO compTeamDTO : competitionDTO.getAllTeamsOfCompetition()) {
             CompetitionTeam team = new CompetitionTeam(updateTeamEntity(compTeamDTO.getTeam()), comp, null);
             if (compTeamDTO.getClubMember() != null) {
@@ -205,12 +203,17 @@ public class DTOAssembler {
             } else {
                 if (compTeamDTO.getClubMember() != null) {
                     instance.initializeSubscriber("smsFactory", "smsTopic", team.getClubMember().getId() + "");
+                    instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
                 }
             }
-            allCompetitionTeams.add(team);
+            if(compTeamDTO.getClubMember() != null){
+                newCompetitionTeams.add(team);
+            }
+            if(compTeamDTO.getDelete()){
+                team.setDelete(true);
+            }
         }
-        comp.setCompetitionTeams(allCompetitionTeams);
-        instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
+        comp.setCompetitionTeams(newCompetitionTeams);
         return comp;
     }
 

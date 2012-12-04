@@ -54,7 +54,7 @@ public class Meeting implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "competition_id", nullable = false)
+    @JoinColumn(name = "competition_id")
     public Competition getCompetition() {
         return this.competition;
     }

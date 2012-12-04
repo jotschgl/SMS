@@ -12,8 +12,6 @@ import GUI.helper.RealCompetitionTeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -203,12 +201,13 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
             MemberTableModel modelRight = (MemberTableModel) tableCompTeam.getModel();
             ClubMemberDTO curClubMem = modelRight.removeMember(tableCompTeam.convertRowIndexToModel(tableCompTeam.getSelectedRow()));
             modelLeft.addMember(curClubMem);
-            Collection<CompetitionTeamDTO> allTeamsOfCompetition = new LinkedList<CompetitionTeamDTO>();
-            allTeamsOfCompetition.addAll(curComp.getAllTeamsOfCompetition());
-            for (CompetitionTeamDTO compTeamDTO : allTeamsOfCompetition) {
+//            Collection<CompetitionTeamDTO> allTeamsOfCompetition = new LinkedList<CompetitionTeamDTO>();
+//            allTeamsOfCompetition.addAll(curComp.getAllTeamsOfCompetition());
+            for (CompetitionTeamDTO compTeamDTO : curComp.getAllTeamsOfCompetition()) {
                 if (compTeamDTO.getClubMember() != null) {
                     if (compTeamDTO.getClubMember().getId() == curClubMem.getId() && compTeamDTO.getCompetition().getId() == curComp.getId()) {
-                        curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
+                        compTeamDTO.setDelete(true);
+                        //curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
                     }
                 }
             }
@@ -232,19 +231,6 @@ public class CreateCompetitionTeam extends javax.swing.JFrame {
     }
 
     private void speichern() {
-        try {
-            Collection<CompetitionTeamDTO> allCompetitionTeams = new LinkedList<CompetitionTeamDTO>();
-            allCompetitionTeams.addAll(curComp.getAllTeamsOfCompetition());
-            //Remove all CompetitionTeamDTOs which don't contain a clubMember
-            for(CompetitionTeamDTO compTeamDTO : allCompetitionTeams){
-                if(compTeamDTO.getClubMember() ==  null){
-                    curComp.getAllTeamsOfCompetition().remove(compTeamDTO);
-                }
-            }
-            GUIController.getCompetitionController().updateCompetition(curComp);
-        } catch (RemoteException ex) {
-            Logger.getLogger(CreateCompetitionTeam.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private class MemberTableModel extends AbstractTableModel {

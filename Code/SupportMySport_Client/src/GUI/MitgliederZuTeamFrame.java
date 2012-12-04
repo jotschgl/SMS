@@ -6,7 +6,6 @@ package GUI;
 
 import CommunicationInterfaces.ClubMemberDTO;
 import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.IDepartmentDTOControllerFactory;
 import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
@@ -14,7 +13,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**

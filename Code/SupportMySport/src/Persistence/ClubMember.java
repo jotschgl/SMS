@@ -284,7 +284,7 @@ public class ClubMember implements java.io.Serializable {
         hash = 17 * hash + this.gender;
         hash = 17 * hash + (this.birthday != null ? this.birthday.hashCode() : 0);
         hash = 17 * hash + (this.membershipfeePayed != null ? this.membershipfeePayed.hashCode() : 0);
-        hash = 17 * hash + (this.competitionTeams != null ? this.competitionTeams.hashCode() : 0);
+        //hash = 17 * hash + (this.competitionTeams != null ? this.competitionTeams.hashCode() : 0);
         hash = 17 * hash + (this.federations != null ? this.federations.hashCode() : 0);
         hash = 17 * hash + (this.functionRoles != null ? this.functionRoles.hashCode() : 0);
         hash = 17 * hash + (this.departments != null ? this.departments.hashCode() : 0);

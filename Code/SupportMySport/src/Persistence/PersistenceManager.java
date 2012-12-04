@@ -47,12 +47,14 @@ public class PersistenceManager {
                 transaction.rollback();
             }
             throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         } finally {
             session.close();
         }
     }
-    
-    public void update(Object object){
+
+    public void update(Object object) {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
@@ -67,25 +69,24 @@ public class PersistenceManager {
             session.close();
         }
     }
-    
-    public void merge(Object object){
-        try{
+
+    public void merge(Object object) {
+        try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.merge(object);
             transaction.commit();
-        } catch (HibernateException ex){
-            if(transaction != null){
+        } catch (HibernateException ex) {
+            if (transaction != null) {
                 transaction.rollback();
             }
             throw ex;
-        } finally{
+        } finally {
             session.close();
         }
     }
-            
-    
-    public Object getObjectById(Class type, int id){
+
+    public Object getObjectById(Class type, int id) {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
@@ -101,24 +102,24 @@ public class PersistenceManager {
             session.close();
         }
     }
-    
+
     /**
      *
      * @param hqlQuery
      * @return
      */
-    public List<Object> getObjectsByHQLQuery(String hqlQuery){
-        try{
-        session = sessionFactory.openSession();
-        transaction = session.beginTransaction();
-        return session.createQuery(hqlQuery).list();
-        } catch (HibernateException ex){
-            if(transaction != null){
+    public List<Object> getObjectsByHQLQuery(String hqlQuery) {
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            return session.createQuery(hqlQuery).list();
+        } catch (HibernateException ex) {
+            if (transaction != null) {
                 transaction.rollback();
             }
             throw ex;
-        } finally{
+        } finally {
             session.close();
-        }  
+        }
     }
 }

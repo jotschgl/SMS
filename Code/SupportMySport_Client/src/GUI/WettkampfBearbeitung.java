@@ -6,12 +6,12 @@ package GUI;
 
 import CommunicationInterfaces.CompetitionDTO;
 import CommunicationInterfaces.CompetitionTeamDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
 import CommunicationInterfaces.MeetingDTO;
 import CommunicationInterfaces.TeamDTO;
 import GUI.helper.RealCompetitionTeamDTO;
 import java.awt.Frame;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -330,18 +330,19 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddTeamActionPerformed
 
     private void buttonRemoveTeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveTeamActionPerformed
-        int[] rows = tableCompTeams.getSelectedRows();
-        //Collection<CompetitionTeamDTO> comteams = new LinkedList<CompetitionTeamDTO>();
-        for (int i : rows) {
+
+        int[] selectedTeams = tableCompTeams.getSelectedRows();
+        for(int i : selectedTeams){
             TeamDTO team = angemeldeteTeams.toArray(new TeamDTO[0])[tableCompTeams.convertRowIndexToModel(i)];
-            RealCompetitionTeamDTO rctdo = new RealCompetitionTeamDTO();
-            rctdo.addAllCompetitionTeamDTO(curCompetition.getAllTeamsOfCompetition());
-            for (CompetitionTeamDTO cteam : rctdo.getAllCompetitionTeamDTOsWithTeam(team)) {
-                curCompetition.getAllTeamsOfCompetition().remove(cteam);
+            for(CompetitionTeamDTO compTeamDTO : curCompetition.getAllTeamsOfCompetition()){
+                if(compTeamDTO.getTeam().getId() == team.getId()){
+                    compTeamDTO.setDelete(true);
+                }
             }
+            ((DefaultTableModel)tableCompTeams.getModel()).removeRow(tableCompTeams.convertRowIndexToModel(i));
         }
         try {
-            fillTableCompTeams();
+            GUIController.getCompetitionController().updateCompetition(curCompetition);
         } catch (RemoteException ex) {
             Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -389,11 +390,11 @@ public class WettkampfBearbeitung extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAddPlayersActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//        try {
-//            GUIController.getCompetitionController().updateCompetition(curCompetition);
-//        } catch (RemoteException ex) {
-//            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            GUIController.getCompetitionController().updateCompetition(curCompetition);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WettkampfBearbeitung.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddPlayers;

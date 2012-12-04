@@ -59,7 +59,7 @@ public class InitialSubscritptionManager {
             topics = (Topic) context.lookup(topicConnectionName);
             //WITH THIS METHOD THE INITIAL SUBSCRIPTION IS STARTED, AFTER THIS CALL THERE MUST BE 
             //A NEW SUBSCRIBER IN THE TOPIC
-            topicSubscriber  = session.createDurableSubscriber(topics, topicConnectionName+subScriberId,null,true);
+            topicSubscriber  = session.createDurableSubscriber(topics, topicConnectionName+subScriberId);
             System.out.println("Subscribing user with the ID " + subScriberId);
 
         } catch (JMSException ex) {

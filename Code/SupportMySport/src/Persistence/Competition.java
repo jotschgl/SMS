@@ -48,7 +48,7 @@ public class Competition implements java.io.Serializable {
         this.completed = completed;
     }
 
-    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition,Sport sport, Boolean completed, Set meetings, Set competitionTeams) {
+    public Competition(Department department, String name, double competitionfee, Date dateOfCompetition, Sport sport, Boolean completed, Set meetings, Set competitionTeams) {
         this.department = department;
         this.name = name;
         this.competitionfee = competitionfee;
@@ -117,7 +117,7 @@ public class Competition implements java.io.Serializable {
         this.meetings = meetings;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
+    @OneToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "competition")
     public Set<CompetitionTeam> getCompetitionTeams() {
         return this.competitionTeams;
     }
@@ -185,5 +185,4 @@ public class Competition implements java.io.Serializable {
         }
         return true;
     }
-    
 }

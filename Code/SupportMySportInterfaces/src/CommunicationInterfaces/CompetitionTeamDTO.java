@@ -16,16 +16,19 @@ public class CompetitionTeamDTO implements Serializable {
     private TeamDTO team;
     private ClubMemberDTO clubMember;
     private CompetitionDTO competition;
+    private Boolean delete;
 
     public CompetitionTeamDTO(TeamDTO team, ClubMemberDTO clubMember, CompetitionDTO competition) {
         this.team = team;
         this.clubMember = clubMember;
         this.competition = competition;
+        this.delete = false;
     }
 
     public CompetitionTeamDTO(TeamDTO team, CompetitionDTO comp) {
         this.team = team;
         this.competition = comp;
+        this.delete = false;
     }
 
     /**
@@ -83,4 +86,20 @@ public class CompetitionTeamDTO implements Serializable {
     public void setCompetition(CompetitionDTO competition) {
         this.competition = competition;
     }
+
+    /**
+     * @return the delete
+     */
+    public Boolean getDelete() {
+        return delete;
+    }
+
+    /**
+     * @param delete the delete to set
+     */
+    public void setDelete(Boolean delete) {
+        this.delete = delete;
+    }
+    
+    
 }
