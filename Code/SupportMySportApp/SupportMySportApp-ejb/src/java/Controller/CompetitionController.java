@@ -13,40 +13,40 @@ public class CompetitionController {
         domainFacade = new DomainFacade();
     }
 
-    public void createNewCompetition(Competition competition) throws RemoteException {
+    public void createNewCompetition(Competition competition) {
         domainFacade.createNewCompetition(competition);
     }
 
-    public void removeMemberFromCompetitionTeam(ClubMember member, Competition competition, Team team) throws RemoteException {
+    public void removeMemberFromCompetitionTeam(ClubMember member, Competition competition, Team team) {
         domainFacade.removeMemberFromCompetition(member.getId(), competition.getId(), team.getId());
     }
 
-    public void removeMemberFromCompetitionTeam(int memberId, int competitionId, int teamId) throws RemoteException {
+    public void removeMemberFromCompetitionTeam(int memberId, int competitionId, int teamId) {
         domainFacade.removeMemberFromCompetition(memberId, competitionId, teamId);
     }
 
-    public Collection<Competition> getAllCompetitions() throws RemoteException {
+    public Collection<Competition> getAllCompetitions() {
         return domainFacade.getAllCompetitions();
     }
 
-    public void addResultsToCompetitionMeeting(int TeamAId, int TeamBId, int pointsA, int pointsB, int competitionId) throws RemoteException {
+    public void addResultsToCompetitionMeeting(int TeamAId, int TeamBId, int pointsA, int pointsB, int competitionId) {
         domainFacade.addResultsToCompetitionMeeting(TeamAId, TeamBId, pointsA, pointsB, pointsB, competitionId);
     }
 
-    public Collection<Meeting> getCompetitionMeetings(int competitionId) throws RemoteException {
+    public Collection<Meeting> getCompetitionMeetings(int competitionId) {
         return domainFacade.showCompetitionMeetings(competitionId);
     }
 
-    public Collection<Team> getAllTeamsOfCompetition(int competitionId) throws RemoteException {
+    public Collection<Team> getAllTeamsOfCompetition(int competitionId) {
         return domainFacade.showAllTeamsOfCompetition(competitionId);
     }
 
-    public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) throws RemoteException {
+    public Collection<ClubMember> getCompetitionTeamMembersOfCompetition(int competitionId) {
         //TODO: this method
         return domainFacade.getCompetitionTeamMembersOfCompetition(competitionId);
     }
 
-    public Collection<Department> getAllDepartments() throws RemoteException {
+    public Collection<Department> getAllDepartments() {
         return domainFacade.getAllDepartments();
     }
 
@@ -97,8 +97,8 @@ public class CompetitionController {
     public void deleteMeeting(Meeting meeting) {
         domainFacade.deleteMeeting(meeting);
     }
-    
-    public Collection<Team> getAllTeamsOfSport(int sportID){
+
+    public Collection<Team> getAllTeamsOfSport(int sportID) {
         return domainFacade.getAllTeamsOfSport(sportID);
     }
 }

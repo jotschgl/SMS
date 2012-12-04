@@ -4,8 +4,8 @@
  */
 package GUI;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import Communication.ClubMemberDTO;
+import Communication.ClubMemberDTOControllerFactoryRemote;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -24,7 +24,7 @@ public class MitgliedFrame extends JFrame {
      */
     private MitgliedverwaltungFrame _prevframe;
     private boolean upadteMember = false;
-    private IClubMemberDTOControllerFactory controller;
+    private ClubMemberDTOControllerFactoryRemote controller;
     private ClubMemberDTO member;
 
     public MitgliedFrame(MitgliedverwaltungFrame frame) {
@@ -279,34 +279,32 @@ public class MitgliedFrame extends JFrame {
         if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMEssage);
         } else {
-            IClubMemberDTOControllerFactory cont = GUIController.getClubMemberController();
-            try {
-                if (upadteMember) {
-                    member.setFirstname(textVorname.getText());
-                    member.setLastname(textNachname.getText());
-                    member.setMail(textEmail.getText());
-                    member.setPhone(textTelefon.getText());
-                    member.setStreet(textStraße.getText());
-                    member.setCity(textStadt.getText());
-                    member.setCountry(textLand.getText());
-                    member.setBirthday(dateGeb.getDate());
-                    member.setUsername(textUsername.getText());
-                    member.setGender(comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm');
-                    System.out.println("member update with email: " + member.getMail());
+            ClubMemberDTOControllerFactoryRemote cont = GUIController.getClubMemberController();
 
-                    //updateInformation
-                    cont.createOrUpdateClubMember(member);
+            if (upadteMember) {
+                member.setFirstname(textVorname.getText());
+                member.setLastname(textNachname.getText());
+                member.setMail(textEmail.getText());
+                member.setPhone(textTelefon.getText());
+                member.setStreet(textStraße.getText());
+                member.setCity(textStadt.getText());
+                member.setCountry(textLand.getText());
+                member.setBirthday(dateGeb.getDate());
+                member.setUsername(textUsername.getText());
+                member.setGender(comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm');
+                System.out.println("member update with email: " + member.getMail());
 
-                } else {
+                //updateInformation
+                cont.createOrUpdateClubMember(member);
 
-                    //if upatedMember is false --> create new MemberDTO
-                    System.out.println("new member insert");
-                    cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+            } else {
 
-                }
-            } catch (RemoteException ex) {
-                Logger.getLogger(MitgliedFrame.class.getName()).log(Level.SEVERE, null, ex);
+                //if upatedMember is false --> create new MemberDTO
+                System.out.println("new member insert");
+                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+
             }
+
             this._prevframe.updateTable();
 
             this.setVisible(false);

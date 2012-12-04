@@ -4,48 +4,40 @@
  */
 package Communication;
 
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.IDepartmentDTOControllerFactory;
-import CommunicationInterfaces.IRoleDTOControllerFactory;
-import CommunicationInterfaces.IUseCaseControllerFactory;
-import MessageInterfaces.IMessageControllerFactory;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Dennis
  */
-public class UseCaseControllerFactory extends UnicastRemoteObject implements  IUseCaseControllerFactory{
+@Stateless
+public class UseCaseControllerFactory implements UseCaseControllerFactoryRemote {
 
-    public UseCaseControllerFactory() throws RemoteException{
-        super();
+    public UseCaseControllerFactory()  {
     }
-    
+
     @Override
-    public IClubMemberDTOControllerFactory createClubMemberController() throws RemoteException {
+    public ClubMemberDTOControllerFactoryRemote createClubMemberController()  {
         return new ClubMemberDTOControllerFactory();
     }
-    
+
     @Override
-    public ICompetitionDTOControllerFactory createCompetitionController() throws RemoteException {
+    public CompetitionDTOControllerFactoryRemote createCompetitionController()  {
         return new CompetitionDTOControllerFactory();
     }
 
     @Override
-    public IRoleDTOControllerFactory createRoleController() throws RemoteException {
+    public RoleDTOControllerFactoryRemote createRoleController()  {
         return new RoleDTOControllerFactory();
     }
 
     @Override
-    public IDepartmentDTOControllerFactory createDepartmentController() throws RemoteException {
+    public DepartmentDTOControllerFactoryRemote createDepartmentController()  {
         return new DepartmentDTOControllerFactory();
     }
 
     @Override
-    public IMessageControllerFactory createMessageControllerFactory() throws RemoteException {
-       return new MessageControllerFactory();
+    public MessageControllerFactoryRemote createMessageControllerFactory()  {
+        return new MessageControllerFactory();
     }
-    
 }

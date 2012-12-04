@@ -4,17 +4,17 @@
  */
 package GUI;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.FunctionRoleDTO;
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.IDepartmentDTOControllerFactory;
-import CommunicationInterfaces.IRoleDTOControllerFactory;
-import CommunicationInterfaces.IUseCaseControllerFactory;
-import CommunicationInterfaces.RoleRightDTO;
-import MessageInterfaces.IMessageControllerFactory;
+import Communication.ClubMemberDTO;
+import Communication.CompetitionDTO;
+import Communication.DepartmentDTO;
+import Communication.FunctionRoleDTO;
+import Communication.ClubMemberDTOControllerFactoryRemote;
+import Communication.CompetitionDTOControllerFactoryRemote;
+import Communication.DepartmentDTOControllerFactoryRemote;
+import Communication.RoleDTOControllerFactoryRemote;
+import Communication.UseCaseControllerFactoryRemote;
+import Communication.RoleRightDTO;
+import Communication.MessageControllerFactoryRemote;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -31,19 +31,19 @@ import java.util.logging.Logger;
  */
 public class GUIController {
 
-    private static CommunicationInterfaces.IUseCaseControllerFactory factory;
-    private static ICompetitionDTOControllerFactory competController;
-    private static IClubMemberDTOControllerFactory memberController;
-    private static IRoleDTOControllerFactory roleController;
+    private static Communication.UseCaseControllerFactoryRemote factory;
+    private static CompetitionDTOControllerFactoryRemote competController;
+    private static ClubMemberDTOControllerFactoryRemote memberController;
+    private static RoleDTOControllerFactoryRemote roleController;
     private static ClubMemberDTO loggedInMember;
-    private static IDepartmentDTOControllerFactory departmentController;
-    private static IMessageControllerFactory messageController;
+    private static DepartmentDTOControllerFactoryRemote departmentController;
+    private static MessageControllerFactoryRemote messageController;
 
     public static void initRMI(String ip) {
         if (factory == null) {
             try {
                 Registry reg = LocateRegistry.getRegistry(ip);
-                factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
+                factory = (UseCaseControllerFactoryRemote) reg.lookup("UseCaseControllerFactory");
 
                 competController = factory.createCompetitionController();
                 memberController = factory.createClubMemberController();
@@ -60,11 +60,11 @@ public class GUIController {
         }
     }
 
-    public static IClubMemberDTOControllerFactory getClubMemberController() {
+    public static ClubMemberDTOControllerFactoryRemote getClubMemberController() {
         return memberController;
     }
 
-    static ICompetitionDTOControllerFactory getCompetitionController() {
+    static CompetitionDTOControllerFactoryRemote getCompetitionController() {
         return competController;
     }
 
@@ -82,7 +82,7 @@ public class GUIController {
         return rights;
     }
 
-    public static IRoleDTOControllerFactory getRoleControllerFactory() {
+    public static RoleDTOControllerFactoryRemote getRoleControllerFactory() {
         return roleController;
     }
 
@@ -91,12 +91,9 @@ public class GUIController {
     }
 
     static DepartmentDTO getDepartmentOfLoggedInDepartmentChief() {
-        try {
-            return competController.getDepartmentOfLoggedInDepartmentChief(loggedInMember);
-        } catch (RemoteException ex) {
-            Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+
+        return competController.getDepartmentOfLoggedInDepartmentChief(loggedInMember);
+
     }
 
     public static Collection<CompetitionDTO> getCompetitionsOfDepartmentOfLoggedInDepartmentChief() {
@@ -104,20 +101,19 @@ public class GUIController {
             try {
                 System.out.println(loggedInMember.getId());
                 return competController.getCompetitionsOfDepartmentOfLoggedInDepartmentChief(getDepartmentOfLoggedInDepartmentChief());
-            } catch (RemoteException ex) {
-                Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex){
+
+            } catch (Exception ex) {
                 Logger.getLogger(GUIController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return null;
     }
 
-    public static IDepartmentDTOControllerFactory getDepartmentController() {
+    public static DepartmentDTOControllerFactoryRemote getDepartmentController() {
         return departmentController;
     }
 
-    public static IMessageControllerFactory getMessageController() {
+    public static MessageControllerFactoryRemote getMessageController() {
         return messageController;
     }
 }

@@ -4,14 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.CompetitionTeamDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.MeetingDTO;
-import CommunicationInterfaces.SportDTO;
-import CommunicationInterfaces.TeamDTO;
 import Controller.CompetitionController;
 import Persistence.Competition;
 import Persistence.Department;
@@ -22,28 +14,31 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.LinkedList;
+import javax.annotation.ManagedBean;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Dennis
  */
-public class CompetitionDTOControllerFactory extends UnicastRemoteObject implements ICompetitionDTOControllerFactory {
+@Stateful
+public class CompetitionDTOControllerFactory  implements CompetitionDTOControllerFactoryRemote {
 
     private CompetitionController competitionController;
     private DTOAssembler dtoAssembler;
 
-    public CompetitionDTOControllerFactory() throws RemoteException {
+    public CompetitionDTOControllerFactory()  {
         dtoAssembler = new DTOAssembler();
         competitionController = new CompetitionController();
     }
 
     @Override
-    public void createNewCompetition(CompetitionDTO competitionDTO) throws RemoteException {
+    public void createNewCompetition(CompetitionDTO competitionDTO)  {
         competitionController.createNewCompetition(dtoAssembler.updateCompetitionEntity(competitionDTO));
     }
 
     @Override
-    public Collection<DepartmentDTO> getAllDepartments() throws RemoteException {
+    public Collection<DepartmentDTO> getAllDepartments()  {
         Collection<DepartmentDTO> allDepartments = new LinkedList<DepartmentDTO>();
         for (Department dep : competitionController.getAllDepartments()) {
             allDepartments.add(dtoAssembler.createDepartmentDTO(dep));
@@ -52,7 +47,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<CompetitionDTO> getAllCompetitions() throws RemoteException {
+    public Collection<CompetitionDTO> getAllCompetitions()  {
         Collection<CompetitionDTO> allCompetitions = new LinkedList<CompetitionDTO>();
         for (Competition comp : competitionController.getAllCompetitions()) {
             allCompetitions.add(dtoAssembler.createCompetitonDTO(comp));
@@ -61,7 +56,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<MeetingDTO> getAllMeetingsOfCompetition(CompetitionDTO competition) throws RemoteException {
+    public Collection<MeetingDTO> getAllMeetingsOfCompetition(CompetitionDTO competition)  {
         Collection<MeetingDTO> allMeetings = new LinkedList<MeetingDTO>();
         for (Meeting meeting : competitionController.getCompetitionMeetings(competition.getId())) {
             allMeetings.add(dtoAssembler.createMeetingDTO(meeting, competition));
@@ -70,7 +65,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<SportDTO> getAllSports() throws RemoteException {
+    public Collection<SportDTO> getAllSports()  {
         Collection<SportDTO> allSports = new LinkedList<SportDTO>();
         for (Sport sport : competitionController.getAllSports()) {
             allSports.add(dtoAssembler.createSportDTO(sport));
@@ -79,7 +74,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<TeamDTO> getAllTeams() throws RemoteException {
+    public Collection<TeamDTO> getAllTeams()  {
         Collection<TeamDTO> allTeams = new LinkedList<TeamDTO>();
         for (Team team : competitionController.getAllTeams()) {
             allTeams.add(dtoAssembler.createTeamDTO(team));
@@ -88,14 +83,14 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public DepartmentDTO getDepartmentOfLoggedInDepartmentChief(ClubMemberDTO loggedInMember) throws RemoteException {
+    public DepartmentDTO getDepartmentOfLoggedInDepartmentChief(ClubMemberDTO loggedInMember)  {
         Department d = competitionController.getDepartmentOfLoggedInChief(loggedInMember.getId());
         DepartmentDTO retVal = dtoAssembler.createDepartmentDTO(d);
         return retVal;
     }
 
     @Override
-    public Collection<SportDTO> getSportsOfDepartment(DepartmentDTO dto) throws RemoteException {
+    public Collection<SportDTO> getSportsOfDepartment(DepartmentDTO dto)  {
         Department d = new Department();
         d.setId(dto.getId());
         Collection<Sport> c = competitionController.getSportsOfDepartment(d);
@@ -107,22 +102,22 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public void updateCompetition(CompetitionDTO competition) throws RemoteException {
+    public void updateCompetition(CompetitionDTO competition)  {
         competitionController.updateCompetition(dtoAssembler.updateCompetitionEntity(competition));
     }
 
     @Override
-    public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teams) throws RemoteException {
+    public void saveOrUpdateCompetitionTeams(Collection<CompetitionTeamDTO> teams)  {
         competitionController.saveOrUpdateCompetitionTeams(dtoAssembler.saveOrUpdateCompetitionTeams(teams));
     }
 
     @Override
-    public CompetitionDTO getCompetitionByID(int id) throws RemoteException {
+    public CompetitionDTO getCompetitionByID(int id)  {
         return dtoAssembler.createCompetitonDTO(competitionController.getCompetitionByID(id));
     }
 
     @Override
-    public Collection<TeamDTO> getAllTeamsOfSport(int sportID) throws RemoteException {
+    public Collection<TeamDTO> getAllTeamsOfSport(int sportID)  {
         Collection<TeamDTO> allTeamDTOsOfSport = new LinkedList<TeamDTO>();
         for (Team team : competitionController.getAllTeamsOfSport(sportID)) {
             allTeamDTOsOfSport.add(dtoAssembler.createTeamDTO(team));
@@ -131,7 +126,7 @@ public class CompetitionDTOControllerFactory extends UnicastRemoteObject impleme
     }
 
     @Override
-    public Collection<CompetitionDTO> getCompetitionsOfDepartmentOfLoggedInDepartmentChief(DepartmentDTO department) throws RemoteException {
+    public Collection<CompetitionDTO> getCompetitionsOfDepartmentOfLoggedInDepartmentChief(DepartmentDTO department)  {
         Department retVal = dtoAssembler.updateDepartmentEntity(department);
 
         Collection<Competition> comps = competitionController.getCompetitionsOfDepartment(retVal);

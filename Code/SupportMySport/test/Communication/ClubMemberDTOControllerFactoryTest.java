@@ -4,9 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.FunctionRoleDTO;
-import CommunicationInterfaces.SportDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;

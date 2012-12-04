@@ -4,8 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.IDepartmentDTOControllerFactory;
-import CommunicationInterfaces.TeamDTO;
 import Controller.DepartmentController;
 import Persistence.Team;
 import java.rmi.RemoteException;
@@ -17,7 +15,7 @@ import java.util.LinkedList;
  *
  * @author Dennis
  */
-public class DepartmentDTOControllerFactory extends UnicastRemoteObject implements IDepartmentDTOControllerFactory {
+public class DepartmentDTOControllerFactory extends UnicastRemoteObject implements DepartmentDTOControllerFactoryRemote {
 
     private DepartmentController departmentController;
     private DTOAssembler dtoAssembler;

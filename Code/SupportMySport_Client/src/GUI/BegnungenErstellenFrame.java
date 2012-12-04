@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.MeetingDTO;
-import CommunicationInterfaces.TeamDTO;
+import Communication.CompetitionDTO;
+import Communication.CompetitionDTOControllerFactoryRemote;
+import Communication.MeetingDTO;
+import Communication.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;

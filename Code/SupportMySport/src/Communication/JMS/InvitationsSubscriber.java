@@ -4,7 +4,7 @@
  */
 package Communication.JMS;
 
-import CommunicationInterfaces.CompetitionDTO;
+import Communication.CompetitionDTO;
 import MessageInterfaces.IMessageCollector;
 import java.rmi.RemoteException;
 import java.util.Properties;

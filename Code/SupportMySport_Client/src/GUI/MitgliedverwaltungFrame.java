@@ -4,8 +4,8 @@
  */
 package GUI;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
+import Communication.ClubMemberDTO;
+import Communication.ClubMemberDTOControllerFactoryRemote;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -246,20 +246,18 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
     }
 
     private void fillTable() {
-        try {
-            DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
 
-            resetAllRows(model);
-            model.setRowCount(0);
-            int i = 0;
-            IClubMemberDTOControllerFactory cmc = GUIController.getClubMemberController();
-            for (ClubMemberDTO member : cmc.getAllClubMembers()) {
-                members.put(i++, member);
-                model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});
-            }
-        } catch (RemoteException ex) {
-            Logger.getLogger(MitgliedverwaltungFrame.class.getName()).log(Level.SEVERE, null, ex);
+        DefaultTableModel model = (DefaultTableModel) tableMitglied.getModel();
+
+        resetAllRows(model);
+        model.setRowCount(0);
+        int i = 0;
+        ClubMemberDTOControllerFactoryRemote cmc = GUIController.getClubMemberController();
+        for (ClubMemberDTO member : cmc.getAllClubMembers()) {
+            members.put(i++, member);
+            model.addRow(new Object[]{member.getFirstname(), member.getLastname(), member.getCountry(), member.getCity(), member.getMail(), member.getBirthday().toString()});
         }
+
     }
 
     private void resetAllRows(DefaultTableModel model) {

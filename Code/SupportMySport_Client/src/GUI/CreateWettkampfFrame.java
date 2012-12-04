@@ -4,11 +4,11 @@
  */
 package GUI;
 
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.LeagueDTO;
-import CommunicationInterfaces.SportDTO;
+import Communication.CompetitionDTO;
+import Communication.DepartmentDTO;
+import Communication.CompetitionDTOControllerFactoryRemote;
+import Communication.LeagueDTO;
+import Communication.SportDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;
@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class CreateWettkampfFrame extends javax.swing.JFrame {
 
-    private ICompetitionDTOControllerFactory controller;
+    private CompetitionDTOControllerFactoryRemote controller;
     /**
      * Creates new form CreateWettkampfFrame
      */
@@ -32,18 +32,16 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
     private DepartmentDTO department;
 
     public CreateWettkampfFrame(WettkampfFrame frame) {
-        try {
-            initComponents();
-            this.setLocationRelativeTo(null);
-            // this.getAllDepartments();
-            this._prevFrame = frame;
-            controller = GUIController.getCompetitionController();
-            department = GUIController.getDepartmentOfLoggedInDepartmentChief();
-            sports = controller.getSportsOfDepartment(department);
-            fillSportsCombo();
-        } catch (RemoteException ex) {
-            Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        initComponents();
+        this.setLocationRelativeTo(null);
+        // this.getAllDepartments();
+        this._prevFrame = frame;
+        controller = GUIController.getCompetitionController();
+        department = GUIController.getDepartmentOfLoggedInDepartmentChief();
+        sports = controller.getSportsOfDepartment(department);
+        fillSportsCombo();
+
     }
 
     /**
@@ -186,24 +184,20 @@ public class CreateWettkampfFrame extends javax.swing.JFrame {
         if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMess);
         } else {
-            try {
-
-                System.out.println(department.getDepartmentName());
-                String wettkampf = textWettkampf.getText();
-                int value = spinnerGebuehr.getValue();
-                Date date = dateDatum.getDate();
-                SportDTO s = (SportDTO) comboSport.getSelectedItem();
-                CompetitionDTO comp = new CompetitionDTO(department, wettkampf, value, date, s, false);
-                if (comboLiga.getSelectedItem() instanceof LeagueDTO) {
-                    comp.setLeague((LeagueDTO) comboLiga.getSelectedItem());
-                }
-                controller.createNewCompetition(comp);
-
-                this._prevFrame.updateTable();
-                this.setVisible(false);
-            } catch (RemoteException ex) {
-                Logger.getLogger(CreateWettkampfFrame.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(department.getDepartmentName());
+            String wettkampf = textWettkampf.getText();
+            int value = spinnerGebuehr.getValue();
+            Date date = dateDatum.getDate();
+            SportDTO s = (SportDTO) comboSport.getSelectedItem();
+            CompetitionDTO comp = new CompetitionDTO(department, wettkampf, value, date, s, false);
+            if (comboLiga.getSelectedItem() instanceof LeagueDTO) {
+                comp.setLeague((LeagueDTO) comboLiga.getSelectedItem());
             }
+            controller.createNewCompetition(comp);
+
+            this._prevFrame.updateTable();
+            this.setVisible(false);
+
 
         }
     }//GEN-LAST:event_saveWettkampfMouseClicked

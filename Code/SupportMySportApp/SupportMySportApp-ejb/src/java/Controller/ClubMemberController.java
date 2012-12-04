@@ -15,19 +15,19 @@ public class ClubMemberController {
         myDomainFacade = new DomainFacade();
     }
 
-    public void createOrUpdateClubMember(ClubMember clubMember) throws RemoteException {
+    public void createOrUpdateClubMember(ClubMember clubMember) {
         myDomainFacade.createOrUpdateClubMember(clubMember);
     }
 
-    public Collection<ClubMember> getAllClubMembers() throws RemoteException {
+    public Collection<ClubMember> getAllClubMembers() {
         return myDomainFacade.getAllClubMembers();
     }
 
-    public Collection<ClubMember> searchMemberByAttributes(String attributes) throws RemoteException {
+    public Collection<ClubMember> searchMemberByAttributes(String attributes) {
         return myDomainFacade.searchMemberByAttributes(attributes);
     }
 
-    public Collection<FunctionRole> getAllRoles() throws RemoteException {
+    public Collection<FunctionRole> getAllRoles() {
         return myDomainFacade.getAllRoles();
     }
 
@@ -36,6 +36,6 @@ public class ClubMemberController {
     }
 
     public Collection<ClubMember> getAllTeamMembers(Team team) {
-       return myDomainFacade.getAllTeamMembers(team);
+        return myDomainFacade.getAllTeamMembers(team);
     }
 }

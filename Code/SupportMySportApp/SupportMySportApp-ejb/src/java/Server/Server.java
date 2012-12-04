@@ -22,20 +22,19 @@ public class Server {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            //Starting the ORB
-            //CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
-            //new Thread(corbaServer).start();
-
-            //Starting RMI
-            Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            System.setProperty("java.rmi.server.codebase", Server.class.getProtectionDomain().getCodeSource().getLocation().toString());
-            UseCaseControllerFactory factory = new UseCaseControllerFactory();
-            reg.rebind("UseCaseControllerFactory", factory);
-            System.out.println("Object bound");
-            System.out.println("Waiting for Clients...");
-        } catch (RemoteException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+        //Starting the ORB
+        //CompetitionResultsCorbaServer corbaServer = new CompetitionResultsCorbaServer();
+        //new Thread(corbaServer).start();
+        //Starting RMI
+//            Registry reg = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+//            System.setProperty("java.rmi.server.codebase", Server.class.getProtectionDomain().getCodeSource().getLocation().toString());
+//            UseCaseControllerFactory factory = new UseCaseControllerFactory();
+//            reg.rebind("UseCaseControllerFactory", factory);
+//            System.out.println("Object bound");
+//            System.out.println("Waiting for Clients...");
+//        } catch (RemoteException ex) {
+//            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }

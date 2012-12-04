@@ -4,9 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.MeetingDTO;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;

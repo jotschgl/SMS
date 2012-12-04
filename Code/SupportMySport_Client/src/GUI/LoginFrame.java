@@ -4,9 +4,6 @@
  */
 package GUI;
 
-import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -134,24 +131,22 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_textUsernameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            String username = textUsername.getText();
-            String pw = String.copyValueOf(textPasswort.getPassword());
-            if (GUIController.getClubMemberController().login(textUsername.getText(), String.copyValueOf(textPasswort.getPassword()))) {
-                GUIController.setLoggedInMember(GUIController.getClubMemberController().getLoggedInClubmember());
-                System.out.println("Logged In");
-                WelcomeFrame wf = new WelcomeFrame();
-                this.setVisible(false);
-                wf.setVisible(true);
-            } else {
-                System.out.println("Fail");
-                JOptionPane.showMessageDialog(rootPane, "Login failed. \nUsername or password false!!", "Login failed", JOptionPane.ERROR_MESSAGE);
-            }
-            textPasswort.setText("");
-            textUsername.setText("");
-        } catch (RemoteException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+
+        String username = textUsername.getText();
+        String pw = String.copyValueOf(textPasswort.getPassword());
+        if (GUIController.getClubMemberController().login(textUsername.getText(), String.copyValueOf(textPasswort.getPassword()))) {
+            GUIController.setLoggedInMember(GUIController.getClubMemberController().getLoggedInClubmember());
+            System.out.println("Logged In");
+            WelcomeFrame wf = new WelcomeFrame();
+            this.setVisible(false);
+            wf.setVisible(true);
+        } else {
+            System.out.println("Fail");
+            JOptionPane.showMessageDialog(rootPane, "Login failed. \nUsername or password false!!", "Login failed", JOptionPane.ERROR_MESSAGE);
         }
+        textPasswort.setText("");
+        textUsername.setText("");
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void getAllCompetitionsAndResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getAllCompetitionsAndResultsActionPerformed

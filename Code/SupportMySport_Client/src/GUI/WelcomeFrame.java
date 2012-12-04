@@ -4,7 +4,7 @@
  */
 package GUI;
 
-import CommunicationInterfaces.RoleRightDTO;
+import Communication.RoleRightDTO;
 import GUI.Objects.MessageCollector;
 import java.rmi.RemoteException;
 import java.util.Collection;
@@ -20,30 +20,28 @@ public class WelcomeFrame extends javax.swing.JFrame {
     MessageCollector messageCollector;
 
     public WelcomeFrame() {
+
         try {
             try {
-                try {
-                    messageCollector = new MessageCollector(this.getClass().getMethod("showMessageButton", Object.class),this);
-                } catch (NoSuchMethodException ex) {
-                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SecurityException ex) {
-                    Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (RemoteException ex) {
+                messageCollector = new MessageCollector(this.getClass().getMethod("showMessageButton", Object.class), this);
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
                 Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            initComponents();
-            hideMessageButton();
-            this.setLocationRelativeTo(null);
-            setRoleUseCases();
-            GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
-            //checkMessages();
-            //new MessageChecker();
-            //GUIController.initRMI("localhost");
         } catch (RemoteException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        initComponents();
+        hideMessageButton();
+        this.setLocationRelativeTo(null);
+        setRoleUseCases();
+        GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
+        //checkMessages();
+        //new MessageChecker();
+        //GUIController.initRMI("localhost");
+
     }
 
     /**

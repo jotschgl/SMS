@@ -4,9 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
-import CommunicationInterfaces.TeamDTO;
 import Controller.ClubMemberController;
 import Controller.LoginController;
 import Persistence.ClubMember;
@@ -19,7 +16,7 @@ import java.util.LinkedList;
  *
  * @author Dennis
  */
-public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implements IClubMemberDTOControllerFactory {
+public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implements ClubMemberDTOControllerFactoryRemote {
 
     private ClubMemberController clubMemberController;
     private DTOAssembler dtoAssembler;

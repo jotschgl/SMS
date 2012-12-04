@@ -8,7 +8,6 @@ import Communication.JMS.InitialSubscritptionManager;
 import Communication.JMS.InvitationPublisher;
 import Communication.JMS.InvitationUnsubscribeManager;
 import Communication.JMS.InvitationsSubscriber;
-import CommunicationInterfaces.CompetitionDTO;
 import Persistence.Competition;
 import Persistence.PersistenceManager;
 import java.io.Serializable;

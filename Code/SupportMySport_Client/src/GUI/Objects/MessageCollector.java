@@ -4,7 +4,7 @@
  */
 package GUI.Objects;
 
-import CommunicationInterfaces.CompetitionDTO;
+import Communication.CompetitionDTO;
 import MessageInterfaces.IMessageCollector;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;

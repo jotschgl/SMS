@@ -4,10 +4,10 @@
  */
 package GUI;
 
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.CompetitionTeamDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.MeetingDTO;
+import Communication.CompetitionDTO;
+import Communication.CompetitionTeamDTO;
+import Communication.CompetitionDTOControllerFactoryRemote;
+import Communication.MeetingDTO;
 import java.rmi.RemoteException;
 import java.security.spec.MGF1ParameterSpec;
 import java.util.Collection;
@@ -28,7 +28,7 @@ public class AllCompetitionsAndResults extends javax.swing.JFrame {
     /**
      * Creates new form AllCompetitionsAndResults
      */
-    private ICompetitionDTOControllerFactory competitionController;
+    private CompetitionDTOControllerFactoryRemote competitionController;
     private HashMap<Integer, CompetitionDTO> _competitions = new HashMap<Integer, CompetitionDTO>();
     private int lastSelectedRow;
 

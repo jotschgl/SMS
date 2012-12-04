@@ -4,8 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.TeamDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import org.junit.AfterClass;

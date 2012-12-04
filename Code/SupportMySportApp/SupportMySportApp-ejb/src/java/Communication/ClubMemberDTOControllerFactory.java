@@ -4,40 +4,37 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
-import CommunicationInterfaces.TeamDTO;
 import Controller.ClubMemberController;
 import Controller.LoginController;
 import Persistence.ClubMember;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.LinkedList;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Dennis
  */
-public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implements IClubMemberDTOControllerFactory {
+@Stateful
+public class ClubMemberDTOControllerFactory  implements ClubMemberDTOControllerFactoryRemote {
 
     private ClubMemberController clubMemberController;
     private DTOAssembler dtoAssembler;
     private LoginController loginController;
 
-    public ClubMemberDTOControllerFactory() throws RemoteException {
+    public ClubMemberDTOControllerFactory()  {
         clubMemberController = new ClubMemberController();
         dtoAssembler = new DTOAssembler();
         loginController = new LoginController();
     }
 
     @Override
-    public void createOrUpdateClubMember(ClubMemberDTO clubMemberDTO) throws RemoteException {
+    public void createOrUpdateClubMember(ClubMemberDTO clubMemberDTO)  {
         clubMemberController.createOrUpdateClubMember(dtoAssembler.updateClubMemberEntity(clubMemberDTO));
     }
 
     @Override
-    public Collection<ClubMemberDTO> getAllClubMembers() throws RemoteException {
+    public Collection<ClubMemberDTO> getAllClubMembers()  {
         Collection<ClubMemberDTO> allClubMembers = new LinkedList<ClubMemberDTO>();
         for (ClubMember clubMember : clubMemberController.getAllClubMembers()) {
             allClubMembers.add(dtoAssembler.createClubMemberDTO(clubMember));
@@ -46,24 +43,24 @@ public class ClubMemberDTOControllerFactory extends UnicastRemoteObject implemen
     }
 
     @Override
-    public ClubMemberDTO getClubmemberByUserName(String username) throws RemoteException {
+    public ClubMemberDTO getClubmemberByUserName(String username)  {
         return dtoAssembler.createClubMemberDTO(clubMemberController.getClubmemberByUserName(username));
     }
 
     @Override
-    public ClubMemberDTO getLoggedInClubmember() throws RemoteException {
+    public ClubMemberDTO getLoggedInClubmember()  {
         ClubMemberDTO res =  dtoAssembler.createClubMemberDTO(loginController.getLoggedinClubmember());
         System.out.println("in getLoggedInClubmember");
         return res;
     }
 
     @Override
-    public boolean login(String username, String password) throws RemoteException {
+    public boolean login(String username, String password)  {
         return loginController.auth(username, password);
     }
 
     @Override
-    public Collection<ClubMemberDTO> getAllTeamMembers(TeamDTO team) throws RemoteException {
+    public Collection<ClubMemberDTO> getAllTeamMembers(TeamDTO team)  {
         Collection<ClubMember> members = clubMemberController.getAllTeamMembers(dtoAssembler.updateTeamEntity(team));
         LinkedList<ClubMemberDTO> membersDTO = new LinkedList<ClubMemberDTO>();
         for (ClubMember clubMember : members) {

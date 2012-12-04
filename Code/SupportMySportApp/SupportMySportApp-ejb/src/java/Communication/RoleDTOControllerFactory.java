@@ -4,35 +4,33 @@
  */
 package Communication;
 
-import CommunicationInterfaces.FunctionRoleDTO;
-import CommunicationInterfaces.IRoleDTOControllerFactory;
 import Controller.ClubMemberController;
 import Persistence.FunctionRole;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.LinkedList;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Dennis
  */
-public class RoleDTOControllerFactory extends UnicastRemoteObject implements IRoleDTOControllerFactory {
+@Stateful
+public class RoleDTOControllerFactory implements RoleDTOControllerFactoryRemote {
 
     private DTOAssembler dtoAssembler;
     private ClubMemberController clubMemberController;
-    
-    public RoleDTOControllerFactory() throws RemoteException{
+
+    public RoleDTOControllerFactory() {
         dtoAssembler = new DTOAssembler();
         clubMemberController = new ClubMemberController();
     }
-    
+
     @Override
-    public Collection<FunctionRoleDTO> getAllRoles() throws RemoteException {
+    public Collection<FunctionRoleDTO> getAllRoles() {
         Collection<FunctionRoleDTO> allRoles = new LinkedList<FunctionRoleDTO>();
-        for(FunctionRole role : clubMemberController.getAllRoles()){
+        for (FunctionRole role : clubMemberController.getAllRoles()) {
             allRoles.add(dtoAssembler.createFunctionRoleDTO(role));
         }
         return allRoles;
-    } 
+    }
 }

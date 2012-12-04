@@ -4,18 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.CompetitionTeamDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.FederationDTO;
-import CommunicationInterfaces.FunctionRoleDTO;
-import CommunicationInterfaces.LeagueDTO;
-import CommunicationInterfaces.MeetingDTO;
-import CommunicationInterfaces.RoleRightDTO;
-import CommunicationInterfaces.RuleDTO;
-import CommunicationInterfaces.SportDTO;
-import CommunicationInterfaces.TeamDTO;
 import Persistence.ClubMember;
 import Persistence.Competition;
 import Persistence.CompetitionTeam;

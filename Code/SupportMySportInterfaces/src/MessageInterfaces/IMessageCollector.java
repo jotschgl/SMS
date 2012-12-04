@@ -4,7 +4,7 @@
  */
 package MessageInterfaces;
 
-import CommunicationInterfaces.CompetitionDTO;
+import Communication.CompetitionDTO;
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

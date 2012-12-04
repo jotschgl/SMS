@@ -4,7 +4,7 @@
  */
 package Communication.JMS;
 
-import CommunicationInterfaces.CompetitionDTO;
+import Communication.CompetitionDTO;
 import java.io.Serializable;
 import java.util.Properties;
 import java.util.logging.Level;

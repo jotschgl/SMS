@@ -4,7 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.FunctionRoleDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.logging.Level;

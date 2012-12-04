@@ -4,8 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.FunctionRoleDTO;
-import CommunicationInterfaces.IRoleDTOControllerFactory;
 import Controller.ClubMemberController;
 import Persistence.FunctionRole;
 import java.rmi.RemoteException;
@@ -17,7 +15,7 @@ import java.util.LinkedList;
  *
  * @author Dennis
  */
-public class RoleDTOControllerFactory extends UnicastRemoteObject implements IRoleDTOControllerFactory {
+public class RoleDTOControllerFactory extends UnicastRemoteObject implements RoleDTOControllerFactoryRemote {
 
     private DTOAssembler dtoAssembler;
     private ClubMemberController clubMemberController;

@@ -4,14 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.CompetitionTeamDTO;
-import CommunicationInterfaces.DepartmentDTO;
-import CommunicationInterfaces.ICompetitionDTOControllerFactory;
-import CommunicationInterfaces.MeetingDTO;
-import CommunicationInterfaces.SportDTO;
-import CommunicationInterfaces.TeamDTO;
 import Controller.CompetitionController;
 import Persistence.Competition;
 import Persistence.Department;
@@ -27,7 +19,7 @@ import java.util.LinkedList;
  *
  * @author Dennis
  */
-public class CompetitionDTOControllerFactory extends UnicastRemoteObject implements ICompetitionDTOControllerFactory {
+public class CompetitionDTOControllerFactory extends UnicastRemoteObject implements CompetitionDTOControllerFactoryRemote {
 
     private CompetitionController competitionController;
     private DTOAssembler dtoAssembler;

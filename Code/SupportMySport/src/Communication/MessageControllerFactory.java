@@ -4,11 +4,8 @@
  */
 package Communication;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
 import Domaene.DomainFacade;
 import MessageInterfaces.IMessageCollector;
-import MessageInterfaces.IMessageControllerFactory;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -20,7 +17,7 @@ import java.util.List;
  *
  * @author rafa
  */
-public class MessageControllerFactory extends UnicastRemoteObject implements IMessageControllerFactory {
+public class MessageControllerFactory extends UnicastRemoteObject implements MessageControllerFactoryRemote {
 
     DomainFacade dm = new DomainFacade();
 

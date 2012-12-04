@@ -4,9 +4,9 @@
  */
 package GUI;
 
-import CommunicationInterfaces.CompetitionDTO;
-import CommunicationInterfaces.MeetingDTO;
-import CommunicationInterfaces.RoleRightDTO;
+import Communication.CompetitionDTO;
+import Communication.MeetingDTO;
+import Communication.RoleRightDTO;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.HashMap;

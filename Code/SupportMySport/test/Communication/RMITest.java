@@ -4,8 +4,6 @@
  */
 package Communication;
 
-import CommunicationInterfaces.IClubMemberDTOControllerFactory;
-import CommunicationInterfaces.IUseCaseControllerFactory;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -52,8 +50,8 @@ public class RMITest {
     public void testRMI() {
         try {
             Registry reg = LocateRegistry.getRegistry("localhost");
-            IUseCaseControllerFactory factory = (IUseCaseControllerFactory) reg.lookup("UseCaseControllerFactory");
-            IClubMemberDTOControllerFactory cmc = factory.createClubMemberController();
+            UseCaseControllerFactoryRemote factory = (UseCaseControllerFactoryRemote) reg.lookup("UseCaseControllerFactory");
+            ClubMemberDTOControllerFactoryRemote cmc = factory.createClubMemberController();
             System.out.println(cmc.getAllClubMembers().size());
         } catch (NotBoundException ex) {
             Logger.getLogger(RMITest.class.getName()).log(Level.SEVERE, null, ex);

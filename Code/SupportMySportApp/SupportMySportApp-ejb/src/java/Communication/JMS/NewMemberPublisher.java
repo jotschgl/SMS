@@ -4,8 +4,8 @@
  */
 package Communication.JMS;
 
-import CommunicationInterfaces.ClubMemberDTO;
-import CommunicationInterfaces.CompetitionDTO;
+import Communication.ClubMemberDTO;
+import Communication.CompetitionDTO;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
