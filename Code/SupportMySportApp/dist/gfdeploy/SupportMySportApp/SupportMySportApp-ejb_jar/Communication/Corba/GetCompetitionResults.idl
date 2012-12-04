@@ -1,0 +1,5 @@
+module CORBA_Competitions{
+	interface CompetitionsResults{
+			string getCompetitionResults(in string liga, in string sport, in string datum);
+	};
+};
