@@ -6,6 +6,7 @@ package GUI;
 
 import Communication.ClubMemberDTO;
 import Communication.ClubMemberDTOControllerFactoryRemote;
+import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -57,8 +58,8 @@ public class MitgliedFrame extends JFrame {
         textNachname = new javax.swing.JTextField();
         UsernameLabel = new javax.swing.JLabel();
         textUsername = new javax.swing.JTextField();
-        StraßeLabel = new javax.swing.JLabel();
-        textStraße = new javax.swing.JTextField();
+        StrasseLabel = new javax.swing.JLabel();
+        textStrasse = new javax.swing.JTextField();
         textStadt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         textPLZ = new javax.swing.JTextField();
@@ -111,13 +112,13 @@ public class MitgliedFrame extends JFrame {
 
         textUsername.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        StraßeLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        StraßeLabel.setText("Straße:");
+        StrasseLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        StrasseLabel.setText("Strasse:");
 
-        textStraße.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textStraße.addActionListener(new java.awt.event.ActionListener() {
+        textStrasse.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textStrasse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textStraßeActionPerformed(evt);
+                textStrasseActionPerformed(evt);
             }
         });
 
@@ -161,7 +162,7 @@ public class MitgliedFrame extends JFrame {
         dateGeb.setPreferredSize(new java.awt.Dimension(87, 25));
 
         comboGender.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        comboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Männlich", "Weiblich" }));
+        comboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "M�nnlich", "Weiblich" }));
         comboGender.setPreferredSize(new java.awt.Dimension(56, 25));
 
         GeburtstagLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -184,7 +185,7 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(UsernameLabel)
-                    .addComponent(StraßeLabel)
+                    .addComponent(StrasseLabel)
                     .addComponent(GeschlechtLabel)
                     .addComponent(jLabel3)
                     .addComponent(PostleitzahlLabel)
@@ -201,7 +202,7 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(textVorname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textUsername)
                     .addComponent(textNachname)
-                    .addComponent(textStraße)
+                    .addComponent(textStrasse)
                     .addComponent(textStadt)
                     .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                     .addComponent(textTelefon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
@@ -228,8 +229,8 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(UsernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StraßeLabel)
-                    .addComponent(textStraße, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(StrasseLabel)
+                    .addComponent(textStrasse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textStadt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,7 +287,7 @@ public class MitgliedFrame extends JFrame {
                 member.setLastname(textNachname.getText());
                 member.setMail(textEmail.getText());
                 member.setPhone(textTelefon.getText());
-                member.setStreet(textStraße.getText());
+                member.setStreet(textStrasse.getText());
                 member.setCity(textStadt.getText());
                 member.setCountry(textLand.getText());
                 member.setBirthday(dateGeb.getDate());
@@ -301,7 +302,7 @@ public class MitgliedFrame extends JFrame {
 
                 //if upatedMember is false --> create new MemberDTO
                 System.out.println("new member insert");
-                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStrasse.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
 
             }
 
@@ -316,7 +317,11 @@ public class MitgliedFrame extends JFrame {
     private void textStraßeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStraßeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textStraßeActionPerformed
-
+    
+    private void textStrasseActionPerformed(java.awt.event.ActionEvent evt){
+        
+    } 
+    
     private void textLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLandActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textLandActionPerformed
@@ -329,7 +334,7 @@ public class MitgliedFrame extends JFrame {
     private javax.swing.JLabel PostleitzahlLabel;
     private javax.swing.JLabel RegristierungLabel;
     private javax.swing.JButton SpeichernButton;
-    private javax.swing.JLabel StraßeLabel;
+    private javax.swing.JLabel StrasseLabel;
     private javax.swing.JLabel TelefonLabel;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JComboBox comboGender;
@@ -343,7 +348,7 @@ public class MitgliedFrame extends JFrame {
     private javax.swing.JTextField textNachname;
     private javax.swing.JTextField textPLZ;
     private javax.swing.JTextField textStadt;
-    private javax.swing.JTextField textStraße;
+    private javax.swing.JTextField textStrasse;
     private javax.swing.JTextField textTelefon;
     private javax.swing.JTextField textUsername;
     private javax.swing.JTextField textVorname;
@@ -374,9 +379,9 @@ public class MitgliedFrame extends JFrame {
             errorMEssage.append("Email\n");
             validate = false;
         }
-        //Straße
-        if (textStraße.getText().equals("")) {
-            errorMEssage.append("Straße\n");
+        //Strasse
+        if (textStrasse.getText().equals("")) {
+            errorMEssage.append("Strasse\n");
             validate = false;
         }
         //Stadt
@@ -407,7 +412,7 @@ public class MitgliedFrame extends JFrame {
 
         textVorname.setText(member.getFirstname());
         textNachname.setText(member.getLastname());
-        textStraße.setText(member.getStreet());
+        textStrasse.setText(member.getStreet());
         textLand.setText(member.getCountry());
         textStadt.setText(member.getCity());
         textTelefon.setText(member.getPhone());
