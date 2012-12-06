@@ -25,4 +25,8 @@ public interface ClubMemberDTOControllerFactoryRemote {
     public boolean login(String username, String password);
 
     public Collection<ClubMemberDTO> getAllTeamMembers(TeamDTO team);
+
+    public void getHello(TestInterface t);
+
+    public void sayHello();
 }

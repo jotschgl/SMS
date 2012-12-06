@@ -5,7 +5,7 @@
 package Communication.JMS;
 
 import Communication.CompetitionDTO;
-import MessageInterfaces.IMessageCollector;
+import Communication.IMessageCollector;
 import java.rmi.RemoteException;
 import java.util.Properties;
 import java.util.logging.Level;

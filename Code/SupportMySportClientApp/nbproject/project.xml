@@ -17,7 +17,6 @@
             <included-library dirs="200">file.reference.jgoodies-common-1.2.0.jar</included-library>
             <included-library dirs="200">file.reference.jgoodies-looks-2.4.1.jar</included-library>
             <included-library dirs="200">file.reference.junit-4.6.jar</included-library>
-            <included-library dirs="200">libs.MySQLDriver.classpath</included-library>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>

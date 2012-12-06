@@ -4,7 +4,7 @@
  */
 package GUI.Objects;
 
-import MessageInterfaces.IMessageCollector;
+import Communication.IMessageCollector;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,12 +12,13 @@ import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.rmi.PortableRemoteObject;
 
 /**
  *
  * @author Johannes
  */
-public class MessageCollector implements IMessageCollector {
+public class MessageCollector extends PortableRemoteObject implements IMessageCollector {
 
     private LinkedList<Serializable> messages = new LinkedList<Serializable>();
     private Object o;
@@ -27,12 +28,16 @@ public class MessageCollector implements IMessageCollector {
         return messages;
     }
 
-    public MessageCollector(Method invokeMethod, Object o) {
+    public MessageCollector() throws RemoteException {
+    }
+
+    public MessageCollector(Method invokeMethod, Object o) throws RemoteException {
         this.invokeMethod = invokeMethod;
         this.o = o;
     }
 
-    public void gettingInvitationFromMessageListener(Serializable message) {
+    @Override
+    public void gettingInvitationFromMessageListener(Serializable message) throws RemoteException {
         System.out.println("GETTING MESSAGE CALLBACK FROM SERVER, IN MESSAGECOLLECTOR.");
         messages.add(message);
         try {
@@ -45,4 +50,6 @@ public class MessageCollector implements IMessageCollector {
             Logger.getLogger(MessageCollector.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+  
 }

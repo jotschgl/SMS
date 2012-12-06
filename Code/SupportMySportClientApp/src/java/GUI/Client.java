@@ -10,7 +10,18 @@ import Communication.CompetitionDTOControllerFactoryRemote;
 import Communication.DepartmentDTOControllerFactoryRemote;
 import Communication.MessageControllerFactoryRemote;
 import Communication.RoleDTOControllerFactoryRemote;
+import Communication.TestInterface;
+import GUI.Objects.TestIImp;
+import java.rmi.AccessException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.RemoteStub;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 
 /**
@@ -54,12 +65,22 @@ public class Client {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-//       Collection<ClubMemberDTO> dtos = clubMemberDTOControllerFactory.getAllClubMembers();
-//        for (ClubMemberDTO object : dtos) {
-//            System.out.println(object.getFirstname());
-//        }
 
+        TestInterface t = null;
+        try {
+
+            t = new TestIImp();
+            UnicastRemoteObject.exportObject(t, 0);
+
+            clubMemberDTOControllerFactory.getHello(t);
+
+            clubMemberDTOControllerFactory.sayHello();
+
+        } catch (AccessException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

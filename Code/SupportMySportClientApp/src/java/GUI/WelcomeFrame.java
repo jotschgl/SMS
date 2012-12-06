@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Raphaela
  */
-public class WelcomeFrame extends javax.swing.JFrame {
+public final class WelcomeFrame extends javax.swing.JFrame {
 
     MessageCollector messageCollector;
 
@@ -28,6 +28,8 @@ public class WelcomeFrame extends javax.swing.JFrame {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
             Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RemoteException ex) {
+            Logger.getLogger(WelcomeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -35,9 +37,10 @@ public class WelcomeFrame extends javax.swing.JFrame {
         hideMessageButton();
         this.setLocationRelativeTo(null);
         setRoleUseCases();
-        //  GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
         
-        
+          GUIController.getMessageController().subscribe(GUIController.getLoggedInMember().getId(), messageCollector);
+
+
         //checkMessages();
         //new MessageChecker();
         //GUIController.initRMI("localhost");
