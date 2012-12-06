@@ -52,11 +52,11 @@ public class DomainFacade {
     public void initializeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId) {
        new InitialSubscritptionManager().initialSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
-    public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO){
-       new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO);
+    public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO, int clientId){
+       new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO,clientId);
     }
-    public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO){
-        new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO);
+    public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, int deptHeadId){
+        new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO, deptHeadId);
     }
     public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, IMessageCollector mc){
         new InvitationsSubscriber().listenForInvitations(connectionFactoryName, topicName, ClientId, mc);

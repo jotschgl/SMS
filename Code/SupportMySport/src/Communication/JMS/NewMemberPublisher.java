@@ -38,7 +38,7 @@ public class NewMemberPublisher {
     String factoryName = null;
     TopicPublisher topicPublisher = null;
 
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO) {
+    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, int departmentHeadId) {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;
@@ -62,7 +62,8 @@ public class NewMemberPublisher {
              * related things
              *
              */
-            ObjectMessage message = topicSession.createObjectMessage(clubMemberDTO);
+            NewMemberMessage nmm = new NewMemberMessage(departmentHeadId, clubMemberDTO);
+            ObjectMessage message = topicSession.createObjectMessage(nmm);
             System.out.println("PUBLISHER: Publishing message of NewMember");
             topicPublisher.publish(message);
         } catch (JMSException ex) {

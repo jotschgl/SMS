@@ -154,7 +154,7 @@ public class MessageGUI extends javax.swing.JFrame {
     private void changePanel() {
         CardLayout cl = (CardLayout) panelMessage.getLayout();
         panelMessage.removeAll();
-
+        //TODO: change to the new messagetype, message is now of type ICOMPInvitationMessage
         if (selectedMessage instanceof CompetitionDTO) {
             panelMessage.add(new SportlerMessagePanel(this, (CompetitionDTO) selectedMessage), "");
         }

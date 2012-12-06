@@ -38,7 +38,7 @@ public class NewMemberPublisher {
     String factoryName = null;
     TopicPublisher topicPublisher = null;
 
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO) {
+    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, int departmentHeadId) {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;

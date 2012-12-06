@@ -312,16 +312,12 @@ public class MitgliedFrame extends JFrame {
         }
 
         //TODO: new MemberAction
-    }//GEN-LAST:event_SpeichernButtonActionPerformed
+    }
 
-    private void textStraßeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStraßeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textStraßeActionPerformed
-    
     private void textStrasseActionPerformed(java.awt.event.ActionEvent evt){
-        
-    } 
-    
+
+    }
+
     private void textLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLandActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textLandActionPerformed

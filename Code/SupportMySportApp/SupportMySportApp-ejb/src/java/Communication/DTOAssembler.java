@@ -149,7 +149,7 @@ public class DTOAssembler {
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
         } else {
-            instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO);
+            instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO,clubMemberDTO.getDepartment().getDepartmentChief().getId());
         }
 //        if(clubMemberDTO.getSport() != null){
 //         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
@@ -191,7 +191,7 @@ public class DTOAssembler {
             } else {
                 if (compTeamDTO.getClubMember() != null) {
                     instance.initializeSubscriber("smsFactory", "smsTopic", team.getClubMember().getId() + "");
-                    instance.sendInvitations("smsFactory", "smsTopic", competitionDTO);
+                    instance.sendInvitations("smsFactory", "smsTopic", competitionDTO, team.getClubMember().getId());
                 }
             }
             if(compTeamDTO.getClubMember() != null){

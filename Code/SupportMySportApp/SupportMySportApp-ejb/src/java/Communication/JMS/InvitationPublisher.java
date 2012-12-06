@@ -50,7 +50,7 @@ public class InvitationPublisher {
      * @param messageBody --> the body of the Message
      * @param competitionDate --> the Date of the Competition
      */
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, CompetitionDTO competitionDTO) {
+     public void publishMessages(String connectionFactroyName, String topicConnectionName, CompetitionDTO competitionDTO, int clientid) {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;
@@ -74,7 +74,8 @@ public class InvitationPublisher {
              * related things
              *
              */
-            ObjectMessage message = topicSession.createObjectMessage(competitionDTO);
+            CompetitionInvitationMessage compInv = new CompetitionInvitationMessage(competitionDTO, clientid, topicName);
+            ObjectMessage message = topicSession.createObjectMessage(compInv);
             System.out.println("PUBLISHER: Publishing message");
             topicPublisher.publish(message);
         } catch (JMSException ex) {
