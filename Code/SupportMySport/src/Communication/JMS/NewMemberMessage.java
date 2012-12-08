@@ -5,6 +5,7 @@
 package Communication.JMS;
 
 import Communication.ClubMemberDTO;
+import Communication.DepartmentDTO;
 import MessageInterfaces.INewMemberMessage;
 import java.io.Serializable;
 
@@ -16,10 +17,12 @@ public class NewMemberMessage implements INewMemberMessage, Serializable{
 
     int deptHeadId;
     ClubMemberDTO clubMemberDTO;
+    DepartmentDTO deptDTO;
     
-    public NewMemberMessage(int id, ClubMemberDTO clubmemberdto){
+    public NewMemberMessage(int id, ClubMemberDTO clubmemberdto, DepartmentDTO departmentdto){
         deptHeadId = id;
         clubMemberDTO = clubmemberdto;
+        deptDTO = departmentdto;
     }
     
     public int getDeptHeadId() {
@@ -29,6 +32,11 @@ public class NewMemberMessage implements INewMemberMessage, Serializable{
     @Override
     public ClubMemberDTO getClubMemberDTO() {
        return clubMemberDTO;
+    }
+
+    @Override
+    public DepartmentDTO getDepartmentDTO() {
+        return deptDTO;
     }
     
 }

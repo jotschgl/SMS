@@ -5,6 +5,7 @@
 package MessageInterfaces;
 
 import Communication.ClubMemberDTO;
+import Communication.DepartmentDTO;
 
 /**
  *
@@ -15,4 +16,6 @@ public interface INewMemberMessage {
     int getDeptHeadId();
     
     ClubMemberDTO getClubMemberDTO();
+    
+    DepartmentDTO getDepartmentDTO();
 }

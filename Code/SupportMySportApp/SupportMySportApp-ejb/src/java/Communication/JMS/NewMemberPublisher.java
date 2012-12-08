@@ -6,6 +6,7 @@ package Communication.JMS;
 
 import Communication.ClubMemberDTO;
 import Communication.CompetitionDTO;
+import Communication.DepartmentDTO;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +39,7 @@ public class NewMemberPublisher {
     String factoryName = null;
     TopicPublisher topicPublisher = null;
 
-    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, int departmentHeadId) {
+    public void publishMessages(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, DepartmentDTO departmentDTO,int departmentHeadId) {
         try {
             this.factoryName = connectionFactroyName;
             this.topicName = topicConnectionName;
@@ -62,7 +63,8 @@ public class NewMemberPublisher {
              * related things
              *
              */
-            ObjectMessage message = topicSession.createObjectMessage(clubMemberDTO);
+            NewMemberMessage nmm = new NewMemberMessage(departmentHeadId, clubMemberDTO, departmentDTO);
+            ObjectMessage message = topicSession.createObjectMessage(nmm);
             System.out.println("PUBLISHER: Publishing message of NewMember");
             topicPublisher.publish(message);
         } catch (JMSException ex) {

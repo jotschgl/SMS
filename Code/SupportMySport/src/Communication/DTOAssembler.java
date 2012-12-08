@@ -149,7 +149,7 @@ public class DTOAssembler {
         if (clubMemberDTO.getId() != -1) {
             clubMember.setId(clubMemberDTO.getId());
         } else {
-            instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO,clubMemberDTO.getDepartment().getDepartmentChief().getId());
+            instance.sendNewMemberMessage("smsFactory", "smsMemberTopic", clubMemberDTO,clubMemberDTO.getDepartment(),clubMemberDTO.getDepartment().getDepartmentChief().getId());
         }
 //        if(clubMemberDTO.getSport() != null){
 //         clubMember.setSport(updateSportEntity(clubMemberDTO.getSport()));
