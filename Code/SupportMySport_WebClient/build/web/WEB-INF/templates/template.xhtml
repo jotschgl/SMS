@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="resources/templatemo_style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="./../resources/ddsmoothmenu.css" />
+        <title>Facelets Template</title>
+
+        <link href="ressources/css/global.css" type="text/css" rel="stylesheet" />
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>        
+
+        <script>
+
+            $(document).ready(function(){
+
+                // hide #back-top first
+                $("#back-top").hide();
+                $("p.teaser-caption-text").hide();
+                // fade in #back-top
+                $(function () {
+                    $(window).scroll(function () {
+                        if ($(this).scrollTop() > 100) {
+                            $('#back-top').fadeIn();
+                        } else {
+                            $('#back-top').fadeOut();
+                        }
+                    });
+
+                    // scroll body to 0px on click
+                    $('#back-top').click(function () {
+                        $('body,html').animate({
+                            scrollTop: 0
+                        }, 800);
+                        return false;
+                    });
+                });
+
+
+        </script>
+    </h:head>
+
+    <h:body>
+
+            <!-- header -->
+            <header>
+               
+                <!-- navigation -->
+                <nav id="primarynav">
+                    <img alt="Support My Sport" src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTKEo6L0wFV1YrZxLLes-Zks02ZgPjCJd9BFMSNaM5bhYy7CeU5" />
+                 <c:if test="#{login.loggedIn}">
+                    <h:form class="userlogin">
+                        <h:outputLabel value="Logged In User: #{login.loggedInMember.firstname}" /><br /><br />
+                        <h:commandButton value="logout" action="#{login.logout()}" />
+                    </h:form>
+                </c:if>
+                
+                </nav>
+                
+               
+                <!-- /navigation -->
+
+            </header><!-- /header -->
+
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">article</ui:insert>
+        </div>
+
+
+            <!-- footer -->
+            <footer>
+                <nav>
+                    <ul>
+                        <li>Support My Sports 2012- Team F</li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                </nav>
+            </footer>
+            <!-- /footer -->
+
+            <div id="back-top">
+                <a href="#top">Back to Top</a>
+            </div>
+    </h:body>
+
+</html>
