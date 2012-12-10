@@ -12,7 +12,7 @@ import Communication.JMS.NewMemberPublisher;
 import Communication.ClubMemberDTO;
 import Communication.CompetitionDTO;
 import Communication.DepartmentDTO;
-import MessageInterfaces.IMessageCollector;
+import Communication.IMessageCollector;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;

@@ -107,7 +107,11 @@ public class InvitationsSubscriber {
                 ObjectMessage m = (ObjectMessage) message;
                 try {
                     CompetitionInvitationMessage invMsgObj = (CompetitionInvitationMessage) m.getObject();
-                    messageCollector.gettingInvitationFromMessageListener(invMsgObj);
+                    try {
+                        messageCollector.gettingInvitationFromMessageListener(invMsgObj);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     System.out.println("In onMessage of InvitationSubsciber and sending Message to the remote IMessageCollector.");
                 }catch (JMSException ex) {
                     Logger.getLogger(InvitationsSubscriber.class.getName()).log(Level.SEVERE, null, ex);
