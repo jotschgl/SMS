@@ -106,7 +106,7 @@ public class InvitationsSubscriber {
 
                 ObjectMessage m = (ObjectMessage) message;
                 try {
-                    CompetitionDTO invMsgObj = (CompetitionDTO) m.getObject();
+                    CompetitionInvitationMessage invMsgObj = (CompetitionInvitationMessage) m.getObject();
                     messageCollector.gettingInvitationFromMessageListener(invMsgObj);
                     System.out.println("In onMessage of InvitationSubsciber and sending Message to the remote IMessageCollector.");
                 } catch (RemoteException ex) {

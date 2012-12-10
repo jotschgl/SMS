@@ -11,7 +11,8 @@ import Communication.JMS.InvitationsSubscriber;
 import Communication.JMS.NewMemberPublisher;
 import Communication.ClubMemberDTO;
 import Communication.CompetitionDTO;
-import Communication.IMessageCollector;
+import Communication.DepartmentDTO;
+import MessageInterfaces.IMessageCollector;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;
@@ -52,11 +53,11 @@ public class DomainFacade {
     public void initializeSubscriber(String connectionFactroyName, String topicConnectionName, String subScriberId) {
        new InitialSubscritptionManager().initialSubscription(connectionFactroyName, topicConnectionName, subScriberId);
     }
-    public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO){
-       new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO);
+    public void sendInvitations(String connectionFactroyName, String topicConnectionName, CompetitionDTO compDTO, int clientid){
+       new InvitationPublisher().publishMessages(connectionFactroyName, topicConnectionName, compDTO, clientid);
     }
-    public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO){
-        new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO);
+    public void sendNewMemberMessage(String connectionFactroyName, String topicConnectionName, ClubMemberDTO clubMemberDTO, DepartmentDTO deptDTO,int deptHeadId){
+        new NewMemberPublisher().publishMessages(connectionFactroyName, topicConnectionName, clubMemberDTO, deptDTO,deptHeadId);
     }
     public void listenForInvitations(String connectionFactoryName, String topicName, String ClientId, IMessageCollector mc){
         new InvitationsSubscriber().listenForInvitations(connectionFactoryName, topicName, ClientId, mc);

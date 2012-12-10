@@ -47,7 +47,7 @@ public class TestJMS {
         CompetitionDTO comDTO = asm.createCompetitonDTO(com);
         
         InvitationPublisher invPub = new InvitationPublisher();
-        invPub.publishMessages("smsFactory", "smsTopic", comDTO);
+        invPub.publishMessages("smsFactory", "smsTopic", comDTO, 4711);
     }
     
     @Ignore
@@ -84,7 +84,7 @@ public class TestJMS {
         initMngr.finish();
 
         InvitationPublisher invPub = new InvitationPublisher();
-        invPub.publishMessages("smsFactory", "smsTopic", comDTO);
+        invPub.publishMessages("smsFactory", "smsTopic", comDTO, 4711);
 
         try {
             Thread.sleep(1000);

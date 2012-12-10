@@ -57,8 +57,8 @@ public class MitgliedFrame extends JFrame {
         textNachname = new javax.swing.JTextField();
         UsernameLabel = new javax.swing.JLabel();
         textUsername = new javax.swing.JTextField();
-        StraßeLabel = new javax.swing.JLabel();
-        textStraße = new javax.swing.JTextField();
+        StrasseLabel = new javax.swing.JLabel();
+        textStrasse = new javax.swing.JTextField();
         textStadt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         textPLZ = new javax.swing.JTextField();
@@ -111,13 +111,13 @@ public class MitgliedFrame extends JFrame {
 
         textUsername.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        StraßeLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        StraßeLabel.setText("Straße:");
+        StrasseLabel.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        StrasseLabel.setText("Straße:");
 
-        textStraße.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        textStraße.addActionListener(new java.awt.event.ActionListener() {
+        textStrasse.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        textStrasse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textStraßeActionPerformed(evt);
+                textStrasseActionPerformed(evt);
             }
         });
 
@@ -184,7 +184,7 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(UsernameLabel)
-                    .addComponent(StraßeLabel)
+                    .addComponent(StrasseLabel)
                     .addComponent(GeschlechtLabel)
                     .addComponent(jLabel3)
                     .addComponent(PostleitzahlLabel)
@@ -201,7 +201,7 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(textVorname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textUsername)
                     .addComponent(textNachname)
-                    .addComponent(textStraße)
+                    .addComponent(textStrasse)
                     .addComponent(textStadt)
                     .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                     .addComponent(textTelefon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
@@ -228,8 +228,8 @@ public class MitgliedFrame extends JFrame {
                     .addComponent(UsernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(StraßeLabel)
-                    .addComponent(textStraße, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(StrasseLabel)
+                    .addComponent(textStrasse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textStadt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,7 +286,7 @@ public class MitgliedFrame extends JFrame {
                 member.setLastname(textNachname.getText());
                 member.setMail(textEmail.getText());
                 member.setPhone(textTelefon.getText());
-                member.setStreet(textStraße.getText());
+                member.setStreet(textStrasse.getText());
                 member.setCity(textStadt.getText());
                 member.setCountry(textLand.getText());
                 member.setBirthday(dateGeb.getDate());
@@ -301,7 +301,7 @@ public class MitgliedFrame extends JFrame {
 
                 //if upatedMember is false --> create new MemberDTO
                 System.out.println("new member insert");
-                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStraße.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
+                cont.createOrUpdateClubMember(new ClubMemberDTO(textVorname.getText(), textNachname.getText(), textUsername.getText(), textStrasse.getText(), textStadt.getText(), textLand.getText(), textPLZ.getText(), textEmail.getText(), textTelefon.getText(), (comboGender.getSelectedItem().toString().startsWith("W") ? 'f' : 'm'), dateGeb.getDate()));
 
             }
 
@@ -313,9 +313,9 @@ public class MitgliedFrame extends JFrame {
         //TODO: new MemberAction
     }//GEN-LAST:event_SpeichernButtonActionPerformed
 
-    private void textStraßeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStraßeActionPerformed
+    private void textStrasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textStrasseActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textStraßeActionPerformed
+    }//GEN-LAST:event_textStrasseActionPerformed
 
     private void textLandActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textLandActionPerformed
         // TODO add your handling code here:
@@ -370,7 +370,7 @@ public class MitgliedFrame extends JFrame {
     private javax.swing.JLabel PostleitzahlLabel;
     private javax.swing.JLabel RegristierungLabel;
     private javax.swing.JButton SpeichernButton;
-    private javax.swing.JLabel StraßeLabel;
+    private javax.swing.JLabel StrasseLabel;
     private javax.swing.JLabel TelefonLabel;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JComboBox comboGender;
@@ -384,7 +384,7 @@ public class MitgliedFrame extends JFrame {
     private javax.swing.JTextField textNachname;
     private javax.swing.JTextField textPLZ;
     private javax.swing.JTextField textStadt;
-    private javax.swing.JTextField textStraße;
+    private javax.swing.JTextField textStrasse;
     private javax.swing.JTextField textTelefon;
     private javax.swing.JTextField textUsername;
     private javax.swing.JTextField textVorname;
@@ -416,7 +416,7 @@ public class MitgliedFrame extends JFrame {
             validate = false;
         }
         //Straße
-        if (textStraße.getText().equals("")) {
+        if (textStrasse.getText().equals("")) {
             errorMEssage.append("Straße\n");
             validate = false;
         }
@@ -448,7 +448,7 @@ public class MitgliedFrame extends JFrame {
 
         textVorname.setText(member.getFirstname());
         textNachname.setText(member.getLastname());
-        textStraße.setText(member.getStreet());
+        textStrasse.setText(member.getStreet());
         textLand.setText(member.getCountry());
         textStadt.setText(member.getCity());
         textTelefon.setText(member.getPhone());
