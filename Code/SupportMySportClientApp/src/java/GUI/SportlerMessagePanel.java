@@ -4,12 +4,9 @@
  */
 package GUI;
 
-import Communication.CompetitionDTO;
 import Communication.CompetitionTeamDTO;
-import java.rmi.RemoteException;
+import MessageInterfaces.ICompInvitationMessage;
 import java.util.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,14 +18,14 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
      * Creates new form MessagePanel
      */
     private MessageGUI prev;
-    private CompetitionDTO message;
+    private ICompInvitationMessage message;
 
-    public SportlerMessagePanel(MessageGUI prev, CompetitionDTO message) {
+    public SportlerMessagePanel(MessageGUI prev, ICompInvitationMessage message) {
         initComponents();
         this.prev = prev;
         this.message = message;
-        textFieldDatum.setText(message.getDateOfCompetition().toString());
-        textFieldWettkampf.setText(message.getName());
+        textFieldDatum.setText(message.getCompetitionDTO().getDateOfCompetition().toString());
+        textFieldWettkampf.setText(message.getCompetitionDTO().getName());
     }
 
     /**
@@ -122,17 +119,17 @@ public class SportlerMessagePanel extends javax.swing.JPanel {
     private void buttonAbsagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAbsagenActionPerformed
 
         LinkedList<CompetitionTeamDTO> removeList = new LinkedList<CompetitionTeamDTO>();
-        for (CompetitionTeamDTO compTeamDTO : message.getAllTeamsOfCompetition()) {
+        for (CompetitionTeamDTO compTeamDTO : message.getCompetitionDTO().getAllTeamsOfCompetition()) {
             if (compTeamDTO.getClubMember() != null) {
-                if ((compTeamDTO.getClubMember().getId() == GUIController.getLoggedInMember().getId()) && (compTeamDTO.getCompetition().getId() == message.getId())) {
+                if ((compTeamDTO.getClubMember().getId() == GUIController.getLoggedInMember().getId()) && (compTeamDTO.getCompetition().getId() == message.getCompetitionDTO().getId())) {
                     removeList.add(compTeamDTO);
                 }
             }
         }
         for (CompetitionTeamDTO competitionTeamDTO : removeList) {
-            message.getAllTeamsOfCompetition().remove(competitionTeamDTO);
+            message.getCompetitionDTO().getAllTeamsOfCompetition().remove(competitionTeamDTO);
         }
-        GUIController.getCompetitionController().updateCompetition(message);
+        GUIController.getCompetitionController().updateCompetition(message.getCompetitionDTO());
         prev.removeMessage(message);
         prev.selectNR1();
 
