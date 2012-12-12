@@ -84,16 +84,7 @@ public class login {
         password = null;
         return "index";
     }
-    
-    @PostConstruct
-    public String init() {
-        if (!loggedIn || loggedInMember != null) {
-            return "faces/login.xhtml";
-        } else {
-            return "faces/show.xhtml";
-        }
-    }
-
+  
     public String checkUserData() {
         if (clubMemberDTOControllerFactory.login(username, password)) {
             setLoggedInMember(clubMemberDTOControllerFactory.getClubmemberByUserName(username));
