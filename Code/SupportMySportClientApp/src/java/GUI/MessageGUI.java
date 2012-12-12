@@ -5,6 +5,8 @@
 package GUI;
 
 import Communication.CompetitionDTO;
+import MessageInterfaces.ICompInvitationMessage;
+import MessageInterfaces.INewMemberMessage;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.io.Serializable;
@@ -41,7 +43,7 @@ public class MessageGUI extends javax.swing.JFrame {
         for (Serializable m : messages) {
             list.addElement(m);
         }
-        
+
         jList1.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -155,8 +157,10 @@ public class MessageGUI extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) panelMessage.getLayout();
         panelMessage.removeAll();
         //TODO: change to the new messagetype, message is now of type ICOMPInvitationMessage
-        if (selectedMessage instanceof CompetitionDTO) {
-            panelMessage.add(new SportlerMessagePanel(this, (CompetitionDTO) selectedMessage), "");
+        if (selectedMessage instanceof ICompInvitationMessage) {
+            panelMessage.add(new SportlerMessagePanel(this, (ICompInvitationMessage) selectedMessage), "");
+        } else if (selectedMessage instanceof INewMemberMessage) {
+             panelMessage.add(new ChiefMessagePanel(this, (INewMemberMessage) selectedMessage), "");
         }
         cl.next(panelMessage);
         pack();

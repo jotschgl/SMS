@@ -4,17 +4,31 @@
  */
 package GUI;
 
+import Communication.TeamDTO;
+import MessageInterfaces.INewMemberMessage;
+import java.util.Collection;
+import java.util.LinkedList;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Johannes
  */
 public class ChiefMessagePanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ChiefMessagePanel
-     */
-    public ChiefMessagePanel() {
+    private final MessageGUI prev;
+    private final INewMemberMessage message;
+    private Collection<TeamDTO> teams = new LinkedList<TeamDTO>();
+    private DefaultListModel model = new DefaultListModel();
+
+    ChiefMessagePanel(MessageGUI prev, INewMemberMessage message) {
         initComponents();
+        this.prev = prev;
+        this.message = message;
+        textFieldNachname.setText(message.getClubMemberDTO().getLastname());
+        textFieldVorname.setText(message.getClubMemberDTO().getFirstname());
+        fillList();
     }
 
     /**
@@ -26,17 +40,99 @@ public class ChiefMessagePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        textFieldVorname = new javax.swing.JTextField();
+        textFieldNachname = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listTeams = new javax.swing.JList();
+        button = new javax.swing.JButton();
+
+        jLabel1.setText("Vorname:");
+
+        jLabel2.setText("Nachname:");
+
+        listTeams.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listTeams);
+
+        button.setText("Add to team(s)");
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldVorname)
+                                .addComponent(textFieldNachname, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(button))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(textFieldVorname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(textFieldNachname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(button)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
+        if (listTeams.getSelectedIndices().length > 0) {
+            for (int i : listTeams.getSelectedIndices()) {
+                teams.toArray(new TeamDTO[0])[i].addClubMemberToTeam(message.getClubMemberDTO());
+                GUIController.getDepartmentController().updateTeam(teams.toArray(new TeamDTO[0])[i]);
+            }
+            prev.removeMessage(message);
+            prev.selectNR1();
+        } else {
+            JOptionPane.showMessageDialog(prev, "Bitte mindestens ein Team auswählen!");
+        }
+    }//GEN-LAST:event_buttonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList listTeams;
+    private javax.swing.JTextField textFieldNachname;
+    private javax.swing.JTextField textFieldVorname;
     // End of variables declaration//GEN-END:variables
+
+    private void fillList() {
+        listTeams.setModel(model);
+        model.removeAllElements();
+        teams = GUIController.getDepartmentController().getAllTeamsOfDepartment(message.getDepartmentDTO().getId());
+        for (TeamDTO dto : teams) {
+            model.addElement(dto.getTeamName());
+        }
+    }
 }
