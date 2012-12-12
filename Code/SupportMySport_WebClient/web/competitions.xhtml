@@ -13,31 +13,30 @@
             <ui:define name="content">
                 <h2>Overview of Competitions</h2>
                 <h:form>
-                    <h:dataTable value="#{compList.comp}" var="comp" class="compTable">
+                    <h:dataTable value="#{compList.comp}" var="c" class="compTable">
                         <h:column>
-                            <h:commandButton action="#{compList.show}" value="Show Meetings" >
-                                <f:setPropertyActionListener value="#{comp.name}" 
-                                                             target="#{compList.selectedDTO}" />
+                            <h:commandButton action="#{compList.show}" value="Show Details" >
+                                <f:setPropertyActionListener target="#{compList.selectedDTO}" value="#{c}" />
                             </h:commandButton>
                         </h:column>
                         <h:column>
 
                             <f:facet name="header">Competition Name</f:facet>
-                            <h:outputText value="#{comp.name}" />
+                            <h:outputText value="#{c.name}" />
                         </h:column>
                         <h:column>
                             <f:facet name="header">Competition Fee</f:facet>
-                            <h:outputText value="#{comp.competitionfee}" />
+                            <h:outputText value="#{c.competitionfee}" />
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Date of Competition</f:facet>
-                            <h:outputText value="#{comp.dateOfCompetition}" />
+                            <h:outputText value="#{c.dateOfCompetition}" />
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">Department Name</f:facet>
-                            <h:outputText value="#{comp.department.departmentName}" />
+                            <h:outputText value="#{c.department.departmentName}" />
                         </h:column>
                     </h:dataTable>
                 </h:form>
