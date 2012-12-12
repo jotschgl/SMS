@@ -49,8 +49,9 @@ public class CompetitionList {
         return "detail";
     }
 
-    public String editMeeting() {
-        return "editMeeting";
+    public void save(){
+        System.out.println("svae all meetings");
+        
     }
 
     public ArrayList<CompetitionDTO> getComp() {

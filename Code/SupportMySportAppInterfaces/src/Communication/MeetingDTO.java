@@ -109,3 +109,4 @@ public class MeetingDTO implements Serializable {
         this.pointsB = pointsB;
     }
 }
+    
