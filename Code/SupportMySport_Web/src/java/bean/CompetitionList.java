@@ -42,9 +42,11 @@ public class CompetitionList implements Serializable {
         System.out.println("in show()");
 
         if (competitionDTOControllerFactory != null) {
+            //TODO: Problem with competitionDTOControllerFactory
             System.out.println("in create() and competitionDTOControllerFactory not null");
-            competitionDTOControllerFactory.getAllCompetitions();
             /*
+            competitionDTOControllerFactory.getAllCompetitions();
+            
             Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
             
             if (com != null) {
