@@ -10,6 +10,7 @@ import Persistence.Department;
 import Persistence.Meeting;
 import Persistence.Sport;
 import Persistence.Team;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
@@ -22,7 +23,7 @@ import javax.ejb.Stateful;
  * @author Dennis
  */
 @Stateful
-public class CompetitionDTOControllerFactory  implements CompetitionDTOControllerFactoryRemote {
+public class CompetitionDTOControllerFactory  implements CompetitionDTOControllerFactoryRemote{
 
     private CompetitionController competitionController;
     private DTOAssembler dtoAssembler;

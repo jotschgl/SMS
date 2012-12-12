@@ -10,6 +10,7 @@ import Communication.CompetitionDTOControllerFactoryRemote;
 import Communication.CompetitionTeamDTO;
 import Communication.MeetingDTO;
 import Communication.TeamDTO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
@@ -25,7 +26,7 @@ import javax.faces.event.ValueChangeEvent;
  */
 @ManagedBean(name = "compList")
 @SessionScoped
-public class CompetitionList {
+public class CompetitionList implements Serializable {
 
     @EJB
     private CompetitionDTOControllerFactoryRemote competitionDTOControllerFactory;
@@ -36,33 +37,40 @@ public class CompetitionList {
     private CompetitionTeamDTO selectedComTeamDTO;
     private MeetingDTO selectedMeetingDTO;
 
-    @PostConstruct
-    public void create() {
-        Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
-        if (com != null) {
-            for (CompetitionDTO compDTO : com) {
-                _competitions.add(compDTO);
-            }
-        } else {
-            System.out.println("com = null");
-        }
-
-    }
-
     public String show() {
+        
+        System.out.println("in show()");
+
+        if (competitionDTOControllerFactory != null) {
+            System.out.println("in create() and competitionDTOControllerFactory not null");
+            competitionDTOControllerFactory.getAllCompetitions();
+            /*
+            Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
+            
+            if (com != null) {
+                for (CompetitionDTO compDTO : com){
+                    _competitions.add(compDTO);
+                }
+            }
+            else{
+                System.out.println("com = null");
+            }
+        }
+        */
+        }
         return "detail";
     }
-    
-    public String edit(){
+
+    public String edit() {
         return "editMeeting";
     }
 
     public void doTheSave() {
-        System.out.println("in save"); 
-        for(MeetingDTO m : selectedDTO.getAllCompetitionMeetings()){
+        System.out.println("in save");
+        for (MeetingDTO m : selectedDTO.getAllCompetitionMeetings()) {
             System.out.println(m.getPointsA());
         }
-    } 
+    }
 
     public ArrayList<CompetitionDTO> getComp() {
         return _competitions;

@@ -6,6 +6,7 @@ package bean;
 
 import Communication.ClubMemberDTO;
 import Communication.ClubMemberDTOControllerFactoryRemote;
+import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -18,7 +19,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean
 @SessionScoped
-public class login {
+public class Login implements Serializable{
 
     @EJB
     private ClubMemberDTOControllerFactoryRemote clubMemberDTOControllerFactory;
