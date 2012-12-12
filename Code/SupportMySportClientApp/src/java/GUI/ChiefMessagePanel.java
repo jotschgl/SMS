@@ -114,7 +114,7 @@ public class ChiefMessagePanel extends javax.swing.JPanel {
             prev.removeMessage(message);
             prev.selectNR1();
         } else {
-            JOptionPane.showMessageDialog(prev, "Bitte mindestens ein Team auswählen!");
+            JOptionPane.showMessageDialog(prev, "Bitte mindestens ein Team auswaehlen!");
         }
     }//GEN-LAST:event_buttonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

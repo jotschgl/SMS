@@ -88,7 +88,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Dialog" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Mitglied bearbeiten/ l&#xf6;schen"/>
+        <Property name="text" type="java.lang.String" value="Mitglied bearbeiten/ loeschen"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AenderungenSpeichernButtonMouseClicked"/>

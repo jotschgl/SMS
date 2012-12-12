@@ -97,7 +97,7 @@ public class MitgliedverwaltungFrame extends javax.swing.JFrame {
         });
 
         AenderungenSpeichernButton.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        AenderungenSpeichernButton.setText("Mitglied bearbeiten/ löschen");
+        AenderungenSpeichernButton.setText("Mitglied bearbeiten/ loeschen");
         AenderungenSpeichernButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AenderungenSpeichernButtonMouseClicked(evt);

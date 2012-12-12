@@ -162,7 +162,7 @@ public class MitgliedFrame extends JFrame {
         dateGeb.setPreferredSize(new java.awt.Dimension(87, 25));
 
         comboGender.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        comboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Männlich", "Weiblich" }));
+        comboGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Maennlich", "Weiblich" }));
         comboGender.setPreferredSize(new java.awt.Dimension(56, 25));
 
         GeburtstagLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -275,7 +275,7 @@ public class MitgliedFrame extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_textNachnameActionPerformed
 
-    private void SpeichernButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpeichernButtonActionPerformed
+    private void SpeichernButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
         if (!checkInput()) {
             JOptionPane.showMessageDialog(rootPane, errorMEssage);
