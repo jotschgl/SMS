@@ -12,11 +12,7 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.SupportMySportClientApp.j2ee-module-car}</file>
-                    <path-in-war>/</path-in-war>
-                </library>
-                <library>
-                    <file>${reference.SupportMySport_WebClient.dist-ear}</file>
+                    <file>${reference.SupportMySport_Web.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
@@ -31,15 +27,7 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-                <foreign-project>SupportMySportClientApp</foreign-project>
-                <artifact-type>j2ee_ear_archive</artifact-type>
-                <script>build.xml</script>
-                <target>dist-ear</target>
-                <clean-target>clean-ear</clean-target>
-                <id>j2ee-module-car</id>
-            </reference>
-            <reference>
-                <foreign-project>SupportMySport_WebClient</foreign-project>
+                <foreign-project>SupportMySport_Web</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>
