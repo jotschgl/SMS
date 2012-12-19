@@ -13,14 +13,8 @@
             <ui:define name="content">
                 <h2>Point- List</h2>
                 <h:form>
+
                     <h:dataTable value="#{compList.selectedDTO.allCompetitionMeetings}" var="cm" class="compTable">
-
-                        <h:column>
-                            <h:commandButton action="editMeeting.xhtml" value="Edit Meeting" >
-                                <f:setPropertyActionListener target="#{compList.selectedMeetingDTO}" value="#{cm}" />
-                            </h:commandButton>
-                        </h:column>
-
                         <h:column>
                             <f:facet name="header">Competition Name</f:facet>
                             <h:outputText value="#{cm.competition.name}" />
@@ -31,76 +25,62 @@
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Team Name A</f:facet>
+                            <f:facet name="header">Team Name B</f:facet>
                             <h:outputText value="#{cm.teamByTeamBId.teamName}" />
                         </h:column>
 
                         <h:column>
-                            <f:facet name="header">Team Point A</f:facet>
-                            <h:outputText value="#{cm.pointsA}" />
+                            <f:facet name="header">Team Points A</f:facet>
+                            <h:inputText id="pa" disabled="#{!(compList.selectedDTO.completed == false and login.userHasEnoughRights == true)}" value="#{cm.pointsA}">
+                                <f:convertNumber minFractionDigits="0" />
+                            </h:inputText>
                         </h:column>
-
+                        
                         <h:column>
-                            <f:facet name="header">Team Point A</f:facet>
-                            <h:outputText value="#{cm.pointsB}" />
+                            <f:facet name="header">Team Points B</f:facet>
+                            <h:inputText  id="pb" disabled="#{!(compList.selectedDTO.completed == false and login.userHasEnoughRights == true)}" value="#{cm.pointsB}">
+                                <f:convertNumber minFractionDigits="0" />
+                            </h:inputText>
                         </h:column>
-
-                    </h:dataTable>
+                        
+                    </h:dataTable><br />
+                    <h:commandButton value="Update competiton results" rendered="#{login.userHasEnoughRights == true and compList.selectedDTO.completed == false}" action="#{compList.doTheSave}"></h:commandButton>
+                    <h:selectBooleanCheckbox value="#{compList.selectedDTO.completed}" rendered="#{login.userHasEnoughRights == true and compList.selectedDTO.completed == false}">     Competition is finished? </h:selectBooleanCheckbox>
                 </h:form>
 
                 <br /><br />
                 <h2>All Teams of Competition</h2>
                 <h:form>
-                    <h:dataTable value="#{compList.selectedDTO.allTeamsOfCompetition}" var="cts" class="compTable">
-
-                        <h:column>
-
-                            <f:facet name="header">Competition Name</f:facet>
-                            <h:outputText value="#{cts.competition.name}" />
-                        </h:column>
+                    <h:dataTable value="#{compList.allTeamsOfSelectedCompetition}" var="cts" class="compTable">
                         <h:column>
                             <f:facet name="header">Team name</f:facet>
-                            <h:outputText value="#{cts.team.teamName}" />
+                            <h:outputText value="#{cts.teamName}" />
                         </h:column>
                         <h:column>
                             <f:facet name="header">Team Sport</f:facet>
-                            <h:outputText value="#{cts.team.sport.name}" />
+                            <h:outputText value="#{cts.sport.name}" />
                         </h:column>
-                        <h:column>
-                            <f:facet name="header">Team League</f:facet>
-                            <h:outputText value="#{cts.team.league.name}" />
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Team Department</f:facet>
-                            <h:outputText value="#{cts.team.department.departmentName}" />
-                        </h:column>
-
                     </h:dataTable>
                 </h:form>
                 <br /><br />
 
                 <h2>All Members competing in this competition</h2>
-                 <h:form>
-                    <h:dataTable value="#{compList.selectedDTO.allTeamsOfCompetition}" var="" class="compTable">
-
+                <h:form>
+                    <h:dataTable value="#{compList.allClubMembersOfSelectedCompetition}" var="m" class="compTable">
                         <h:column>
-
-                            <f:facet name="header">Competition Name</f:facet>
-                            <h:outputText value="#{cts.competition}" />
+                            <f:facet name="header">First Name</f:facet>
+                            <h:outputText value="#{m.firstname}" />
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Team name</f:facet>
-                            <h:outputText value="#{cts.team.teamName}" />
+                            <f:facet name="header">Second name</f:facet>
+                            <h:outputText value="#{m.lastname}" />
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Team Sport</f:facet>
-                            <h:outputText value="#{cts.team.sport.name}" />
+                            <f:facet name="header">Birthday</f:facet>
+                            <h:outputText value="#{m.birthday}" />
                         </h:column>
-                    
-
                     </h:dataTable>
-                 </h:form>
+                </h:form>
                 <br /><br />
                 <a href="competitions.xhtml" class="link">return to Competitions</a>
             </ui:define>

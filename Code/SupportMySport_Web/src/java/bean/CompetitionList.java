@@ -37,34 +37,37 @@ public class CompetitionList implements Serializable {
     private CompetitionTeamDTO selectedComTeamDTO;
     private MeetingDTO selectedMeetingDTO;
 
-    public String show() {
-        
-        System.out.println("in show()");
-
+    public CompetitionList() {
+        System.out.println("in constructor");
         if (competitionDTOControllerFactory != null) {
             //TODO: Problem with competitionDTOControllerFactory
             System.out.println("in create() and competitionDTOControllerFactory not null");
-            /*
-            competitionDTOControllerFactory.getAllCompetitions();
             
             Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
-            
+
             if (com != null) {
-                for (CompetitionDTO compDTO : com){
+                for (CompetitionDTO compDTO : com) {
                     _competitions.add(compDTO);
                 }
-            }
-            else{
+            } else {
                 System.out.println("com = null");
             }
+        }else{
+            System.out.println("norpe");
         }
-        */
-        }
+
+    }
+
+    public String show() {
         return "detail";
     }
 
     public String edit() {
         return "editMeeting";
+    }
+
+    public String showCompetitions() {
+        return "competitions";
     }
 
     public void doTheSave() {

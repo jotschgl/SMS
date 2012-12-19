@@ -6,8 +6,7 @@ package bean;
 
 import Communication.ClubMemberDTO;
 import Communication.ClubMemberDTOControllerFactoryRemote;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import Communication.FunctionRoleDTO;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,9 +15,9 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Andreas
  */
-@ManagedBean
+@ManagedBean (name="login")
 @SessionScoped
-public class login {
+public class Login {
 
     @EJB
     private ClubMemberDTOControllerFactoryRemote clubMemberDTOControllerFactory;
@@ -27,6 +26,10 @@ public class login {
     private String password;
     private String userFirstname;
     private boolean loggedIn = false;
+    private boolean userHasEnoughRights = false;
+    private int trainerRoleId = 5;
+    private int abteilungsleiterRoleId = 7;
+    
 
     public String getUsername() {
         return username;
@@ -87,13 +90,40 @@ public class login {
   
     public String checkUserData() {
         if (clubMemberDTOControllerFactory.login(username, password)) {
-            setLoggedInMember(clubMemberDTOControllerFactory.getClubmemberByUserName(username));
+            setLoggedInMember(clubMemberDTOControllerFactory.getLoggedInClubmember());
+            System.out.println(loggedInMember.getLastname());
             userFirstname = getLoggedInMember().getFirstname();
-
             loggedIn = true;
             return "show";
         } else {
             return "loginFailed";
         }
+    }
+
+    /**
+     * @return the userHasPermissionForChangings
+     */
+    public boolean getUserHasEnoughRights() {
+        userHasEnoughRights = checkPermissions();
+        return userHasEnoughRights;
+    }
+
+    /**
+     * @param userHasPermissionForChangings the userHasPermissionForChangings to set
+     */
+    public void setUserHasEnoughRights(boolean userHasEnoughRights) {
+        this.userHasEnoughRights = userHasEnoughRights;
+    }
+    
+    private boolean checkPermissions(){
+        if(loggedInMember == null){
+            return false;
+        }
+        for(FunctionRoleDTO role : loggedInMember.getAllFunctionRolesOfClubMember()){
+            if(role.getId() == abteilungsleiterRoleId || role.getId() == trainerRoleId){
+                return true;
+            }
+        }
+        return false;
     }
 }

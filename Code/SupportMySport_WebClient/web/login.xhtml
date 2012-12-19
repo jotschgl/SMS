@@ -14,10 +14,10 @@
                     <h:inputText title="Username" value="#{login.username}"/><br />
                     <h:outputLabel>Password: </h:outputLabel>
                     <h:inputSecret title="Userpassword" value="#{login.password}"/><br />
-                    <h:commandButton value="Login" action="#{login.checkUserData()}"/>
+                    <h:commandButton value="Login" action="#{login.checkUserData}"/>
                 </h:form>
                 <br/><br/>
-                <a href="index.xhtml" class="link">return to Home</a>
+                <a href="index.xhtml" class="link">Return to Home</a>
             </ui:define>
 
         </ui:composition>

@@ -15,7 +15,7 @@
                 <h:form>
                     <h:dataTable value="#{compList.comp}" var="c" class="compTable">
                         <h:column>
-                            <h:commandButton action="#{compList.show}" value="Show Details" >
+                            <h:commandButton action="#{compList.edit()}" value="Show Details" >
                                 <f:setPropertyActionListener target="#{compList.selectedDTO}" value="#{c}" />
                             </h:commandButton>
                         </h:column>

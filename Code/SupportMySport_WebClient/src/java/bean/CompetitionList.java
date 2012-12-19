@@ -4,54 +4,71 @@
  */
 package bean;
 
+import Communication.ClubMemberDTO;
 import Communication.CompetitionDTO;
 import Communication.CompetitionDTOControllerFactoryRemote;
 import Communication.CompetitionTeamDTO;
 import Communication.MeetingDTO;
+import Communication.TeamDTO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Andreas
  */
 @ManagedBean(name = "compList")
-@RequestScoped
-public class CompetitionList {
-
+@SessionScoped
+public class CompetitionList implements Serializable {
     @EJB
     private CompetitionDTOControllerFactoryRemote competitionDTOControllerFactory;
     private ArrayList<CompetitionDTO> _competitions = new ArrayList<CompetitionDTO>();
-    ; 
-   private CompetitionDTO selectedDTO;
-    private CompetitionTeamDTO selectedComTeamDTO;
-    private MeetingDTO selectedMeetingDTO;
+    private ArrayList<TeamDTO> allTeamsOfSelectedCompetition = new ArrayList<TeamDTO>();
+    private ArrayList<ClubMemberDTO> allClubMembersOfSelectedCompetition = new ArrayList<ClubMemberDTO>();
+    private CompetitionDTO selectedDTO;
 
-    @PostConstruct
-    public void create() {
-        System.out.println("in create competitionLIST");
-        Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
-        if (com != null) {
-            for (CompetitionDTO compDTO : com) {
-                System.out.println(compDTO.getName());
-                _competitions.add(compDTO);
+    private void getCompetitionList() {
+        System.out.println("in constructor");
+        if (competitionDTOControllerFactory != null) {
+            System.out.println("in create() and competitionDTOControllerFactory not null");
+            Collection<CompetitionDTO> com = competitionDTOControllerFactory.getAllCompetitions();
+            if (com != null) {
+                for (CompetitionDTO compDTO : com) {
+                    _competitions.add(compDTO);
+                }
+            } else {
+                System.out.println("com = null");
             }
         } else {
-            System.out.println("com = null");
+            System.out.println("norpe");
         }
     }
 
     public String show() {
+        getCompetitionList();
+        return "competitions";
+    }
+
+    public String edit() {
         return "detail";
     }
 
-    public void save(){
-        System.out.println("svae all meetings");
-        
+    public String showCompetitions() {
+        return "competitions";
+    }
+
+    public void doTheSave() {
+        System.out.println("In doTheSave!");
+        for (MeetingDTO m : selectedDTO.getAllCompetitionMeetings()) {
+            System.out.println("Meeting ID: " + m.getId());
+            System.out.println("Point Team A: " + m.getPointsA());
+            System.out.println("Point Team A: " + m.getPointsB());
+        }
+        competitionDTOControllerFactory.updateCompetition(selectedDTO);
     }
 
     public ArrayList<CompetitionDTO> getComp() {
@@ -68,13 +85,42 @@ public class CompetitionList {
 
     public void setSelectedDTO(CompetitionDTO selectedDTO) {
         this.selectedDTO = selectedDTO;
+        System.out.println(selectedDTO.getName());
+        getCompetitionTeamDTO();
+        getClubMembersOfCompetition();
     }
 
-    public MeetingDTO getSelectedMeetingDTO() {
-        return selectedMeetingDTO;
+    public ArrayList<TeamDTO> getAllTeamsOfSelectedCompetition() {
+        return allTeamsOfSelectedCompetition;
     }
 
-    public void setSelectedMeetingDTO(MeetingDTO selectedMeetingDTO) {
-        this.selectedMeetingDTO = selectedMeetingDTO;
+    public void setAllTeamsOfSelectedCompetition(ArrayList<TeamDTO> allTeamsOfSelectedCompetition) {
+        this.allTeamsOfSelectedCompetition = allTeamsOfSelectedCompetition;
+    }
+
+    public ArrayList<ClubMemberDTO> getAllClubMembersOfSelectedCompetition() {
+        return allClubMembersOfSelectedCompetition;
+    }
+
+    public void setAllClubMembersOfSelectedCompetition(ArrayList<ClubMemberDTO> allClubMembersOfSelectedCompetition) {
+        this.allClubMembersOfSelectedCompetition = allClubMembersOfSelectedCompetition;
+    }
+
+    public void getCompetitionTeamDTO() {
+        System.out.println(selectedDTO.getAllTeamsOfCompetition().size());
+        for (CompetitionTeamDTO team : selectedDTO.getAllTeamsOfCompetition()) {
+            if (!allTeamsOfSelectedCompetition.contains(team.getTeam())) {
+                allTeamsOfSelectedCompetition.add(team.getTeam());
+                System.out.println("Team added: " + team.getTeam().getTeamName());
+            }
+        }
+    }
+
+    public void getClubMembersOfCompetition() {
+        for (CompetitionTeamDTO team : selectedDTO.getAllTeamsOfCompetition()) {
+            if (!allClubMembersOfSelectedCompetition.contains(team.getClubMember())) {
+                allClubMembersOfSelectedCompetition.add(team.getClubMember());
+            }
+        }
     }
 }
