@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://competitionresults.sms.org/" targetNamespace="http://competitionresults.sms.org/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="getCompetitionById" type="tns:getCompetitionById" />
+  <xs:element name="getCompetitionByIdResponse" type="tns:getCompetitionByIdResponse" />
+  <xs:element name="getCompetitionResults" type="tns:getCompetitionResults" />
+  <xs:element name="getCompetitionResultsResponse" type="tns:getCompetitionResultsResponse" />
+  <xs:complexType name="getCompetitionResults">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="liga" type="xs:string" />
+      <xs:element minOccurs="0" name="sport" type="xs:string" />
+      <xs:element minOccurs="0" name="datum" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCompetitionResultsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCompetitionById">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getCompetitionByIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -4,6 +4,7 @@ import Domaene.DomainFacade;
 import Persistence.*;
 import java.rmi.RemoteException;
 import java.util.Collection;
+import java.util.Date;
 
 public class CompetitionController {
 
@@ -100,5 +101,9 @@ public class CompetitionController {
 
     public Collection<Team> getAllTeamsOfSport(int sportID) {
         return domainFacade.getAllTeamsOfSport(sportID);
+    }
+    
+    public Collection<Competition> getCompetitionByDate(Date date){   
+        return domainFacade.getCompetitionByDate(date);
     }
 }

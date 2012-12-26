@@ -5,6 +5,8 @@
 package Communication;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -39,4 +41,6 @@ public interface CompetitionDTOControllerFactoryRemote {
     public CompetitionDTO getCompetitionByID(int id);
 
     public Collection<TeamDTO> getAllTeamsOfSport(int sportID);
+
+    List<CompetitionDTO> getCompetitionByDate(Date date);
 }

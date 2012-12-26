@@ -11,18 +11,17 @@ import Persistence.Meeting;
 import Persistence.Sport;
 import Persistence.Team;
 import java.io.Serializable;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
-import javax.annotation.ManagedBean;
-import javax.ejb.Stateful;
+import java.util.List;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Dennis
  */
-@Stateful
+@Stateless
 public class CompetitionDTOControllerFactory  implements CompetitionDTOControllerFactoryRemote{
 
     private CompetitionController competitionController;
@@ -116,6 +115,8 @@ public class CompetitionDTOControllerFactory  implements CompetitionDTOControlle
     public CompetitionDTO getCompetitionByID(int id)  {
         return dtoAssembler.createCompetitonDTO(competitionController.getCompetitionByID(id));
     }
+    
+    
 
     @Override
     public Collection<TeamDTO> getAllTeamsOfSport(int sportID)  {
@@ -135,6 +136,19 @@ public class CompetitionDTOControllerFactory  implements CompetitionDTOControlle
         for (Competition competition : comps) {
             compsDTO.add(dtoAssembler.createCompetitonDTO(competition));
         }
+        return compsDTO;
+    }
+
+    @Override
+    public  List<CompetitionDTO> getCompetitionByDate(Date date) {
+        
+        Collection<Competition> comps = competitionController.getCompetitionByDate(date);
+        LinkedList<CompetitionDTO> compsDTO = new LinkedList<CompetitionDTO>();
+        
+        for (Competition competition : comps) {
+            compsDTO.add(dtoAssembler.createCompetitonDTO(competition));
+        }
+        
         return compsDTO;
     }
 }
