@@ -116,4 +116,50 @@ public class CompetitionsResultsWS {
         sb.append("\n");
         return sb.toString();
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "isCompetitionCompleted")
+    public boolean isCompetitionCompleted(@WebParam(name = "liga") String liga, @WebParam(name = "sport") String sport, @WebParam(name = "datum") String datum) {
+
+        Date date = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd");
+        Collection<CompetitionDTO> competitions = null;
+        
+        try {
+            date = formatter.parse(datum);
+
+            if (date != null) {
+                //GET ALL THE COMPETITIONS THE ARE ON THIS DATE
+                competitions = competitionDTOControllerFactoryRemote.getCompetitionByDate(date);
+                System.out.println("Getting competitions with length: " + competitions.size());
+            }
+
+            //PRECHECK IF THERE ARE ANY COMPETITIONS
+            if (competitions.size() > 0) {
+
+                //RUN THROUGH THE COMPETITIONS AND GET THE RIGHT ONE
+                for (Object obj : competitions) {
+
+                    //BECAUSE THE LEAGUE CAN BE NULL IT MUST BE CHECKED IF IT IS NOT NULL IN THE DATABASE
+                    if (((CompetitionDTO) obj).getLeague() != null) {
+                        System.out.println("Liga: " + ((CompetitionDTO) obj).getLeague().getName() );
+                        System.out.println("Sport: " + ((CompetitionDTO) obj).getSport().getName() );
+                        System.out.println("Datum: " + ((CompetitionDTO) obj).getDateOfCompetition() );
+                        System.out.println("Completed: " + ((CompetitionDTO) obj).getCompleted() );
+                        //THE SEARCHED COMPETITION MUST EQUALS WITH THE SPORT, THE LEAGUE AND THE GET COMPLETED FLAG MUST BE SET TRUE
+                        if (((CompetitionDTO) obj).getSport().getName().equals(sport) && ((CompetitionDTO) obj).getLeague().getName().equals(liga) && ((CompetitionDTO) obj).getCompleted() == true) {
+                            System.out.println("Competition was found with completed flag true.");
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(CompetitionsResultsWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Competition was not found or is not completed.");
+        return false;
+    }
 }
