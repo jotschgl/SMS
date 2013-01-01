@@ -121,7 +121,7 @@ public class CompetitionsResultsWS {
      * Web service operation
      */
     @WebMethod(operationName = "isCompetitionCompleted")
-    public boolean isCompetitionCompleted(@WebParam(name = "liga") String liga, @WebParam(name = "sport") String sport, @WebParam(name = "datum") String datum) {
+    public String isCompetitionCompleted(@WebParam(name = "liga") String liga, @WebParam(name = "sport") String sport, @WebParam(name = "datum") String datum) {
 
         Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-M-dd");
@@ -151,7 +151,7 @@ public class CompetitionsResultsWS {
                         //THE SEARCHED COMPETITION MUST EQUALS WITH THE SPORT, THE LEAGUE AND THE GET COMPLETED FLAG MUST BE SET TRUE
                         if (((CompetitionDTO) obj).getSport().getName().equals(sport) && ((CompetitionDTO) obj).getLeague().getName().equals(liga) && ((CompetitionDTO) obj).getCompleted() == true) {
                             System.out.println("Competition was found with completed flag true.");
-                            return true;
+                            return "Completed";
                         }
                     }
                 }
@@ -160,6 +160,6 @@ public class CompetitionsResultsWS {
             Logger.getLogger(CompetitionsResultsWS.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Competition was not found or is not completed.");
-        return false;
+        return "Not completed";
     }
 }
