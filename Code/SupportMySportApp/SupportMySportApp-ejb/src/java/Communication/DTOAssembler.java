@@ -17,6 +17,7 @@ import Persistence.RoleRight;
 import Persistence.Rule;
 import Persistence.Sport;
 import Persistence.Team;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ import java.util.Set;
  *
  * @author Dennis
  */
-public class DTOAssembler {
+public class DTOAssembler{
 
     DomainFacade instance = new DomainFacade();
 

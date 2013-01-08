@@ -16,6 +16,7 @@ import Communication.IMessageCollector;
 import Persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import javax.ejb.Stateful;
 
 /**
  *
