@@ -27,7 +27,6 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-<<<<<<< HEAD
                 <foreign-project>SupportMySportClientApp</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
@@ -36,8 +35,6 @@
                 <id>j2ee-module-car</id>
             </reference>
             <reference>
-=======
->>>>>>> 84d9e37e5a4d31e959225f2206682d0c052d601a
                 <foreign-project>SupportMySport_WebClient</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
