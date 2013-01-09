@@ -1,0 +1,6 @@
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\bin\Debug\SMSCompetitionResultsWSClient.exe.config
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\bin\Debug\SMSCompetitionResultsWSClient.exe
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\bin\Debug\SMSCompetitionResultsWSClient.pdb
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\obj\Debug\SMSCompetitionResultsWSClient.csprojResolveAssemblyReference.cache
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\obj\Debug\SMSCompetitionResultsWSClient.exe
+c:\users\rafael neumann\documents\visual studio 11\Projects\SMSCompetitionResultsWSClient\SMSCompetitionResultsWSClient\obj\Debug\SMSCompetitionResultsWSClient.pdb

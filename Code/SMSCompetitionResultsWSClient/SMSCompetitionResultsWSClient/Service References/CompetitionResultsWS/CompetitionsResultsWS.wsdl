@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://competitionresults.sms.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="CompetitionsResultsWS" targetNamespace="http://competitionresults.sms.org/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://172.16.60.133:8080/CompetitionsResultsWS/CompetitionsResultsWS?xsd=1" namespace="http://competitionresults.sms.org/" />
+    </xsd:schema>
+  </types>
+  <message name="getCompetitionById">
+    <part name="parameters" element="tns:getCompetitionById" />
+  </message>
+  <message name="getCompetitionByIdResponse">
+    <part name="parameters" element="tns:getCompetitionByIdResponse" />
+  </message>
+  <message name="getCompetitionResults">
+    <part name="parameters" element="tns:getCompetitionResults" />
+  </message>
+  <message name="getCompetitionResultsResponse">
+    <part name="parameters" element="tns:getCompetitionResultsResponse" />
+  </message>
+  <message name="isCompetitionCompleted">
+    <part name="parameters" element="tns:isCompetitionCompleted" />
+  </message>
+  <message name="isCompetitionCompletedResponse">
+    <part name="parameters" element="tns:isCompetitionCompletedResponse" />
+  </message>
+  <portType name="CompetitionsResultsWS">
+    <operation name="getCompetitionById">
+      <input wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/getCompetitionByIdRequest" message="tns:getCompetitionById" />
+      <output wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/getCompetitionByIdResponse" message="tns:getCompetitionByIdResponse" />
+    </operation>
+    <operation name="getCompetitionResults">
+      <input wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/getCompetitionResultsRequest" message="tns:getCompetitionResults" />
+      <output wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/getCompetitionResultsResponse" message="tns:getCompetitionResultsResponse" />
+    </operation>
+    <operation name="isCompetitionCompleted">
+      <input wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/isCompetitionCompletedRequest" message="tns:isCompetitionCompleted" />
+      <output wsam:Action="http://competitionresults.sms.org/CompetitionsResultsWS/isCompetitionCompletedResponse" message="tns:isCompetitionCompletedResponse" />
+    </operation>
+  </portType>
+  <binding name="CompetitionsResultsWSPortBinding" type="tns:CompetitionsResultsWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getCompetitionById">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="getCompetitionResults">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="isCompetitionCompleted">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="CompetitionsResultsWS">
+    <port name="CompetitionsResultsWSPort" binding="tns:CompetitionsResultsWSPortBinding">
+      <soap:address location="http://172.16.60.133:8080/CompetitionsResultsWS/CompetitionsResultsWS" />
+    </port>
+  </service>
+</definitions>
