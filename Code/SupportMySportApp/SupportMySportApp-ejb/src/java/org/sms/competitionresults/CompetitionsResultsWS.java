@@ -6,7 +6,6 @@ package org.sms.competitionresults;
 
 import Communication.CompetitionDTO;
 import Communication.CompetitionDTOControllerFactoryRemote;
-import Communication.MeetingDTO;
 import Persistence.Meeting;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
