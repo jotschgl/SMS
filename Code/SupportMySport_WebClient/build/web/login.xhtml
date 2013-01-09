@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <h:outputLabel>Username: </h:outputLabel>
+                    <h:inputText title="Username" value="#{login.username}"/><br />
+                    <h:outputLabel>Password: </h:outputLabel>
+                    <h:inputSecret title="Userpassword" value="#{login.password}"/><br />
+                    <h:commandButton value="Login" action="#{login.checkUserData}"/>
+                </h:form>
+                <br/><br/>
+                <a href="index.xhtml" class="link">Return to Home</a>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

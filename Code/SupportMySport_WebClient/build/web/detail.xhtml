@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template.xhtml">
+
+            <ui:define name="content">
+                <h2>Point- List</h2>
+                <h:form>
+
+                    <h:dataTable value="#{compList.selectedDTO.allCompetitionMeetings}" var="cm" class="compTable">
+                        <h:column>
+                            <f:facet name="header">Competition Name</f:facet>
+                            <h:outputText value="#{cm.competition.name}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Team Name A</f:facet>
+                            <h:outputText value="#{cm.teamByTeamAId.teamName}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Team Name B</f:facet>
+                            <h:outputText value="#{cm.teamByTeamBId.teamName}" />
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Team Points A</f:facet>
+                            <h:inputText id="pa" disabled="#{!(compList.selectedDTO.completed == false and login.userHasEnoughRights == true)}" value="#{cm.pointsA}">
+                                <f:convertNumber minFractionDigits="0" />
+                            </h:inputText>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">Team Points B</f:facet>
+                            <h:inputText  id="pb" disabled="#{!(compList.selectedDTO.completed == false and login.userHasEnoughRights == true)}" value="#{cm.pointsB}">
+                                <f:convertNumber minFractionDigits="0" />
+                            </h:inputText>
+                        </h:column>
+                        
+                    </h:dataTable><br />
+                    <h:commandButton value="Update competiton results" rendered="#{login.userHasEnoughRights == true and compList.selectedDTO.completed == false}" action="#{compList.doTheSave}"></h:commandButton>
+                    <h:selectBooleanCheckbox value="#{compList.selectedDTO.completed}" rendered="#{login.userHasEnoughRights == true and compList.selectedDTO.completed == false}">     Competition is finished? </h:selectBooleanCheckbox>
+                </h:form>
+
+                <br /><br />
+                <h2>All Teams of Competition</h2>
+                <h:form>
+                    <h:dataTable value="#{compList.allTeamsOfSelectedCompetition}" var="cts" class="compTable">
+                        <h:column>
+                            <f:facet name="header">Team name</f:facet>
+                            <h:outputText value="#{cts.teamName}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Team Sport</f:facet>
+                            <h:outputText value="#{cts.sport.name}" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <br /><br />
+
+                <h2>All Members competing in this competition</h2>
+                <h:form>
+                    <h:dataTable value="#{compList.allClubMembersOfSelectedCompetition}" var="m" class="compTable">
+                        <h:column>
+                            <f:facet name="header">First Name</f:facet>
+                            <h:outputText value="#{m.firstname}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Second name</f:facet>
+                            <h:outputText value="#{m.lastname}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Birthday</f:facet>
+                            <h:outputText value="#{m.birthday}" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <br /><br />
+                <a href="competitions.xhtml" class="link">return to Competitions</a>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
