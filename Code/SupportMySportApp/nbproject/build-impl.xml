@@ -192,10 +192,13 @@ exists or setup the property manually. For example like this:
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
+<<<<<<< HEAD
         <ant antfile="${project.SupportMySportClientApp}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
+=======
+>>>>>>> 84d9e37e5a4d31e959225f2206682d0c052d601a
         <ant antfile="${project.SupportMySport_WebClient}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
@@ -214,7 +217,6 @@ exists or setup the property manually. For example like this:
     <target depends="init,deps-jar,pre-pre-compile,pre-compile" name="-do-compile-deps">
         <copyfiles files="${reference.SupportMySportApp-ejb.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.SupportMySport_WebClient.dist-ear}" todir="${build.dir}//"/>
-        <copyfiles files="${reference.SupportMySportClientApp.j2ee-module-car}" todir="${build.dir}//"/>
     </target>
     <target name="post-compile">
         <!-- Empty placeholder for easier customization. -->
@@ -292,7 +294,10 @@ exists or setup the property manually. For example like this:
     <target name="-run-deploy-am" unless="no.deps">
         <!-- Task to deploy to the Access Manager runtime. -->
         <ant antfile="${project.SupportMySportApp-ejb}/build.xml" inheritall="false" target="-run-deploy-am"/>
+<<<<<<< HEAD
         <ant antfile="${project.SupportMySportClientApp}/build.xml" inheritall="false" target="-run-deploy-am"/>
+=======
+>>>>>>> 84d9e37e5a4d31e959225f2206682d0c052d601a
         <ant antfile="${project.SupportMySport_WebClient}/build.xml" inheritall="false" target="-run-deploy-am"/>
     </target>
     <target depends="-init-cos,dist-directory-deploy,pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,post-run-deploy" name="run-deploy"/>
@@ -604,10 +609,13 @@ exists or setup the property manually. For example like this:
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
+<<<<<<< HEAD
         <ant antfile="${project.SupportMySportClientApp}/build.xml" inheritall="false" target="clean-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
         </ant>
+=======
+>>>>>>> 84d9e37e5a4d31e959225f2206682d0c052d601a
         <ant antfile="${project.SupportMySport_WebClient}/build.xml" inheritall="false" target="clean-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
             <property name="deploy.on.save" value="${build.deploy.on.save}"/>
