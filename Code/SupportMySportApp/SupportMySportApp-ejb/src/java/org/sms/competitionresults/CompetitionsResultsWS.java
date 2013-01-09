@@ -7,7 +7,6 @@ package org.sms.competitionresults;
 import Communication.CompetitionDTO;
 import Communication.CompetitionDTOControllerFactoryRemote;
 import Communication.MeetingDTO;
-import Persistence.Meeting;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -110,14 +109,9 @@ public class CompetitionsResultsWS {
         StringBuffer sb = new StringBuffer();
         Collection<MeetingDTO> meetings = comp.getAllCompetitionMeetings();
         for (Object obj : meetings) {
-<<<<<<< HEAD
             sb.append(((MeetingDTO) obj).getTeamByTeamAId().getTeamName() + ": " + ((MeetingDTO) obj).getPointsA());
             sb.append(" " + ((MeetingDTO) obj).getTeamByTeamBId().getTeamName() + ": " + ((MeetingDTO) obj).getPointsB());
             sb.append("\n");
-=======
-            sb.append(((MeetingDTO) obj).getTeamByTeamAId().getTeamName() + ":" + ((MeetingDTO) obj).getPointsA());
-            sb.append(" " + ((MeetingDTO) obj).getTeamByTeamBId().getTeamName() + ":" + ((MeetingDTO) obj).getPointsB());
->>>>>>> 84d9e37e5a4d31e959225f2206682d0c052d601a
         }
         sb.append("\n");
         return sb.toString();
